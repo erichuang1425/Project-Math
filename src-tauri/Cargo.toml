@@ -1,0 +1,17 @@
+[package]
+name = "project-math"
+version = "0.1.0"
+description = "Project Math desktop studybook shell"
+authors = ["Project Math"]
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "project_math_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }

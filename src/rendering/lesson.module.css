@@ -1,0 +1,367 @@
+.lesson {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.lessonHeader {
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #d9ded3;
+}
+
+.lessonHeader h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+  line-height: 1.1;
+}
+
+.lessonHeader p {
+  margin: 0;
+  color: #586057;
+}
+
+.metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pill {
+  padding: 4px 8px;
+  border: 1px solid #cbd3c4;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #495047;
+  font-size: 0.82rem;
+}
+
+.section {
+  margin-top: 28px;
+}
+
+.section h2 {
+  margin: 0 0 14px;
+  font-size: 1.25rem;
+}
+
+.block {
+  margin: 16px 0;
+}
+
+.titleBlock {
+  padding: 18px 0;
+}
+
+.kicker {
+  margin: 0 0 8px;
+  color: #2f5d62;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.titleBlock h3 {
+  margin: 0 0 8px;
+  font-size: 1.65rem;
+  line-height: 1.15;
+}
+
+.titleBlock p,
+.concept p,
+.intuition p,
+.mistake p,
+.quiz p,
+.summary p {
+  line-height: 1.65;
+}
+
+.concept,
+.intuition,
+.workedExample,
+.mistake,
+.quiz,
+.summary,
+.graph {
+  padding: 18px;
+  border: 1px solid #d9ded3;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.concept {
+  border-left: 4px solid #2f5d62;
+}
+
+.intuition {
+  border-left: 4px solid #8a6f1e;
+}
+
+.mistake {
+  border-left: 4px solid #9b3a2f;
+}
+
+.summary {
+  border-left: 4px solid #506d3b;
+}
+
+.blockTitle {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+.richList,
+.summaryList,
+.stepList,
+.optionList {
+  margin: 12px 0 0;
+  padding-left: 20px;
+}
+
+.richList li,
+.summaryList li,
+.stepList li {
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.takeaway {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-left: 3px solid #8a6f1e;
+  background: #fbfaf1;
+}
+
+.mathBlock {
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid #d9ded3;
+  border-radius: 8px;
+  background: #fbfcf8;
+}
+
+.mathScroll {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.mathBlock figcaption {
+  margin-top: 8px;
+  color: #5f675d;
+  font-size: 0.9rem;
+}
+
+.inlineMath {
+  white-space: nowrap;
+}
+
+.mathFallback {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 2px 4px;
+  border: 1px solid #9b3a2f;
+  border-radius: 4px;
+  background: #fff8f6;
+  color: #7e2f27;
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+
+.step {
+  padding: 12px 0;
+  border-top: 1px solid #e7eadf;
+}
+
+.step:first-child {
+  border-top: none;
+}
+
+.step h4 {
+  margin: 0 0 4px;
+  font-size: 0.98rem;
+}
+
+.step p {
+  margin: 0;
+  color: #555e53;
+}
+
+.mistakeGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.mistakeGrid div {
+  padding-top: 10px;
+  border-top: 1px solid #e7eadf;
+}
+
+.mistakeGrid strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.quizQuestion {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e7eadf;
+}
+
+.optionList {
+  display: grid;
+  gap: 10px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.optionButton {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd3c4;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #20231f;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.optionButton:hover,
+.optionButton:focus {
+  border-color: #2f5d62;
+  outline: 3px solid rgba(47, 93, 98, 0.18);
+}
+
+.selected {
+  border-color: #2f5d62;
+  background: #eef7f5;
+}
+
+.correct {
+  border-color: #506d3b;
+  background: #f4f9ee;
+}
+
+.incorrect {
+  border-color: #9b3a2f;
+  background: #fff8f6;
+}
+
+.quizActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.primaryButton {
+  border: 1px solid #2f5d62;
+  background: #2f5d62;
+  color: #ffffff;
+}
+
+.primaryButton:disabled {
+  border-color: #adb7a9;
+  background: #d9ded3;
+  color: #596157;
+}
+
+.secondaryButton {
+  border: 1px solid #cbd3c4;
+  background: #ffffff;
+  color: #20231f;
+}
+
+.feedback {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f1f4ec;
+}
+
+.attemptCount {
+  margin: 8px 0 0;
+  color: #5f675d;
+  font-size: 0.86rem;
+}
+
+.lessonFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 18px;
+  border-top: 1px solid #d9ded3;
+}
+
+.lessonFooter p {
+  margin: 0;
+  color: #586057;
+}
+
+.lessonFooterActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.secondaryButton:disabled {
+  border-color: #d9ded3;
+  background: #f1f4ec;
+  color: #6b7468;
+}
+
+.graphCanvas {
+  width: 100%;
+  max-width: 620px;
+  height: auto;
+  margin-top: 14px;
+  border: 1px solid #d9ded3;
+  border-radius: 8px;
+  background: #fbfcf8;
+}
+
+.graphLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.graphLegend span {
+  padding: 4px 8px;
+  border: 1px solid #cbd3c4;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #495047;
+  font-size: 0.82rem;
+}
+
+.term {
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .lessonHeader h1 {
+    font-size: 1.6rem;
+  }
+
+  .concept,
+  .intuition,
+  .workedExample,
+  .mistake,
+  .quiz,
+  .summary,
+  .graph,
+  .mathBlock {
+    padding: 14px;
+  }
+}

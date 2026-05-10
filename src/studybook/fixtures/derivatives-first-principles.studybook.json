@@ -1,0 +1,1101 @@
+{
+  "schemaVersion": "1.0",
+  "id": "derivatives-first-principles",
+  "title": "Derivatives from First Principles",
+  "subject": "math",
+  "topic": "calculus",
+  "summary": "Learn the derivative as the limit of average rates of change.",
+  "prerequisites": ["algebra", "functions", "limits"],
+  "lessons": [
+    {
+      "id": "derivative-as-a-limit",
+      "title": "Derivative as a Limit",
+      "summary": "Connect secant slopes, the difference quotient, and the first-principles definition of a derivative.",
+      "objectives": [
+        "Explain the derivative as a limit of average rates of change.",
+        "Use the difference quotient with h not equal to 0 before the limit is taken.",
+        "Compute the derivative of f(x) = x^2 from first principles.",
+        "Compute the derivative of a linear function from first principles.",
+        "Identify why substituting h = 0 too early is invalid."
+      ],
+      "estimatedMinutes": 32,
+      "sections": [
+        {
+          "id": "meaning",
+          "title": "From Average Slope to Instant Slope",
+          "blocks": [
+            {
+              "type": "title",
+              "id": "lesson-title",
+              "kicker": "Calculus foundations",
+              "title": "Derivatives from First Principles",
+              "subtitle": "Start with average rate of change, then let the second point move toward the first.",
+              "objectives": [
+                [
+                  {
+                    "kind": "text",
+                    "value": "Explain the derivative as a limit of average rates of change."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "Compute the derivative of "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f(x)=x^2"
+                  },
+                  {
+                    "kind": "text",
+                    "value": " from first principles."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "Use the same definition for a linear function."
+                  }
+                ]
+              ]
+            },
+            {
+              "type": "concept",
+              "id": "average-rate-of-change",
+              "title": "Average rate of change",
+              "body": [
+                {
+                  "kind": "text",
+                  "value": "Between two inputs, the average rate of change is the slope of the secant line: "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "\\frac{f(b)-f(a)}{b-a}"
+                },
+                {
+                  "kind": "text",
+                  "value": ". The denominator must be nonzero because the two inputs must be distinct."
+                }
+              ],
+              "keyIdeas": [
+                [
+                  {
+                    "kind": "text",
+                    "value": "A secant slope compares two points on a graph."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "A derivative asks what happens as those two points move together."
+                  }
+                ]
+              ]
+            },
+            {
+              "type": "intuition",
+              "id": "secant-to-tangent-intuition",
+              "title": "Why a limit is needed",
+              "body": [
+                {
+                  "kind": "text",
+                  "value": "If the second input is "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "x+h"
+                },
+                {
+                  "kind": "text",
+                  "value": ", then "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "h"
+                },
+                {
+                  "kind": "text",
+                  "value": " measures the horizontal gap from "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "x"
+                },
+                {
+                  "kind": "text",
+                  "value": ". Before taking the limit, "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "h\\ne 0"
+                },
+                {
+                  "kind": "text",
+                  "value": ". The limit lets us study the value the slopes approach as the gap shrinks."
+                }
+              ],
+              "takeaway": [
+                {
+                  "kind": "text",
+                  "value": "Do algebra while "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "h\\ne 0"
+                },
+                {
+                  "kind": "text",
+                  "value": ", then evaluate the limit."
+                }
+              ]
+            },
+            {
+              "type": "latex",
+              "id": "first-principles-definition",
+              "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
+              "caption": "Derivative from first principles",
+              "display": true
+            },
+            {
+              "type": "graph",
+              "id": "secant-slope-graph",
+              "title": "Secant line approaching tangent slope",
+              "description": "For y = x^2, the points (1, 1) and (2, 4) define a secant line. Moving the second point toward x = 1 makes the secant slope approach the tangent slope at x = 1.",
+              "spec": {
+                "xAxis": {
+                  "label": "input x",
+                  "min": 0,
+                  "max": 3,
+                  "ticks": [0, 1, 2, 3]
+                },
+                "yAxis": {
+                  "label": "output f(x)",
+                  "min": 0,
+                  "max": 9,
+                  "ticks": [0, 1, 4, 9]
+                },
+                "series": [
+                  {
+                    "kind": "function",
+                    "id": "x-squared",
+                    "label": "Function",
+                    "expression": "y = x^2",
+                    "domain": [0, 3]
+                  },
+                  {
+                    "kind": "points",
+                    "id": "secant-points",
+                    "label": "Secant points",
+                    "points": [
+                      [1, 1],
+                      [2, 4]
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "id": "secant-line",
+                    "label": "Secant line",
+                    "through": [
+                      [1, 1],
+                      [2, 4]
+                    ]
+                  }
+                ],
+                "annotations": [
+                  {
+                    "id": "base-point",
+                    "label": "x = 1",
+                    "point": [1, 1],
+                    "text": "The tangent slope here is 2."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "calculation",
+          "title": "Compute f'(x) from First Principles",
+          "blocks": [
+            {
+              "type": "workedExample",
+              "id": "derivative-of-x-squared",
+              "title": "Derivative of f(x) = x^2",
+              "goal": "Find f'(x) from first principles.",
+              "given": "f(x) = x^2",
+              "steps": [
+                {
+                  "id": "start-definition",
+                  "label": "Start with the definition",
+                  "explanation": "Use the derivative definition before substituting a specific function.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}"
+                },
+                {
+                  "id": "substitute-function",
+                  "label": "Substitute f(x) = x^2",
+                  "explanation": "Replace f(x+h) with (x+h)^2 and f(x) with x^2.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{(x+h)^2-x^2}{h}"
+                },
+                {
+                  "id": "expand-square",
+                  "label": "Expand",
+                  "explanation": "Expand the numerator so like terms can cancel.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{x^2+2xh+h^2-x^2}{h}"
+                },
+                {
+                  "id": "combine-terms",
+                  "label": "Combine like terms",
+                  "explanation": "The x^2 and -x^2 terms cancel in the numerator.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{2xh+h^2}{h}"
+                },
+                {
+                  "id": "factor-h",
+                  "label": "Factor h while h is not zero",
+                  "explanation": "Before the limit is taken, h is a nonzero gap, so the common factor h can be canceled.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{h(2x+h)}{h},\\quad h\\ne 0"
+                },
+                {
+                  "id": "cancel-h",
+                  "label": "Cancel the common factor",
+                  "explanation": "After cancellation, the expression no longer divides by h.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}(2x+h)"
+                },
+                {
+                  "id": "evaluate-limit",
+                  "label": "Evaluate the limit",
+                  "explanation": "Now h can approach 0 without causing division by zero.",
+                  "latex": "f'(x)=2x"
+                }
+              ],
+              "interpretation": "At any input x, the tangent slope of y = x^2 is 2x."
+            },
+            {
+              "type": "workedExample",
+              "id": "derivative-of-linear-function",
+              "title": "Derivative of f(x) = 3x - 5",
+              "goal": "Find f'(x) from first principles for a linear function.",
+              "given": "f(x) = 3x - 5",
+              "steps": [
+                {
+                  "id": "linear-start-definition",
+                  "label": "Start with the definition",
+                  "explanation": "Use the same first-principles definition. The gap h is nonzero before the limit is taken.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}"
+                },
+                {
+                  "id": "linear-substitute-function",
+                  "label": "Substitute f(x) = 3x - 5",
+                  "explanation": "Replace f(x+h) with 3(x+h)-5 and subtract the whole expression f(x)=3x-5.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{(3(x+h)-5)-(3x-5)}{h}"
+                },
+                {
+                  "id": "linear-expand",
+                  "label": "Expand and distribute the subtraction",
+                  "explanation": "Expand 3(x+h) and distribute the minus sign across the entire second expression.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{3x+3h-5-3x+5}{h}"
+                },
+                {
+                  "id": "linear-combine-terms",
+                  "label": "Combine like terms",
+                  "explanation": "The 3x and -3x terms cancel, and the constant terms -5 and +5 cancel.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{3h}{h}"
+                },
+                {
+                  "id": "linear-cancel-h",
+                  "label": "Cancel h while h is not zero",
+                  "explanation": "Before evaluating the limit, h is a nonzero horizontal gap, so 3h divided by h simplifies to 3.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}3,\\quad h\\ne 0"
+                },
+                {
+                  "id": "linear-evaluate-limit",
+                  "label": "Evaluate the limit",
+                  "explanation": "The simplified expression is constant, so the limit is that constant value.",
+                  "latex": "f'(x)=3"
+                }
+              ],
+              "interpretation": "The derivative is the constant slope of the line y = 3x - 5."
+            },
+            {
+              "type": "commonMistake",
+              "id": "forget-parentheses-around-linear-function",
+              "title": "Forgetting to subtract the whole function",
+              "misconception": "Subtracting f(x) = 3x - 5 means only subtracting the 3x term.",
+              "incorrectStep": "Writing (3(x+h)-5)-3x-5 instead of (3(x+h)-5)-(3x-5).",
+              "whyWrong": "The entire value f(x) is being subtracted, so the minus sign must apply to both 3x and -5.",
+              "correction": "Keep f(x) in parentheses when substituting, then distribute the subtraction: -(3x-5) = -3x + 5.",
+              "checkPrompt": "Did you subtract every term in f(x), including the constant term?"
+            },
+            {
+              "type": "commonMistake",
+              "id": "substitute-h-too-early",
+              "title": "Substituting h = 0 too early",
+              "misconception": "The limit h -> 0 means h can be replaced with 0 immediately.",
+              "incorrectStep": "Writing ((x + 0)^2 - x^2) / 0 at the start of the calculation.",
+              "whyWrong": "That creates division by zero before the expression has been simplified.",
+              "correction": "Keep h nonzero while simplifying, cancel the common factor h, then evaluate the limit.",
+              "checkPrompt": "Can the expression still contain division by h when you substitute h = 0?"
+            },
+            {
+              "type": "quiz",
+              "id": "first-principles-check",
+              "title": "Check your understanding",
+              "questions": [
+                {
+                  "kind": "multipleChoice",
+                  "id": "valid-cancellation-step",
+                  "prompt": [
+                    {
+                      "kind": "text",
+                      "value": "Which step makes it valid to evaluate the limit for "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "\\frac{(x+h)^2-x^2}{h}"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "?"
+                    }
+                  ],
+                  "options": [
+                    {
+                      "id": "factor-before-limit",
+                      "text": [
+                        {
+                          "kind": "text",
+                          "value": "Factor the numerator as "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "h(2x+h)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ", cancel h while "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "h\\ne 0"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ", then take the limit."
+                        }
+                      ],
+                      "feedback": "Correct. The cancellation happens before evaluating the limit, while h still represents a nonzero gap."
+                    },
+                    {
+                      "id": "substitute-zero-first",
+                      "text": [
+                        {
+                          "kind": "text",
+                          "value": "Substitute "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "h=0"
+                        },
+                        {
+                          "kind": "text",
+                          "value": " immediately."
+                        }
+                      ],
+                      "feedback": "Not yet. That creates division by zero before the algebra removes the denominator."
+                    },
+                    {
+                      "id": "cancel-denominator-only",
+                      "text": [
+                        {
+                          "kind": "text",
+                          "value": "Cancel the h in the denominator without factoring the numerator."
+                        }
+                      ],
+                      "feedback": "Not yet. A factor can be canceled only when it is a common factor of the whole numerator and denominator."
+                    }
+                  ],
+                  "correctOptionId": "factor-before-limit",
+                  "conceptTags": ["difference-quotient", "limits", "algebra"],
+                  "hint": "Look for the step that removes division by h without pretending h already equals 0."
+                }
+              ]
+            },
+            {
+              "type": "quiz",
+              "id": "linear-function-check",
+              "title": "Linear function check",
+              "questions": [
+                {
+                  "kind": "shortAnswer",
+                  "id": "slope-of-linear-function",
+                  "prompt": [
+                    {
+                      "kind": "text",
+                      "value": "For "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x)=3x-5"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", what is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " from first principles?"
+                    }
+                  ],
+                  "acceptedAnswers": ["3", "f'(x)=3", "f prime of x equals 3"],
+                  "feedback": {
+                    "correct": "Correct. The difference quotient simplifies to 3 before the limit is evaluated.",
+                    "incorrect": "Review the substitution carefully. After distributing the subtraction, the quotient becomes 3h/h while h is nonzero, so the limit is 3."
+                  },
+                  "conceptTags": ["linear-functions", "difference-quotient", "limits"],
+                  "hint": "After simplifying, the expression no longer depends on x or h."
+                }
+              ]
+            },
+            {
+              "type": "summary",
+              "id": "lesson-summary",
+              "items": [
+                [
+                  {
+                    "kind": "text",
+                    "value": "A derivative is the limit of average rates of change."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "The first-principles definition is "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}"
+                  },
+                  {
+                    "kind": "text",
+                    "value": "."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "For "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f(x)=x^2"
+                  },
+                  {
+                    "kind": "text",
+                    "value": ", the derivative from first principles is "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f'(x)=2x"
+                  },
+                  {
+                    "kind": "text",
+                    "value": "."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "For "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f(x)=3x-5"
+                  },
+                  {
+                    "kind": "text",
+                    "value": ", the first-principles derivative is the constant slope "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f'(x)=3"
+                  },
+                  {
+                    "kind": "text",
+                    "value": "."
+                  }
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "revision": {
+        "keyIdeas": [
+          "The difference quotient is an average rate of change over a nonzero gap h.",
+          "The limit describes the value approached as h moves toward 0.",
+          "For f(x) = x^2, first-principles algebra gives f'(x) = 2x.",
+          "For f(x) = 3x - 5, first-principles algebra gives the constant slope f'(x) = 3."
+        ],
+        "recallPrompts": [
+          "Why must h stay nonzero before the limit is evaluated?",
+          "Where does the factor h come from in the x^2 calculation?",
+          "Why must f(x) be subtracted as the whole expression in the linear-function calculation?"
+        ],
+        "mistakeIds": [
+          "substitute-h-too-early",
+          "forget-parentheses-around-linear-function"
+        ],
+        "quizIds": ["first-principles-check", "linear-function-check"]
+      }
+    },
+    {
+      "id": "derivative-at-a-point",
+      "title": "Derivative at a Point",
+      "summary": "Use the first-principles definition to compute the tangent slope at one fixed input.",
+      "objectives": [
+        "Distinguish a derivative function from a derivative value at one input.",
+        "Use the point form of the first-principles definition.",
+        "Compute f'(2) for f(x) = x^2 from first principles.",
+        "Interpret the result as the tangent slope at (2, 4).",
+        "Avoid mixing the variable input x with the fixed input."
+      ],
+      "estimatedMinutes": 24,
+      "sections": [
+        {
+          "id": "point-slope-meaning",
+          "title": "Fix One Input",
+          "blocks": [
+            {
+              "type": "title",
+              "id": "point-derivative-title",
+              "kicker": "Calculus foundations",
+              "title": "Derivative at a Point",
+              "subtitle": "Turn the derivative definition into one tangent slope at a named input.",
+              "objectives": [
+                [
+                  {
+                    "kind": "text",
+                    "value": "Tell the difference between "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f'(x)"
+                  },
+                  {
+                    "kind": "text",
+                    "value": " and "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f'(2)"
+                  },
+                  {
+                    "kind": "text",
+                    "value": "."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "Compute the tangent slope for "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f(x)=x^2"
+                  },
+                  {
+                    "kind": "text",
+                    "value": " at "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "x=2"
+                  },
+                  {
+                    "kind": "text",
+                    "value": "."
+                  }
+                ]
+              ]
+            },
+            {
+              "type": "concept",
+              "id": "derivative-value-vs-function",
+              "title": "Derivative function versus derivative value",
+              "body": [
+                {
+                  "kind": "text",
+                  "value": "A derivative function "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "f'(x)"
+                },
+                {
+                  "kind": "text",
+                  "value": " gives the slope at a variable input. A derivative value such as "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "f'(2)"
+                },
+                {
+                  "kind": "text",
+                  "value": " fixes the input first and asks for one number, if the limit exists."
+                }
+              ],
+              "keyIdeas": [
+                [
+                  {
+                    "kind": "text",
+                    "value": "The fixed input is the base point on the graph."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "The nearby input is the base point plus a nonzero gap "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "h"
+                  },
+                  {
+                    "kind": "text",
+                    "value": "."
+                  }
+                ]
+              ]
+            },
+            {
+              "type": "intuition",
+              "id": "fixed-input-intuition",
+              "title": "Why the base input stays fixed",
+              "body": [
+                {
+                  "kind": "text",
+                  "value": "To find the slope at "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "x=2"
+                },
+                {
+                  "kind": "text",
+                  "value": ", keep one point anchored at "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "(2,f(2))"
+                },
+                {
+                  "kind": "text",
+                  "value": ". The second point is "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "(2+h,f(2+h))"
+                },
+                {
+                  "kind": "text",
+                  "value": ", where "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "h\\ne 0"
+                },
+                {
+                  "kind": "text",
+                  "value": " before the limit is taken."
+                }
+              ],
+              "takeaway": [
+                {
+                  "kind": "text",
+                  "value": "The input "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "2"
+                },
+                {
+                  "kind": "text",
+                  "value": " is fixed; only the gap "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "h"
+                },
+                {
+                  "kind": "text",
+                  "value": " approaches "
+                },
+                {
+                  "kind": "inlineMath",
+                  "latex": "0"
+                },
+                {
+                  "kind": "text",
+                  "value": "."
+                }
+              ]
+            },
+            {
+              "type": "latex",
+              "id": "point-derivative-definition",
+              "latex": "f'(a)=\\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}",
+              "caption": "Derivative value at a fixed input",
+              "display": true
+            },
+            {
+              "type": "graph",
+              "id": "tangent-at-two-graph",
+              "title": "Tangent slope at x = 2",
+              "description": "For y = x^2, the point (2, 4) is fixed. The secant through (2, 4) and (3, 9) has slope 5, while the tangent line at (2, 4) has slope 4, the value approached as the second point moves toward x = 2.",
+              "spec": {
+                "xAxis": {
+                  "label": "input x",
+                  "min": 0,
+                  "max": 4,
+                  "ticks": [0, 1, 2, 3, 4]
+                },
+                "yAxis": {
+                  "label": "output f(x)",
+                  "min": 0,
+                  "max": 10,
+                  "ticks": [0, 4, 8, 10]
+                },
+                "series": [
+                  {
+                    "kind": "function",
+                    "id": "point-x-squared",
+                    "label": "Function",
+                    "expression": "y = x^2",
+                    "domain": [0, 4]
+                  },
+                  {
+                    "kind": "points",
+                    "id": "point-derivative-points",
+                    "label": "Fixed point and nearby point",
+                    "points": [
+                      [2, 4],
+                      [3, 9]
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "id": "secant-line-h-one",
+                    "label": "Secant line for h = 1",
+                    "through": [
+                      [2, 4],
+                      [3, 9]
+                    ]
+                  },
+                  {
+                    "kind": "line",
+                    "id": "tangent-line-at-two",
+                    "label": "Tangent line slope 4",
+                    "through": [
+                      [1, 0],
+                      [3, 8]
+                    ]
+                  }
+                ],
+                "annotations": [
+                  {
+                    "id": "fixed-point-two",
+                    "label": "(2, 4)",
+                    "point": [2, 4],
+                    "text": "The tangent slope here is 4."
+                  },
+                  {
+                    "id": "nearby-point-three",
+                    "label": "(3, 9)",
+                    "point": [3, 9],
+                    "text": "This nearby point gives the h = 1 secant."
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "point-slope-calculation",
+          "title": "Compute f'(2) from First Principles",
+          "blocks": [
+            {
+              "type": "workedExample",
+              "id": "derivative-value-of-x-squared-at-two",
+              "title": "Derivative of f(x) = x^2 at x = 2",
+              "goal": "Find f'(2) from first principles.",
+              "given": "f(x) = x^2",
+              "steps": [
+                {
+                  "id": "point-start-definition",
+                  "label": "Start with the point definition",
+                  "explanation": "Fix the base input at 2 and let the nearby input be 2 + h.",
+                  "latex": "f'(2)=\\lim_{h\\to 0}\\frac{f(2+h)-f(2)}{h}"
+                },
+                {
+                  "id": "point-substitute-function",
+                  "label": "Substitute f(x) = x^2",
+                  "explanation": "Replace f(2+h) with (2+h)^2 and f(2) with 2^2.",
+                  "latex": "f'(2)=\\lim_{h\\to 0}\\frac{(2+h)^2-2^2}{h}"
+                },
+                {
+                  "id": "point-expand-square",
+                  "label": "Expand",
+                  "explanation": "Expand (2+h)^2 before trying to simplify the quotient.",
+                  "latex": "f'(2)=\\lim_{h\\to 0}\\frac{4+4h+h^2-4}{h}"
+                },
+                {
+                  "id": "point-combine-terms",
+                  "label": "Combine like terms",
+                  "explanation": "The constant terms 4 and -4 cancel in the numerator.",
+                  "latex": "f'(2)=\\lim_{h\\to 0}\\frac{4h+h^2}{h}"
+                },
+                {
+                  "id": "point-factor-h",
+                  "label": "Factor h while h is not zero",
+                  "explanation": "Before the limit is taken, h is a nonzero gap, so h can be factored from the numerator.",
+                  "latex": "f'(2)=\\lim_{h\\to 0}\\frac{h(4+h)}{h},\\quad h\\ne 0"
+                },
+                {
+                  "id": "point-cancel-h",
+                  "label": "Cancel the common factor",
+                  "explanation": "After cancellation, the expression no longer divides by h.",
+                  "latex": "f'(2)=\\lim_{h\\to 0}(4+h)"
+                },
+                {
+                  "id": "point-evaluate-limit",
+                  "label": "Evaluate the limit",
+                  "explanation": "Now h can approach 0 without creating division by zero.",
+                  "latex": "f'(2)=4"
+                }
+              ],
+              "interpretation": "At the point (2, 4), the tangent slope of y = x^2 is 4."
+            },
+            {
+              "type": "commonMistake",
+              "id": "mixing-fixed-input-with-variable",
+              "title": "Mixing the fixed input with the variable input",
+              "misconception": "When computing f'(2), the numerator can still use a variable x.",
+              "incorrectStep": "Writing ((x+h)^2-2^2)/h when the target is f'(2).",
+              "whyWrong": "The base input has already been fixed at 2, so both function values must be built from 2 and 2 + h.",
+              "correction": "Use ((2+h)^2-2^2)/h, simplify while h is nonzero, and then take the limit.",
+              "checkPrompt": "Have you replaced every base input with 2 before simplifying?"
+            },
+            {
+              "type": "quiz",
+              "id": "point-derivative-check",
+              "title": "Point derivative check",
+              "questions": [
+                {
+                  "kind": "multipleChoice",
+                  "id": "correct-point-quotient",
+                  "prompt": [
+                    {
+                      "kind": "text",
+                      "value": "Which quotient correctly starts "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(2)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " for "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x)=x^2"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "?"
+                    }
+                  ],
+                  "options": [
+                    {
+                      "id": "use-fixed-input",
+                      "text": [
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\frac{(2+h)^2-2^2}{h}"
+                        }
+                      ],
+                      "feedback": "Correct. The base input is fixed at 2, and the nearby input is 2 + h."
+                    },
+                    {
+                      "id": "mix-variable-and-point",
+                      "text": [
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\frac{(x+h)^2-2^2}{h}"
+                        }
+                      ],
+                      "feedback": "Not yet. That mixes the variable input x with the fixed input 2."
+                    },
+                    {
+                      "id": "substitute-zero-gap",
+                      "text": [
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\frac{2^2-2^2}{0}"
+                        }
+                      ],
+                      "feedback": "Not yet. Substituting h = 0 before simplifying creates division by zero."
+                    }
+                  ],
+                  "correctOptionId": "use-fixed-input",
+                  "conceptTags": ["point-derivatives", "difference-quotient", "limits"],
+                  "hint": "Keep one point at x = 2 and move the other point to x = 2 + h."
+                },
+                {
+                  "kind": "shortAnswer",
+                  "id": "tangent-slope-at-two",
+                  "prompt": [
+                    {
+                      "kind": "text",
+                      "value": "For "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x)=x^2"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", what is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(2)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "?"
+                    }
+                  ],
+                  "acceptedAnswers": ["4", "f'(2)=4", "f prime of 2 equals 4"],
+                  "feedback": {
+                    "correct": "Correct. The point difference quotient simplifies to 4 + h, so the limit is 4.",
+                    "incorrect": "Review the fixed-input substitution. After simplification, the limit is lim as h approaches 0 of 4 + h."
+                  },
+                  "conceptTags": ["point-derivatives", "tangent-slope"],
+                  "hint": "The tangent slope at x = 2 is the value approached by the secant slopes."
+                }
+              ]
+            },
+            {
+              "type": "summary",
+              "id": "point-derivative-summary",
+              "items": [
+                [
+                  {
+                    "kind": "text",
+                    "value": "A derivative value fixes one input before the limit is taken."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "The point form is "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f'(a)=\\lim_{h\\to 0}\\frac{f(a+h)-f(a)}{h}"
+                  },
+                  {
+                    "kind": "text",
+                    "value": "."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "For "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f(x)=x^2"
+                  },
+                  {
+                    "kind": "text",
+                    "value": ", first principles give "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "f'(2)=4"
+                  },
+                  {
+                    "kind": "text",
+                    "value": "."
+                  }
+                ],
+                [
+                  {
+                    "kind": "text",
+                    "value": "The number "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "4"
+                  },
+                  {
+                    "kind": "text",
+                    "value": " is the tangent slope at "
+                  },
+                  {
+                    "kind": "inlineMath",
+                    "latex": "(2,4)"
+                  },
+                  {
+                    "kind": "text",
+                    "value": "."
+                  }
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "revision": {
+        "keyIdeas": [
+          "A derivative value such as f'(2) fixes the base input before taking the limit.",
+          "The nearby point is 2 + h, where h is nonzero before the limit is evaluated.",
+          "For f(x) = x^2, first principles give f'(2) = 4.",
+          "The value f'(2) is the tangent slope at the point (2, 4)."
+        ],
+        "recallPrompts": [
+          "What is the difference between f'(x) and f'(2)?",
+          "Why does the quotient use f(2+h)-f(2) instead of f(x+h)-f(2)?",
+          "Where is h still required to be nonzero in the point calculation?"
+        ],
+        "mistakeIds": ["mixing-fixed-input-with-variable"],
+        "quizIds": ["point-derivative-check"]
+      }
+    }
+  ],
+  "glossary": [
+    {
+      "id": "derivative",
+      "term": "Derivative",
+      "definition": "The limiting value of average rates of change when it exists.",
+      "latex": "f'(x)"
+    },
+    {
+      "id": "difference-quotient",
+      "term": "Difference quotient",
+      "definition": "The expression that measures average rate of change from x to x + h.",
+      "latex": "\\frac{f(x+h)-f(x)}{h}"
+    },
+    {
+      "id": "secant-line",
+      "term": "Secant line",
+      "definition": "A line through two points on a graph."
+    }
+  ]
+}
