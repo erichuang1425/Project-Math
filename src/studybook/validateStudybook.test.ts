@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import sourceStudybook from "./fixtures/derivatives-first-principles.studybook.json";
+import type { GraphBlock } from "./schema";
 import { validateStudybook } from "./validateStudybook";
 
 type MutableStudybook = Record<string, any>;
@@ -168,6 +169,45 @@ describe("validateStudybook", () => {
     ]);
   });
 
+  it("accepts sampled function series for the known graph blocks", () => {
+    const result = validateStudybook(sourceStudybook);
+
+    if (!result.ok) {
+      throw new Error(result.errors.map((error) => error.message).join(", "));
+    }
+
+    const graphBlocks = result.studybook.lessons.flatMap((lesson) =>
+      lesson.sections.flatMap((section) =>
+        section.blocks.filter((block): block is GraphBlock => block.type === "graph")
+      )
+    );
+
+    ["secant-slope-graph", "tangent-at-two-graph"].forEach((graphId) => {
+      const graph = graphBlocks.find((candidate) => candidate.id === graphId);
+
+      if (!graph) {
+        throw new Error(`Expected graph block ${graphId}.`);
+      }
+
+      const functionSeries = graph.spec.series.find(
+        (series) => series.kind === "function"
+      );
+
+      if (!functionSeries || functionSeries.kind !== "function") {
+        throw new Error(`Expected graph block ${graphId} to include a function series.`);
+      }
+
+      expect(functionSeries.expression).toBe("y = x^2");
+      expect(functionSeries.samples?.length).toBeGreaterThan(1);
+      expect(functionSeries.samples).toEqual(
+        expect.arrayContaining([
+          [1, 1],
+          [2, 4]
+        ])
+      );
+    });
+  });
+
   it("rejects unknown block types before rendering", () => {
     const studybook = cloneStudybook();
     studybook.lessons[0].sections[0].blocks[0].type = "paragraph";
@@ -228,6 +268,26 @@ describe("validateStudybook", () => {
       expect.arrayContaining([
         expect.objectContaining({
           path: "$.lessons[0].sections[0].blocks[4].spec.xAxis.label"
+        })
+      ])
+    );
+  });
+
+  it("rejects invalid sampled function coordinates", () => {
+    const studybook = cloneStudybook();
+    studybook.lessons[0].sections[0].blocks[4].spec.series[0].samples = [
+      [0, 0],
+      [1, "not-a-number"]
+    ];
+
+    const result = validateStudybook(studybook);
+
+    expect(result.ok).toBe(false);
+    expect(result.ok ? [] : result.errors).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          path: "$.lessons[0].sections[0].blocks[4].spec.series[0].samples[1][1]",
+          message: "Expected a finite number."
         })
       ])
     );

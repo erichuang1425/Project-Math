@@ -11,6 +11,7 @@ export type FunctionSeries = {
   label: string;
   expression: string;
   domain?: [number, number];
+  samples?: Array<[number, number]>;
 };
 
 export type PointsSeries = {

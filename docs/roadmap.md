@@ -113,13 +113,14 @@ What done means:
 
 Goal: Export a useful lesson summary.
 
-Current status: complete for the first deterministic summary slice. The app now prepares markdown from validated lesson content and matching learner state, including objectives, key definitions, worked examples, common mistakes, lesson progress, and saved quiz results. Export uses built-in browser download behavior without adding PDF, document, or export dependencies.
+Current status: complete through the clipboard delivery slice. The app now prepares markdown from validated lesson content and matching learner state, including objectives, key definitions, worked examples, common mistakes, lesson progress, and saved quiz results. Export uses built-in browser download and clipboard behavior without adding PDF, document, native save-dialog, or export dependencies.
 
 Tasks:
 
 - Define export data shape. Completed.
 - Generate lesson summary data from structured content. Completed.
 - Add a simple text or markdown export path. Completed.
+- Add copy-to-clipboard delivery for markdown summary. Completed.
 - Add tests for export output. Completed.
 
 What done means:
@@ -132,23 +133,25 @@ What done means:
 
 Goal: Decide whether the internal graph renderer is enough or a library is justified.
 
+Current status: decision documented in `docs/architecture/graph-rendering-options.md`. The internal deterministic SVG renderer now supports explicit sampled points for function series and renders the two known graph requirements without adding a graphing library.
+
 Tasks:
 
-- List required graph interactions for the first two topics.
-- Compare at least three options, including no new library.
-- Evaluate maintenance, offline support, accessibility, bundle size, and rendering quality.
+- List required graph interactions for the first two topics. Completed.
+- Compare at least three options, including no new library. Completed.
+- Evaluate maintenance, offline support, accessibility, bundle size, and rendering quality. Completed.
 
 What done means:
 
-- Decision is documented in `docs/architecture.md` or a future ADR.
-- Any new dependency is approved before installation.
-- Existing `GraphSpec` content remains stable.
+- Decision is documented in `docs/architecture.md` or a future ADR. Completed.
+- Any new dependency is approved before installation. No dependency is approved or needed yet.
+- Existing `GraphSpec` content remains stable. Completed for the decision slice.
 
 ## Next Three Implementation Tasks
 
-1. Compare graph rendering options now that the second graph requirement is known.
-2. Improve export delivery after requirements are clearer, such as save location handling, print styling, or copy-to-clipboard behavior.
-3. Add the next deterministic lesson for the derivatives topic after the graph decision is documented.
+1. Add the next deterministic lesson for the derivatives topic now that graph curve rendering exists.
+2. Revisit export delivery for native save location handling or print styling after concrete requirements are chosen.
+3. Add a focused desktop smoke path for export actions once the Tauri clipboard/download behavior needs native verification.
 
 ## Recommended First Vertical Slice
 

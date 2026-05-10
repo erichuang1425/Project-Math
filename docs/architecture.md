@@ -28,10 +28,18 @@ The app should be a local-first desktop studybook runtime. Content is data. Rend
    - KaTeX handles LaTeX rendering.
    - Graphs start with an internal `GraphSpec` abstraction and a simple renderer.
    - Add a graph library only after comparing requirements, maintenance, bundle impact, and offline behavior.
+   - Current graph decision: keep the internal deterministic SVG path and defer graphing libraries; see `docs/architecture/graph-rendering-options.md`.
+   - Current graph implementation: function series may carry explicit sampled coordinate pairs that render as SVG polylines. Expression strings remain display labels only.
 
 6. **Local storage**
    - MVP uses JSON files for bundled studybook content and local learner state.
    - Define storage interfaces so SQLite can be introduced without rewriting UI components.
+
+7. **Static web hosting**
+   - The Vite frontend may be built and hosted as static files on Netlify for browser access.
+   - This hosted build is not the desktop product and does not include Tauri file-backed learner-state JSON.
+   - In a browser, the learner-state repository falls back to `localStorage`; progress remains local to that browser profile.
+   - Netlify hosting must remain deterministic and static. Do not add server functions, accounts, sync, telemetry, or remote AI calls without explicit approval.
 
 ## Content Flow
 
@@ -71,6 +79,8 @@ src/
 src-tauri/
   tauri.conf.json
   src/
+public/
+  _redirects
 ```
 
 ## Dependency Policy

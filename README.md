@@ -76,6 +76,34 @@ If the global npm cache is blocked by local permissions, keep cache writes insid
 npm.cmd install --cache .\.npm-cache
 ```
 
+## Netlify Static Hosting
+
+The app can be hosted on Netlify as a static web app. This hosts the browser version of the studybook, not the Tauri desktop shell. Lesson content, rendering, quizzes, KaTeX assets, and export actions are bundled into the Vite build. Learner progress in the hosted version is saved in that browser's local storage, so it is local to the device and browser profile.
+
+For Netlify Drop:
+
+1. Build the web bundle:
+
+   ```powershell
+   npm.cmd run build
+   ```
+
+2. Open [Netlify Drop](https://app.netlify.com/drop).
+3. Drag this generated folder onto the page:
+
+   ```text
+   D:\[IN PROGRESS]\Project Math\dist
+   ```
+
+Do not drag the repository root. Netlify Drop expects the already-built static files in `dist`.
+
+For a Git-connected Netlify site, use the checked-in `netlify.toml`:
+
+- Build command: `npm run build`
+- Publish directory: `dist`
+
+The `public/_redirects` file is copied into `dist` during the Vite build so the hosted single-page app can serve `index.html` for direct links.
+
 ## Desktop Smoke Path
 
 Run the desktop app:

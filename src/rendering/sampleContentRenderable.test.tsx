@@ -24,12 +24,19 @@ describe("sample lesson rendering", () => {
 
     expect(html).toContain("Derivatives from First Principles");
     expect(html).toContain("Derivative from first principles");
+    expect(html).toContain("Secant line approaching tangent slope");
+    expect(html).toContain('data-series-id="x-squared"');
+    expect(html).toContain('data-series-id="secant-points"');
+    expect(html).toContain('data-series-id="secant-line"');
+    expect(html).toContain("<polyline");
     expect(html).toContain("Substituting h = 0 too early");
     expect(html).toContain("Derivative of f(x) = 3x - 5");
     expect(html).toContain("Linear function check");
     expect(html).toContain("Short answer");
     expect(html).toContain("Check answer");
+    expect(html).toContain("Copy summary");
     expect(html).toContain("Download summary");
+    expect(html).toContain('aria-live="polite"');
     expect(html).toContain("katex");
     expect(html).not.toContain("Unknown content block");
     expect(html).not.toContain("Invalid display math");
@@ -57,6 +64,11 @@ describe("sample lesson rendering", () => {
     expect(html).toContain("Derivative at a Point");
     expect(html).toContain("Derivative value at a fixed input");
     expect(html).toContain("Tangent slope at x = 2");
+    expect(html).toContain('data-series-id="point-x-squared"');
+    expect(html).toContain('data-series-id="point-derivative-points"');
+    expect(html).toContain('data-series-id="secant-line-h-one"');
+    expect(html).toContain('data-series-id="tangent-line-at-two"');
+    expect(html).toContain("<polyline");
     expect(html).toContain("Derivative of f(x) = x^2 at x = 2");
     expect(html).toContain("Mixing the fixed input with the variable input");
     expect(html).toContain("Point derivative check");

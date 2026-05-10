@@ -170,7 +170,14 @@ type AxisSpec = {
 };
 
 type GraphSeries =
-  | { kind: "function"; id: string; label: string; expression: string; domain?: [number, number] }
+  | {
+      kind: "function";
+      id: string;
+      label: string;
+      expression: string;
+      domain?: [number, number];
+      samples?: Array<[number, number]>;
+    }
   | { kind: "points"; id: string; label: string; points: Array<[number, number]> }
   | { kind: "line"; id: string; label: string; through: [[number, number], [number, number]] };
 
@@ -183,6 +190,8 @@ type GraphAnnotation = {
 ```
 
 `expression` is display data for MVP. Do not evaluate arbitrary expressions without a reviewed parser.
+
+For `function` series, `samples` may provide explicit authored points for deterministic SVG curve rendering. When present, `samples` must contain at least two finite coordinate pairs. The renderer connects those samples with an SVG polyline; it does not compute points from `expression`.
 
 ### Common Mistake Block
 
@@ -296,6 +305,7 @@ Runtime validation must reject:
 - Quiz questions without correct feedback.
 - Multiple-choice questions whose `correctOptionId` does not match an option.
 - Graphs without axis labels.
+- Function graph samples that are not finite coordinate pairs.
 
 ## Minimal Example
 

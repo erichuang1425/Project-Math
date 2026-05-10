@@ -180,7 +180,16 @@
                     "id": "x-squared",
                     "label": "Function",
                     "expression": "y = x^2",
-                    "domain": [0, 3]
+                    "domain": [0, 3],
+                    "samples": [
+                      [0, 0],
+                      [0.5, 0.25],
+                      [1, 1],
+                      [1.5, 2.25],
+                      [2, 4],
+                      [2.5, 6.25],
+                      [3, 9]
+                    ]
                   },
                   {
                     "kind": "points",
@@ -774,7 +783,18 @@
                     "id": "point-x-squared",
                     "label": "Function",
                     "expression": "y = x^2",
-                    "domain": [0, 4]
+                    "domain": [0, 4],
+                    "samples": [
+                      [0, 0],
+                      [0.5, 0.25],
+                      [1, 1],
+                      [1.5, 2.25],
+                      [2, 4],
+                      [2.5, 6.25],
+                      [3, 9],
+                      [3.5, 12.25],
+                      [4, 16]
+                    ]
                   },
                   {
                     "kind": "points",

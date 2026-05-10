@@ -384,6 +384,9 @@ function validateGraphSeries(
       if (input.domain !== undefined) {
         validateNumberPair(input.domain, `${path}.domain`, errors);
       }
+      if (input.samples !== undefined) {
+        validateGraphSamples(input.samples, `${path}.samples`, errors);
+      }
       break;
     case "points": {
       const points = expectNonEmptyArray(input.points, `${path}.points`, errors);
@@ -522,6 +525,25 @@ function validateNumberPair(input: unknown, path: string, errors: ValidationErro
 
   expectNumber(input[0], `${path}[0]`, errors);
   expectNumber(input[1], `${path}[1]`, errors);
+}
+
+function validateGraphSamples(
+  input: unknown,
+  path: string,
+  errors: ValidationError[]
+) {
+  const samples = expectArray(input, path, errors);
+  if (!samples) {
+    return;
+  }
+
+  if (samples.length < 2) {
+    addError(errors, path, "Function samples must contain at least two coordinate pairs.");
+  }
+
+  samples.forEach((sample, index) =>
+    validateNumberPair(sample, `${path}[${index}]`, errors)
+  );
 }
 
 function validateLinePoints(input: unknown, path: string, errors: ValidationError[]) {

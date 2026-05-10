@@ -17,6 +17,7 @@ export function GraphView({ spec, describedBy }: GraphViewProps) {
     padding + ((x - spec.xAxis.min) / (spec.xAxis.max - spec.xAxis.min)) * chartWidth;
   const yScale = (y: number) =>
     height - padding - ((y - spec.yAxis.min) / (spec.yAxis.max - spec.yAxis.min)) * chartHeight;
+  const plotClipId = `${describedBy}-plot-area`;
 
   return (
     <>
@@ -26,6 +27,12 @@ export function GraphView({ spec, describedBy }: GraphViewProps) {
         role="img"
         aria-describedby={describedBy}
       >
+        <defs>
+          <clipPath id={plotClipId}>
+            <rect x={padding} y={padding} width={chartWidth} height={chartHeight} />
+          </clipPath>
+        </defs>
+
         <line
           x1={padding}
           y1={height - padding}
@@ -86,7 +93,7 @@ export function GraphView({ spec, describedBy }: GraphViewProps) {
         </text>
 
         {spec.series.map((series) =>
-          renderSeries(series, xScale, yScale)
+          renderSeries(series, xScale, yScale, plotClipId)
         )}
 
         {(spec.annotations ?? []).map((annotation) =>
@@ -124,13 +131,15 @@ export function GraphView({ spec, describedBy }: GraphViewProps) {
 function renderSeries(
   series: GraphSeries,
   xScale: (x: number) => number,
-  yScale: (y: number) => number
+  yScale: (y: number) => number,
+  plotClipId: string
 ) {
   switch (series.kind) {
     case "line":
       return (
         <line
           key={series.id}
+          data-series-id={series.id}
           x1={xScale(series.through[0][0])}
           y1={yScale(series.through[0][1])}
           x2={xScale(series.through[1][0])}
@@ -141,17 +150,36 @@ function renderSeries(
       );
     case "points":
       return (
-        <g key={series.id}>
+        <g key={series.id} data-series-id={series.id}>
           {series.points.map(([x, y]) => (
             <circle key={`${x}-${y}`} cx={xScale(x)} cy={yScale(y)} r="6" fill="#2f5d62" />
           ))}
         </g>
       );
-    case "function":
+    case "function": {
+      const samplePoints = series.samples
+        ?.map(([x, y]) => `${xScale(x)},${yScale(y)}`)
+        .join(" ");
+
       return (
-        <text key={series.id} x={width - padding} y={padding - 14} textAnchor="end">
-          {series.expression}
-        </text>
+        <g key={series.id}>
+          {samplePoints ? (
+            <polyline
+              data-series-id={series.id}
+              points={samplePoints}
+              fill="none"
+              stroke="#8a6f1e"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              clipPath={`url(#${plotClipId})`}
+            />
+          ) : null}
+          <text x={width - padding} y={padding - 14} textAnchor="end">
+            {series.expression}
+          </text>
+        </g>
       );
+    }
   }
 }

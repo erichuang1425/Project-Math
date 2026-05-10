@@ -1,3 +1,9 @@
+import { useState } from "react";
+import {
+  copyLessonSummaryMarkdown,
+  getLessonSummaryCopyStatusMessage,
+  type LessonSummaryCopyStatus
+} from "../export/lessonSummaryClipboard";
 import {
   buildLessonSummaryExport,
   lessonSummaryExportFileName,
@@ -26,13 +32,29 @@ export function LessonView({
 }: LessonViewProps) {
   const lessonProgress = learnerState?.lessons[lesson.id];
   const isCompleted = lessonProgress?.status === "completed";
+  const [copyStatus, setCopyStatus] = useState<LessonSummaryCopyStatus>("idle");
+  const copyStatusMessage = getLessonSummaryCopyStatusMessage(copyStatus);
+  const isCopyingSummary = copyStatus === "copying";
+
+  function buildSummaryMarkdown() {
+    const summary = buildLessonSummaryExport(studybook, lesson, learnerState);
+    return {
+      fileName: lessonSummaryExportFileName(summary),
+      markdown: renderLessonSummaryMarkdown(summary)
+    };
+  }
+
+  async function handleCopySummary() {
+    const { markdown } = buildSummaryMarkdown();
+    setCopyStatus("copying");
+
+    const result = await copyLessonSummaryMarkdown(markdown);
+    setCopyStatus(result.status);
+  }
 
   function handleExportSummary() {
-    const summary = buildLessonSummaryExport(studybook, lesson, learnerState);
-    downloadTextFile(
-      lessonSummaryExportFileName(summary),
-      renderLessonSummaryMarkdown(summary)
-    );
+    const { fileName, markdown } = buildSummaryMarkdown();
+    downloadTextFile(fileName, markdown);
   }
 
   return (
@@ -70,22 +92,44 @@ export function LessonView({
       ))}
       <footer className={styles.lessonFooter} aria-label="Lesson progress">
         <p>{isCompleted ? "This lesson is saved as complete." : "Progress is saved locally."}</p>
-        <div className={styles.lessonFooterActions}>
-          <button
-            className={styles.secondaryButton}
-            type="button"
-            onClick={onCompleteLesson}
-            disabled={isCompleted || !onCompleteLesson}
+        <div className={styles.lessonFooterControls}>
+          <div className={styles.lessonFooterActions}>
+            <button
+              className={styles.secondaryButton}
+              type="button"
+              onClick={onCompleteLesson}
+              disabled={isCompleted || !onCompleteLesson}
+            >
+              {isCompleted ? "Lesson complete" : "Mark lesson complete"}
+            </button>
+            <button
+              className={styles.secondaryButton}
+              type="button"
+              onClick={handleCopySummary}
+              disabled={isCopyingSummary}
+              aria-describedby="summary-copy-status"
+            >
+              {isCopyingSummary ? "Copying summary" : "Copy summary"}
+            </button>
+            <button
+              className={styles.primaryButton}
+              type="button"
+              onClick={handleExportSummary}
+            >
+              Download summary
+            </button>
+          </div>
+          <p
+            id="summary-copy-status"
+            className={`${styles.copyStatus} ${
+              copyStatus === "failed" ? styles.copyStatusError : ""
+            }`}
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
           >
-            {isCompleted ? "Lesson complete" : "Mark lesson complete"}
-          </button>
-          <button
-            className={styles.primaryButton}
-            type="button"
-            onClick={handleExportSummary}
-          >
-            Download summary
-          </button>
+            {copyStatusMessage}
+          </p>
         </div>
       </footer>
     </article>

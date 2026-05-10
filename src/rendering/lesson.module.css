@@ -313,6 +313,24 @@
   gap: 10px;
 }
 
+.lessonFooterControls {
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+}
+
+.copyStatus {
+  min-height: 1.2rem;
+  margin: 0;
+  color: #506d3b;
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.copyStatusError {
+  color: #7e2f27;
+}
+
 .secondaryButton:disabled {
   border-color: #d9ded3;
   background: #f1f4ec;
@@ -363,5 +381,14 @@
   .graph,
   .mathBlock {
     padding: 14px;
+  }
+
+  .lessonFooterControls {
+    justify-items: stretch;
+    width: 100%;
+  }
+
+  .copyStatus {
+    text-align: left;
   }
 }
