@@ -22,7 +22,10 @@ export function Breadcrumb({ items }: BreadcrumbProps) {
                 {item.label}
               </button>
             ) : (
-              <span className={isLast ? styles.current : styles.crumb} aria-current={isLast ? "page" : undefined}>
+              <span
+                className={isLast ? styles.current : styles.crumb}
+                aria-current={isLast ? "page" : undefined}
+              >
                 {item.label}
               </span>
             )}

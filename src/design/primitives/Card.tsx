@@ -26,15 +26,7 @@ const paddingClass = {
 } as const;
 
 export function Card(props: CardProps) {
-  const {
-    illustration,
-    title,
-    summary,
-    footer,
-    padding = "default",
-    children,
-    className
-  } = props;
+  const { illustration, title, summary, footer, padding = "default", children, className } = props;
 
   const padCls = paddingClass[padding];
   const sharedCls = clsx(
@@ -55,7 +47,17 @@ export function Card(props: CardProps) {
   );
 
   if (props.as === "button") {
-    const { as: _as, illustration: _i, title: _t, summary: _s, footer: _f, padding: _p, children: _c, className: _cn, ...rest } = props;
+    const {
+      as: _as,
+      illustration: _i,
+      title: _t,
+      summary: _s,
+      footer: _f,
+      padding: _p,
+      children: _c,
+      className: _cn,
+      ...rest
+    } = props;
     void _as;
     void _i;
     void _t;
@@ -65,13 +67,27 @@ export function Card(props: CardProps) {
     void _c;
     void _cn;
     return (
-      <button {...rest} type={rest.type ?? "button"} className={clsx(sharedCls, styles.interactive)}>
+      <button
+        {...rest}
+        type={rest.type ?? "button"}
+        className={clsx(sharedCls, styles.interactive)}
+      >
         {body}
       </button>
     );
   }
 
-  const { as: _as, illustration: _i, title: _t, summary: _s, footer: _f, padding: _p, children: _c, className: _cn, ...rest } = props as StaticCardProps;
+  const {
+    as: _as,
+    illustration: _i,
+    title: _t,
+    summary: _s,
+    footer: _f,
+    padding: _p,
+    children: _c,
+    className: _cn,
+    ...rest
+  } = props as StaticCardProps;
   void _as;
   void _i;
   void _t;

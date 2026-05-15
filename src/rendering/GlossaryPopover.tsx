@@ -15,9 +15,7 @@ export function GlossaryPopover({ term, open, onClose }: GlossaryPopoverProps) {
       <p className={styles.glossaryDefinition}>{term.definition}</p>
       {term.latex ? <MathBlock latex={term.latex} /> : null}
       {term.aliases && term.aliases.length > 0 ? (
-        <p className={styles.glossaryAliases}>
-          Also called: {term.aliases.join(", ")}.
-        </p>
+        <p className={styles.glossaryAliases}>Also called: {term.aliases.join(", ")}.</p>
       ) : null}
     </Dialog>
   );

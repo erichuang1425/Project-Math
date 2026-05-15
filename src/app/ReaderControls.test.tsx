@@ -39,8 +39,15 @@ describe("ReaderControls", () => {
       <ReaderControls settings={settings} onSettingsChange={() => {}} />
     );
 
-    expect(html).toContain(
-      "Reader controls: System serif, Large text, Comfortable line spacing, low-glare on"
+    expect(html).toContain("System serif, Large text, Comfortable line spacing, low-glare on");
+  });
+
+  it("separates the heading id from the live status id", () => {
+    const html = renderToStaticMarkup(
+      <ReaderControls settings={defaultReaderSettings} onSettingsChange={() => {}} />
     );
+    expect(html).toContain('id="reader-controls-heading"');
+    expect(html).toContain('id="reader-controls-status"');
+    expect(html).toContain('aria-live="polite"');
   });
 });

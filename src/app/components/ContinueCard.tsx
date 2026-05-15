@@ -26,14 +26,19 @@ export function ContinueCard({
     <section className={styles.card} aria-label="Continue learning">
       <div>
         <p className={styles.eyebrow}>
-          <Sparkles size={12} aria-hidden="true" /> {isFresh ? "Start with" : "Pick up where you left off"}
+          <Sparkles size={12} aria-hidden="true" />{" "}
+          {isFresh ? "Start with" : "Pick up where you left off"}
         </p>
         <h2 className={styles.title}>{lesson.title}</h2>
         <p className={styles.summary}>
           {course.title} · {courseModule.title} · {lesson.estimatedMinutes} min
         </p>
         <div className={styles.actions}>
-          <Button onClick={onContinue} trailingIcon={<ArrowRight size={16} aria-hidden="true" />} size="lg">
+          <Button
+            onClick={onContinue}
+            trailingIcon={<ArrowRight size={16} aria-hidden="true" />}
+            size="lg"
+          >
             {isFresh ? "Begin lesson" : "Continue lesson"}
           </Button>
           <Button variant="ghost" onClick={onOpenCourse}>

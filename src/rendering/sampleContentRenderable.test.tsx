@@ -2,12 +2,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import courseJson from "../content/fixtures/courses/calculus-i.course.json";
-import {
-  eachLesson,
-  findLesson,
-  totalLessons,
-  validateContent
-} from "../content";
+import { eachLesson, findLesson, totalLessons, validateContent } from "../content";
 import {
   createEmptyLearnerState,
   markLessonCompleted,
@@ -18,9 +13,7 @@ import { LessonView } from "./LessonView";
 function validatedCourse() {
   const result = validateContent(courseJson);
   if (!result.ok) {
-    throw new Error(
-      result.errors.map((error) => `${error.path}: ${error.message}`).join("\n")
-    );
+    throw new Error(result.errors.map((error) => `${error.path}: ${error.message}`).join("\n"));
   }
   return result.course;
 }
@@ -75,17 +68,14 @@ describe("course lesson rendering", () => {
     const course = validatedCourse();
     const location = findLesson(course, "derivative-as-a-limit");
     if (!location) throw new Error("Expected derivative-as-a-limit lesson.");
-    const learnerState = recordQuizAttempt(
-      createEmptyLearnerState("calculus-i"),
-      {
-        lessonId: location.lesson.id,
-        quizBlockId: "any-quiz",
-        questionId: "any-question",
-        answer: "demo",
-        isCorrect: true,
-        submittedAt: "2026-05-15T10:00:00.000Z"
-      }
-    );
+    const learnerState = recordQuizAttempt(createEmptyLearnerState("calculus-i"), {
+      lessonId: location.lesson.id,
+      quizBlockId: "any-quiz",
+      questionId: "any-question",
+      answer: "demo",
+      isCorrect: true,
+      submittedAt: "2026-05-15T10:00:00.000Z"
+    });
 
     expect(learnerState.quizAttempts).toBeDefined();
   });

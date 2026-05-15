@@ -40,7 +40,8 @@ export function CoursesDashboardView({
         <p className={styles.heroEyebrow}>Welcome back</p>
         <h1 className={styles.heroTitle}>What would you like to learn today?</h1>
         <p className={styles.heroLead}>
-          Short lessons. Worked examples. Practice that explains itself. Pick up where you left off, or browse the catalog below.
+          Short lessons. Worked examples. Practice that explains itself. Pick up where you left off,
+          or browse the catalog below.
         </p>
       </section>
 

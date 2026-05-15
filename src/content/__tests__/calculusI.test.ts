@@ -7,9 +7,7 @@ describe("calculus-i course fixture", () => {
   it("passes content validation", () => {
     const result = validateContent(courseJson);
     if (!result.ok) {
-      const summary = result.errors
-        .map((error) => `${error.path}: ${error.message}`)
-        .join("\n");
+      const summary = result.errors.map((error) => `${error.path}: ${error.message}`).join("\n");
       throw new Error(`calculus-i.course.json is invalid:\n${summary}`);
     }
     expect(result.course.id).toBe("calculus-i");

@@ -3,12 +3,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   gap: var(--pm-space-5);
-  background:
-    linear-gradient(
-      135deg,
-      var(--pm-color-accent-soft),
-      var(--pm-color-surface) 75%
-    );
+  background: linear-gradient(135deg, var(--pm-color-accent-soft), var(--pm-color-surface) 75%);
   border: 1px solid var(--pm-color-panel-border);
   border-radius: var(--pm-radius-4);
   padding: var(--pm-space-6);

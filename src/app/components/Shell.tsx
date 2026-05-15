@@ -11,13 +11,7 @@ export interface ShellProps {
   children: ReactNode;
 }
 
-export function Shell({
-  mode,
-  onToggleMode,
-  onOpenShortcuts,
-  onGoHome,
-  children
-}: ShellProps) {
+export function Shell({ mode, onToggleMode, onOpenShortcuts, onGoHome, children }: ShellProps) {
   return (
     <div className={styles.shell}>
       <a href="#main" className={styles.skipLink}>
@@ -46,7 +40,11 @@ export function Shell({
             aria-pressed={mode === "calm"}
             aria-label={mode === "calm" ? "Switch to polished mode" : "Switch to calm mode"}
           >
-            {mode === "calm" ? <Moon size={14} aria-hidden="true" /> : <Sun size={14} aria-hidden="true" />}
+            {mode === "calm" ? (
+              <Moon size={14} aria-hidden="true" />
+            ) : (
+              <Sun size={14} aria-hidden="true" />
+            )}
             {mode === "calm" ? "Calm mode" : "Polished mode"}
           </button>
           <button

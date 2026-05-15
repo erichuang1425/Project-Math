@@ -7,11 +7,7 @@
   "level": "intro",
   "summary": "Foundations through derivatives from first principles and the standard differentiation rules.",
   "illustrationId": "tangent-curve",
-  "prerequisites": [
-    "algebra",
-    "functions",
-    "limits"
-  ],
+  "prerequisites": ["algebra", "functions", "limits"],
   "modules": [
     {
       "id": "first-principles",
@@ -227,23 +223,13 @@
                       "label": "input x",
                       "min": 0,
                       "max": 3,
-                      "ticks": [
-                        0,
-                        1,
-                        2,
-                        3
-                      ]
+                      "ticks": [0, 1, 2, 3]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 9,
-                      "ticks": [
-                        0,
-                        1,
-                        4,
-                        9
-                      ]
+                      "ticks": [0, 1, 4, 9]
                     },
                     "series": [
                       {
@@ -251,39 +237,15 @@
                         "id": "x-squared",
                         "label": "Function",
                         "expression": "y = x^2",
-                        "domain": [
-                          0,
-                          3
-                        ],
+                        "domain": [0, 3],
                         "samples": [
-                          [
-                            0,
-                            0
-                          ],
-                          [
-                            0.5,
-                            0.25
-                          ],
-                          [
-                            1,
-                            1
-                          ],
-                          [
-                            1.5,
-                            2.25
-                          ],
-                          [
-                            2,
-                            4
-                          ],
-                          [
-                            2.5,
-                            6.25
-                          ],
-                          [
-                            3,
-                            9
-                          ]
+                          [0, 0],
+                          [0.5, 0.25],
+                          [1, 1],
+                          [1.5, 2.25],
+                          [2, 4],
+                          [2.5, 6.25],
+                          [3, 9]
                         ]
                       },
                       {
@@ -291,14 +253,8 @@
                         "id": "secant-points",
                         "label": "Secant points",
                         "points": [
-                          [
-                            1,
-                            1
-                          ],
-                          [
-                            2,
-                            4
-                          ]
+                          [1, 1],
+                          [2, 4]
                         ]
                       },
                       {
@@ -306,14 +262,8 @@
                         "id": "secant-line",
                         "label": "Secant line",
                         "through": [
-                          [
-                            1,
-                            1
-                          ],
-                          [
-                            2,
-                            4
-                          ]
+                          [1, 1],
+                          [2, 4]
                         ]
                       }
                     ],
@@ -321,10 +271,7 @@
                       {
                         "id": "base-point",
                         "label": "x = 1",
-                        "point": [
-                          1,
-                          1
-                        ],
+                        "point": [1, 1],
                         "text": "The tangent slope here is 2."
                       }
                     ]
@@ -607,11 +554,7 @@
                         }
                       ],
                       "correctOptionId": "factor-before-limit",
-                      "conceptTags": [
-                        "difference-quotient",
-                        "limits",
-                        "algebra"
-                      ],
+                      "conceptTags": ["difference-quotient", "limits", "algebra"],
                       "hint": "Look for the step that removes division by h without pretending h already equals 0."
                     }
                   ]
@@ -646,20 +589,12 @@
                           "value": "?"
                         }
                       ],
-                      "acceptedAnswers": [
-                        "3",
-                        "f'(x)=3",
-                        "f prime of x equals 3"
-                      ],
+                      "acceptedAnswers": ["3", "f'(x)=3", "f prime of x equals 3"],
                       "feedback": {
                         "correct": "Correct. The quotient simplifies to 3 before the limit is evaluated.",
                         "incorrect": "Review the parentheses mistake. After distributing the subtraction, the quotient becomes 3h/h while h is nonzero, so the limit is 3."
                       },
-                      "conceptTags": [
-                        "linear-functions",
-                        "difference-quotient",
-                        "limits"
-                      ],
+                      "conceptTags": ["linear-functions", "difference-quotient", "limits"],
                       "hint": "After simplifying, the expression no longer depends on x or h."
                     }
                   ]
@@ -750,14 +685,8 @@
               "Where does the factor h come from in the x^2 calculation?",
               "Why must f(x) be subtracted as the whole expression in the linear-function calculation?"
             ],
-            "mistakeIds": [
-              "substitute-h-too-early",
-              "forget-parentheses-around-linear-function"
-            ],
-            "quizIds": [
-              "first-principles-check",
-              "linear-function-check"
-            ]
+            "mistakeIds": ["substitute-h-too-early", "forget-parentheses-around-linear-function"],
+            "quizIds": ["first-principles-check", "linear-function-check"]
           }
         },
         {
@@ -1003,24 +932,13 @@
                       "label": "input x",
                       "min": 0,
                       "max": 4,
-                      "ticks": [
-                        0,
-                        1,
-                        2,
-                        3,
-                        4
-                      ]
+                      "ticks": [0, 1, 2, 3, 4]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 10,
-                      "ticks": [
-                        0,
-                        4,
-                        8,
-                        10
-                      ]
+                      "ticks": [0, 4, 8, 10]
                     },
                     "series": [
                       {
@@ -1028,47 +946,17 @@
                         "id": "point-x-squared",
                         "label": "Function",
                         "expression": "y = x^2",
-                        "domain": [
-                          0,
-                          4
-                        ],
+                        "domain": [0, 4],
                         "samples": [
-                          [
-                            0,
-                            0
-                          ],
-                          [
-                            0.5,
-                            0.25
-                          ],
-                          [
-                            1,
-                            1
-                          ],
-                          [
-                            1.5,
-                            2.25
-                          ],
-                          [
-                            2,
-                            4
-                          ],
-                          [
-                            2.5,
-                            6.25
-                          ],
-                          [
-                            3,
-                            9
-                          ],
-                          [
-                            3.5,
-                            12.25
-                          ],
-                          [
-                            4,
-                            16
-                          ]
+                          [0, 0],
+                          [0.5, 0.25],
+                          [1, 1],
+                          [1.5, 2.25],
+                          [2, 4],
+                          [2.5, 6.25],
+                          [3, 9],
+                          [3.5, 12.25],
+                          [4, 16]
                         ]
                       },
                       {
@@ -1076,14 +964,8 @@
                         "id": "point-derivative-points",
                         "label": "Fixed point and nearby point",
                         "points": [
-                          [
-                            2,
-                            4
-                          ],
-                          [
-                            3,
-                            9
-                          ]
+                          [2, 4],
+                          [3, 9]
                         ]
                       },
                       {
@@ -1091,14 +973,8 @@
                         "id": "secant-line-h-one",
                         "label": "Secant line for h = 1",
                         "through": [
-                          [
-                            2,
-                            4
-                          ],
-                          [
-                            3,
-                            9
-                          ]
+                          [2, 4],
+                          [3, 9]
                         ]
                       },
                       {
@@ -1106,14 +982,8 @@
                         "id": "tangent-line-at-two",
                         "label": "Tangent line slope 4",
                         "through": [
-                          [
-                            1,
-                            0
-                          ],
-                          [
-                            3,
-                            8
-                          ]
+                          [1, 0],
+                          [3, 8]
                         ]
                       }
                     ],
@@ -1121,19 +991,13 @@
                       {
                         "id": "fixed-point-two",
                         "label": "(2, 4)",
-                        "point": [
-                          2,
-                          4
-                        ],
+                        "point": [2, 4],
                         "text": "The tangent slope here is 4."
                       },
                       {
                         "id": "nearby-point-three",
                         "label": "(3, 9)",
-                        "point": [
-                          3,
-                          9
-                        ],
+                        "point": [3, 9],
                         "text": "This nearby point gives the h = 1 secant."
                       }
                     ]
@@ -1360,11 +1224,7 @@
                         }
                       ],
                       "correctOptionId": "use-fixed-input",
-                      "conceptTags": [
-                        "point-derivatives",
-                        "difference-quotient",
-                        "limits"
-                      ],
+                      "conceptTags": ["point-derivatives", "difference-quotient", "limits"],
                       "hint": "Keep one point at x = 2. Move the other point to x = 2 + h."
                     },
                     {
@@ -1392,19 +1252,12 @@
                           "value": "?"
                         }
                       ],
-                      "acceptedAnswers": [
-                        "4",
-                        "f'(2)=4",
-                        "f prime of 2 equals 4"
-                      ],
+                      "acceptedAnswers": ["4", "f'(2)=4", "f prime of 2 equals 4"],
                       "feedback": {
                         "correct": "Correct. The point difference quotient simplifies to 4 + h, so the limit is 4.",
                         "incorrect": "Review the fixed-input substitution. The quotient must simplify to 4 + h before the limit is evaluated."
                       },
-                      "conceptTags": [
-                        "point-derivatives",
-                        "tangent-slope"
-                      ],
+                      "conceptTags": ["point-derivatives", "tangent-slope"],
                       "hint": "The tangent slope at x = 2 is the value approached by the secant slopes."
                     }
                   ]
@@ -1495,12 +1348,8 @@
               "Why does the quotient use f(2+h)-f(2) instead of f(x+h)-f(2)?",
               "Where is h still required to be nonzero in the point calculation?"
             ],
-            "mistakeIds": [
-              "mixing-fixed-input-with-variable"
-            ],
-            "quizIds": [
-              "point-derivative-check"
-            ]
+            "mistakeIds": ["mixing-fixed-input-with-variable"],
+            "quizIds": ["point-derivative-check"]
           }
         },
         {
@@ -1671,24 +1520,13 @@
                       "label": "input x",
                       "min": -1,
                       "max": 3,
-                      "ticks": [
-                        -1,
-                        0,
-                        1,
-                        2,
-                        3
-                      ]
+                      "ticks": [-1, 0, 1, 2, 3]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 8,
-                      "ticks": [
-                        0,
-                        4,
-                        7,
-                        8
-                      ]
+                      "ticks": [0, 4, 7, 8]
                     },
                     "series": [
                       {
@@ -1696,31 +1534,13 @@
                         "id": "constant-seven",
                         "label": "Function",
                         "expression": "y = 7",
-                        "domain": [
-                          -1,
-                          3
-                        ],
+                        "domain": [-1, 3],
                         "samples": [
-                          [
-                            -1,
-                            7
-                          ],
-                          [
-                            0,
-                            7
-                          ],
-                          [
-                            1,
-                            7
-                          ],
-                          [
-                            2,
-                            7
-                          ],
-                          [
-                            3,
-                            7
-                          ]
+                          [-1, 7],
+                          [0, 7],
+                          [1, 7],
+                          [2, 7],
+                          [3, 7]
                         ]
                       },
                       {
@@ -1728,14 +1548,8 @@
                         "id": "constant-comparison-points",
                         "label": "Same-height points",
                         "points": [
-                          [
-                            0,
-                            7
-                          ],
-                          [
-                            2,
-                            7
-                          ]
+                          [0, 7],
+                          [2, 7]
                         ]
                       },
                       {
@@ -1743,14 +1557,8 @@
                         "id": "constant-secant-line",
                         "label": "Secant line",
                         "through": [
-                          [
-                            0,
-                            7
-                          ],
-                          [
-                            2,
-                            7
-                          ]
+                          [0, 7],
+                          [2, 7]
                         ]
                       }
                     ],
@@ -1758,10 +1566,7 @@
                       {
                         "id": "same-output",
                         "label": "same output",
-                        "point": [
-                          2,
-                          7
-                        ],
+                        "point": [2, 7],
                         "text": "The output change from x = 0 to x = 2 is 0."
                       }
                     ]
@@ -1984,10 +1789,7 @@
                         }
                       ],
                       "correctOptionId": "zero-output-change",
-                      "conceptTags": [
-                        "constant-functions",
-                        "difference-quotient"
-                      ],
+                      "conceptTags": ["constant-functions", "difference-quotient"],
                       "hint": "Compare the two output values before dividing by h."
                     },
                     {
@@ -2015,19 +1817,12 @@
                           "value": "?"
                         }
                       ],
-                      "acceptedAnswers": [
-                        "0",
-                        "f'(x)=0",
-                        "f prime of x equals 0"
-                      ],
+                      "acceptedAnswers": ["0", "f'(x)=0", "f prime of x equals 0"],
                       "feedback": {
                         "correct": "Correct. The quotient simplifies to 0 before the limit is evaluated.",
                         "incorrect": "Review the numerator. A constant function has output change 0, so the derivative is 0."
                       },
-                      "conceptTags": [
-                        "constant-functions",
-                        "first-principles"
-                      ],
+                      "conceptTags": ["constant-functions", "first-principles"],
                       "hint": "A flat graph has zero tangent slope."
                     }
                   ]
@@ -2118,12 +1913,8 @@
               "Where is h still required to be nonzero?",
               "Why is the derivative 0 instead of 7?"
             ],
-            "mistakeIds": [
-              "treating-constant-as-slope"
-            ],
-            "quizIds": [
-              "constant-function-check"
-            ]
+            "mistakeIds": ["treating-constant-as-slope"],
+            "quizIds": ["constant-function-check"]
           }
         }
       ]
@@ -2134,17 +1925,13 @@
       "id": "derivative",
       "term": "derivative",
       "definition": "The instantaneous rate of change of a function at a point, defined as the limit of the difference quotient.",
-      "aliases": [
-        "instantaneous rate"
-      ]
+      "aliases": ["instantaneous rate"]
     },
     {
       "id": "difference-quotient",
       "term": "difference quotient",
       "definition": "The ratio (f(x + h) − f(x))/h. The derivative is the limit of this ratio as h approaches zero.",
-      "aliases": [
-        "average rate of change"
-      ]
+      "aliases": ["average rate of change"]
     },
     {
       "id": "secant-line",
@@ -2155,9 +1942,7 @@
       "id": "tangent-line",
       "term": "tangent line",
       "definition": "The line through a single point of a curve whose slope equals the derivative of the function at that point.",
-      "aliases": [
-        "tangent"
-      ]
+      "aliases": ["tangent"]
     },
     {
       "id": "limit",

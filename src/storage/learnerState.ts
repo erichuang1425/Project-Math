@@ -30,10 +30,7 @@ export type LearnerState = {
   quizAttempts: Record<string, QuizAttempt[]>;
 };
 
-export type LearnerStateLoadStatus =
-  | "loaded"
-  | "missing"
-  | "recovered-from-corrupt";
+export type LearnerStateLoadStatus = "loaded" | "missing" | "recovered-from-corrupt";
 
 export type LearnerStateLoadResult = {
   status: LearnerStateLoadStatus;
@@ -101,15 +98,8 @@ export function markLessonCompleted(
   };
 }
 
-export function recordQuizAttempt(
-  state: LearnerState,
-  attempt: QuizAttemptInput
-): LearnerState {
-  const key = quizAttemptKey(
-    attempt.lessonId,
-    attempt.quizBlockId,
-    attempt.questionId
-  );
+export function recordQuizAttempt(state: LearnerState, attempt: QuizAttemptInput): LearnerState {
+  const key = quizAttemptKey(attempt.lessonId, attempt.quizBlockId, attempt.questionId);
   const previousAttempts = state.quizAttempts[key] ?? [];
   const attemptNumber = previousAttempts.length + 1;
   const nextAttempt: QuizAttempt = {
@@ -140,11 +130,7 @@ export function getQuizAttempts(
   return state.quizAttempts[quizAttemptKey(lessonId, quizBlockId, questionId)] ?? [];
 }
 
-export function quizAttemptKey(
-  lessonId: string,
-  quizBlockId: string,
-  questionId: string
-) {
+export function quizAttemptKey(lessonId: string, quizBlockId: string, questionId: string) {
   return `${lessonId}-${quizBlockId}-${questionId}`;
 }
 
@@ -225,11 +211,7 @@ function validateLearnerState(input: unknown, studybookId: string): string[] {
   return errors;
 }
 
-function validateLessonProgress(
-  key: string,
-  input: unknown,
-  errors: string[]
-) {
+function validateLessonProgress(key: string, input: unknown, errors: string[]) {
   if (!isSafeId(key)) {
     errors.push(`Lesson progress key "${key}" must be lowercase kebab-case.`);
   }

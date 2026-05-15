@@ -100,9 +100,7 @@ function validateModule(input: unknown, path: string, ctx: ValidationContext) {
   const lessons = expectNonEmptyArray(input.lessons, `${path}.lessons`, ctx);
   if (lessons) {
     validateUniqueIds(lessons, `${path}.lessons`, ctx);
-    lessons.forEach((lesson, idx) =>
-      validateLesson(lesson, `${path}.lessons[${idx}]`, ctx)
-    );
+    lessons.forEach((lesson, idx) => validateLesson(lesson, `${path}.lessons[${idx}]`, ctx));
   }
 }
 
@@ -136,12 +134,7 @@ function validateLesson(input: unknown, path: string, ctx: ValidationContext) {
     });
   }
 
-  validateStringArray(
-    input.prerequisiteLessonIds,
-    `${path}.prerequisiteLessonIds`,
-    ctx,
-    false
-  );
+  validateStringArray(input.prerequisiteLessonIds, `${path}.prerequisiteLessonIds`, ctx, false);
 
   if (typeof input.id === "string") {
     ctx.lessonIds.add(input.id);
@@ -323,27 +316,17 @@ function validateWorkedExample(
   });
 }
 
-function validateQuizBlock(
-  input: Record<string, unknown>,
-  path: string,
-  ctx: ValidationContext
-) {
+function validateQuizBlock(input: Record<string, unknown>, path: string, ctx: ValidationContext) {
   expectOptionalString(input.title, `${path}.title`, ctx);
 
   const questions = expectNonEmptyArray(input.questions, `${path}.questions`, ctx);
   if (!questions) return;
 
   validateUniqueIds(questions, `${path}.questions`, ctx);
-  questions.forEach((q, idx) =>
-    validateQuizQuestion(q, `${path}.questions[${idx}]`, ctx)
-  );
+  questions.forEach((q, idx) => validateQuizQuestion(q, `${path}.questions[${idx}]`, ctx));
 }
 
-function validateQuizQuestion(
-  input: unknown,
-  path: string,
-  ctx: ValidationContext
-) {
+function validateQuizQuestion(input: unknown, path: string, ctx: ValidationContext) {
   if (!isRecord(input)) {
     addError(ctx, path, "Quiz question must be an object.");
     return;
@@ -371,10 +354,7 @@ function validateQuizQuestion(
           validateRichText(option.text, `${oPath}.text`, ctx);
           expectNonEmptyString(option.feedback, `${oPath}.feedback`, ctx);
         });
-        if (
-          typeof input.correctOptionId === "string" &&
-          !optionIds.has(input.correctOptionId)
-        ) {
+        if (typeof input.correctOptionId === "string" && !optionIds.has(input.correctOptionId)) {
           addError(
             ctx,
             `${path}.correctOptionId`,
@@ -409,9 +389,7 @@ function validateGraphSpec(input: unknown, path: string, ctx: ValidationContext)
   const series = expectNonEmptyArray(input.series, `${path}.series`, ctx);
   if (series) {
     validateUniqueIds(series, `${path}.series`, ctx);
-    series.forEach((s, idx) =>
-      validateGraphSeries(s, `${path}.series[${idx}]`, ctx)
-    );
+    series.forEach((s, idx) => validateGraphSeries(s, `${path}.series[${idx}]`, ctx));
   }
 
   if (input.annotations !== undefined) {
@@ -445,9 +423,7 @@ function validateAxis(input: unknown, path: string, ctx: ValidationContext) {
   if (input.ticks !== undefined) {
     const ticks = expectArray(input.ticks, `${path}.ticks`, ctx);
     if (ticks) {
-      ticks.forEach((t, idx) =>
-        expectNumber(t, `${path}.ticks[${idx}]`, ctx)
-      );
+      ticks.forEach((t, idx) => expectNumber(t, `${path}.ticks[${idx}]`, ctx));
     }
   }
 }
@@ -472,9 +448,7 @@ function validateGraphSeries(input: unknown, path: string, ctx: ValidationContex
       break;
     case "points": {
       const points = expectNonEmptyArray(input.points, `${path}.points`, ctx);
-      points?.forEach((p, idx) =>
-        validateNumberPair(p, `${path}.points[${idx}]`, ctx)
-      );
+      points?.forEach((p, idx) => validateNumberPair(p, `${path}.points[${idx}]`, ctx));
       break;
     }
     case "line":
@@ -485,11 +459,7 @@ function validateGraphSeries(input: unknown, path: string, ctx: ValidationContex
   }
 }
 
-function validateGraphAnnotation(
-  input: unknown,
-  path: string,
-  ctx: ValidationContext
-) {
+function validateGraphAnnotation(input: unknown, path: string, ctx: ValidationContext) {
   if (!isRecord(input)) {
     addError(ctx, path, "Graph annotation must be an object.");
     return;
@@ -560,12 +530,7 @@ function validateRichTextRows(input: unknown, path: string, ctx: ValidationConte
   rows.forEach((row, idx) => validateRichText(row, `${path}[${idx}]`, ctx));
 }
 
-function validateLatex(
-  input: unknown,
-  path: string,
-  displayMode: boolean,
-  ctx: ValidationContext
-) {
+function validateLatex(input: unknown, path: string, displayMode: boolean, ctx: ValidationContext) {
   if (!expectNonEmptyString(input, path, ctx)) return;
   if (!isLatexRenderable(input, displayMode)) {
     addError(ctx, path, "LaTeX must render with KaTeX.");
@@ -715,12 +680,7 @@ function expectNumber(input: unknown, path: string, ctx: ValidationContext) {
   }
 }
 
-function expectOneOf(
-  input: unknown,
-  allowed: string[],
-  path: string,
-  ctx: ValidationContext
-) {
+function expectOneOf(input: unknown, allowed: string[], path: string, ctx: ValidationContext) {
   if (typeof input !== "string" || !allowed.includes(input)) {
     addError(ctx, path, `Expected one of: ${allowed.join(", ")}.`);
   }

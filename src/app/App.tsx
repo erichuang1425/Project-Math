@@ -1,18 +1,6 @@
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  type CSSProperties
-} from "react";
+import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
 import courseJson from "../content/fixtures/courses/calculus-i.course.json";
-import {
-  eachLesson,
-  findLesson,
-  totalLessons,
-  validateContent,
-  type Course
-} from "../content";
+import { eachLesson, findLesson, totalLessons, validateContent, type Course } from "../content";
 import { createDefaultLearnerStateRepository } from "../storage/LearnerStateRepository";
 import {
   createEmptyLearnerState,
@@ -57,7 +45,10 @@ function loadCourses(): {
     } else {
       return {
         courses: [],
-        errors: result.errors.map((e) => ({ courseId: "calculus-i", message: `${e.path}: ${e.message}` }))
+        errors: result.errors.map((e) => ({
+          courseId: "calculus-i",
+          message: `${e.path}: ${e.message}`
+        }))
       };
     }
   }
@@ -67,7 +58,9 @@ function loadCourses(): {
 function buildSummary(course: Course, learnerState: LearnerState | undefined): CourseSummary {
   const lessons = eachLesson(course);
   const total = lessons.length;
-  const completed = lessons.filter(({ lesson }) => learnerState?.lessons[lesson.id]?.status === "completed").length;
+  const completed = lessons.filter(
+    ({ lesson }) => learnerState?.lessons[lesson.id]?.status === "completed"
+  ).length;
 
   let continueAt: CourseSummary["continueAt"] = null;
   for (const entry of lessons) {
@@ -168,7 +161,11 @@ export function App() {
     if (!lesson) return;
     const openedAt = new Date().toISOString();
     setLearnerState((current) => {
-      const next = markLessonOpened(current ?? createEmptyLearnerState(primaryCourse.id), lesson.id, openedAt);
+      const next = markLessonOpened(
+        current ?? createEmptyLearnerState(primaryCourse.id),
+        lesson.id,
+        openedAt
+      );
       persistState(next);
       return next;
     });
@@ -240,9 +237,7 @@ export function App() {
     return (
       <div className={appStyles.errorView} role="alert">
         <h1>Course validation failed.</h1>
-        <p>
-          The bundled course could not be loaded. Fix these errors and reload:
-        </p>
+        <p>The bundled course could not be loaded. Fix these errors and reload:</p>
         <ul>
           {errors.map((error, idx) => (
             <li key={idx}>
@@ -306,6 +301,8 @@ export function App() {
           course={course}
           lesson={lesson}
           learnerState={course.id === primaryCourse.id ? learnerState : undefined}
+          readerSettings={readerSettings}
+          onReaderSettingsChange={handleReaderSettingsChange}
           onOpenLesson={(lessonId) => openLesson(course.id, lessonId)}
           onOpenCourse={() => openCourse(course.id)}
           onGoHome={goHome}
@@ -317,8 +314,6 @@ export function App() {
   }
 
   void totalLessons;
-  void readerSettingsStyle;
-  void handleReaderSettingsChange;
 
   return (
     <div style={readerSettingsStyle as CSSProperties}>

@@ -16,7 +16,16 @@ const SHORTCUTS: Array<{ keys: string; description: string }> = [
 export function ShortcutsDialog({ open, onClose }: ShortcutsDialogProps) {
   return (
     <Dialog open={open} title="Keyboard shortcuts" onClose={onClose}>
-      <ul style={{ display: "flex", flexDirection: "column", gap: "0.75rem", listStyle: "none", padding: 0, margin: 0 }}>
+      <ul
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.75rem",
+          listStyle: "none",
+          padding: 0,
+          margin: 0
+        }}
+      >
         {SHORTCUTS.map((shortcut) => (
           <li key={shortcut.keys} style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <kbd

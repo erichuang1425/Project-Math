@@ -1,8 +1,4 @@
-import type {
-  MultipleChoiceQuestion,
-  QuizQuestion,
-  ShortAnswerQuestion
-} from "./schema";
+import type { MultipleChoiceQuestion, QuizQuestion, ShortAnswerQuestion } from "./schema";
 
 export type QuizEvaluation = {
   isCorrect: boolean;
@@ -36,10 +32,7 @@ function evaluateMultipleChoiceAnswer(
   };
 }
 
-function evaluateShortAnswer(
-  question: ShortAnswerQuestion,
-  answer: string
-): QuizEvaluation {
+function evaluateShortAnswer(question: ShortAnswerQuestion, answer: string): QuizEvaluation {
   const normalizedAnswer = normalizeShortAnswer(answer);
   const acceptedAnswers = question.acceptedAnswers.map(normalizeShortAnswer);
   const isCorrect = acceptedAnswers.includes(normalizedAnswer);

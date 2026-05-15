@@ -104,11 +104,7 @@ export function LessonView({
 
         <div className={styles.sectionStack}>
           {lesson.sections.map((section, index) => (
-            <section
-              key={section.id}
-              className={styles.section}
-              aria-labelledby={section.id}
-            >
+            <section key={section.id} className={styles.section} aria-labelledby={section.id}>
               <div className={styles.sectionHeader}>
                 <p>
                   Step {index + 1} of {lesson.sections.length}
@@ -150,11 +146,7 @@ export function LessonView({
             >
               {isCopyingSummary ? "Copying summary" : "Copy summary"}
             </button>
-            <button
-              className={styles.primaryButton}
-              type="button"
-              onClick={handleExportSummary}
-            >
+            <button className={styles.primaryButton} type="button" onClick={handleExportSummary}>
               Download summary
             </button>
           </div>

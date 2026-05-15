@@ -18,7 +18,9 @@ describe("validateContent", () => {
     const course = makeMinimalCourse();
     const result = validateContent(course);
     if (!result.ok) {
-      throw new Error(`Expected valid course, got errors: ${JSON.stringify(result.errors, null, 2)}`);
+      throw new Error(
+        `Expected valid course, got errors: ${JSON.stringify(result.errors, null, 2)}`
+      );
     }
     expect(result.course.id).toBe("calc-mini");
     expect(result.course.modules).toHaveLength(1);
@@ -62,7 +64,9 @@ describe("validateContent", () => {
     const result = validateContent(course);
     expect(result.ok).toBe(false);
     if (!result.ok) {
-      expect(messagesAt(result.errors, "correctOptionId").join(" ")).toMatch(/match one of the question options/);
+      expect(messagesAt(result.errors, "correctOptionId").join(" ")).toMatch(
+        /match one of the question options/
+      );
     }
   });
 

@@ -48,16 +48,13 @@ export function CourseDetailView({
 
   return (
     <div className={styles.detail}>
-      <Breadcrumb
-        items={[
-          { label: "Courses", onClick: onGoHome },
-          { label: course.title }
-        ]}
-      />
+      <Breadcrumb items={[{ label: "Courses", onClick: onGoHome }, { label: course.title }]} />
 
       <header className={styles.header}>
         <div>
-          <p className={styles.headerEyebrow}>{course.subject} · {course.level}</p>
+          <p className={styles.headerEyebrow}>
+            {course.subject} · {course.level}
+          </p>
           <h1 className={styles.headerTitle}>{course.title}</h1>
           <p className={styles.headerSummary}>{course.summary}</p>
           <div className={styles.headerMeta}>

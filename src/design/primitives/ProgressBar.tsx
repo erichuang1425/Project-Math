@@ -9,7 +9,13 @@ export interface ProgressBarProps {
   className?: string;
 }
 
-export function ProgressBar({ value, total, label, showLabel = true, className }: ProgressBarProps) {
+export function ProgressBar({
+  value,
+  total,
+  label,
+  showLabel = true,
+  className
+}: ProgressBarProps) {
   const clampedTotal = Math.max(total, 1);
   const clampedValue = Math.max(0, Math.min(value, clampedTotal));
   const pct = (clampedValue / clampedTotal) * 100;
