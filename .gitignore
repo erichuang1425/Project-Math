@@ -4,3 +4,5 @@ dist/
 .cargo-home/
 src-tauri/target/
 *.log
+vite.config.ts.timestamp-*.mjs
+External material/

@@ -12,16 +12,24 @@ import {
   renderLessonSummaryMarkdown
 } from "./lessonSummaryExport";
 
-function getValidatedLesson() {
+function getValidatedLesson(lessonId = "derivative-as-a-limit") {
   const result = validateStudybook(sourceStudybook);
 
   if (!result.ok) {
     throw new Error(result.errors.map((error) => error.message).join(", "));
   }
 
+  const lesson = result.studybook.lessons.find(
+    (candidate) => candidate.id === lessonId
+  );
+
+  if (!lesson) {
+    throw new Error(`Missing lesson ${lessonId}`);
+  }
+
   return {
     studybook: result.studybook,
-    lesson: result.studybook.lessons[0]
+    lesson
   };
 }
 
@@ -81,10 +89,10 @@ describe("lesson summary export", () => {
     expect(summary.quizResults).toEqual([
       {
         quizBlockId: "first-principles-check",
-        quizTitle: "Check your understanding",
+        quizTitle: "Check: safe limit step",
         questionId: "valid-cancellation-step",
         prompt:
-          "Which step makes it valid to evaluate the limit for $\\frac{(x+h)^2-x^2}{h}$?",
+          "What must happen before you evaluate the limit for $\\frac{(x+h)^2-x^2}{h}$?",
         attemptCount: 2,
         latestAnswer:
           "Factor the numerator as $h(2x+h)$, cancel h while $h\\ne 0$, then take the limit.",
@@ -117,7 +125,7 @@ describe("lesson summary export", () => {
     expect(markdown).toContain("Progress: Completed");
     expect(markdown).toContain("## Key Definitions");
     expect(markdown).toContain(
-      "- Derivative from first principles: $f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}$"
+      "- Formal rule. Compare f(x+h) to f(x), divide by the nonzero gap h, then let h approach 0.: $f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}$"
     );
     expect(markdown).toContain("### Derivative of f(x) = x^2");
     expect(markdown).toContain("## Quiz Results");
@@ -149,6 +157,66 @@ describe("lesson summary export", () => {
     expect(markdown).toContain("No saved quiz results.");
     expect(lessonSummaryExportFileName(summary)).toBe(
       "derivatives-first-principles-derivative-as-a-limit-summary.md"
+    );
+  });
+
+  it("exports the constant-function lesson with deterministic quiz results", () => {
+    const { studybook, lesson } = getValidatedLesson("constant-function-derivative");
+    const state = recordQuizAttempt(
+      markLessonCompleted(
+        createEmptyLearnerState(studybook.id),
+        lesson.id,
+        "2026-05-14T09:20:00.000Z"
+      ),
+      {
+        lessonId: lesson.id,
+        quizBlockId: "constant-function-check",
+        questionId: "constant-derivative-value",
+        answer: "0",
+        isCorrect: true,
+        submittedAt: "2026-05-14T09:25:00.000Z"
+      }
+    );
+
+    const summary = buildLessonSummaryExport(studybook, lesson, state);
+    const markdown = renderLessonSummaryMarkdown(summary);
+
+    expect(summary).toMatchObject({
+      lessonId: "constant-function-derivative",
+      lessonTitle: "Constant Function Derivative",
+      progress: {
+        status: "completed",
+        label: "Completed"
+      }
+    });
+    expect(summary.keyDefinitions.map((definition) => definition.id)).toEqual([
+      "constant-first-principles-definition",
+      "derivative",
+      "difference-quotient",
+      "secant-line"
+    ]);
+    expect(summary.workedExamples.map((example) => example.id)).toEqual([
+      "derivative-of-constant-function"
+    ]);
+    expect(summary.commonMistakes.map((mistake) => mistake.id)).toEqual([
+      "treating-constant-as-slope"
+    ]);
+    expect(summary.quizResults).toEqual([
+      {
+        quizBlockId: "constant-function-check",
+        quizTitle: "Check: constant function",
+        questionId: "constant-derivative-value",
+        prompt: "For $f(x)=7$, what is $f'(x)$?",
+        attemptCount: 1,
+        latestAnswer: "0",
+        latestIsCorrect: true
+      }
+    ]);
+    expect(markdown).toContain("# Constant Function Derivative");
+    expect(markdown).toContain("### Derivative of f(x) = 7");
+    expect(markdown).toContain("Latest answer: 0");
+    expect(lessonSummaryExportFileName(summary)).toBe(
+      "derivatives-first-principles-constant-function-derivative-summary.md"
     );
   });
 });

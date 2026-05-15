@@ -34,9 +34,10 @@ describe("GraphView", () => {
     };
 
     const html = renderToStaticMarkup(
-      <GraphView spec={spec} describedBy="curve-description" />
+      <GraphView spec={spec} label="Sample curve" describedBy="curve-description" />
     );
 
+    expect(html).toContain('aria-label="Graph: Sample curve"');
     expect(html).toContain("<polyline");
     expect(html).toContain('data-series-id="curve"');
     expect(html).toContain('points="48,312 320,246 592,48"');

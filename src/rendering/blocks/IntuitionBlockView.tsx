@@ -9,6 +9,7 @@ type IntuitionBlockViewProps = {
 export function IntuitionBlockView({ block }: IntuitionBlockViewProps) {
   return (
     <section className={`${styles.block} ${styles.intuition}`} aria-labelledby={block.id}>
+      <p className={styles.blockTypeLabel}>Action cue</p>
       <h3 id={block.id} className={styles.blockTitle}>
         {block.title}
       </h3>

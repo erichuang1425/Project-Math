@@ -9,6 +9,7 @@ type WorkedExampleBlockViewProps = {
 export function WorkedExampleBlockView({ block }: WorkedExampleBlockViewProps) {
   return (
     <section className={`${styles.block} ${styles.workedExample}`} aria-labelledby={block.id}>
+      <p className={styles.blockTypeLabel}>Worked example</p>
       <h3 id={block.id} className={styles.blockTitle}>
         {block.title}
       </h3>

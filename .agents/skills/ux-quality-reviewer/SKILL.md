@@ -13,6 +13,13 @@ Use this skill to review whether the app feels like a focused desktop studybook 
 - `docs/ui-system.md`
 - `docs/learning-design.md`
 
+## Related Local Skills
+
+- Use `frontend-visual-system-designer` for visual language, desktop polish, microinteractions, and Project Math-specific aesthetic direction.
+- Use `design-token-architect` for CSS variables, semantic visual tokens, spacing rhythm, focus rings, and state color systems.
+- Use `neurodivergent-learning-accessibility-reviewer` for deep cognitive accessibility, autism-aware readability, low-sensory flow, and input assistance.
+- Use `frontend-regression-visual-qa` for visual regression checks, responsive layout checks, keyboard/focus checks, and smoke-test reporting after frontend changes.
+
 ## Review Checklist
 
 - The first screen supports studying, not marketing.

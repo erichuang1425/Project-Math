@@ -3,6 +3,7 @@ import styles from "../rendering/lesson.module.css";
 
 type GraphViewProps = {
   spec: GraphSpec;
+  label: string;
   describedBy: string;
 };
 
@@ -10,7 +11,7 @@ const width = 640;
 const height = 360;
 const padding = 48;
 
-export function GraphView({ spec, describedBy }: GraphViewProps) {
+export function GraphView({ spec, label, describedBy }: GraphViewProps) {
   const chartWidth = width - padding * 2;
   const chartHeight = height - padding * 2;
   const xScale = (x: number) =>
@@ -25,6 +26,8 @@ export function GraphView({ spec, describedBy }: GraphViewProps) {
         className={styles.graphCanvas}
         viewBox={`0 0 ${width} ${height}`}
         role="img"
+        tabIndex={0}
+        aria-label={`Graph: ${label}`}
         aria-describedby={describedBy}
       >
         <defs>

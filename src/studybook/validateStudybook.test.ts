@@ -77,7 +77,7 @@ describe("validateStudybook", () => {
     const quiz = blocks.find((block) => block.id === "linear-function-check");
     expect(quiz).toMatchObject({
       type: "quiz",
-      title: "Linear function check"
+      title: "Check: linear function"
     });
 
     if (!quiz || quiz.type !== "quiz") {
@@ -102,7 +102,8 @@ describe("validateStudybook", () => {
 
     expect(result.studybook.lessons.map((lesson) => lesson.id)).toEqual([
       "derivative-as-a-limit",
-      "derivative-at-a-point"
+      "derivative-at-a-point",
+      "constant-function-derivative"
     ]);
 
     const pointLesson = result.studybook.lessons.find(
@@ -156,7 +157,7 @@ describe("validateStudybook", () => {
     const quiz = blocks.find((block) => block.id === "point-derivative-check");
     expect(quiz).toMatchObject({
       type: "quiz",
-      title: "Point derivative check"
+      title: "Check: fixed input"
     });
 
     if (!quiz || quiz.type !== "quiz") {
@@ -167,6 +168,210 @@ describe("validateStudybook", () => {
       "correct-point-quotient",
       "tangent-slope-at-two"
     ]);
+  });
+
+  it("includes the approved constant-function derivative lesson", () => {
+    const result = validateStudybook(sourceStudybook);
+
+    if (!result.ok) {
+      throw new Error(result.errors.map((error) => error.message).join(", "));
+    }
+
+    expect(result.studybook.lessons.map((lesson) => lesson.id)).toEqual([
+      "derivative-as-a-limit",
+      "derivative-at-a-point",
+      "constant-function-derivative"
+    ]);
+
+    const constantLesson = result.studybook.lessons.find(
+      (lesson) => lesson.id === "constant-function-derivative"
+    );
+
+    if (!constantLesson) {
+      throw new Error("Expected the constant-function derivative lesson.");
+    }
+
+    const blocks = constantLesson.sections.flatMap((section) => section.blocks);
+
+    expect(blocks).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: "graph",
+          id: "constant-function-graph",
+          title: "Flat function has zero slope"
+        }),
+        expect.objectContaining({
+          type: "intuition",
+          id: "compare-constant-graph-to-rule",
+          title: "Compare: graph to numerator"
+        }),
+        expect.objectContaining({
+          type: "workedExample",
+          id: "derivative-of-constant-function",
+          title: "Derivative of f(x) = 7"
+        }),
+        expect.objectContaining({
+          type: "commonMistake",
+          id: "treating-constant-as-slope"
+        }),
+        expect.objectContaining({
+          type: "intuition",
+          id: "pause-compare-output-change",
+          title: "Pause: compare output values"
+        }),
+        expect.objectContaining({
+          type: "quiz",
+          id: "constant-function-check",
+          title: "Check: constant function"
+        })
+      ])
+    );
+
+    const example = blocks.find(
+      (block) => block.id === "derivative-of-constant-function"
+    );
+
+    if (!example || example.type !== "workedExample") {
+      throw new Error("Expected a worked example for f(x) = 7.");
+    }
+
+    expect(example.steps.map((step) => step.id)).toEqual([
+      "constant-start-definition",
+      "constant-substitute-function",
+      "constant-combine-output-change",
+      "constant-simplify-quotient",
+      "constant-evaluate-limit"
+    ]);
+    expect(example.steps[example.steps.length - 1]?.latex).toBe("f'(x)=0");
+
+    const quiz = blocks.find((block) => block.id === "constant-function-check");
+
+    if (!quiz || quiz.type !== "quiz") {
+      throw new Error("Expected a quiz block for the constant-function lesson.");
+    }
+
+    expect(quiz.questions.map((question) => question.id)).toEqual([
+      "constant-output-change-question",
+      "constant-derivative-value"
+    ]);
+  });
+
+  it("keeps the approved autism-aware cues in each deterministic lesson", () => {
+    const result = validateStudybook(sourceStudybook);
+
+    if (!result.ok) {
+      throw new Error(result.errors.map((error) => error.message).join(", "));
+    }
+
+    const lessonBlocks = Object.fromEntries(
+      result.studybook.lessons.map((lesson) => [
+        lesson.id,
+        lesson.sections.flatMap((section) => section.blocks)
+      ])
+    );
+
+    expect(lessonBlocks["derivative-as-a-limit"]).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: "intuition",
+          id: "compare-secant-graph-to-rule",
+          title: "Compare: graph to quotient"
+        }),
+        expect.objectContaining({
+          type: "intuition",
+          id: "pause-predict-safe-step",
+          title: "Pause: predict the safe step"
+        })
+      ])
+    );
+    expect(lessonBlocks["derivative-at-a-point"]).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: "intuition",
+          id: "compare-tangent-graph-to-rule",
+          title: "Compare: graph to fixed input"
+        }),
+        expect.objectContaining({
+          type: "intuition",
+          id: "pause-compare-fixed-inputs",
+          title: "Pause: compare the inputs"
+        })
+      ])
+    );
+    expect(lessonBlocks["constant-function-derivative"]).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          type: "intuition",
+          id: "compare-constant-graph-to-rule",
+          title: "Compare: graph to numerator"
+        }),
+        expect.objectContaining({
+          type: "intuition",
+          id: "pause-compare-output-change",
+          title: "Pause: compare output values"
+        })
+      ])
+    );
+  });
+
+  it("pairs graph descriptions and quiz feedback with explicit learner cues", () => {
+    const result = validateStudybook(sourceStudybook);
+
+    if (!result.ok) {
+      throw new Error(result.errors.map((error) => error.message).join(", "));
+    }
+
+    const blocks = result.studybook.lessons.flatMap((lesson) =>
+      lesson.sections.flatMap((section) => section.blocks)
+    );
+    const secantGraph = blocks.find((block) => block.id === "secant-slope-graph");
+    const tangentGraph = blocks.find((block) => block.id === "tangent-at-two-graph");
+
+    expect(secantGraph).toMatchObject({
+      type: "graph",
+      description: expect.stringContaining("Notice the two marked points first")
+    });
+    expect(tangentGraph).toMatchObject({
+      type: "graph",
+      description: expect.stringContaining("Notice the fixed point")
+    });
+
+    const firstQuiz = blocks.find((block) => block.id === "first-principles-check");
+    const pointQuiz = blocks.find((block) => block.id === "point-derivative-check");
+
+    if (!firstQuiz || firstQuiz.type !== "quiz") {
+      throw new Error("Expected first-principles quiz.");
+    }
+    if (!pointQuiz || pointQuiz.type !== "quiz") {
+      throw new Error("Expected point-derivative quiz.");
+    }
+
+    const firstQuestion = firstQuiz.questions[0];
+    const pointQuestion = pointQuiz.questions[0];
+
+    if (firstQuestion.kind !== "multipleChoice") {
+      throw new Error("Expected first-principles question to be multiple choice.");
+    }
+    if (pointQuestion.kind !== "multipleChoice") {
+      throw new Error("Expected point-derivative question to be multiple choice.");
+    }
+
+    expect(firstQuestion.options).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: "substitute-zero-first",
+          feedback: expect.stringContaining("division by zero")
+        })
+      ])
+    );
+    expect(pointQuestion.options).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: "mix-variable-and-point",
+          feedback: expect.stringContaining("fixed input 2")
+        })
+      ])
+    );
   });
 
   it("accepts sampled function series for the known graph blocks", () => {
@@ -182,7 +387,13 @@ describe("validateStudybook", () => {
       )
     );
 
-    ["secant-slope-graph", "tangent-at-two-graph"].forEach((graphId) => {
+    const expectedExpressions = new Map([
+      ["secant-slope-graph", "y = x^2"],
+      ["tangent-at-two-graph", "y = x^2"],
+      ["constant-function-graph", "y = 7"]
+    ]);
+
+    expectedExpressions.forEach((expression, graphId) => {
       const graph = graphBlocks.find((candidate) => candidate.id === graphId);
 
       if (!graph) {
@@ -197,14 +408,23 @@ describe("validateStudybook", () => {
         throw new Error(`Expected graph block ${graphId} to include a function series.`);
       }
 
-      expect(functionSeries.expression).toBe("y = x^2");
+      expect(functionSeries.expression).toBe(expression);
       expect(functionSeries.samples?.length).toBeGreaterThan(1);
-      expect(functionSeries.samples).toEqual(
-        expect.arrayContaining([
-          [1, 1],
-          [2, 4]
-        ])
-      );
+      if (graphId === "constant-function-graph") {
+        expect(functionSeries.samples).toEqual(
+          expect.arrayContaining([
+            [0, 7],
+            [2, 7]
+          ])
+        );
+      } else {
+        expect(functionSeries.samples).toEqual(
+          expect.arrayContaining([
+            [1, 1],
+            [2, 4]
+          ])
+        );
+      }
     });
   });
 

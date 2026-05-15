@@ -8,6 +8,7 @@ type CommonMistakeBlockViewProps = {
 export function CommonMistakeBlockView({ block }: CommonMistakeBlockViewProps) {
   return (
     <section className={`${styles.block} ${styles.mistake}`} aria-labelledby={block.id}>
+      <p className={styles.blockTypeLabel}>Common mistake</p>
       <h3 id={block.id} className={styles.blockTitle}>
         {block.title}
       </h3>

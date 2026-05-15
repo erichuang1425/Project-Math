@@ -122,6 +122,33 @@ Revision should be content-aware, not a separate notes app:
 - Ensure graph descriptions are available as text.
 - Do not rely on color alone to communicate correctness.
 
+## Approved Autism-Aware Deterministic Lesson Style
+
+Status: approved by the user on 2026-05-14. Use this as the default lesson style for deterministic derivatives lessons unless later learner review identifies a concrete change.
+
+Autism-aware lessons should:
+
+- Use short, literal learner-facing sentences.
+- Avoid idioms, jokes, vague encouragement, sarcasm, and metaphor-heavy explanations.
+- Break reading into visible chunks with one main idea per chunk.
+- Put a direct action near each chunk: observe, predict, calculate, compare, answer, or summarize.
+- Place each important equation near a plain-language interpretation.
+- Use graphs and equations as attention anchors, then state exactly what to notice.
+- Add a short compare cue after each graph when a graph supports a formula or worked example.
+- Keep worked-example step labels action-oriented, such as "Write the definition" or "Expand the square".
+- Tie quiz distractors to the same misconception named in the nearby common mistake block.
+- Add at least one deterministic pause prompt before the final quiz using existing block types.
+- Treat these choices as adjustable. Do not assume one autistic-friendly setting fits every learner.
+
+For derivatives lessons, a preferred micro-flow is:
+
+1. Observe the object: two points, one fixed input, a quotient, or a graph.
+2. Predict the next safe action.
+3. Calculate with algebraic steps.
+4. Compare the result with the graph or plain-language meaning.
+5. Answer a deterministic check.
+6. Summarize the rule and the mistake to avoid.
+
 ## What Done Means
 
 A lesson or content task is done when:

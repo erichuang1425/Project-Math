@@ -38,6 +38,17 @@ MVP surfaces:
 - Do not scale font size directly with viewport width.
 - Letter spacing should remain normal.
 
+Approved reader typography controls:
+
+- Keep reader controls near the lesson pane, not in a separate settings screen.
+- Make reader controls collapsible so they do not occupy the reading path by default.
+- The collapsed summary should name the active display settings in text.
+- Use literal labels: "Reader font", "Text size", "Line spacing", and "Low-glare mode".
+- Give each control a visible label and helper text where the setting may be unclear.
+- Offer system sans and system serif fonts only. Do not fetch fonts or add font packages.
+- Use CSS variables or scoped classes for font family, text size, line height, block spacing, and glare changes.
+- Keep KaTeX readable by changing the surrounding reader text, not by overriding KaTeX internals.
+
 ## Color and State
 
 Use restrained color to communicate state:
@@ -52,6 +63,26 @@ Use restrained color to communicate state:
 - Disabled.
 
 Do not rely on color alone. Pair state color with labels, icons, borders, or text.
+
+Approved low-sensory layout rules:
+
+- Prefer muted surfaces over pure white reading panels when low-glare mode is active.
+- Avoid decorative backgrounds, motion, flashing, timers, and urgency cues.
+- Segment the reading path with section labels, borders, and direct text, not nested cards.
+- Add direct compare cues after graph anchors when the graph supports a formula or calculation.
+- Make selected lesson, lesson progress, quiz selection, correct state, and incorrect state explicit in text.
+- Keep controls close to the content they affect.
+- Preserve a readable line length at narrow and wide desktop sizes.
+
+Approved study workspace layout rules:
+
+- The first screen should open directly into the study workspace with a lesson list, local progress status, reader controls, and the active lesson.
+- Include a skip link to the lesson content for keyboard users.
+- The lesson path may use a sticky side rail on wide screens, then collapse into the reading flow on narrow screens.
+- Block surfaces should identify their role in text, such as lesson opening, concept, equation, action cue, graph, worked example, common mistake, practice, or summary.
+- Graphs should be keyboard focusable and pair the SVG with text details for annotations when available.
+- Quiz questions should state whether no answer is selected, an answer is ready to check, or a submitted answer needs review.
+- Reader CSS variables should cover semantic states as well as surfaces: accent, focus, selected, warning, correct, incorrect, and disabled states must remain readable in low-glare mode.
 
 ## Math Rendering
 

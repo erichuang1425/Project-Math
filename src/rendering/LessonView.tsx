@@ -32,6 +32,10 @@ export function LessonView({
 }: LessonViewProps) {
   const lessonProgress = learnerState?.lessons[lesson.id];
   const isCompleted = lessonProgress?.status === "completed";
+  const lessonIndex = studybook.lessons.findIndex(
+    (candidate) => candidate.id === lesson.id
+  );
+  const lessonNumber = lessonIndex >= 0 ? lessonIndex + 1 : 1;
   const [copyStatus, setCopyStatus] = useState<LessonSummaryCopyStatus>("idle");
   const copyStatusMessage = getLessonSummaryCopyStatusMessage(copyStatus);
   const isCopyingSummary = copyStatus === "copying";
@@ -60,9 +64,20 @@ export function LessonView({
   return (
     <article className={styles.lesson}>
       <header className={styles.lessonHeader}>
-        <h1>{lesson.title}</h1>
-        <p>{lesson.summary}</p>
+        <div className={styles.lessonHeaderText}>
+          <p className={styles.lessonEyebrow}>Derivatives from First Principles</p>
+          <h1>{lesson.title}</h1>
+          <p>{lesson.summary}</p>
+        </div>
+        <div className={styles.lessonStatePanel} aria-label="Current lesson state">
+          <span>Status</span>
+          <strong>{isCompleted ? "Completed" : "Ready to study"}</strong>
+          <span>
+            Lesson {lessonNumber} of {studybook.lessons.length}
+          </span>
+        </div>
         <div className={styles.metadata} aria-label="Lesson metadata">
+          <span className={styles.pill}>Lesson {lessonNumber}</span>
           <span className={styles.pill}>{studybook.topic}</span>
           <span className={styles.pill}>{lesson.estimatedMinutes ?? 20} min</span>
           <span className={styles.pill}>
@@ -76,20 +91,48 @@ export function LessonView({
         </div>
       </header>
 
-      {lesson.sections.map((section) => (
-        <section key={section.id} className={styles.section} aria-labelledby={section.id}>
-          <h2 id={section.id}>{section.title}</h2>
-          {section.blocks.map((block) => (
-            <BlockRenderer
-              key={block.id}
-              block={block}
-              lessonId={lesson.id}
-              learnerState={learnerState}
-              onQuizAttempt={onQuizAttempt}
-            />
+      <div className={styles.lessonBody}>
+        <nav className={styles.sectionPath} aria-label="Lesson sections">
+          <p>Lesson path</p>
+          <ol>
+            {lesson.sections.map((section, index) => (
+              <li key={section.id}>
+                <a href={`#${section.id}`}>
+                  <span className={styles.pathStep}>Step {index + 1}</span>
+                  <span>{section.title}</span>
+                  <span>{section.blocks.length} study blocks</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+
+        <div className={styles.sectionStack}>
+          {lesson.sections.map((section, index) => (
+            <section
+              key={section.id}
+              className={styles.section}
+              aria-labelledby={section.id}
+            >
+              <div className={styles.sectionHeader}>
+                <p>
+                  Step {index + 1} of {lesson.sections.length}
+                </p>
+                <h2 id={section.id}>{section.title}</h2>
+              </div>
+              {section.blocks.map((block) => (
+                <BlockRenderer
+                  key={block.id}
+                  block={block}
+                  lessonId={lesson.id}
+                  learnerState={learnerState}
+                  onQuizAttempt={onQuizAttempt}
+                />
+              ))}
+            </section>
           ))}
-        </section>
-      ))}
+        </div>
+      </div>
       <footer className={styles.lessonFooter} aria-label="Lesson progress">
         <p>{isCompleted ? "This lesson is saved as complete." : "Progress is saved locally."}</p>
         <div className={styles.lessonFooterControls}>

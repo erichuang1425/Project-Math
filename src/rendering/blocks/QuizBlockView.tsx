@@ -37,6 +37,7 @@ export function QuizBlockView({
 
   return (
     <section className={`${styles.block} ${styles.quiz}`} aria-labelledby={block.id}>
+      <p className={styles.blockTypeLabel}>Practice</p>
       <h3 id={block.id} className={styles.blockTitle}>
         {block.title ?? "Quiz"}
       </h3>
@@ -141,18 +142,35 @@ function MultipleChoiceView({
   const selectedOption = question.options.find((option) => option.id === answer);
   const evaluation = evaluateQuizAnswer(question, answer);
   const isCorrect = submitted && evaluation.isCorrect;
+  const statusId = `${question.id}-status`;
+  const statusText = getQuestionStatus(answer, submitted, isCorrect);
 
   return (
     <div className={styles.quizQuestion}>
-      <p>
-        <RichText segments={question.prompt} />
-      </p>
-      {question.hint && !submitted ? <p>{question.hint}</p> : null}
+      <div className={styles.questionHeader}>
+        <p>
+          <RichText segments={question.prompt} />
+        </p>
+        <p id={statusId} className={styles.quizInstruction}>
+          {statusText}
+        </p>
+      </div>
+      {question.hint && !submitted ? (
+        <p className={styles.quizHint}>{question.hint}</p>
+      ) : null}
       <ul className={styles.optionList}>
         {question.options.map((option) => {
           const isSelected = answer === option.id;
           const optionIsCorrect = submitted && option.id === question.correctOptionId;
           const optionIsIncorrect = submitted && isSelected && !optionIsCorrect;
+          const stateLabel =
+            submitted && optionIsCorrect
+              ? "Correct answer"
+              : optionIsIncorrect
+                ? "Your answer"
+                : isSelected
+                  ? "Selected"
+                  : "";
           const className = [
             styles.optionButton,
             isSelected ? styles.selected : "",
@@ -169,10 +187,14 @@ function MultipleChoiceView({
                 data-testid={`quiz-option-${question.id}-${option.id}`}
                 type="button"
                 aria-pressed={isSelected}
+                aria-describedby={statusId}
                 onClick={() => onAnswer(option.id)}
                 disabled={submitted}
               >
                 <RichText segments={option.text} />
+                {stateLabel ? (
+                  <span className={styles.optionState}>{stateLabel}</span>
+                ) : null}
               </button>
             </li>
           );
@@ -195,7 +217,14 @@ function MultipleChoiceView({
         ) : null}
       </div>
       {submitted && selectedOption ? (
-        <p className={styles.feedback}>
+        <p
+          className={`${styles.feedback} ${
+            isCorrect ? styles.feedbackCorrect : styles.feedbackReview
+          }`}
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
           <strong>{isCorrect ? "Correct. " : "Review. "}</strong>
           {evaluation.feedback}
         </p>
@@ -216,15 +245,25 @@ function ShortAnswerView({
 }: QuestionInteractionProps<ShortAnswerQuestion>) {
   const evaluation = evaluateQuizAnswer(question, answer);
   const isCorrect = submitted && evaluation.isCorrect;
+  const statusId = `${question.id}-status`;
+  const statusText = getQuestionStatus(answer, submitted, isCorrect);
 
   return (
     <div className={styles.quizQuestion}>
-      <p>
-        <RichText segments={question.prompt} />
-      </p>
-      {question.hint && !submitted ? <p>{question.hint}</p> : null}
+      <div className={styles.questionHeader}>
+        <p>
+          <RichText segments={question.prompt} />
+        </p>
+        <p id={statusId} className={styles.quizInstruction}>
+          {statusText}
+        </p>
+      </div>
+      {question.hint && !submitted ? (
+        <p className={styles.quizHint}>{question.hint}</p>
+      ) : null}
       <input
         aria-label="Short answer"
+        aria-describedby={statusId}
         value={answer}
         onChange={(event) => onAnswer(event.currentTarget.value)}
         disabled={submitted}
@@ -246,7 +285,14 @@ function ShortAnswerView({
         ) : null}
       </div>
       {submitted ? (
-        <p className={styles.feedback}>
+        <p
+          className={`${styles.feedback} ${
+            isCorrect ? styles.feedbackCorrect : styles.feedbackReview
+          }`}
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        >
           <strong>{isCorrect ? "Correct. " : "Review. "}</strong>
           {evaluation.feedback}
         </p>
@@ -254,6 +300,18 @@ function ShortAnswerView({
       <AttemptCount count={savedAttemptCount} />
     </div>
   );
+}
+
+function getQuestionStatus(answer: string, submitted: boolean, isCorrect: boolean) {
+  if (submitted) {
+    return isCorrect
+      ? "Submitted answer is correct."
+      : "Submitted answer needs review.";
+  }
+
+  return answer
+    ? "Answer selected. Check answer when ready."
+    : "No answer selected yet.";
 }
 
 function AttemptCount({ count }: { count: number }) {

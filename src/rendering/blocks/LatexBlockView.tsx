@@ -8,7 +8,11 @@ type LatexBlockViewProps = {
 
 export function LatexBlockView({ block }: LatexBlockViewProps) {
   return (
-    <section className={styles.block} aria-label={block.caption ?? "Display math"}>
+    <section
+      className={`${styles.block} ${styles.mathBlockShell}`}
+      aria-label={block.caption ?? "Display math"}
+    >
+      <p className={styles.blockTypeLabel}>Equation</p>
       <MathBlock latex={block.latex} caption={block.caption} />
     </section>
   );

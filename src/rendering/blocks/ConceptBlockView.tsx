@@ -9,6 +9,7 @@ type ConceptBlockViewProps = {
 export function ConceptBlockView({ block }: ConceptBlockViewProps) {
   return (
     <section className={`${styles.block} ${styles.concept}`} aria-labelledby={block.id}>
+      <p className={styles.blockTypeLabel}>Concept</p>
       <h3 id={block.id} className={styles.blockTitle}>
         {block.title}
       </h3>

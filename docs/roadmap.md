@@ -14,7 +14,7 @@ What done means:
 
 Goal: Create the minimal Tauri, React, TypeScript, and Vite app shell.
 
-Current status: React, TypeScript, Vite, the first lesson frontend, and a thin Tauri desktop shell are in place. Packaging and installer polish are not in scope yet.
+Current status: React, TypeScript, Vite, the first lesson frontend, and a thin Tauri desktop shell are in place. The app now opens to a dashboard-first shell for the bundled derivatives studybook, then opens the existing reader through local app state without adding a router. The study workspace includes explicit lesson progress, a dashboard-return path, a keyboard skip link, collapsible reader controls, and a wider responsive lesson reader. Packaging and installer polish are not in scope yet.
 
 Tasks:
 
@@ -54,7 +54,7 @@ What done means:
 
 Goal: Render core MVP blocks from structured data.
 
-Current status: complete for the first vertical slice. The renderer covers title, concept, intuition, LaTeX, graph, worked example, common mistake, quiz, and summary blocks.
+Current status: complete for the first vertical slice. The renderer covers title, concept, intuition, LaTeX, graph, worked example, common mistake, quiz, and summary blocks. The current UI pass adds role labels across all current block families, a wide-screen lesson path rail, graph annotation details, title-specific focusable SVG graphs, explicit quiz status text, and reader-scoped semantic state tokens without changing the studybook schema.
 
 Tasks:
 
@@ -74,7 +74,7 @@ What done means:
 
 Goal: Add the first deterministic lesson for "Derivatives from First Principles".
 
-Current status: complete through the second deterministic lesson-content slice. The first lesson includes the first-principles definition, secant graph spec, worked examples for f(x) = x^2 and f(x) = 3x - 5, common mistakes, quizzes, and revision summary. The second lesson adds a point-derivative study flow for f'(2) on f(x) = x^2 with a fixed-input definition, tangent graph spec, worked example, common mistake, quiz, and revision summary.
+Current status: complete through the approved autism-aware standard and three deterministic lessons. The first lesson includes the first-principles definition, secant graph spec, a graph-to-quotient compare cue, worked examples for f(x) = x^2 and f(x) = 3x - 5, common mistakes, pause prompt, quizzes, and revision summary. The second lesson includes a point-derivative study flow for f'(2) on f(x) = x^2 with a fixed-input definition, tangent graph spec, a graph-to-fixed-input compare cue, worked example, common mistake, pause prompt, quiz, and revision summary. The third lesson applies the approved standard to the derivative of a constant function, including a flat-function graph, first-principles worked example, misconception check, quiz, and revision summary.
 
 Tasks:
 
@@ -149,9 +149,9 @@ What done means:
 
 ## Next Three Implementation Tasks
 
-1. Add the next deterministic lesson for the derivatives topic now that graph curve rendering exists.
-2. Revisit export delivery for native save location handling or print styling after concrete requirements are chosen.
-3. Add a focused desktop smoke path for export actions once the Tauri clipboard/download behavior needs native verification.
+1. Review the dashboard-first course, lesson, and material navigation with the user and address concrete accessibility, visual, or interaction feedback.
+2. Review the new constant-function derivative lesson with the user and address concrete revision feedback if needed.
+3. Add the next deterministic derivatives lesson without adding new curriculum infrastructure after the current UI/content review is accepted.
 
 ## Recommended First Vertical Slice
 
