@@ -15,10 +15,7 @@ export type KeyValueStorage = {
   setItem: (key: string, value: string) => void;
 };
 
-export type TauriInvoke = <T>(
-  command: string,
-  args?: Record<string, unknown>
-) => Promise<T>;
+export type TauriInvoke = <T>(command: string, args?: Record<string, unknown>) => Promise<T>;
 
 type TauriWindow = Window & {
   __TAURI__?: {
@@ -53,9 +50,7 @@ export function createLocalStorageLearnerStateRepository(
   };
 }
 
-export function createTauriLearnerStateRepository(
-  invoke: TauriInvoke
-): LearnerStateRepository {
+export function createTauriLearnerStateRepository(invoke: TauriInvoke): LearnerStateRepository {
   return {
     async loadLearnerState(studybookId) {
       const rawState = await invoke<string | null>("load_learner_state", {

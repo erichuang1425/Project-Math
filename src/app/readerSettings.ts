@@ -53,22 +53,15 @@ export function normalizeReaderSettings(input: unknown): ReaderSettings {
 
   return {
     font: isReaderFont(input.font) ? input.font : defaultReaderSettings.font,
-    textSize: isReaderTextSize(input.textSize)
-      ? input.textSize
-      : defaultReaderSettings.textSize,
+    textSize: isReaderTextSize(input.textSize) ? input.textSize : defaultReaderSettings.textSize,
     lineSpacing: isReaderLineSpacing(input.lineSpacing)
       ? input.lineSpacing
       : defaultReaderSettings.lineSpacing,
-    lowGlare:
-      typeof input.lowGlare === "boolean"
-        ? input.lowGlare
-        : defaultReaderSettings.lowGlare
+    lowGlare: typeof input.lowGlare === "boolean" ? input.lowGlare : defaultReaderSettings.lowGlare
   };
 }
 
-export function loadReaderSettings(
-  storage: ReaderStorage | undefined
-): ReaderSettings {
+export function loadReaderSettings(storage: ReaderStorage | undefined): ReaderSettings {
   if (!storage) {
     return defaultReaderSettings;
   }
@@ -81,10 +74,7 @@ export function loadReaderSettings(
   }
 }
 
-export function saveReaderSettings(
-  settings: ReaderSettings,
-  storage: ReaderStorage | undefined
-) {
+export function saveReaderSettings(settings: ReaderSettings, storage: ReaderStorage | undefined) {
   if (!storage) {
     return;
   }
@@ -96,21 +86,17 @@ export function saveReaderSettings(
   }
 }
 
-export function createReaderSettingsStyle(
-  settings: ReaderSettings
-): Record<string, string> {
+export function createReaderSettingsStyle(settings: ReaderSettings): Record<string, string> {
   const textSize =
     settings.textSize === "extra-large"
       ? "1.2rem"
       : settings.textSize === "large"
         ? "1.1rem"
         : "1rem";
+  const fontScale =
+    settings.textSize === "extra-large" ? "1.2" : settings.textSize === "large" ? "1.1" : "1";
   const lineHeight =
-    settings.lineSpacing === "wide"
-      ? "2"
-      : settings.lineSpacing === "comfortable"
-        ? "1.8"
-        : "1.65";
+    settings.lineSpacing === "wide" ? "2" : settings.lineSpacing === "comfortable" ? "1.8" : "1.65";
   const blockGap =
     settings.lineSpacing === "wide"
       ? "30px"
@@ -132,6 +118,7 @@ export function createReaderSettingsStyle(
     "--reader-font-family": fontFamily,
     "--reader-control-font-family": fontFamily,
     "--reader-font-size": textSize,
+    "--reader-font-scale": fontScale,
     "--reader-line-height": lineHeight,
     "--reader-letter-spacing": "0",
     "--reader-block-gap": blockGap,
@@ -146,9 +133,7 @@ export function createReaderSettingsStyle(
     "--reader-strong-border": settings.lowGlare ? "#bfb59e" : "#cbd3c4",
     "--reader-accent": settings.lowGlare ? "#315f64" : "#2f5d62",
     "--reader-accent-text": settings.lowGlare ? "#284c50" : "#244e52",
-    "--reader-focus-ring": settings.lowGlare
-      ? "rgba(49, 95, 100, 0.3)"
-      : "rgba(47, 93, 98, 0.22)",
+    "--reader-focus-ring": settings.lowGlare ? "rgba(49, 95, 100, 0.3)" : "rgba(47, 93, 98, 0.22)",
     "--reader-selected-surface": settings.lowGlare ? "#e3ece9" : "#eef7f5",
     "--reader-warning": settings.lowGlare ? "#7a6728" : "#8a6f1e",
     "--reader-warning-text": settings.lowGlare ? "#4f4117" : "#40350d",

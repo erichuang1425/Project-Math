@@ -1,4 +1,4 @@
-import type { GraphBlock } from "../../studybook/schema";
+import type { GraphBlock } from "../../content/schema";
 import { GraphView } from "../../graphs/GraphView";
 import styles from "../lesson.module.css";
 

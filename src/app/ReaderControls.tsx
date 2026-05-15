@@ -12,26 +12,28 @@ type ReaderControlsProps = {
   onSettingsChange: (settings: ReaderSettings) => void;
 };
 
-export function ReaderControls({
-  settings,
-  onSettingsChange
-}: ReaderControlsProps) {
+export function ReaderControls({ settings, onSettingsChange }: ReaderControlsProps) {
   const settingsSummary = getReaderSettingsSummary(settings);
 
   return (
     <details className={styles.readerControls}>
       <summary className={styles.readerControlSummary}>
         <span id="reader-controls-heading">Reader controls</span>
-        <span>Reader controls: {settingsSummary}</span>
+        <span
+          id="reader-controls-status"
+          className={styles.readerControlSummaryStatus}
+          aria-live="polite"
+        >
+          {settingsSummary}
+        </span>
       </summary>
       <div
         className={styles.readerControlPanel}
         role="group"
         aria-labelledby="reader-controls-heading"
+        aria-describedby="reader-controls-description"
       >
-        <p id="reader-controls-description">
-          These controls change this reading pane only.
-        </p>
+        <p id="reader-controls-description">These controls change this reading pane only.</p>
         <fieldset className={styles.readerControlFieldset}>
           <legend>Display choices</legend>
           <div className={styles.readerControlGrid}>
@@ -72,8 +74,7 @@ export function ReaderControls({
                 onChange={(event) =>
                   onSettingsChange({
                     ...settings,
-                    textSize: event.currentTarget
-                      .value as ReaderSettings["textSize"]
+                    textSize: event.currentTarget.value as ReaderSettings["textSize"]
                   })
                 }
               >
@@ -98,8 +99,7 @@ export function ReaderControls({
                 onChange={(event) =>
                   onSettingsChange({
                     ...settings,
-                    lineSpacing: event.currentTarget
-                      .value as ReaderSettings["lineSpacing"]
+                    lineSpacing: event.currentTarget.value as ReaderSettings["lineSpacing"]
                   })
                 }
               >

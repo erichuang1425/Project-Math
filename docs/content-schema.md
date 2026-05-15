@@ -2,27 +2,42 @@
 
 ## Goal
 
-The studybook schema is the contract between authored lesson content and the app. It must be deterministic, versioned, testable, and suitable for future AI-assisted generation.
-
-Do not represent lessons as arbitrary React components.
+The content schema is the contract between authored learning material and the app. It must be deterministic, versioned, testable, and suitable for future AI-assisted authoring. Lessons are never bespoke React components.
 
 ## Format
 
-Use JSON for MVP content files. TypeScript types should mirror the JSON schema. Runtime validation must happen before rendering.
+Course files are JSON, validated at load by `validateContent`. TypeScript types in `src/content/schema.ts` mirror the JSON shape one-for-one.
 
-## Top-Level Studybook
+## Hierarchy
+
+`Course → Module → Lesson → Block` (with `Glossary` at the course level).
+
+## Top-Level Course
 
 ```ts
-type Studybook = {
-  schemaVersion: "1.0";
+type Course = {
+  schemaVersion: "2.0";
   id: string;
+  slug: string;
   title: string;
   subject: "math" | "technical";
-  topic: string;
+  level: "intro" | "core" | "stretch";
   summary: string;
+  illustrationId: string;
   prerequisites: string[];
+  modules: Module[];
+  glossary: GlossaryTerm[];
+};
+```
+
+## Module
+
+```ts
+type Module = {
+  id: string;
+  title: string;
+  summary: string;
   lessons: Lesson[];
-  glossary?: GlossaryEntry[];
 };
 ```
 
@@ -31,29 +46,27 @@ type Studybook = {
 ```ts
 type Lesson = {
   id: string;
+  slug: string;
   title: string;
   summary: string;
-  objectives: string[];
-  estimatedMinutes?: number;
-  sections: LessonSection[];
+  objectives: LessonObjective[];
+  prerequisiteLessonIds: string[];
+  estimatedMinutes: number;
+  difficulty: "intro" | "core" | "stretch";
+  blocks: Block[];
   revision?: RevisionLayer;
 };
-```
 
-## Section
-
-```ts
-type LessonSection = {
+type LessonObjective = {
   id: string;
-  title: string;
-  blocks: StudyBlock[];
+  text: string;
 };
 ```
 
-## Blocks
+## Block
 
 ```ts
-type StudyBlock =
+type Block =
   | TitleBlock
   | ConceptBlock
   | IntuitionBlock
@@ -65,18 +78,7 @@ type StudyBlock =
   | SummaryBlock;
 ```
 
-### Title Block
-
-```ts
-type TitleBlock = {
-  type: "title";
-  id: string;
-  kicker?: string;
-  title: string;
-  subtitle?: string;
-  objectives?: RichTextSegment[][];
-};
-```
+Every block has `id` (required) and optional `objectiveIds?: string[]` cross-referencing `Lesson.objectives[].id`, plus optional `estimatedMinutes?: number`.
 
 ### Rich Text Segment
 
@@ -87,257 +89,98 @@ type RichTextSegment =
   | { kind: "term"; termId: string; label: string };
 ```
 
-### Concept Block
+`term` segments resolve against the course `glossary` and open a popover in the reader. Every `termId` must match a `GlossaryTerm.id`.
 
-```ts
-type ConceptBlock = {
-  type: "concept";
-  id: string;
-  title: string;
-  body: RichTextSegment[];
-  keyIdeas?: RichTextSegment[][];
-};
-```
+### Concept, Intuition, LaTeX, Worked Example, Graph, Common Mistake, Quiz, Summary, Title
 
-### Intuition Block
-
-```ts
-type IntuitionBlock = {
-  type: "intuition";
-  id: string;
-  title: string;
-  body: RichTextSegment[];
-  takeaway?: RichTextSegment[];
-};
-```
-
-### LaTeX Block
-
-```ts
-type LatexBlock = {
-  type: "latex";
-  id: string;
-  latex: string;
-  caption?: string;
-  display?: boolean;
-};
-```
-
-### Worked Example Block
-
-```ts
-type WorkedExampleBlock = {
-  type: "workedExample";
-  id: string;
-  title: string;
-  goal: string;
-  given?: string;
-  steps: WorkedStep[];
-  interpretation?: string;
-};
-
-type WorkedStep = {
-  id: string;
-  label: string;
-  explanation: string;
-  latex?: string;
-};
-```
-
-### Graph Block
-
-```ts
-type GraphBlock = {
-  type: "graph";
-  id: string;
-  title: string;
-  description: string;
-  spec: GraphSpec;
-};
-
-type GraphSpec = {
-  xAxis: AxisSpec;
-  yAxis: AxisSpec;
-  series: GraphSeries[];
-  annotations?: GraphAnnotation[];
-};
-
-type AxisSpec = {
-  label: string;
-  min: number;
-  max: number;
-  ticks?: number[];
-};
-
-type GraphSeries =
-  | {
-      kind: "function";
-      id: string;
-      label: string;
-      expression: string;
-      domain?: [number, number];
-      samples?: Array<[number, number]>;
-    }
-  | { kind: "points"; id: string; label: string; points: Array<[number, number]> }
-  | { kind: "line"; id: string; label: string; through: [[number, number], [number, number]] };
-
-type GraphAnnotation = {
-  id: string;
-  label: string;
-  point?: [number, number];
-  text?: string;
-};
-```
-
-`expression` is display data for MVP. Do not evaluate arbitrary expressions without a reviewed parser.
-
-For `function` series, `samples` may provide explicit authored points for deterministic SVG curve rendering. When present, `samples` must contain at least two finite coordinate pairs. The renderer connects those samples with an SVG polyline; it does not compute points from `expression`.
-
-### Common Mistake Block
-
-```ts
-type CommonMistakeBlock = {
-  type: "commonMistake";
-  id: string;
-  title: string;
-  misconception: string;
-  incorrectStep: string;
-  whyWrong: string;
-  correction: string;
-  checkPrompt?: string;
-};
-```
-
-### Quiz Block
-
-```ts
-type QuizBlock = {
-  type: "quiz";
-  id: string;
-  title?: string;
-  questions: QuizQuestion[];
-};
-
-type QuizQuestion =
-  | MultipleChoiceQuestion
-  | ShortAnswerQuestion;
-
-type MultipleChoiceQuestion = {
-  kind: "multipleChoice";
-  id: string;
-  prompt: RichTextSegment[];
-  options: QuizOption[];
-  correctOptionId: string;
-  conceptTags: string[];
-  hint?: string;
-};
-
-type QuizOption = {
-  id: string;
-  text: RichTextSegment[];
-  feedback: string;
-};
-
-type ShortAnswerQuestion = {
-  kind: "shortAnswer";
-  id: string;
-  prompt: RichTextSegment[];
-  acceptedAnswers: string[];
-  feedback: {
-    correct: string;
-    incorrect: string;
-  };
-  conceptTags: string[];
-  hint?: string;
-};
-```
-
-### Summary Block
-
-```ts
-type SummaryBlock = {
-  type: "summary";
-  id: string;
-  items: RichTextSegment[][];
-};
-```
-
-## Revision Layer
-
-```ts
-type RevisionLayer = {
-  keyIdeas: string[];
-  recallPrompts: string[];
-  mistakeIds: string[];
-  quizIds: string[];
-};
-```
+Block payloads are unchanged from schemaVersion 1.0 except for the universal `id` + optional `objectiveIds` + optional `estimatedMinutes` additions. See `src/content/schema.ts` for the authoritative source.
 
 ## Glossary
 
 ```ts
-type GlossaryEntry = {
+type GlossaryTerm = {
   id: string;
   term: string;
   definition: string;
+  aliases?: string[];
   latex?: string;
 };
 ```
 
+Lives at the course level. The reader resolves `term` segments by `id` and shows the definition (and optional rendered LaTeX) in a `<dialog>` popover.
+
 ## ID Rules
 
-- IDs must be stable and lowercase kebab-case.
-- IDs must be unique within their parent collection.
-- Block IDs must be stable enough for progress, annotations, and export references.
-- Do not use array index as identity.
+- IDs are lowercase kebab-case.
+- IDs are unique within their parent collection.
+- IDs are stable across edits (progress, exports, and annotations reference them).
+- Never use array index as identity.
 
 ## Validation Rules
 
-Runtime validation must reject:
+`validateContent` rejects:
 
-- Unknown `schemaVersion`.
+- Unknown `schemaVersion` (only `"2.0"` is accepted).
 - Unknown block type.
-- Empty lesson objectives.
-- Empty sections.
-- Empty block IDs.
-- Duplicate IDs within the same parent.
+- Empty `objectives`, `blocks`, or `modules`.
+- Empty or duplicate IDs at any level.
 - LaTeX fields that fail KaTeX rendering.
-- Quiz questions without correct feedback.
-- Multiple-choice questions whose `correctOptionId` does not match an option.
-- Graphs without axis labels.
-- Function graph samples that are not finite coordinate pairs.
+- Quizzes whose `correctOptionId` doesn't match an option, or whose questions miss per-option feedback.
+- Graphs without axis labels or with non-finite samples.
+- `term` segments whose `termId` is not in the course glossary.
+- `prerequisiteLessonIds` that point outside the course or form a cycle.
+- `objectiveIds` on a block that don't match the lesson's `objectives[].id`.
+
+Every validation rule has a paired invalid fixture under `src/content/fixtures/invalid/`.
 
 ## Minimal Example
 
 ```json
 {
-  "schemaVersion": "1.0",
-  "id": "derivatives-first-principles",
-  "title": "Derivatives from First Principles",
+  "schemaVersion": "2.0",
+  "id": "calculus-i",
+  "slug": "calculus-i",
+  "title": "Calculus I",
   "subject": "math",
-  "topic": "calculus",
-  "summary": "Learn the derivative as a limit of average rates of change.",
-  "prerequisites": ["algebra", "functions", "limits"],
-  "lessons": [
+  "level": "intro",
+  "summary": "Foundations through derivatives and differentiation rules.",
+  "illustrationId": "tangent-curve",
+  "prerequisites": ["algebra", "functions"],
+  "modules": [
     {
-      "id": "difference-quotient",
-      "title": "The Difference Quotient",
-      "summary": "Connect average rate of change to the derivative definition.",
-      "objectives": ["Explain the difference quotient", "Compute the derivative of x^2 from first principles"],
-      "sections": [
+      "id": "foundations",
+      "title": "Foundations",
+      "summary": "Functions, graphs, and limits.",
+      "lessons": [
         {
-          "id": "definition",
-          "title": "Definition",
+          "id": "derivative-definition",
+          "slug": "derivative-definition",
+          "title": "Derivative as a limit",
+          "summary": "Build the derivative from slopes between two points.",
+          "objectives": [{ "id": "obj-define", "text": "State the derivative as a limit" }],
+          "prerequisiteLessonIds": [],
+          "estimatedMinutes": 24,
+          "difficulty": "intro",
           "blocks": [
             {
               "type": "latex",
-              "id": "derivative-definition",
+              "id": "derivative-definition-formula",
+              "objectiveIds": ["obj-define"],
               "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
-              "caption": "Derivative from first principles"
+              "caption": "Derivative from first principles",
+              "display": true
             }
           ]
         }
       ]
+    }
+  ],
+  "glossary": [
+    {
+      "id": "derivative",
+      "term": "derivative",
+      "definition": "Instantaneous rate of change of a function at a point.",
+      "aliases": ["instantaneous rate"]
     }
   ]
 }
@@ -347,8 +190,9 @@ Runtime validation must reject:
 
 Schema work is done when:
 
-- TypeScript types and runtime validation agree.
-- Valid and invalid fixtures exist.
-- Unit tests cover required and rejected shapes.
-- Renderer tests cover every block type affected by the change.
+- TypeScript types and `validateContent` agree.
+- Valid and invalid fixtures exist for every rule.
+- Tests cover every accepted and rejected shape.
+- Renderer tests mount each affected block type in jsdom.
 - Existing content files are migrated or fail with a clear error.
+- `docs/content-schema.md` (this file) stays in sync with `src/content/schema.ts`.

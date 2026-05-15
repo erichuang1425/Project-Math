@@ -52,11 +52,7 @@ describe("learner state", () => {
   });
 
   it("marks lesson progress as opened and completed", () => {
-    const opened = markLessonOpened(
-      createEmptyLearnerState(studybookId),
-      lessonId,
-      openedAt
-    );
+    const opened = markLessonOpened(createEmptyLearnerState(studybookId), lessonId, openedAt);
     const completed = markLessonCompleted(opened, lessonId, completedAt);
 
     expect(opened.lessons[lessonId]).toEqual({
@@ -93,9 +89,7 @@ describe("learner state", () => {
       submittedAt: "2026-05-09T12:05:00.000Z"
     });
 
-    expect(
-      getQuizAttempts(secondAttempt, lessonId, quizBlockId, questionId)
-    ).toMatchObject([
+    expect(getQuizAttempts(secondAttempt, lessonId, quizBlockId, questionId)).toMatchObject([
       {
         id: `${lessonId}-${quizBlockId}-${questionId}-attempt-1`,
         attemptNumber: 1,
@@ -133,10 +127,7 @@ describe("learner state", () => {
   it("uses thin Tauri commands as a JSON string transport", async () => {
     const calls: Array<{ command: string; args?: Record<string, unknown> }> = [];
     let savedJson: string | null = null;
-    const invoke: TauriInvoke = async <T>(
-      command: string,
-      args?: Record<string, unknown>
-    ) => {
+    const invoke: TauriInvoke = async <T>(command: string, args?: Record<string, unknown>) => {
       calls.push({ command, args });
 
       if (command === "save_learner_state") {
@@ -156,10 +147,7 @@ describe("learner state", () => {
     await repository.saveLearnerState(state);
     const loaded = await repository.loadLearnerState(studybookId);
 
-    expect(calls.map((call) => call.command)).toEqual([
-      "save_learner_state",
-      "load_learner_state"
-    ]);
+    expect(calls.map((call) => call.command)).toEqual(["save_learner_state", "load_learner_state"]);
     expect(loaded.state).toEqual(state);
   });
 });

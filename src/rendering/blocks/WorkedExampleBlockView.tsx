@@ -1,4 +1,4 @@
-import type { WorkedExampleBlock } from "../../studybook/schema";
+import type { WorkedExampleBlock } from "../../content/schema";
 import { MathBlock } from "../../math/MathBlock";
 import styles from "../lesson.module.css";
 

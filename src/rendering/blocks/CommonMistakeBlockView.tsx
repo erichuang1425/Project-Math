@@ -1,4 +1,4 @@
-import type { CommonMistakeBlock } from "../../studybook/schema";
+import type { CommonMistakeBlock } from "../../content/schema";
 import styles from "../lesson.module.css";
 
 type CommonMistakeBlockViewProps = {

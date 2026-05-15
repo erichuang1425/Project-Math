@@ -1,0 +1,38 @@
+.ring {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.track {
+  stroke: var(--pm-color-surface-sunken);
+}
+
+[data-mode="calm"] .track {
+  stroke: var(--pm-color-panel-border);
+}
+
+.fill {
+  stroke: var(--pm-color-accent);
+  transition: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-mode="polished"] .fill {
+    transition: stroke-dashoffset var(--pm-duration-slow) var(--pm-ease-standard);
+  }
+}
+
+.label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--pm-size-sm);
+  font-weight: 700;
+  color: var(--pm-color-text);
+  font-variant-numeric: tabular-nums;
+}
