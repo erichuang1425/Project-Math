@@ -6,9 +6,7 @@ import {
 
 describe("lesson summary clipboard", () => {
   it("copies the provided markdown through the clipboard writer", async () => {
-    const writeText = vi
-      .fn<(text: string) => Promise<void>>()
-      .mockResolvedValue();
+    const writeText = vi.fn<(text: string) => Promise<void>>().mockResolvedValue();
     const markdown = "# Derivative as a Limit\n\nProgress: Completed\n";
 
     const result = await copyLessonSummaryMarkdown(markdown, writeText);
@@ -29,9 +27,7 @@ describe("lesson summary clipboard", () => {
 
   it("describes copy states without interrupting the learner", () => {
     expect(getLessonSummaryCopyStatusMessage("idle")).toBe("");
-    expect(getLessonSummaryCopyStatusMessage("copying")).toBe(
-      "Copying summary markdown..."
-    );
+    expect(getLessonSummaryCopyStatusMessage("copying")).toBe("Copying summary markdown...");
     expect(getLessonSummaryCopyStatusMessage("copied")).toBe(
       "Summary markdown copied to clipboard."
     );

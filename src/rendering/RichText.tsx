@@ -1,5 +1,8 @@
-import type { RichTextSegment } from "../studybook/schema";
+import { useState } from "react";
+import type { RichTextSegment } from "../content/schema";
 import { MathInline } from "../math/MathInline";
+import { useGlossaryTerm } from "./GlossaryContext";
+import { GlossaryPopover } from "./GlossaryPopover";
 import styles from "./lesson.module.css";
 
 type RichTextProps = {
@@ -16,13 +19,38 @@ export function RichText({ segments }: RichTextProps) {
           case "inlineMath":
             return <MathInline key={index} latex={segment.latex} />;
           case "term":
-            return (
-              <span key={index} className={styles.term} data-term-id={segment.termId}>
-                {segment.label}
-              </span>
-            );
+            return <TermSegment key={index} termId={segment.termId} label={segment.label} />;
         }
       })}
+    </>
+  );
+}
+
+function TermSegment({ termId, label }: { termId: string; label: string }) {
+  const [open, setOpen] = useState(false);
+  const term = useGlossaryTerm(termId);
+
+  if (!term) {
+    return (
+      <span className={styles.term} data-term-id={termId}>
+        {label}
+      </span>
+    );
+  }
+
+  return (
+    <>
+      <button
+        type="button"
+        className={styles.termButton}
+        data-term-id={termId}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        onClick={() => setOpen(true)}
+      >
+        {label}
+      </button>
+      <GlossaryPopover term={term} open={open} onClose={() => setOpen(false)} />
     </>
   );
 }

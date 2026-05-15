@@ -1,0 +1,96 @@
+.button {
+  --button-bg: var(--pm-color-accent);
+  --button-fg: var(--pm-color-accent-contrast);
+  --button-border: transparent;
+  --button-hover: var(--pm-color-accent-hover);
+
+  appearance: none;
+  border: 1px solid var(--button-border);
+  background: var(--button-bg);
+  color: var(--button-fg);
+  font: inherit;
+  font-weight: 600;
+  padding: var(--pm-space-3) var(--pm-space-5);
+  border-radius: var(--pm-radius-2);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pm-space-2);
+  text-decoration: none;
+  line-height: 1.2;
+  min-height: 2.5rem;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-mode="polished"] .button {
+    transition:
+      transform var(--pm-duration-fast) var(--pm-ease-standard),
+      background-color var(--pm-duration-base) var(--pm-ease-standard),
+      box-shadow var(--pm-duration-base) var(--pm-ease-standard);
+  }
+}
+
+.button:hover:not(:disabled),
+.button:focus-visible:not(:disabled) {
+  background: var(--button-hover);
+}
+
+[data-mode="polished"] .button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: var(--pm-shadow-2);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  background: var(--pm-color-disabled-bg);
+  color: var(--pm-color-disabled);
+  border-color: transparent;
+}
+
+.primary {
+  --button-bg: var(--pm-color-accent);
+  --button-fg: var(--pm-color-accent-contrast);
+  --button-hover: var(--pm-color-accent-hover);
+}
+
+.ghost {
+  --button-bg: transparent;
+  --button-fg: var(--pm-color-accent);
+  --button-border: var(--pm-color-accent);
+  --button-hover: var(--pm-color-accent-soft);
+}
+
+.subtle {
+  --button-bg: var(--pm-color-surface);
+  --button-fg: var(--pm-color-text);
+  --button-border: var(--pm-color-panel-border);
+  --button-hover: var(--pm-color-surface-sunken);
+}
+
+.danger {
+  --button-bg: var(--pm-color-incorrect);
+  --button-fg: var(--pm-color-text-inverse);
+  --button-hover: #8a2929;
+}
+
+.sizeSm {
+  padding: var(--pm-space-2) var(--pm-space-3);
+  font-size: var(--pm-size-sm);
+  min-height: 2rem;
+}
+
+.sizeLg {
+  padding: var(--pm-space-4) var(--pm-space-6);
+  font-size: var(--pm-size-lg);
+  min-height: 3rem;
+}
+
+.fullWidth {
+  width: 100%;
+}

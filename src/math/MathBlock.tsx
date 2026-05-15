@@ -12,10 +12,7 @@ export function MathBlock({ latex, caption }: MathBlockProps) {
   return (
     <figure className={styles.mathBlock}>
       {result.ok ? (
-        <div
-          className={styles.mathScroll}
-          dangerouslySetInnerHTML={{ __html: result.html }}
-        />
+        <div className={styles.mathScroll} dangerouslySetInnerHTML={{ __html: result.html }} />
       ) : (
         <pre className={styles.mathFallback} aria-label="Invalid display math">
           {latex}

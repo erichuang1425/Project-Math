@@ -1,0 +1,62 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-6);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-2);
+}
+
+.heroEyebrow {
+  font-size: var(--pm-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--pm-color-accent);
+  font-weight: 700;
+  margin: 0;
+}
+
+.heroTitle {
+  margin: 0;
+  font-size: var(--pm-size-3xl);
+  font-weight: 800;
+  color: var(--pm-color-text);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+.heroLead {
+  margin: var(--pm-space-2) 0 0;
+  max-width: 60ch;
+  color: var(--pm-color-text-muted);
+  font-size: var(--pm-size-md);
+  line-height: var(--pm-leading-normal);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: var(--pm-size-xl);
+  font-weight: 700;
+  color: var(--pm-color-text);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--pm-space-4);
+}
+
+.statsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pm-space-3);
+}

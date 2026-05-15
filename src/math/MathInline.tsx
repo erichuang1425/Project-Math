@@ -16,10 +16,5 @@ export function MathInline({ latex }: MathInlineProps) {
     );
   }
 
-  return (
-    <span
-      className={styles.inlineMath}
-      dangerouslySetInnerHTML={{ __html: result.html }}
-    />
-  );
+  return <span className={styles.inlineMath} dangerouslySetInnerHTML={{ __html: result.html }} />;
 }

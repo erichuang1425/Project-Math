@@ -1,13 +1,8 @@
 import katex from "katex";
 
-export type LatexRenderResult =
-  | { ok: true; html: string }
-  | { ok: false; message: string };
+export type LatexRenderResult = { ok: true; html: string } | { ok: false; message: string };
 
-export function renderLatexToHtml(
-  latex: string,
-  displayMode: boolean
-): LatexRenderResult {
+export function renderLatexToHtml(latex: string, displayMode: boolean): LatexRenderResult {
   try {
     return {
       ok: true,
@@ -25,9 +20,6 @@ export function renderLatexToHtml(
   }
 }
 
-export function isLatexRenderable(
-  latex: string,
-  displayMode = false
-): boolean {
+export function isLatexRenderable(latex: string, displayMode = false): boolean {
   return renderLatexToHtml(latex, displayMode).ok;
 }

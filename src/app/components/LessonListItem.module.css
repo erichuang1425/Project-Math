@@ -1,0 +1,110 @@
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--pm-space-3);
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  background: var(--pm-color-surface);
+  border: 1px solid var(--pm-color-panel-border);
+  border-radius: var(--pm-radius-2);
+  padding: var(--pm-space-3) var(--pm-space-4);
+  cursor: pointer;
+  font: inherit;
+  color: var(--pm-color-text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-mode="polished"] .item {
+    transition:
+      transform var(--pm-duration-fast) var(--pm-ease-standard),
+      box-shadow var(--pm-duration-base) var(--pm-ease-standard),
+      border-color var(--pm-duration-base) var(--pm-ease-standard);
+  }
+}
+
+[data-mode="polished"] .item:hover,
+[data-mode="polished"] .item:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--pm-color-accent);
+  box-shadow: var(--pm-shadow-1);
+}
+
+.locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.numberDot {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--pm-color-surface-sunken);
+  color: var(--pm-color-text-muted);
+  font-weight: 700;
+  font-size: var(--pm-size-sm);
+  flex-shrink: 0;
+}
+
+.numberDotComplete {
+  background: var(--pm-color-correct-soft);
+  color: var(--pm-color-correct);
+}
+
+.numberDotCurrent {
+  background: var(--pm-color-accent);
+  color: var(--pm-color-accent-contrast);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.title {
+  font-weight: 700;
+  font-size: var(--pm-size-md);
+  color: var(--pm-color-text);
+  line-height: 1.2;
+}
+
+.summary {
+  font-size: var(--pm-size-sm);
+  color: var(--pm-color-text-muted);
+  line-height: 1.4;
+}
+
+.meta {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--pm-space-1);
+  text-align: right;
+  font-size: var(--pm-size-xs);
+  color: var(--pm-color-text-subtle);
+}
+
+.status {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  font-size: 0.65rem;
+}
+
+.statusInProgress {
+  color: var(--pm-color-accent);
+}
+
+.statusCompleted {
+  color: var(--pm-color-correct);
+}
+
+.statusLocked {
+  color: var(--pm-color-text-subtle);
+}

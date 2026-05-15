@@ -9,39 +9,41 @@ import {
   lessonSummaryExportFileName,
   renderLessonSummaryMarkdown
 } from "../export/lessonSummaryExport";
-import type { Lesson, Studybook } from "../studybook/schema";
+import type { Course, Lesson, Module } from "../content/schema";
 import type { LearnerState } from "../storage/learnerState";
 import { BlockRenderer } from "./BlockRenderer";
 import type { QuizAttemptSubmission } from "./blocks/QuizBlockView";
 import styles from "./lesson.module.css";
 
 type LessonViewProps = {
-  studybook: Studybook;
+  course: Course;
+  module: Module;
   lesson: Lesson;
+  lessonNumber: number;
+  totalLessons: number;
   learnerState?: LearnerState;
   onQuizAttempt?: (attempt: QuizAttemptSubmission) => void;
   onCompleteLesson?: () => void;
 };
 
 export function LessonView({
-  studybook,
+  course,
+  module: lessonModule,
   lesson,
+  lessonNumber,
+  totalLessons,
   learnerState,
   onQuizAttempt,
   onCompleteLesson
 }: LessonViewProps) {
   const lessonProgress = learnerState?.lessons[lesson.id];
   const isCompleted = lessonProgress?.status === "completed";
-  const lessonIndex = studybook.lessons.findIndex(
-    (candidate) => candidate.id === lesson.id
-  );
-  const lessonNumber = lessonIndex >= 0 ? lessonIndex + 1 : 1;
   const [copyStatus, setCopyStatus] = useState<LessonSummaryCopyStatus>("idle");
   const copyStatusMessage = getLessonSummaryCopyStatusMessage(copyStatus);
   const isCopyingSummary = copyStatus === "copying";
 
   function buildSummaryMarkdown() {
-    const summary = buildLessonSummaryExport(studybook, lesson, learnerState);
+    const summary = buildLessonSummaryExport(course, lesson, learnerState);
     return {
       fileName: lessonSummaryExportFileName(summary),
       markdown: renderLessonSummaryMarkdown(summary)
@@ -51,7 +53,6 @@ export function LessonView({
   async function handleCopySummary() {
     const { markdown } = buildSummaryMarkdown();
     setCopyStatus("copying");
-
     const result = await copyLessonSummaryMarkdown(markdown);
     setCopyStatus(result.status);
   }
@@ -65,7 +66,7 @@ export function LessonView({
     <article className={styles.lesson}>
       <header className={styles.lessonHeader}>
         <div className={styles.lessonHeaderText}>
-          <p className={styles.lessonEyebrow}>Derivatives from First Principles</p>
+          <p className={styles.lessonEyebrow}>{lessonModule.title}</p>
           <h1>{lesson.title}</h1>
           <p>{lesson.summary}</p>
         </div>
@@ -73,21 +74,15 @@ export function LessonView({
           <span>Status</span>
           <strong>{isCompleted ? "Completed" : "Ready to study"}</strong>
           <span>
-            Lesson {lessonNumber} of {studybook.lessons.length}
+            Lesson {lessonNumber} of {totalLessons}
           </span>
         </div>
         <div className={styles.metadata} aria-label="Lesson metadata">
           <span className={styles.pill}>Lesson {lessonNumber}</span>
-          <span className={styles.pill}>{studybook.topic}</span>
-          <span className={styles.pill}>{lesson.estimatedMinutes ?? 20} min</span>
-          <span className={styles.pill}>
-            {isCompleted ? "Completed" : "In progress"}
-          </span>
-          {studybook.prerequisites.map((item) => (
-            <span key={item} className={styles.pill}>
-              {item}
-            </span>
-          ))}
+          <span className={styles.pill}>{course.title}</span>
+          <span className={styles.pill}>{lesson.estimatedMinutes} min</span>
+          <span className={styles.pill}>{isCompleted ? "Completed" : "In progress"}</span>
+          <span className={styles.pill}>{lesson.difficulty}</span>
         </div>
       </header>
 
@@ -109,11 +104,7 @@ export function LessonView({
 
         <div className={styles.sectionStack}>
           {lesson.sections.map((section, index) => (
-            <section
-              key={section.id}
-              className={styles.section}
-              aria-labelledby={section.id}
-            >
+            <section key={section.id} className={styles.section} aria-labelledby={section.id}>
               <div className={styles.sectionHeader}>
                 <p>
                   Step {index + 1} of {lesson.sections.length}
@@ -125,6 +116,7 @@ export function LessonView({
                   key={block.id}
                   block={block}
                   lessonId={lesson.id}
+                  course={course}
                   learnerState={learnerState}
                   onQuizAttempt={onQuizAttempt}
                 />
@@ -154,11 +146,7 @@ export function LessonView({
             >
               {isCopyingSummary ? "Copying summary" : "Copy summary"}
             </button>
-            <button
-              className={styles.primaryButton}
-              type="button"
-              onClick={handleExportSummary}
-            >
+            <button className={styles.primaryButton} type="button" onClick={handleExportSummary}>
               Download summary
             </button>
           </div>

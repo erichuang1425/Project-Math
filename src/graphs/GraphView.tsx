@@ -86,18 +86,11 @@ export function GraphView({ spec, label, describedBy }: GraphViewProps) {
         <text x={width / 2} y={height - 8} textAnchor="middle">
           {spec.xAxis.label}
         </text>
-        <text
-          x={16}
-          y={height / 2}
-          textAnchor="middle"
-          transform={`rotate(-90 16 ${height / 2})`}
-        >
+        <text x={16} y={height / 2} textAnchor="middle" transform={`rotate(-90 16 ${height / 2})`}>
           {spec.yAxis.label}
         </text>
 
-        {spec.series.map((series) =>
-          renderSeries(series, xScale, yScale, plotClipId)
-        )}
+        {spec.series.map((series) => renderSeries(series, xScale, yScale, plotClipId))}
 
         {(spec.annotations ?? []).map((annotation) =>
           annotation.point ? (
@@ -160,9 +153,7 @@ function renderSeries(
         </g>
       );
     case "function": {
-      const samplePoints = series.samples
-        ?.map(([x, y]) => `${xScale(x)},${yScale(y)}`)
-        .join(" ");
+      const samplePoints = series.samples?.map(([x, y]) => `${xScale(x)},${yScale(y)}`).join(" ");
 
       return (
         <g key={series.id}>

@@ -1,4 +1,4 @@
-import type { ConceptBlock } from "../../studybook/schema";
+import type { ConceptBlock } from "../../content/schema";
 import { RichText, RichTextRows } from "../RichText";
 import styles from "../lesson.module.css";
 

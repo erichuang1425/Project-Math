@@ -1,4 +1,4 @@
-import type { IntuitionBlock } from "../../studybook/schema";
+import type { IntuitionBlock } from "../../content/schema";
 import { RichText } from "../RichText";
 import styles from "../lesson.module.css";
 

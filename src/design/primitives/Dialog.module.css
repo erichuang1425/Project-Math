@@ -1,0 +1,62 @@
+.dialog {
+  border: 1px solid var(--pm-color-panel-border);
+  background: var(--pm-color-surface);
+  color: var(--pm-color-text);
+  border-radius: var(--pm-radius-3);
+  padding: 0;
+  max-width: min(34rem, 95vw);
+  width: 100%;
+  font-family: inherit;
+  box-shadow: var(--pm-shadow-3);
+}
+
+.dialog::backdrop {
+  background: var(--pm-color-overlay);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-4) var(--pm-space-5);
+  border-bottom: 1px solid var(--pm-color-rule);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--pm-size-lg);
+  font-weight: 700;
+}
+
+.body {
+  padding: var(--pm-space-5);
+  font-size: var(--pm-size-md);
+  line-height: var(--pm-leading-normal);
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-3) var(--pm-space-5);
+  border-top: 1px solid var(--pm-color-rule);
+}
+
+.closeButton {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--pm-color-text-muted);
+  cursor: pointer;
+  padding: var(--pm-space-1) var(--pm-space-2);
+  border-radius: var(--pm-radius-1);
+  font: inherit;
+}
+
+.closeButton:hover {
+  background: var(--pm-color-surface-sunken);
+  color: var(--pm-color-text);
+}

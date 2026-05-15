@@ -1,141 +1,109 @@
-# Math Learning Desktop App Agent Guide
+# Project-Math Agent Guide
 
-This repository is for a serious long-term desktop application, not a demo. Treat every change as part of a maintainable local-first studybook platform.
+A polished, MOOC-style local-first learning app for math. Built for low-motivation learners who need a beautiful, calm shell that always shows progress. Inspired by Brilliant for surface polish; never noisy.
 
-## Product Direction
+## Product Model
 
-- Build a low-friction desktop learning app for math and technical subjects.
-- The first MVP topic is "Derivatives from First Principles".
-- The app should feel like an agent-native interactive studybook: structured lessons, LaTeX, graphs, diagrams, worked examples, common mistakes, quizzes, revision layers, and export.
-- Do not generate arbitrary React pages as lesson content.
-- Use a structured studybook schema and render it through reusable block renderer components.
-- The app must be usable offline.
-- AI-assisted lesson generation is future-facing. The first version must use deterministic content files and deterministic validation.
+- **Courses → Modules → Lessons → Blocks.** A course holds modules; a module holds lessons; a lesson holds a typed block stream (concept, intuition, latex, worked-example, graph, common-mistake, quiz, summary, title).
+- **Local-first, fully offline.** Content is shipped as JSON, validated at load. No network calls at runtime.
+- **Deterministic rendering.** Given the same content + learner state, the app renders identically every time.
+- **One course is real today: Calculus I** (Foundations → Derivatives from First Principles → Differentiation Rules).
 
-## Preferred Stack
+## Design Modes
 
-- Desktop shell: Tauri, unless a concrete blocker is documented.
-- Frontend: React, TypeScript, Vite.
-- Styling: Tailwind or CSS modules. Choose only after checking which gives the cleaner local implementation.
-- Math rendering: KaTeX.
-- Graphs: start behind a small graphing abstraction. Do not add a graphing library until the first graph requirements are known and alternatives are compared.
-- Storage: local JSON for MVP, with interfaces shaped so SQLite can replace or back it later.
-- Tests: unit tests for schema, parser, and rendering logic; component tests where useful; smoke tests for desktop behavior.
+Two first-class display modes. Both are tokenized; switching is a single attribute on `<html>`.
 
-## Repository Shape
+- **Polished (default).** Warm neutral surfaces, deep indigo + amber accent, generous spacing, subtle elevation, 120–180ms transform/opacity transitions on hover/focus/route-change. Made to invite a learner in.
+- **Calm (opt-in).** Higher-contrast warm neutrals, no elevation, no transitions, no decorative illustration. Optimized for low-sensory and neurodivergent reading. Must remain a first-class peer — never a degraded fallback.
 
-Expected planning docs:
+All motion is gated behind `@media (prefers-reduced-motion: no-preference)` and the `<MotionGate>` helper.
 
-- `docs/product-brief.md`: product scope and MVP boundaries.
-- `docs/architecture.md`: technical architecture and dependency rules.
-- `docs/learning-design.md`: instructional structure and correctness rules.
-- `docs/content-schema.md`: versioned studybook schema.
-- `docs/ui-system.md`: reusable UI rules and quality bar.
-- `docs/testing-strategy.md`: required test layers and regression policy.
-- `docs/roadmap.md`: implementation sequence with done criteria.
+## Design Principles
 
-Expected local skills:
+1. **Clarity beats novelty.** Every surface answers "what do I do next?" without reading instructions.
+2. **Progress is always visible.** Course cards have rings, lessons have status chips, the reader has a section marker. No hidden state.
+3. **Motion serves comprehension.** Use motion to show relationships (route change, focus, expansion). Never to decorate.
 
-- `.agents/skills/studybook-architect/SKILL.md`
-- `.agents/skills/math-rendering-reviewer/SKILL.md`
-- `.agents/skills/desktop-app-engineer/SKILL.md`
-- `.agents/skills/ux-quality-reviewer/SKILL.md`
-- `.agents/skills/test-and-regression-reviewer/SKILL.md`
+## Stack
 
-## Implementation Rules
+- **Desktop:** Tauri 2.
+- **Frontend:** React 18, TypeScript (strict), Vite.
+- **Styling:** CSS Modules + `src/design/tokens.css` (CSS custom properties). No CSS framework.
+- **Math:** KaTeX.
+- **Graphs:** internal deterministic SVG (`src/graphs/`).
+- **Storage:** local JSON on disk via Tauri; `localStorage` fallback for web.
+- **Tests:** Vitest + jsdom + `@testing-library/react`.
+- **Lint/format:** ESLint + Prettier.
 
-1. Read the relevant docs before making changes.
-2. Keep content as structured data. Do not encode lessons as bespoke pages, markdown blobs, or JSX-only content.
-3. Keep domain logic outside React components when practical.
-4. Prefer small files with clear ownership over broad utility files.
-5. Add schema validation before adding content that depends on the schema.
-6. Use stable IDs for lessons, sections, blocks, examples, quizzes, and glossary terms.
-7. Keep renderers deterministic. A given content file should render the same lesson offline without network access.
-8. Do not introduce telemetry, cloud sync, accounts, or remote AI calls without explicit approval.
+## Approved Dependencies
 
-## Dependency Policy
+Already in `package.json` or pre-approved — add without further sign-off:
 
-Ask before adding a dependency when it is:
+- **Runtime:** `react`, `react-dom`, `katex`, `lucide-react`, `clsx`.
+- **Dev:** `vite`, `typescript`, `vitest`, `jsdom`, `@testing-library/react`, `@testing-library/jest-dom`, `@vitest/coverage-v8`, `eslint`, `@typescript-eslint/parser`, `@typescript-eslint/eslint-plugin`, `eslint-plugin-react`, `eslint-plugin-react-hooks`, `prettier`.
+- **Desktop:** `@tauri-apps/cli`, `@tauri-apps/api`.
 
-- A runtime dependency.
-- A graphing, diagramming, editor, database, AI, sync, analytics, or UI framework dependency.
-- Larger than a narrow utility.
-- A replacement for a dependency already chosen in the docs.
+Anything outside this list needs a one-paragraph proposal in the PR description: why now, alternatives, offline behavior, footprint. Don't add it silently — but don't ask for permission to add a small utility that's clearly aligned with the principles above.
 
-You may add a development dependency without asking only when all of these are true:
+## Math Correctness
 
-- It is already named in the docs or common to the chosen stack.
-- It is needed for tests, linting, formatting, or build tooling.
-- It does not change runtime behavior.
+- Every mathematical claim traces to a lesson objective, definition, prior example, or cited assumption.
+- LaTeX must render through KaTeX without error.
+- Worked examples show every algebraic step relevant to the learner level; no silent simplification of domain, sign, or limiting behavior.
+- Graphs label axes, domain assumptions, and special points; include a text description for screen readers.
+- Common-mistake blocks state the misconception, the incorrect step, and the correction.
+- Quizzes ship correct answers, plausible distractors, and per-option feedback.
 
-When proposing a dependency, include:
+## Accessibility Floor
 
-- Why it is needed now.
-- What alternatives were considered.
-- Offline behavior.
-- Maintenance risk.
-- Bundle or desktop footprint impact.
+- Keyboard and pointer both work for every flow (navigation, reader controls, quiz, glossary).
+- Focus is always visible (3px ring, 2px offset).
+- Correctness is communicated by icon + label + border, never color alone.
+- Skip links land at lesson content and at the next section.
+- Tab order matches reading order.
+- Calm mode passes WCAG AA contrast.
 
-## Math Correctness Rules
+## Content Authoring Rules
 
-- Every mathematical claim must be traceable to a lesson objective, definition, example, or cited assumption in the content.
-- LaTeX must compile in KaTeX before content is accepted.
-- Worked examples must show enough algebraic steps for the intended learner level.
-- Graphs must label axes, domain assumptions, units when relevant, and special points.
-- Do not silently simplify away domain restrictions, undefined points, limiting behavior, or sign assumptions.
-- Common mistakes must state the misconception, the incorrect step, and the correction.
-- Quizzes must include the correct answer, plausible distractors, and feedback for each option.
-
-## UI Quality Rules
-
-- Build the actual study experience first, not a marketing landing page.
-- Keep the desktop app quiet, readable, and task-focused.
-- Use reusable layout, navigation, lesson, block, math, graph, quiz, and review components.
-- Avoid decorative UI that competes with math content.
-- Text must not overflow controls or overlap on small windows.
-- Keyboard and pointer use should both work for core lesson navigation and quizzes.
-- UI states must cover loading, empty, invalid content, focused, selected, submitted, correct, incorrect, and disabled states where applicable.
+- IDs are required on `Course`, `Module`, `Lesson`, and every `Block`. Use kebab-case, stable across edits.
+- Every lesson runs through `validateContent` before rendering. Add a paired invalid fixture under `src/content/fixtures/invalid/` for any new validation rule.
+- Prefer the action micro-flow: **Observe → Predict → Calculate → Compare → Answer → Summarize**. Pause prompts go _before_ the quiz, not after the common-mistake block.
+- Reference glossary terms via `RichTextSegment.kind: "term"`; don't redefine inline.
+- One graph minimum per lesson; ≥2 worked examples; ≥2 common-mistake blocks; ≥3 quiz items.
 
 ## Testing Rules
 
-- Schema and parser changes require unit tests with valid and invalid fixtures.
-- Block renderer changes require tests for the affected block types.
-- Math renderer changes require tests for display math, inline math, invalid LaTeX, and fallback behavior.
-- Quiz changes require tests for scoring, feedback, retry rules, and state persistence if persistence is involved.
-- Desktop integration changes require a smoke test or documented manual smoke path.
-- Do not mark work complete if tests were skipped without saying exactly why.
+- Schema or validator changes ship paired valid + invalid fixtures and parametrized tests.
+- Block renderer changes ship a test that mounts the affected block in jsdom.
+- Quiz logic changes ship scoring + feedback + retry tests.
+- Desktop command changes ship a mocked-invoke test or a documented manual smoke path.
+- Coverage thresholds: 80% statements/branches in `src/content/` and `src/rendering/blocks/`. Land thresholds together with the content they cover, not before.
 
 ## What Done Means
 
-Every implementation task must state its done criteria before or during the change. A task is done only when:
-
-- The behavior is implemented in the correct layer.
-- Relevant docs or schema examples are updated.
-- Tests are added or updated for the changed behavior.
-- The app or affected package builds, or any build blocker is documented.
-- The change works offline.
-- New dependencies, if any, were approved under the dependency policy.
-- Known follow-up work is listed in `docs/roadmap.md` or the final response.
+- The behavior lands in the correct layer (content vs. rendering vs. app shell vs. desktop).
+- `npm run typecheck && npm run lint && npm test && npm run build` are all green.
+- Both Polished and Calm modes pass the manual smoke checklist in `docs/ui-system.md`.
+- Docs are updated: `docs/roadmap.md` (status), `docs/content-schema.md` (if schema moved), `docs/ui-system.md` (if a surface changed).
+- The change works fully offline.
+- Known follow-up is listed in the PR description.
 
 ## Agent Workflow
 
-Before editing:
+1. **Before editing:** read the relevant doc, pick the matching `.agents/skills/*`, state the files you expect to touch.
+2. **During editing:** keep changes scoped; prefer extracting a primitive over copy-paste; don't move unrelated files.
+3. **Before finishing:** run typecheck + lint + tests + build; summarize changed files; flag what wasn't tested; suggest the next concrete task.
 
-- Inspect the current repository state.
-- Read the relevant docs.
-- Identify which local skill applies.
-- State the files you expect to touch.
+## Local Skills
 
-During editing:
-
-- Keep changes scoped.
-- Prefer deterministic fixtures and examples.
-- Do not move unrelated files.
-- Do not overwrite user changes.
-
-Before finishing:
-
-- Run the most relevant verification available.
-- Summarize changed files.
-- Say what was not tested.
-- Give the next concrete task.
+- `studybook-architect` (owns the content schema + pedagogy)
+- `math-rendering-reviewer`
+- `desktop-app-engineer`
+- `frontend-visual-system-designer`
+- `design-token-architect`
+- `neurodivergent-learning-accessibility-reviewer`
+- `motivation-ux-reviewer` (new — owns Polished-mode polish + "progress always visible")
+- `learner-journey-reviewer` (replaces ux-quality-reviewer)
+- `frontend-regression-visual-qa`
+- `test-and-regression-reviewer`
+- `math-rendering-reviewer`
