@@ -1,0 +1,91 @@
+.card {
+  background: var(--pm-color-surface);
+  border: 1px solid var(--pm-color-panel-border);
+  border-radius: var(--pm-radius-3);
+  padding: var(--pm-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm-space-3);
+  color: var(--pm-color-text);
+  position: relative;
+}
+
+[data-mode="polished"] .card {
+  box-shadow: var(--pm-shadow-1);
+}
+
+.interactive {
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  appearance: none;
+  font: inherit;
+  text-decoration: none;
+  color: inherit;
+  transition: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-mode="polished"] .interactive {
+    transition:
+      transform var(--pm-duration-fast) var(--pm-ease-standard),
+      box-shadow var(--pm-duration-base) var(--pm-ease-standard),
+      border-color var(--pm-duration-base) var(--pm-ease-standard);
+  }
+}
+
+[data-mode="polished"] .interactive:hover:not(:disabled),
+[data-mode="polished"] .interactive:focus-visible:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--pm-shadow-2);
+  border-color: var(--pm-color-accent);
+}
+
+.padded {
+  padding: var(--pm-space-6);
+}
+
+.compact {
+  padding: var(--pm-space-4);
+  gap: var(--pm-space-2);
+}
+
+.illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pm-color-surface-sunken);
+  border-radius: var(--pm-radius-2);
+  padding: var(--pm-space-4);
+  margin: calc(-1 * var(--pm-space-5)) calc(-1 * var(--pm-space-5)) var(--pm-space-2);
+  min-height: 7rem;
+}
+
+[data-mode="calm"] .illustration {
+  display: none;
+}
+
+.title {
+  font-family: var(--pm-font-sans);
+  font-size: var(--pm-size-lg);
+  font-weight: 700;
+  margin: 0;
+  line-height: var(--pm-leading-tight);
+  color: var(--pm-color-text);
+}
+
+.summary {
+  font-size: var(--pm-size-sm);
+  color: var(--pm-color-text-muted);
+  margin: 0;
+  line-height: var(--pm-leading-normal);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+  margin-top: auto;
+  padding-top: var(--pm-space-3);
+}

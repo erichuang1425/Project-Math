@@ -1,4 +1,5 @@
 import "katex/dist/katex.min.css";
+import "./design/tokens.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./app/App";

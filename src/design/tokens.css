@@ -1,0 +1,231 @@
+/*
+ * Project-Math design tokens.
+ * Two modes, both first-class. Switch via [data-mode="polished" | "calm"] on <html>.
+ * Reader-scoped tokens layer on top and respect reader controls (font scale, line height).
+ */
+
+:root {
+  /* Spacing scale (rem). */
+  --pm-space-0: 0;
+  --pm-space-1: 0.25rem;
+  --pm-space-2: 0.5rem;
+  --pm-space-3: 0.75rem;
+  --pm-space-4: 1rem;
+  --pm-space-5: 1.5rem;
+  --pm-space-6: 2rem;
+  --pm-space-7: 3rem;
+  --pm-space-8: 4rem;
+
+  /* Radii. */
+  --pm-radius-1: 0.25rem;
+  --pm-radius-2: 0.5rem;
+  --pm-radius-3: 0.75rem;
+  --pm-radius-4: 1rem;
+  --pm-radius-pill: 999px;
+
+  /* Type. */
+  --pm-font-sans:
+    system-ui, -apple-system, "Segoe UI", "Helvetica Neue", "Arial Nova", "Liberation Sans", sans-serif;
+  --pm-font-serif:
+    "Iowan Old Style", "Palatino Linotype", "Source Serif Pro", Cambria, Georgia, serif;
+  --pm-font-mono:
+    ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --pm-size-xs: 0.78rem;
+  --pm-size-sm: 0.875rem;
+  --pm-size-md: 1rem;
+  --pm-size-lg: 1.125rem;
+  --pm-size-xl: 1.375rem;
+  --pm-size-2xl: 1.75rem;
+  --pm-size-3xl: 2.25rem;
+
+  --pm-leading-tight: 1.25;
+  --pm-leading-normal: 1.5;
+  --pm-leading-loose: 1.7;
+
+  /* Motion. */
+  --pm-duration-fast: 120ms;
+  --pm-duration-base: 160ms;
+  --pm-duration-slow: 220ms;
+  --pm-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Focus ring. */
+  --pm-focus-ring: 3px solid var(--pm-color-focus);
+  --pm-focus-offset: 2px;
+}
+
+/* ============================================================
+ * POLISHED MODE (default)
+ * Warm cream surface, deep indigo accent, amber highlight.
+ * ============================================================ */
+:root,
+[data-mode="polished"] {
+  /* Surfaces */
+  --pm-color-app-bg: #f7f2e8;
+  --pm-color-surface: #ffffff;
+  --pm-color-surface-raised: #ffffff;
+  --pm-color-surface-sunken: #efe8d8;
+  --pm-color-panel-border: #e5dcc4;
+  --pm-color-rule: #d8cdb1;
+  --pm-color-overlay: rgba(40, 32, 12, 0.45);
+
+  /* Text */
+  --pm-color-text: #1f1b13;
+  --pm-color-text-muted: #5a513f;
+  --pm-color-text-subtle: #847a64;
+  --pm-color-text-inverse: #fbf8f0;
+
+  /* Brand */
+  --pm-color-accent: #3a3aa1;
+  --pm-color-accent-hover: #2d2d86;
+  --pm-color-accent-soft: #e5e4f4;
+  --pm-color-accent-contrast: #ffffff;
+  --pm-color-highlight: #d97a26;
+  --pm-color-highlight-soft: #fce4cf;
+
+  /* Semantic state */
+  --pm-color-focus: #5c5cd1;
+  --pm-color-selected: #3a3aa1;
+  --pm-color-selected-soft: #e5e4f4;
+  --pm-color-correct: #2f7d4a;
+  --pm-color-correct-soft: #e0f1e5;
+  --pm-color-incorrect: #b73a3a;
+  --pm-color-incorrect-soft: #fae2e2;
+  --pm-color-warning: #b8841a;
+  --pm-color-warning-soft: #fbedcb;
+  --pm-color-info: #2a6ca3;
+  --pm-color-info-soft: #d9eaf6;
+  --pm-color-disabled: #a8a08a;
+  --pm-color-disabled-bg: #ebe4d2;
+
+  /* Elevation */
+  --pm-shadow-1: 0 1px 2px rgba(31, 22, 6, 0.06), 0 1px 1px rgba(31, 22, 6, 0.04);
+  --pm-shadow-2: 0 4px 12px rgba(31, 22, 6, 0.08), 0 1px 3px rgba(31, 22, 6, 0.06);
+  --pm-shadow-3: 0 12px 32px rgba(31, 22, 6, 0.14), 0 4px 12px rgba(31, 22, 6, 0.08);
+
+  /* Reader (default — gets overridden by ReaderControls user settings) */
+  --reader-pane-bg: #fffaf0;
+  --reader-pane-border: var(--pm-color-panel-border);
+  --reader-text: var(--pm-color-text);
+  --reader-text-muted: var(--pm-color-text-muted);
+  --reader-rule: var(--pm-color-rule);
+  --reader-surface: #ffffff;
+  --reader-accent: var(--pm-color-accent);
+  --reader-focus: var(--pm-color-focus);
+  --reader-selected: var(--pm-color-selected);
+  --reader-warning: var(--pm-color-warning);
+  --reader-correct: var(--pm-color-correct);
+  --reader-incorrect: var(--pm-color-incorrect);
+  --reader-disabled: var(--pm-color-disabled);
+  --reader-font-scale: 1;
+  --reader-line-height: 1.65;
+  --reader-font-family: var(--pm-font-sans);
+
+  --pm-motion-enabled: 1;
+}
+
+/* ============================================================
+ * CALM MODE
+ * Lower-saturation, higher-contrast warm neutrals.
+ * No motion, no elevation, no decorative illustration.
+ * ============================================================ */
+[data-mode="calm"] {
+  --pm-color-app-bg: #ece5d3;
+  --pm-color-surface: #f5efdc;
+  --pm-color-surface-raised: #f5efdc;
+  --pm-color-surface-sunken: #e4dcc5;
+  --pm-color-panel-border: #b3a98a;
+  --pm-color-rule: #8c8164;
+  --pm-color-overlay: rgba(31, 22, 6, 0.55);
+
+  --pm-color-text: #1b170f;
+  --pm-color-text-muted: #3d3727;
+  --pm-color-text-subtle: #5b513a;
+  --pm-color-text-inverse: #f5efdc;
+
+  --pm-color-accent: #1d2e7a;
+  --pm-color-accent-hover: #14205a;
+  --pm-color-accent-soft: #d6d3e8;
+  --pm-color-accent-contrast: #f5efdc;
+  --pm-color-highlight: #8b4a14;
+  --pm-color-highlight-soft: #ead4b9;
+
+  --pm-color-focus: #1d2e7a;
+  --pm-color-selected: #1d2e7a;
+  --pm-color-selected-soft: #d6d3e8;
+  --pm-color-correct: #1e5733;
+  --pm-color-correct-soft: #cfe2d3;
+  --pm-color-incorrect: #8a2424;
+  --pm-color-incorrect-soft: #ecccc8;
+  --pm-color-warning: #735205;
+  --pm-color-warning-soft: #ecd9a3;
+  --pm-color-info: #1c4a73;
+  --pm-color-info-soft: #c8d8e5;
+  --pm-color-disabled: #7b7155;
+  --pm-color-disabled-bg: #ddd4ba;
+
+  --pm-shadow-1: none;
+  --pm-shadow-2: none;
+  --pm-shadow-3: none;
+
+  --reader-pane-bg: #ece6d4;
+  --reader-pane-border: var(--pm-color-panel-border);
+  --reader-text: var(--pm-color-text);
+  --reader-text-muted: var(--pm-color-text-muted);
+  --reader-rule: var(--pm-color-rule);
+  --reader-surface: #f5efdc;
+  --reader-accent: var(--pm-color-accent);
+  --reader-focus: var(--pm-color-focus);
+  --reader-selected: var(--pm-color-selected);
+  --reader-warning: var(--pm-color-warning);
+  --reader-correct: var(--pm-color-correct);
+  --reader-incorrect: var(--pm-color-incorrect);
+  --reader-disabled: var(--pm-color-disabled);
+  --reader-font-family: var(--pm-font-sans);
+
+  --pm-motion-enabled: 0;
+}
+
+/* OS-level reduced motion always wins. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --pm-motion-enabled: 0;
+  }
+}
+
+/* ============================================================
+ * Base resets — light-touch, do not fight component styles.
+ * ============================================================ */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--pm-color-app-bg);
+  color: var(--pm-color-text);
+  font-family: var(--pm-font-sans);
+  font-size: var(--pm-size-md);
+  line-height: var(--pm-leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:focus-visible {
+  outline: var(--pm-focus-ring);
+  outline-offset: var(--pm-focus-offset);
+  border-radius: var(--pm-radius-1);
+}
+
+/* Skip-link landing. */
+:target {
+  scroll-margin-top: var(--pm-space-6);
+}
