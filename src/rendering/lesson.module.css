@@ -623,6 +623,188 @@
   font-weight: 700;
 }
 
+/* Active section link in the sticky path rail */
+.activeSectionLink {
+  border-color: var(--reader-accent, #2f5d62) !important;
+  background: var(--reader-selected-surface, #eef7f5) !important;
+  color: var(--reader-accent-text, #1c3e42) !important;
+}
+
+/* Glossary term button — renders inline like bold text */
+.termButton {
+  display: inline;
+  padding: 0;
+  border: none;
+  border-bottom: 1px dotted var(--reader-accent, #2f5d62);
+  background: none;
+  color: var(--reader-accent-text, #244e52);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.termButton:hover,
+.termButton:focus-visible {
+  border-bottom-style: solid;
+  outline: 2px solid var(--reader-focus-ring, rgba(47, 93, 98, 0.22));
+  outline-offset: 1px;
+  border-radius: 2px;
+}
+
+/* Worked example step rail */
+.stepRail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 0;
+}
+
+.stepPill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--reader-strong-border, #cbd3c4);
+  border-radius: 999px;
+  background: var(--reader-surface, #ffffff);
+  color: var(--reader-muted-text, #495047);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.1s, background 0.1s;
+}
+
+.stepPill:hover,
+.stepPill:focus-visible {
+  border-color: var(--reader-accent, #2f5d62);
+  outline: 2px solid var(--reader-focus-ring, rgba(47, 93, 98, 0.22));
+  outline-offset: 2px;
+}
+
+.stepPillActive {
+  border-color: var(--reader-accent, #2f5d62);
+  background: var(--reader-selected-surface, #eef7f5);
+  color: var(--reader-accent-text, #1c3e42);
+}
+
+.stepPillNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--reader-soft-surface, #f0f3ec);
+  font-size: 0.76rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.stepPillActive .stepPillNumber {
+  background: var(--reader-accent, #2f5d62);
+  color: #ffffff;
+}
+
+.stepPillLabel {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stepPanel {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid var(--reader-border, #d9ded3);
+  border-radius: 8px;
+  background: var(--reader-soft-surface, #fbfcf8);
+}
+
+.stepPanelTitle {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: var(--reader-muted-text, #586057);
+}
+
+.stepNavigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.stepPosition {
+  flex: 1;
+  text-align: center;
+  color: var(--reader-muted-text, #586057);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+/* Glossary dialog */
+.glossaryDialog {
+  padding: 0;
+  border: 1px solid var(--reader-strong-border, #cbd3c4);
+  border-radius: 12px;
+  background: var(--reader-surface, #ffffff);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+  max-width: min(480px, calc(100vw - 32px));
+  width: 100%;
+}
+
+.glossaryDialog::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
+}
+
+.glossaryDialogInner {
+  padding: 20px 22px;
+}
+
+.glossaryDialogHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.glossaryTerm {
+  font-size: 1.1rem;
+  color: var(--reader-accent-text, #1c3e42);
+}
+
+.glossaryDialogClose {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--reader-strong-border, #cbd3c4);
+  border-radius: 6px;
+  background: var(--reader-surface, #ffffff);
+  color: var(--reader-muted-text, #586057);
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.glossaryDialogClose:hover,
+.glossaryDialogClose:focus-visible {
+  border-color: var(--reader-accent, #2f5d62);
+  outline: 2px solid var(--reader-focus-ring, rgba(47, 93, 98, 0.22));
+  outline-offset: 2px;
+}
+
+.glossaryDefinition {
+  margin: 0;
+  color: var(--reader-text, #20231f);
+  line-height: var(--reader-line-height, 1.65);
+}
+
 @media (max-width: 980px) {
   .lessonBody {
     grid-template-columns: 1fr;

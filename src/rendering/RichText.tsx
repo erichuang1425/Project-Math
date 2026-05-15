@@ -1,5 +1,6 @@
 import type { RichTextSegment } from "../studybook/schema";
 import { MathInline } from "../math/MathInline";
+import { useGlossary } from "./GlossaryContext";
 import styles from "./lesson.module.css";
 
 type RichTextProps = {
@@ -7,6 +8,7 @@ type RichTextProps = {
 };
 
 export function RichText({ segments }: RichTextProps) {
+  const glossary = useGlossary();
   return (
     <>
       {segments.map((segment, index) => {
@@ -16,6 +18,18 @@ export function RichText({ segments }: RichTextProps) {
           case "inlineMath":
             return <MathInline key={index} latex={segment.latex} />;
           case "term":
+            if (glossary) {
+              return (
+                <button
+                  key={index}
+                  className={styles.termButton}
+                  type="button"
+                  onClick={() => glossary.openEntry(segment.termId)}
+                >
+                  {segment.label}
+                </button>
+              );
+            }
             return (
               <span key={index} className={styles.term} data-term-id={segment.termId}>
                 {segment.label}

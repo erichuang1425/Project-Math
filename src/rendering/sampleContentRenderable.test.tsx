@@ -119,7 +119,7 @@ describe("sample lesson rendering", () => {
     );
 
     expect(html).toContain("Constant Function Derivative");
-    expect(html).toContain("Lesson 3 of 3");
+    expect(html).toContain("Lesson 3 of 9");
     expect(html).toContain("Step 1");
     expect(html).toContain("Observe No Output Change");
     expect(html).toContain("Constant-function setup");

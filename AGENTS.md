@@ -39,8 +39,11 @@ Expected local skills:
 - `.agents/skills/studybook-architect/SKILL.md`
 - `.agents/skills/math-rendering-reviewer/SKILL.md`
 - `.agents/skills/desktop-app-engineer/SKILL.md`
-- `.agents/skills/ux-quality-reviewer/SKILL.md`
+- `.agents/skills/learner-journey-reviewer/SKILL.md` — end-to-end learning flow (replaces `ux-quality-reviewer`)
+- `.agents/skills/motivation-ux-reviewer/SKILL.md` — intrinsic motivation and learner confidence
+- `.agents/skills/neurodivergent-learning-accessibility-reviewer/SKILL.md`
 - `.agents/skills/test-and-regression-reviewer/SKILL.md`
+- `.agents/skills/ux-quality-reviewer/SKILL.md` — superseded; kept for reference only
 
 ## Implementation Rules
 

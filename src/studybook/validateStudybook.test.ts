@@ -103,7 +103,13 @@ describe("validateStudybook", () => {
     expect(result.studybook.lessons.map((lesson) => lesson.id)).toEqual([
       "derivative-as-a-limit",
       "derivative-at-a-point",
-      "constant-function-derivative"
+      "constant-function-derivative",
+      "power-rule-for-derivatives",
+      "sum-and-constant-multiple-rule",
+      "product-rule",
+      "quotient-rule",
+      "chain-rule",
+      "tangent-line-equation"
     ]);
 
     const pointLesson = result.studybook.lessons.find(
@@ -180,7 +186,13 @@ describe("validateStudybook", () => {
     expect(result.studybook.lessons.map((lesson) => lesson.id)).toEqual([
       "derivative-as-a-limit",
       "derivative-at-a-point",
-      "constant-function-derivative"
+      "constant-function-derivative",
+      "power-rule-for-derivatives",
+      "sum-and-constant-multiple-rule",
+      "product-rule",
+      "quotient-rule",
+      "chain-rule",
+      "tangent-line-equation"
     ]);
 
     const constantLesson = result.studybook.lessons.find(

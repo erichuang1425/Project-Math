@@ -1858,6 +1858,1807 @@
         "mistakeIds": ["treating-constant-as-slope"],
         "quizIds": ["constant-function-check"]
       }
+    },
+    {
+      "id": "power-rule-for-derivatives",
+      "title": "Power Rule for Derivatives",
+      "summary": "Use first principles to find a pattern for the derivative of x to a positive integer power.",
+      "objectives": [
+        "Observe how the binomial expansion of (x + h)^n produces a leading n x^(n-1) h term.",
+        "Use first principles to compute the derivative of f(x) = x^3.",
+        "State the power rule for positive integer exponents.",
+        "Apply the power rule to compute derivatives of simple monomials.",
+        "Avoid bringing the exponent down without reducing it by 1."
+      ],
+      "estimatedMinutes": 26,
+      "sections": [
+        {
+          "id": "power-pattern",
+          "title": "Observe a Repeating Pattern",
+          "blocks": [
+            {
+              "type": "title",
+              "id": "power-rule-title",
+              "kicker": "First principles pattern",
+              "title": "Power Rule for Derivatives",
+              "subtitle": "Watch the same factor appear each time you expand (x + h) raised to a small power.",
+              "objectives": [
+                [
+                  { "kind": "text", "value": "Observe the binomial expansion of " },
+                  { "kind": "inlineMath", "latex": "(x+h)^n" },
+                  { "kind": "text", "value": "." }
+                ],
+                [
+                  { "kind": "text", "value": "Compute " },
+                  { "kind": "inlineMath", "latex": "f'(x)" },
+                  { "kind": "text", "value": " for " },
+                  { "kind": "inlineMath", "latex": "f(x)=x^3" },
+                  { "kind": "text", "value": " from first principles." }
+                ],
+                [
+                  { "kind": "text", "value": "Check the mistake: forgetting to reduce the exponent by " },
+                  { "kind": "inlineMath", "latex": "1" },
+                  { "kind": "text", "value": "." }
+                ]
+              ]
+            },
+            {
+              "type": "concept",
+              "id": "power-rule-statement",
+              "title": "Observe: the repeating pattern",
+              "body": [
+                { "kind": "text", "value": "For every positive integer " },
+                { "kind": "inlineMath", "latex": "n" },
+                { "kind": "text", "value": ", first principles give a clean pattern: the derivative of " },
+                { "kind": "inlineMath", "latex": "x^n" },
+                { "kind": "text", "value": " is " },
+                { "kind": "inlineMath", "latex": "n\\,x^{n-1}" },
+                { "kind": "text", "value": "." }
+              ],
+              "keyIdeas": [
+                [
+                  { "kind": "text", "value": "The exponent comes down as a factor in front." }
+                ],
+                [
+                  { "kind": "text", "value": "The exponent then drops by one." }
+                ]
+              ]
+            },
+            {
+              "type": "intuition",
+              "id": "power-rule-predict",
+              "title": "Predict: expand once",
+              "body": [
+                { "kind": "text", "value": "Expand " },
+                { "kind": "inlineMath", "latex": "(x+h)^3" },
+                { "kind": "text", "value": " by hand. The first term after " },
+                { "kind": "inlineMath", "latex": "x^3" },
+                { "kind": "text", "value": " is " },
+                { "kind": "inlineMath", "latex": "3x^2 h" },
+                { "kind": "text", "value": ". That " },
+                { "kind": "inlineMath", "latex": "3" },
+                { "kind": "text", "value": " is the exponent coming down." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "The leading non-cancelling term of " },
+                { "kind": "inlineMath", "latex": "(x+h)^n - x^n" },
+                { "kind": "text", "value": " is always " },
+                { "kind": "inlineMath", "latex": "n\\,x^{n-1} h" },
+                { "kind": "text", "value": "." }
+              ]
+            },
+            {
+              "type": "latex",
+              "id": "power-rule-definition",
+              "latex": "\\frac{d}{dx}\\left[x^n\\right] = n\\,x^{n-1}",
+              "caption": "Power rule. Bring the exponent down as a factor, then reduce the exponent by 1.",
+              "display": true
+            },
+            {
+              "type": "graph",
+              "id": "power-rule-cubic-graph",
+              "title": "Cubic and its tangent at x = 1",
+              "description": "Notice the cubic curve y = x^3 first. The marked point is (1, 1). The tangent line there has slope 3, which equals 3 times 1 squared.",
+              "spec": {
+                "xAxis": {
+                  "label": "input x",
+                  "min": -1,
+                  "max": 2,
+                  "ticks": [-1, 0, 1, 2]
+                },
+                "yAxis": {
+                  "label": "output f(x)",
+                  "min": -2,
+                  "max": 9,
+                  "ticks": [-2, 0, 1, 3, 8]
+                },
+                "series": [
+                  {
+                    "kind": "function",
+                    "id": "power-rule-cubic-curve",
+                    "label": "Function y = x cubed",
+                    "expression": "y = x^3",
+                    "domain": [-1, 2],
+                    "samples": [
+                      [-1, -1],
+                      [-0.5, -0.125],
+                      [0, 0],
+                      [0.5, 0.125],
+                      [1, 1],
+                      [1.5, 3.375],
+                      [2, 8]
+                    ]
+                  },
+                  {
+                    "kind": "points",
+                    "id": "power-rule-tangent-point",
+                    "label": "Tangent point at x = 1",
+                    "points": [[1, 1]]
+                  },
+                  {
+                    "kind": "line",
+                    "id": "power-rule-tangent-line",
+                    "label": "Tangent line with slope 3",
+                    "through": [[0, -2], [2, 4]]
+                  }
+                ],
+                "annotations": [
+                  {
+                    "id": "power-rule-tangent-annotation",
+                    "label": "(1, 1)",
+                    "point": [1, 1],
+                    "text": "The tangent slope here is 3, which matches 3 times 1 squared."
+                  }
+                ]
+              }
+            },
+            {
+              "type": "intuition",
+              "id": "power-rule-compare-graph",
+              "title": "Compare: graph to the pattern",
+              "body": [
+                { "kind": "text", "value": "Read the graph in this order: the curve, the marked point, then the tangent line. The slope of the tangent line is " },
+                { "kind": "inlineMath", "latex": "3" },
+                { "kind": "text", "value": ", which agrees with " },
+                { "kind": "inlineMath", "latex": "3x^2" },
+                { "kind": "text", "value": " at " },
+                { "kind": "inlineMath", "latex": "x=1" },
+                { "kind": "text", "value": "." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "The graph checks the rule. The algebra below explains why the rule holds for " },
+                { "kind": "inlineMath", "latex": "n=3" },
+                { "kind": "text", "value": "." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "power-calculation",
+          "title": "Calculate One Case",
+          "blocks": [
+            {
+              "type": "workedExample",
+              "id": "derivative-of-x-cubed",
+              "title": "Derivative of f(x) = x^3",
+              "goal": "Use first principles to confirm the pattern for n = 3.",
+              "given": "f(x) = x^3",
+              "steps": [
+                {
+                  "id": "power-start-definition",
+                  "label": "Write the definition",
+                  "explanation": "Use the first-principles rule. Keep h nonzero during algebra.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}"
+                },
+                {
+                  "id": "power-substitute-function",
+                  "label": "Substitute f(x) = x^3",
+                  "explanation": "Replace f(x+h) with (x+h)^3 and f(x) with x^3.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{(x+h)^3 - x^3}{h}"
+                },
+                {
+                  "id": "power-expand-cube",
+                  "label": "Expand the cube",
+                  "explanation": "Write out (x + h)^3 so the matching terms are visible.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{x^3 + 3x^2 h + 3x h^2 + h^3 - x^3}{h}"
+                },
+                {
+                  "id": "power-combine-terms",
+                  "label": "Combine like terms",
+                  "explanation": "The terms x cubed and minus x cubed cancel.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{3x^2 h + 3x h^2 + h^3}{h}"
+                },
+                {
+                  "id": "power-factor-h",
+                  "label": "Factor h while h is not zero",
+                  "explanation": "Every remaining numerator term has at least one factor of h.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{h(3x^2 + 3x h + h^2)}{h},\\quad h\\ne 0"
+                },
+                {
+                  "id": "power-cancel-h",
+                  "label": "Cancel the common factor",
+                  "explanation": "The quotient no longer divides by h.",
+                  "latex": "f'(x)=\\lim_{h\\to 0}(3x^2 + 3x h + h^2)"
+                },
+                {
+                  "id": "power-evaluate-limit",
+                  "label": "Evaluate the limit",
+                  "explanation": "Now h can approach 0. The two h terms vanish.",
+                  "latex": "f'(x)=3x^2"
+                }
+              ],
+              "interpretation": "The result matches the pattern: for n = 3, the derivative is 3 x^(3-1) = 3 x^2."
+            },
+            {
+              "type": "commonMistake",
+              "id": "forget-to-reduce-exponent",
+              "title": "Forgetting to reduce the exponent",
+              "misconception": "The exponent only comes down as a factor; it does not change.",
+              "incorrectStep": "Writing the derivative of x^3 as 3 x^3 instead of 3 x^2.",
+              "whyWrong": "The first-principles calculation shows the leading non-cancelling term is 3 x^2 h, so after cancelling one h the surviving factor is x^2, not x^3.",
+              "correction": "After bringing the exponent down, reduce the original exponent by 1: derivative of x^n is n x^(n - 1).",
+              "checkPrompt": "Did the exponent drop by exactly one after the n came down?"
+            },
+            {
+              "type": "intuition",
+              "id": "power-rule-pause",
+              "title": "Pause: name the two moves",
+              "body": [
+                { "kind": "text", "value": "Before answering, say the two moves out loud: bring " },
+                { "kind": "inlineMath", "latex": "n" },
+                { "kind": "text", "value": " down, then replace " },
+                { "kind": "inlineMath", "latex": "n" },
+                { "kind": "text", "value": " with " },
+                { "kind": "inlineMath", "latex": "n-1" },
+                { "kind": "text", "value": "." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Both moves must happen. Doing only one gives a wrong answer." }
+              ]
+            },
+            {
+              "type": "quiz",
+              "id": "power-rule-check",
+              "title": "Check: power rule",
+              "questions": [
+                {
+                  "kind": "multipleChoice",
+                  "id": "power-rule-derivative-x-to-the-fifth",
+                  "prompt": [
+                    { "kind": "text", "value": "What is the derivative of " },
+                    { "kind": "inlineMath", "latex": "f(x)=x^5" },
+                    { "kind": "text", "value": "?" }
+                  ],
+                  "options": [
+                    {
+                      "id": "power-rule-correct",
+                      "text": [{ "kind": "inlineMath", "latex": "f'(x)=5x^4" }],
+                      "feedback": "Correct. The 5 comes down as a factor and the exponent drops to 4."
+                    },
+                    {
+                      "id": "power-rule-no-reduction",
+                      "text": [{ "kind": "inlineMath", "latex": "f'(x)=5x^5" }],
+                      "feedback": "Review the mistake block. The exponent must also drop by 1."
+                    },
+                    {
+                      "id": "power-rule-no-factor",
+                      "text": [{ "kind": "inlineMath", "latex": "f'(x)=x^4" }],
+                      "feedback": "The exponent dropped, but the 5 must come down as a factor."
+                    }
+                  ],
+                  "correctOptionId": "power-rule-correct",
+                  "conceptTags": ["power-rule", "polynomial-derivatives"],
+                  "hint": "Bring the exponent down, then reduce the exponent by 1."
+                },
+                {
+                  "kind": "shortAnswer",
+                  "id": "power-rule-derivative-x-cubed-value",
+                  "prompt": [
+                    { "kind": "text", "value": "For " },
+                    { "kind": "inlineMath", "latex": "f(x)=x^3" },
+                    { "kind": "text", "value": ", what is " },
+                    { "kind": "inlineMath", "latex": "f'(x)" },
+                    { "kind": "text", "value": "?" }
+                  ],
+                  "acceptedAnswers": ["3x^2", "3*x^2", "3 x^2", "f'(x)=3x^2"],
+                  "feedback": {
+                    "correct": "Correct. First principles confirm the pattern for n = 3.",
+                    "incorrect": "Review the worked example. The first principles give 3 x squared."
+                  },
+                  "conceptTags": ["power-rule", "first-principles"],
+                  "hint": "Bring the 3 down, then reduce the exponent to 2."
+                }
+              ]
+            },
+            {
+              "type": "summary",
+              "id": "power-rule-summary",
+              "items": [
+                [
+                  { "kind": "text", "value": "Expanding " },
+                  { "kind": "inlineMath", "latex": "(x+h)^n" },
+                  { "kind": "text", "value": " always produces a leading non-cancelling " },
+                  { "kind": "inlineMath", "latex": "n\\,x^{n-1} h" },
+                  { "kind": "text", "value": " term." }
+                ],
+                [
+                  { "kind": "text", "value": "Cancelling " },
+                  { "kind": "inlineMath", "latex": "h" },
+                  { "kind": "text", "value": " and letting it approach " },
+                  { "kind": "inlineMath", "latex": "0" },
+                  { "kind": "text", "value": " leaves " },
+                  { "kind": "inlineMath", "latex": "n\\,x^{n-1}" },
+                  { "kind": "text", "value": "." }
+                ],
+                [
+                  { "kind": "text", "value": "For " },
+                  { "kind": "inlineMath", "latex": "f(x)=x^3" },
+                  { "kind": "text", "value": ", first principles give " },
+                  { "kind": "inlineMath", "latex": "f'(x)=3x^2" },
+                  { "kind": "text", "value": "." }
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "revision": {
+        "keyIdeas": [
+          "The exponent comes down as a factor and then drops by 1.",
+          "The binomial expansion gives a leading n x^(n-1) h term.",
+          "For f(x) = x^3, first principles give f'(x) = 3 x^2.",
+          "The pattern holds for every positive integer n."
+        ],
+        "recallPrompts": [
+          "What are the two moves in the power rule?",
+          "Where does the factor n come from in the expansion?",
+          "Why does the exponent drop by exactly 1?",
+          "What does the graph at x = 1 show for f(x) = x^3?"
+        ],
+        "mistakeIds": ["forget-to-reduce-exponent"],
+        "quizIds": ["power-rule-check"]
+      }
+    },
+    {
+      "id": "sum-and-constant-multiple-rule",
+      "title": "Sum and Constant Multiple Rule",
+      "summary": "See why the derivative of a sum is the sum of the derivatives, and why constants slide outside.",
+      "objectives": [
+        "Observe that the difference quotient distributes across addition.",
+        "Use the sum rule to differentiate term by term.",
+        "Use the constant multiple rule to slide constants outside derivatives.",
+        "Combine the two rules with the power rule on a polynomial.",
+        "Avoid differentiating constants as if they were variables."
+      ],
+      "estimatedMinutes": 22,
+      "sections": [
+        {
+          "id": "sum-rule-meaning",
+          "title": "Observe the Two Combining Rules",
+          "blocks": [
+            {
+              "type": "title",
+              "id": "sum-rule-title",
+              "kicker": "Combining derivatives",
+              "title": "Sum and Constant Multiple Rule",
+              "subtitle": "Differentiate term by term, and treat constants as multipliers.",
+              "objectives": [
+                [
+                  { "kind": "text", "value": "Observe that " },
+                  { "kind": "inlineMath", "latex": "(f+g)' = f' + g'" },
+                  { "kind": "text", "value": "." }
+                ],
+                [
+                  { "kind": "text", "value": "Observe that " },
+                  { "kind": "inlineMath", "latex": "(c\\,f)' = c\\,f'" },
+                  { "kind": "text", "value": "." }
+                ],
+                [
+                  { "kind": "text", "value": "Combine both rules with the power rule on a polynomial." }
+                ]
+              ]
+            },
+            {
+              "type": "concept",
+              "id": "sum-rule-statement",
+              "title": "Observe: distribute across the sum",
+              "body": [
+                { "kind": "text", "value": "The difference quotient of a sum is the sum of the difference quotients. The limit of a sum is the sum of the limits when each exists. So derivatives add term by term." }
+              ],
+              "keyIdeas": [
+                [
+                  { "kind": "text", "value": "Differentiate each term separately, then add the results." }
+                ],
+                [
+                  { "kind": "text", "value": "A constant multiplier stays attached to its term." }
+                ]
+              ]
+            },
+            {
+              "type": "intuition",
+              "id": "sum-rule-predict",
+              "title": "Predict: split the work",
+              "body": [
+                { "kind": "text", "value": "If " },
+                { "kind": "inlineMath", "latex": "f(x)=4x^3+2x" },
+                { "kind": "text", "value": ", predict the derivative by treating " },
+                { "kind": "inlineMath", "latex": "4x^3" },
+                { "kind": "text", "value": " and " },
+                { "kind": "inlineMath", "latex": "2x" },
+                { "kind": "text", "value": " as independent terms." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Splitting the work is allowed. Each term keeps its constant factor." }
+              ]
+            },
+            {
+              "type": "latex",
+              "id": "sum-rule-definition",
+              "latex": "\\frac{d}{dx}\\big[f(x)+g(x)\\big] = f'(x)+g'(x), \\quad \\frac{d}{dx}\\big[c\\,f(x)\\big] = c\\,f'(x)",
+              "caption": "Sum rule and constant multiple rule, stated together.",
+              "display": true
+            },
+            {
+              "type": "graph",
+              "id": "sum-rule-graph",
+              "title": "Polynomial y = 4x^3 + 2x",
+              "description": "Notice the polynomial first. The marked point is at x = 1, where the function value is 6 and the tangent slope is 14.",
+              "spec": {
+                "xAxis": {
+                  "label": "input x",
+                  "min": -1,
+                  "max": 1.5,
+                  "ticks": [-1, 0, 1, 1.5]
+                },
+                "yAxis": {
+                  "label": "output f(x)",
+                  "min": -6,
+                  "max": 17,
+                  "ticks": [-6, 0, 6, 16]
+                },
+                "series": [
+                  {
+                    "kind": "function",
+                    "id": "sum-rule-curve",
+                    "label": "Function 4 x cubed plus 2 x",
+                    "expression": "y = 4x^3 + 2x",
+                    "domain": [-1, 1.5],
+                    "samples": [
+                      [-1, -6],
+                      [-0.5, -1.5],
+                      [0, 0],
+                      [0.5, 1.5],
+                      [1, 6],
+                      [1.25, 10.3125],
+                      [1.5, 16.5]
+                    ]
+                  },
+                  {
+                    "kind": "points",
+                    "id": "sum-rule-tangent-point",
+                    "label": "Tangent point at x = 1",
+                    "points": [[1, 6]]
+                  }
+                ],
+                "annotations": [
+                  {
+                    "id": "sum-rule-tangent-annotation",
+                    "label": "(1, 6)",
+                    "point": [1, 6],
+                    "text": "At x = 1 the tangent slope equals 12 + 2 = 14."
+                  }
+                ]
+              }
+            },
+            {
+              "type": "intuition",
+              "id": "sum-rule-compare-graph",
+              "title": "Compare: graph to term-by-term work",
+              "body": [
+                { "kind": "text", "value": "Each term contributes its own slope. At " },
+                { "kind": "inlineMath", "latex": "x=1" },
+                { "kind": "text", "value": " the cubic term contributes " },
+                { "kind": "inlineMath", "latex": "12" },
+                { "kind": "text", "value": " and the linear term contributes " },
+                { "kind": "inlineMath", "latex": "2" },
+                { "kind": "text", "value": "." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Term-by-term contributions add to the overall tangent slope " },
+                { "kind": "inlineMath", "latex": "14" },
+                { "kind": "text", "value": "." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "sum-rule-calculation",
+          "title": "Calculate a Polynomial Derivative",
+          "blocks": [
+            {
+              "type": "workedExample",
+              "id": "derivative-of-polynomial-sum",
+              "title": "Derivative of f(x) = 4 x^3 + 2 x",
+              "goal": "Combine the sum rule, constant multiple rule, and power rule on one polynomial.",
+              "given": "f(x) = 4 x^3 + 2 x",
+              "steps": [
+                {
+                  "id": "sum-rule-split-terms",
+                  "label": "Split into separate terms",
+                  "explanation": "The sum rule lets you differentiate each term on its own.",
+                  "latex": "f'(x) = \\frac{d}{dx}\\big[4x^3\\big] + \\frac{d}{dx}\\big[2x\\big]"
+                },
+                {
+                  "id": "sum-rule-slide-constants",
+                  "label": "Slide each constant outside",
+                  "explanation": "The constant multiple rule moves the 4 and the 2 outside the derivative.",
+                  "latex": "f'(x) = 4\\,\\frac{d}{dx}\\big[x^3\\big] + 2\\,\\frac{d}{dx}\\big[x\\big]"
+                },
+                {
+                  "id": "sum-rule-apply-power-rule",
+                  "label": "Apply the power rule to each piece",
+                  "explanation": "The derivative of x cubed is 3 x squared. The derivative of x is 1.",
+                  "latex": "f'(x) = 4\\cdot 3x^2 + 2\\cdot 1"
+                },
+                {
+                  "id": "sum-rule-combine-result",
+                  "label": "Combine the results",
+                  "explanation": "Multiply through and add.",
+                  "latex": "f'(x) = 12x^2 + 2"
+                }
+              ],
+              "interpretation": "At x = 1 this gives 14, which agrees with the tangent slope on the graph."
+            },
+            {
+              "type": "commonMistake",
+              "id": "differentiate-constant-as-variable",
+              "title": "Differentiating a constant as if it were a variable",
+              "misconception": "The constant 4 in 4 x^3 has its own derivative that must be calculated.",
+              "incorrectStep": "Writing the derivative of 4 x^3 as 4 + 3 x^2 instead of 4 * 3 x^2.",
+              "whyWrong": "The 4 multiplies the term; it is not added to it. The constant multiple rule slides it outside the derivative, where it stays as a factor.",
+              "correction": "Treat the 4 as a factor: derivative of 4 x^3 is 4 * derivative of x^3 = 4 * 3 x^2 = 12 x^2.",
+              "checkPrompt": "Is the constant a factor in front of the term, or a separate added term?"
+            },
+            {
+              "type": "intuition",
+              "id": "sum-rule-pause",
+              "title": "Pause: scan the polynomial",
+              "body": [
+                { "kind": "text", "value": "Before answering, scan the polynomial term by term. Note each constant factor and each power." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "The two rules do most of the work; the power rule finishes each term." }
+              ]
+            },
+            {
+              "type": "quiz",
+              "id": "sum-rule-check",
+              "title": "Check: term by term",
+              "questions": [
+                {
+                  "kind": "shortAnswer",
+                  "id": "sum-rule-derivative-of-polynomial",
+                  "prompt": [
+                    { "kind": "text", "value": "What is the derivative of " },
+                    { "kind": "inlineMath", "latex": "f(x)=4x^3+2x" },
+                    { "kind": "text", "value": "?" }
+                  ],
+                  "acceptedAnswers": ["12x^2+2", "12 x^2 + 2", "12*x^2+2", "f'(x)=12x^2+2"],
+                  "feedback": {
+                    "correct": "Correct. The two terms differentiate independently with their constant factors.",
+                    "incorrect": "Review the worked example. The result is 12 x squared plus 2."
+                  },
+                  "conceptTags": ["sum-rule", "constant-multiple-rule", "power-rule"],
+                  "hint": "Differentiate 4 x cubed and 2 x separately, then add."
+                }
+              ]
+            },
+            {
+              "type": "summary",
+              "id": "sum-rule-summary",
+              "items": [
+                [
+                  { "kind": "text", "value": "The derivative of a sum is the sum of the derivatives." }
+                ],
+                [
+                  { "kind": "text", "value": "A constant factor slides outside the derivative and stays attached." }
+                ],
+                [
+                  { "kind": "text", "value": "For " },
+                  { "kind": "inlineMath", "latex": "f(x)=4x^3+2x" },
+                  { "kind": "text", "value": ", these rules give " },
+                  { "kind": "inlineMath", "latex": "f'(x)=12x^2+2" },
+                  { "kind": "text", "value": "." }
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "revision": {
+        "keyIdeas": [
+          "Derivatives distribute across addition.",
+          "Constant factors slide outside the derivative.",
+          "Combine these with the power rule to differentiate polynomials term by term.",
+          "For f(x) = 4 x^3 + 2 x, the derivative is f'(x) = 12 x^2 + 2."
+        ],
+        "recallPrompts": [
+          "Why can the derivative of a sum be split term by term?",
+          "Where does a constant factor go when you differentiate?",
+          "What is the derivative of 2 x?",
+          "What is the derivative of 4 x^3?"
+        ],
+        "mistakeIds": ["differentiate-constant-as-variable"],
+        "quizIds": ["sum-rule-check"]
+      }
+    },
+    {
+      "id": "product-rule",
+      "title": "Product Rule",
+      "summary": "Use first principles to derive the rule for the derivative of a product of two functions.",
+      "objectives": [
+        "Observe why (f g)' is not f' g'.",
+        "Use the add-and-subtract trick on f(x + h) g(x + h) - f(x) g(x).",
+        "State the product rule.",
+        "Apply the product rule to a simple polynomial product.",
+        "Avoid multiplying the two derivatives together."
+      ],
+      "estimatedMinutes": 26,
+      "sections": [
+        {
+          "id": "product-meaning",
+          "title": "Observe Why Products Need a New Rule",
+          "blocks": [
+            {
+              "type": "title",
+              "id": "product-rule-title",
+              "kicker": "Combining derivatives",
+              "title": "Product Rule",
+              "subtitle": "When two functions are multiplied, both contribute to the derivative.",
+              "objectives": [
+                [
+                  { "kind": "text", "value": "Observe why " },
+                  { "kind": "inlineMath", "latex": "(fg)' \\ne f'g'" },
+                  { "kind": "text", "value": "." }
+                ],
+                [
+                  { "kind": "text", "value": "Use the add-and-subtract trick in the numerator." }
+                ],
+                [
+                  { "kind": "text", "value": "Apply the product rule to a polynomial." }
+                ]
+              ]
+            },
+            {
+              "type": "concept",
+              "id": "product-rule-statement",
+              "title": "Observe: two functions, two contributions",
+              "body": [
+                { "kind": "text", "value": "When two functions are multiplied, the rate of change of the product comes from both factors. The product rule keeps both contributions explicit." }
+              ],
+              "keyIdeas": [
+                [
+                  { "kind": "text", "value": "One term differentiates the first factor and keeps the second factor as it is." }
+                ],
+                [
+                  { "kind": "text", "value": "The other term keeps the first factor and differentiates the second factor." }
+                ]
+              ]
+            },
+            {
+              "type": "intuition",
+              "id": "product-rule-predict",
+              "title": "Predict: add and subtract",
+              "body": [
+                { "kind": "text", "value": "In the numerator " },
+                { "kind": "inlineMath", "latex": "f(x+h)g(x+h)-f(x)g(x)" },
+                { "kind": "text", "value": ", add and subtract " },
+                { "kind": "inlineMath", "latex": "f(x+h)g(x)" },
+                { "kind": "text", "value": " to split the change into two pieces." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Each piece isolates one factor's change while the other factor sits still." }
+              ]
+            },
+            {
+              "type": "latex",
+              "id": "product-rule-definition",
+              "latex": "(fg)'(x) = f'(x)g(x) + f(x)g'(x)",
+              "caption": "Product rule. Differentiate one factor at a time and add the results.",
+              "display": true
+            },
+            {
+              "type": "graph",
+              "id": "product-rule-graph",
+              "title": "Product y = x^2 (x + 1)",
+              "description": "Notice the cubic curve first. At x = 1 the function value is 2, and the tangent slope from the product rule is 5.",
+              "spec": {
+                "xAxis": {
+                  "label": "input x",
+                  "min": -1.5,
+                  "max": 1.5,
+                  "ticks": [-1, 0, 1, 1.5]
+                },
+                "yAxis": {
+                  "label": "output f(x)",
+                  "min": -1,
+                  "max": 6,
+                  "ticks": [-1, 0, 2, 5.625]
+                },
+                "series": [
+                  {
+                    "kind": "function",
+                    "id": "product-rule-curve",
+                    "label": "Function x squared times x plus 1",
+                    "expression": "y = x^2 (x + 1)",
+                    "domain": [-1.5, 1.5],
+                    "samples": [
+                      [-1.5, -1.125],
+                      [-1, 0],
+                      [-0.5, 0.125],
+                      [0, 0],
+                      [0.5, 0.375],
+                      [1, 2],
+                      [1.5, 5.625]
+                    ]
+                  },
+                  {
+                    "kind": "points",
+                    "id": "product-rule-evaluation-point",
+                    "label": "Evaluation point at x = 1",
+                    "points": [[1, 2]]
+                  }
+                ],
+                "annotations": [
+                  {
+                    "id": "product-rule-tangent-annotation",
+                    "label": "(1, 2)",
+                    "point": [1, 2],
+                    "text": "Product rule at x = 1: 2 times 2 plus 1 times 1 = 5."
+                  }
+                ]
+              }
+            },
+            {
+              "type": "intuition",
+              "id": "product-rule-compare-graph",
+              "title": "Compare: graph to two contributions",
+              "body": [
+                { "kind": "text", "value": "Read the two parts of the product rule on the graph: the first term changes the cubic term's slope, and the second term changes the square term's slope. Both contribute." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "The two terms of the product rule are not the same; both must be written." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "product-calculation",
+          "title": "Calculate a Product Derivative",
+          "blocks": [
+            {
+              "type": "workedExample",
+              "id": "derivative-of-x-squared-times-x-plus-one",
+              "title": "Derivative of f(x) = x^2 (x + 1)",
+              "goal": "Apply the product rule and check by expanding.",
+              "given": "f(x) = x^2 (x + 1)",
+              "steps": [
+                {
+                  "id": "product-name-factors",
+                  "label": "Name the two factors",
+                  "explanation": "Let u(x) be x squared and v(x) be x plus 1.",
+                  "latex": "u(x) = x^2, \\quad v(x) = x + 1"
+                },
+                {
+                  "id": "product-find-derivatives",
+                  "label": "Find each factor's derivative",
+                  "explanation": "The power rule gives the derivative of x squared as 2 x. The derivative of x plus a constant is 1.",
+                  "latex": "u'(x) = 2x, \\quad v'(x) = 1"
+                },
+                {
+                  "id": "product-apply-product-rule",
+                  "label": "Apply the product rule",
+                  "explanation": "Use u'(x) v(x) + u(x) v'(x).",
+                  "latex": "f'(x) = 2x\\,(x+1) + x^2\\cdot 1"
+                },
+                {
+                  "id": "product-simplify-result",
+                  "label": "Simplify the result",
+                  "explanation": "Distribute and combine like terms.",
+                  "latex": "f'(x) = 3x^2 + 2x"
+                },
+                {
+                  "id": "product-check-by-expanding",
+                  "label": "Check by expanding first",
+                  "explanation": "Expanding gives x^3 + x^2, whose derivative is also 3 x squared plus 2 x.",
+                  "latex": "\\frac{d}{dx}\\big[x^3 + x^2\\big] = 3x^2 + 2x"
+                }
+              ],
+              "interpretation": "At x = 1 the derivative is 5, matching the graph annotation."
+            },
+            {
+              "type": "commonMistake",
+              "id": "multiply-derivatives-as-product-rule",
+              "title": "Multiplying the two derivatives together",
+              "misconception": "The derivative of a product is the product of the derivatives.",
+              "incorrectStep": "Writing the derivative of x^2 (x + 1) as 2 x * 1 = 2 x.",
+              "whyWrong": "That ignores the rate of change of each factor times the other factor. The first-principles derivation makes both terms unavoidable.",
+              "correction": "Use the product rule: f' g + f g'. Differentiate one factor at a time and keep the other one as it is.",
+              "checkPrompt": "Did you write two terms, one for each factor's derivative?"
+            },
+            {
+              "type": "intuition",
+              "id": "product-rule-pause",
+              "title": "Pause: write both terms",
+              "body": [
+                { "kind": "text", "value": "Before answering, write the product rule template " },
+                { "kind": "inlineMath", "latex": "f'g + fg'" },
+                { "kind": "text", "value": " and fill in each blank." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Two terms must appear before any simplification." }
+              ]
+            },
+            {
+              "type": "quiz",
+              "id": "product-rule-check",
+              "title": "Check: product rule",
+              "questions": [
+                {
+                  "kind": "multipleChoice",
+                  "id": "product-rule-question",
+                  "prompt": [
+                    { "kind": "text", "value": "Which expression equals the derivative of " },
+                    { "kind": "inlineMath", "latex": "f(x)=x^2(x+1)" },
+                    { "kind": "text", "value": "?" }
+                  ],
+                  "options": [
+                    {
+                      "id": "product-rule-correct-answer",
+                      "text": [{ "kind": "inlineMath", "latex": "2x(x+1)+x^2" }],
+                      "feedback": "Correct. This is the product rule applied step by step."
+                    },
+                    {
+                      "id": "product-rule-multiply-derivatives",
+                      "text": [{ "kind": "inlineMath", "latex": "(2x)(1)" }],
+                      "feedback": "Review the mistake block. The derivative of a product is not the product of the derivatives."
+                    },
+                    {
+                      "id": "product-rule-only-first-term",
+                      "text": [{ "kind": "inlineMath", "latex": "2x(x+1)" }],
+                      "feedback": "This is only one of the two product-rule terms. The second term x^2 times 1 is missing."
+                    }
+                  ],
+                  "correctOptionId": "product-rule-correct-answer",
+                  "conceptTags": ["product-rule"],
+                  "hint": "Write f'g + fg' with f = x squared and g = x + 1."
+                }
+              ]
+            },
+            {
+              "type": "summary",
+              "id": "product-rule-summary",
+              "items": [
+                [
+                  { "kind": "text", "value": "A product of two functions has two contributions to its derivative." }
+                ],
+                [
+                  { "kind": "text", "value": "The product rule is " },
+                  { "kind": "inlineMath", "latex": "(fg)' = f'g + fg'" },
+                  { "kind": "text", "value": "." }
+                ],
+                [
+                  { "kind": "text", "value": "For " },
+                  { "kind": "inlineMath", "latex": "f(x)=x^2(x+1)" },
+                  { "kind": "text", "value": ", the product rule gives " },
+                  { "kind": "inlineMath", "latex": "f'(x)=3x^2+2x" },
+                  { "kind": "text", "value": "." }
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "revision": {
+        "keyIdeas": [
+          "The derivative of a product is f' g + f g', not f' g'.",
+          "The add-and-subtract trick on the numerator splits the change into two pieces.",
+          "For f(x) = x^2 (x + 1), the product rule gives 3 x^2 + 2 x.",
+          "The result can be checked by expanding and differentiating term by term."
+        ],
+        "recallPrompts": [
+          "Why does the product rule have two terms?",
+          "What is the add-and-subtract trick in the numerator?",
+          "Why is the derivative of a product not the product of the derivatives?",
+          "How does the polynomial check confirm the product rule?"
+        ],
+        "mistakeIds": ["multiply-derivatives-as-product-rule"],
+        "quizIds": ["product-rule-check"]
+      }
+    },
+    {
+      "id": "quotient-rule",
+      "title": "Quotient Rule",
+      "summary": "Use first principles to find the derivative of a quotient of two functions.",
+      "objectives": [
+        "Observe that a quotient needs more than just dividing derivatives.",
+        "Apply the quotient rule to a simple ratio.",
+        "Use the quotient rule to derive the derivative of 1 over x.",
+        "Track the order f' g - f g' carefully.",
+        "Avoid swapping the numerator order or dropping the square in the denominator."
+      ],
+      "estimatedMinutes": 24,
+      "sections": [
+        {
+          "id": "quotient-meaning",
+          "title": "Observe the Quotient Pattern",
+          "blocks": [
+            {
+              "type": "title",
+              "id": "quotient-rule-title",
+              "kicker": "Combining derivatives",
+              "title": "Quotient Rule",
+              "subtitle": "Differentiate a ratio with one careful formula.",
+              "objectives": [
+                [
+                  { "kind": "text", "value": "Observe the order " },
+                  { "kind": "inlineMath", "latex": "f'g - fg'" },
+                  { "kind": "text", "value": " in the numerator." }
+                ],
+                [
+                  { "kind": "text", "value": "Divide by " },
+                  { "kind": "inlineMath", "latex": "[g(x)]^2" },
+                  { "kind": "text", "value": "." }
+                ],
+                [
+                  { "kind": "text", "value": "Apply the quotient rule to derive the derivative of " },
+                  { "kind": "inlineMath", "latex": "1/x" },
+                  { "kind": "text", "value": "." }
+                ]
+              ]
+            },
+            {
+              "type": "concept",
+              "id": "quotient-rule-statement",
+              "title": "Observe: order matters",
+              "body": [
+                { "kind": "text", "value": "The quotient rule pairs the product-rule pattern with a denominator squared. The order of subtraction in the numerator is fixed: numerator-derivative first, denominator-derivative second." }
+              ],
+              "keyIdeas": [
+                [
+                  { "kind": "text", "value": "The numerator's derivative comes first." }
+                ],
+                [
+                  { "kind": "text", "value": "The denominator is squared, but g itself is not differentiated twice." }
+                ]
+              ]
+            },
+            {
+              "type": "intuition",
+              "id": "quotient-rule-predict",
+              "title": "Predict: keep the order",
+              "body": [
+                { "kind": "text", "value": "Read the numerator left to right: derivative of top times bottom, then minus top times derivative of bottom. Swapping the order flips the sign." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Mnemonic: low-d-high minus high-d-low, over the square of what is below." }
+              ]
+            },
+            {
+              "type": "latex",
+              "id": "quotient-rule-definition",
+              "latex": "\\left(\\frac{f}{g}\\right)'(x) = \\frac{f'(x)g(x) - f(x)g'(x)}{\\big[g(x)\\big]^2}",
+              "caption": "Quotient rule. The numerator follows a fixed order; the denominator is squared.",
+              "display": true
+            },
+            {
+              "type": "graph",
+              "id": "quotient-rule-graph",
+              "title": "Reciprocal y = 1/x on the positive branch",
+              "description": "Notice the curve y = 1/x for positive x. The tangent slope at x = 1 is -1, matching the prediction -1/x^2.",
+              "spec": {
+                "xAxis": {
+                  "label": "input x",
+                  "min": 0.4,
+                  "max": 3,
+                  "ticks": [0.5, 1, 2, 3]
+                },
+                "yAxis": {
+                  "label": "output f(x)",
+                  "min": 0,
+                  "max": 3,
+                  "ticks": [0, 0.5, 1, 2]
+                },
+                "series": [
+                  {
+                    "kind": "function",
+                    "id": "quotient-rule-reciprocal-curve",
+                    "label": "Function 1 over x",
+                    "expression": "y = 1/x",
+                    "domain": [0.4, 3],
+                    "samples": [
+                      [0.4, 2.5],
+                      [0.5, 2],
+                      [0.75, 1.3333],
+                      [1, 1],
+                      [1.5, 0.6667],
+                      [2, 0.5],
+                      [2.5, 0.4],
+                      [3, 0.3333]
+                    ]
+                  },
+                  {
+                    "kind": "points",
+                    "id": "quotient-rule-tangent-point",
+                    "label": "Tangent point at x = 1",
+                    "points": [[1, 1]]
+                  },
+                  {
+                    "kind": "line",
+                    "id": "quotient-rule-tangent-line",
+                    "label": "Tangent line slope -1",
+                    "through": [[0.5, 1.5], [2, 0]]
+                  }
+                ],
+                "annotations": [
+                  {
+                    "id": "quotient-rule-tangent-annotation",
+                    "label": "(1, 1)",
+                    "point": [1, 1],
+                    "text": "The tangent slope here is -1, which equals -1 over 1 squared."
+                  }
+                ]
+              }
+            },
+            {
+              "type": "intuition",
+              "id": "quotient-rule-compare-graph",
+              "title": "Compare: graph to the formula",
+              "body": [
+                { "kind": "text", "value": "Read the tangent line on the graph as a slope of negative one. The quotient rule predicts " },
+                { "kind": "inlineMath", "latex": "-1/x^2" },
+                { "kind": "text", "value": ", which is " },
+                { "kind": "inlineMath", "latex": "-1" },
+                { "kind": "text", "value": " at " },
+                { "kind": "inlineMath", "latex": "x=1" },
+                { "kind": "text", "value": "." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "The formula and the graph agree only when the order in the numerator is correct." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "quotient-calculation",
+          "title": "Calculate One Quotient Derivative",
+          "blocks": [
+            {
+              "type": "workedExample",
+              "id": "derivative-of-one-over-x",
+              "title": "Derivative of f(x) = 1/x",
+              "goal": "Apply the quotient rule to a simple reciprocal.",
+              "given": "f(x) = 1/x, with x not equal to 0",
+              "steps": [
+                {
+                  "id": "quotient-name-pieces",
+                  "label": "Name the top and bottom",
+                  "explanation": "Let u(x) be 1 and v(x) be x.",
+                  "latex": "u(x) = 1, \\quad v(x) = x"
+                },
+                {
+                  "id": "quotient-find-derivatives",
+                  "label": "Find each derivative",
+                  "explanation": "The derivative of a constant is 0. The derivative of x is 1.",
+                  "latex": "u'(x) = 0, \\quad v'(x) = 1"
+                },
+                {
+                  "id": "quotient-apply-rule",
+                  "label": "Apply the quotient rule",
+                  "explanation": "Substitute into the fixed numerator order, divided by v squared.",
+                  "latex": "f'(x) = \\frac{0\\cdot x - 1\\cdot 1}{x^2}"
+                },
+                {
+                  "id": "quotient-simplify",
+                  "label": "Simplify",
+                  "explanation": "The first term in the numerator is 0; the second is -1.",
+                  "latex": "f'(x) = -\\frac{1}{x^2}"
+                }
+              ],
+              "interpretation": "At x = 1 this gives -1, which matches the tangent slope shown on the graph."
+            },
+            {
+              "type": "commonMistake",
+              "id": "swap-quotient-rule-order",
+              "title": "Swapping the order in the numerator",
+              "misconception": "The quotient rule is symmetric, so the order in the numerator does not matter.",
+              "incorrectStep": "Writing the numerator as f g' - f' g instead of f' g - f g'.",
+              "whyWrong": "Swapping the order flips the sign of the result. The first-principles derivation fixes the order.",
+              "correction": "Always write the numerator as derivative of top times bottom, minus top times derivative of bottom.",
+              "checkPrompt": "Is f' g written before f g' in the numerator?"
+            },
+            {
+              "type": "intuition",
+              "id": "quotient-rule-pause",
+              "title": "Pause: write the order",
+              "body": [
+                { "kind": "text", "value": "Before answering, write the template " },
+                { "kind": "inlineMath", "latex": "\\frac{f'g-fg'}{g^2}" },
+                { "kind": "text", "value": " and fill in each blank in order." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Filling the template in order avoids sign mistakes." }
+              ]
+            },
+            {
+              "type": "quiz",
+              "id": "quotient-rule-check",
+              "title": "Check: quotient rule",
+              "questions": [
+                {
+                  "kind": "shortAnswer",
+                  "id": "quotient-rule-derivative-of-reciprocal",
+                  "prompt": [
+                    { "kind": "text", "value": "What is the derivative of " },
+                    { "kind": "inlineMath", "latex": "f(x)=1/x" },
+                    { "kind": "text", "value": " on its domain?" }
+                  ],
+                  "acceptedAnswers": ["-1/x^2", "-(1/x^2)", "f'(x)=-1/x^2", "-x^-2", "-x^(-2)"],
+                  "feedback": {
+                    "correct": "Correct. The quotient rule gives negative one over x squared.",
+                    "incorrect": "Review the worked example. The result is negative one over x squared."
+                  },
+                  "conceptTags": ["quotient-rule"],
+                  "hint": "Apply the quotient rule with u = 1 and v = x."
+                }
+              ]
+            },
+            {
+              "type": "summary",
+              "id": "quotient-rule-summary",
+              "items": [
+                [
+                  { "kind": "text", "value": "The quotient rule fixes the order in the numerator and squares the denominator." }
+                ],
+                [
+                  { "kind": "text", "value": "For " },
+                  { "kind": "inlineMath", "latex": "f(x)=1/x" },
+                  { "kind": "text", "value": ", the quotient rule gives " },
+                  { "kind": "inlineMath", "latex": "f'(x)=-1/x^2" },
+                  { "kind": "text", "value": "." }
+                ],
+                [
+                  { "kind": "text", "value": "Order and squaring both matter; either mistake gives a wrong result." }
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "revision": {
+        "keyIdeas": [
+          "The quotient rule numerator is f' g - f g', in that order.",
+          "The denominator is g(x) squared.",
+          "For f(x) = 1/x, the derivative is -1/x^2.",
+          "Swapping the numerator order flips the sign."
+        ],
+        "recallPrompts": [
+          "Which derivative comes first in the numerator?",
+          "Why is the denominator squared?",
+          "What is the derivative of 1/x?",
+          "Where is the domain restricted in the reciprocal example?"
+        ],
+        "mistakeIds": ["swap-quotient-rule-order"],
+        "quizIds": ["quotient-rule-check"]
+      }
+    },
+    {
+      "id": "chain-rule",
+      "title": "Chain Rule",
+      "summary": "Differentiate compositions by multiplying the outer and inner derivatives.",
+      "objectives": [
+        "Identify the outer function and the inner function in a composition.",
+        "Apply the chain rule to a polynomial composition.",
+        "Use a u-substitution view to keep the outer and inner derivatives separate.",
+        "Avoid forgetting the inner derivative factor."
+      ],
+      "estimatedMinutes": 26,
+      "sections": [
+        {
+          "id": "chain-meaning",
+          "title": "Observe Outer and Inner Functions",
+          "blocks": [
+            {
+              "type": "title",
+              "id": "chain-rule-title",
+              "kicker": "Combining derivatives",
+              "title": "Chain Rule",
+              "subtitle": "When a function is wrapped inside another, both derivatives multiply.",
+              "objectives": [
+                [
+                  { "kind": "text", "value": "Identify the outer and inner functions." }
+                ],
+                [
+                  { "kind": "text", "value": "Multiply the outer derivative by the inner derivative." }
+                ],
+                [
+                  { "kind": "text", "value": "Apply the chain rule to " },
+                  { "kind": "inlineMath", "latex": "(x^2+1)^3" },
+                  { "kind": "text", "value": "." }
+                ]
+              ]
+            },
+            {
+              "type": "concept",
+              "id": "chain-rule-statement",
+              "title": "Observe: a function inside a function",
+              "body": [
+                { "kind": "text", "value": "A composition first runs the inner function, then feeds the result into the outer function. Each layer changes at its own rate, and the chain rule multiplies the two rates." }
+              ],
+              "keyIdeas": [
+                [
+                  { "kind": "text", "value": "The outer derivative is taken with the inner expression kept untouched." }
+                ],
+                [
+                  { "kind": "text", "value": "The inner derivative is then multiplied on the outside." }
+                ]
+              ]
+            },
+            {
+              "type": "intuition",
+              "id": "chain-rule-predict",
+              "title": "Predict: use a placeholder",
+              "body": [
+                { "kind": "text", "value": "Let " },
+                { "kind": "inlineMath", "latex": "u = x^2+1" },
+                { "kind": "text", "value": ". Then " },
+                { "kind": "inlineMath", "latex": "y = u^3" },
+                { "kind": "text", "value": ". Differentiate " },
+                { "kind": "inlineMath", "latex": "u^3" },
+                { "kind": "text", "value": " with respect to " },
+                { "kind": "inlineMath", "latex": "u" },
+                { "kind": "text", "value": " first, then multiply by " },
+                { "kind": "inlineMath", "latex": "du/dx" },
+                { "kind": "text", "value": "." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Two derivatives, two multiplied factors, one composition." }
+              ]
+            },
+            {
+              "type": "latex",
+              "id": "chain-rule-definition",
+              "latex": "(f\\circ g)'(x) = f'\\big(g(x)\\big)\\cdot g'(x)",
+              "caption": "Chain rule. The outer derivative is evaluated at the inner function, then multiplied by the inner derivative.",
+              "display": true
+            },
+            {
+              "type": "graph",
+              "id": "chain-rule-graph",
+              "title": "Composition y = (x^2 + 1)^3",
+              "description": "Notice the rapidly growing composition. At x = 1 the function value is 8 and the chain rule predicts tangent slope 24.",
+              "spec": {
+                "xAxis": {
+                  "label": "input x",
+                  "min": -1,
+                  "max": 1.4,
+                  "ticks": [-1, 0, 1, 1.4]
+                },
+                "yAxis": {
+                  "label": "output f(x)",
+                  "min": 0,
+                  "max": 30,
+                  "ticks": [1, 8, 27, 30]
+                },
+                "series": [
+                  {
+                    "kind": "function",
+                    "id": "chain-rule-curve",
+                    "label": "Function x squared plus 1 cubed",
+                    "expression": "y = (x^2 + 1)^3",
+                    "domain": [-1, 1.4],
+                    "samples": [
+                      [-1, 8],
+                      [-0.5, 1.953125],
+                      [0, 1],
+                      [0.5, 1.953125],
+                      [1, 8],
+                      [1.2, 14.172],
+                      [1.4, 25.412]
+                    ]
+                  },
+                  {
+                    "kind": "points",
+                    "id": "chain-rule-tangent-point",
+                    "label": "Tangent point at x = 1",
+                    "points": [[1, 8]]
+                  }
+                ],
+                "annotations": [
+                  {
+                    "id": "chain-rule-tangent-annotation",
+                    "label": "(1, 8)",
+                    "point": [1, 8],
+                    "text": "Chain rule at x = 1 gives 3 times 4 times 2 = 24."
+                  }
+                ]
+              }
+            },
+            {
+              "type": "intuition",
+              "id": "chain-rule-compare-graph",
+              "title": "Compare: graph to two factors",
+              "body": [
+                { "kind": "text", "value": "Read both factors out loud: outer derivative is " },
+                { "kind": "inlineMath", "latex": "3(x^2+1)^2" },
+                { "kind": "text", "value": " and inner derivative is " },
+                { "kind": "inlineMath", "latex": "2x" },
+                { "kind": "text", "value": ". Their product gives the tangent slope." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Both factors must be present for the chain rule to be complete." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "chain-calculation",
+          "title": "Calculate the Composition Derivative",
+          "blocks": [
+            {
+              "type": "workedExample",
+              "id": "derivative-of-composition",
+              "title": "Derivative of f(x) = (x^2 + 1)^3",
+              "goal": "Use the chain rule with a clearly labeled outer and inner function.",
+              "given": "f(x) = (x^2 + 1)^3",
+              "steps": [
+                {
+                  "id": "chain-label-functions",
+                  "label": "Label the outer and inner functions",
+                  "explanation": "Outer is the cube function. Inner is x squared plus 1.",
+                  "latex": "f(u) = u^3, \\quad u(x) = x^2 + 1"
+                },
+                {
+                  "id": "chain-outer-derivative",
+                  "label": "Differentiate the outer function",
+                  "explanation": "Use the power rule on u^3 with respect to u.",
+                  "latex": "f'(u) = 3u^2"
+                },
+                {
+                  "id": "chain-inner-derivative",
+                  "label": "Differentiate the inner function",
+                  "explanation": "Use the power rule and the sum rule on x squared plus 1.",
+                  "latex": "u'(x) = 2x"
+                },
+                {
+                  "id": "chain-multiply",
+                  "label": "Multiply the two derivatives",
+                  "explanation": "Substitute u back and multiply by the inner derivative.",
+                  "latex": "f'(x) = 3(x^2+1)^2\\cdot 2x"
+                },
+                {
+                  "id": "chain-simplify",
+                  "label": "Simplify",
+                  "explanation": "Multiply the constants in front.",
+                  "latex": "f'(x) = 6x(x^2+1)^2"
+                }
+              ],
+              "interpretation": "At x = 1 this gives 6 * 1 * 4 = 24, matching the graph annotation."
+            },
+            {
+              "type": "commonMistake",
+              "id": "forget-inner-derivative",
+              "title": "Forgetting the inner derivative",
+              "misconception": "If the outer function is already differentiated, the work is done.",
+              "incorrectStep": "Writing the derivative of (x^2 + 1)^3 as 3 (x^2 + 1)^2 only.",
+              "whyWrong": "The chain rule requires multiplying by the inner derivative; otherwise the rate of change of the inner expression is ignored.",
+              "correction": "Always multiply by the derivative of the inside: 3 (x^2 + 1)^2 * 2 x = 6 x (x^2 + 1)^2.",
+              "checkPrompt": "Did you multiply by the derivative of what is inside the parentheses?"
+            },
+            {
+              "type": "intuition",
+              "id": "chain-rule-pause",
+              "title": "Pause: count the factors",
+              "body": [
+                { "kind": "text", "value": "Before answering, count the factors. A correct chain-rule answer for one composition has exactly two factors before simplification." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Two factors before simplification: outer-derivative times inner-derivative." }
+              ]
+            },
+            {
+              "type": "quiz",
+              "id": "chain-rule-check",
+              "title": "Check: chain rule",
+              "questions": [
+                {
+                  "kind": "multipleChoice",
+                  "id": "chain-rule-question",
+                  "prompt": [
+                    { "kind": "text", "value": "Which expression equals the derivative of " },
+                    { "kind": "inlineMath", "latex": "f(x)=(x^2+1)^3" },
+                    { "kind": "text", "value": "?" }
+                  ],
+                  "options": [
+                    {
+                      "id": "chain-rule-correct-answer",
+                      "text": [{ "kind": "inlineMath", "latex": "3(x^2+1)^2\\cdot 2x" }],
+                      "feedback": "Correct. This is the outer derivative times the inner derivative."
+                    },
+                    {
+                      "id": "chain-rule-missing-inner",
+                      "text": [{ "kind": "inlineMath", "latex": "3(x^2+1)^2" }],
+                      "feedback": "Review the mistake block. The inner derivative 2 x is missing."
+                    },
+                    {
+                      "id": "chain-rule-only-inner",
+                      "text": [{ "kind": "inlineMath", "latex": "2x" }],
+                      "feedback": "This is only the inner derivative. The outer derivative is also needed."
+                    }
+                  ],
+                  "correctOptionId": "chain-rule-correct-answer",
+                  "conceptTags": ["chain-rule", "composition"],
+                  "hint": "Differentiate u cubed with respect to u, then multiply by the derivative of u with respect to x."
+                }
+              ]
+            },
+            {
+              "type": "summary",
+              "id": "chain-rule-summary",
+              "items": [
+                [
+                  { "kind": "text", "value": "A composition has an outer function and an inner function." }
+                ],
+                [
+                  { "kind": "text", "value": "The chain rule multiplies the outer derivative by the inner derivative." }
+                ],
+                [
+                  { "kind": "text", "value": "For " },
+                  { "kind": "inlineMath", "latex": "f(x)=(x^2+1)^3" },
+                  { "kind": "text", "value": ", the chain rule gives " },
+                  { "kind": "inlineMath", "latex": "f'(x)=6x(x^2+1)^2" },
+                  { "kind": "text", "value": "." }
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "revision": {
+        "keyIdeas": [
+          "A composition runs the inner function first and feeds its output into the outer function.",
+          "The chain rule multiplies the outer derivative by the inner derivative.",
+          "For f(x) = (x^2 + 1)^3, the derivative is f'(x) = 6 x (x^2 + 1)^2.",
+          "Missing the inner derivative is the most common chain-rule mistake."
+        ],
+        "recallPrompts": [
+          "What is the outer function in (x^2 + 1)^3?",
+          "What is the inner function in (x^2 + 1)^3?",
+          "Why does the inner derivative appear as a factor?",
+          "What value does the chain rule give at x = 1?"
+        ],
+        "mistakeIds": ["forget-inner-derivative"],
+        "quizIds": ["chain-rule-check"]
+      }
+    },
+    {
+      "id": "tangent-line-equation",
+      "title": "Tangent Line Equation",
+      "summary": "Use a point and the derivative value at that point to write the line that touches the curve there.",
+      "objectives": [
+        "Observe that a tangent line passes through (a, f(a)) with slope f'(a).",
+        "Write the tangent line equation in point-slope form.",
+        "Convert the tangent line to slope-intercept form.",
+        "Apply the tangent line equation to f(x) = x^2 at x = 1.",
+        "Avoid confusing the point value f(a) with the slope value f'(a)."
+      ],
+      "estimatedMinutes": 22,
+      "sections": [
+        {
+          "id": "tangent-meaning",
+          "title": "Observe One Point and One Slope",
+          "blocks": [
+            {
+              "type": "title",
+              "id": "tangent-line-title",
+              "kicker": "Using derivatives",
+              "title": "Tangent Line Equation",
+              "subtitle": "One point on the curve and one slope from the derivative give a complete line.",
+              "objectives": [
+                [
+                  { "kind": "text", "value": "Use one point " },
+                  { "kind": "inlineMath", "latex": "(a, f(a))" },
+                  { "kind": "text", "value": " from the curve." }
+                ],
+                [
+                  { "kind": "text", "value": "Use one slope " },
+                  { "kind": "inlineMath", "latex": "f'(a)" },
+                  { "kind": "text", "value": " from the derivative." }
+                ],
+                [
+                  { "kind": "text", "value": "Write the line in point-slope or slope-intercept form." }
+                ]
+              ]
+            },
+            {
+              "type": "concept",
+              "id": "tangent-line-statement",
+              "title": "Observe: a line needs a point and a slope",
+              "body": [
+                { "kind": "text", "value": "The tangent line at " },
+                { "kind": "inlineMath", "latex": "x = a" },
+                { "kind": "text", "value": " uses two ingredients from the same input: the curve's value " },
+                { "kind": "inlineMath", "latex": "f(a)" },
+                { "kind": "text", "value": " and the derivative value " },
+                { "kind": "inlineMath", "latex": "f'(a)" },
+                { "kind": "text", "value": "." }
+              ],
+              "keyIdeas": [
+                [
+                  { "kind": "text", "value": "The point lives on the curve." }
+                ],
+                [
+                  { "kind": "text", "value": "The slope comes from the derivative evaluated at the same input." }
+                ]
+              ]
+            },
+            {
+              "type": "intuition",
+              "id": "tangent-line-predict",
+              "title": "Predict: two distinct numbers",
+              "body": [
+                { "kind": "text", "value": "Before writing the equation, compute and write down both " },
+                { "kind": "inlineMath", "latex": "f(a)" },
+                { "kind": "text", "value": " and " },
+                { "kind": "inlineMath", "latex": "f'(a)" },
+                { "kind": "text", "value": " as separate numbers. They are not the same." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Confusing the two is the most common tangent-line mistake." }
+              ]
+            },
+            {
+              "type": "latex",
+              "id": "tangent-line-definition",
+              "latex": "y = f(a) + f'(a)\\,(x - a)",
+              "caption": "Tangent line at x = a. The y-intercept is implicit; the form is point-slope.",
+              "display": true
+            },
+            {
+              "type": "graph",
+              "id": "tangent-line-graph",
+              "title": "Tangent to y = x^2 at x = 1",
+              "description": "Notice the parabola first. The point (1, 1) is on the curve. The tangent line through that point has slope 2 and equation y = 2 x - 1.",
+              "spec": {
+                "xAxis": {
+                  "label": "input x",
+                  "min": -0.5,
+                  "max": 2.5,
+                  "ticks": [0, 1, 2, 2.5]
+                },
+                "yAxis": {
+                  "label": "output f(x)",
+                  "min": -1.5,
+                  "max": 6.5,
+                  "ticks": [-1, 0, 1, 4, 6.25]
+                },
+                "series": [
+                  {
+                    "kind": "function",
+                    "id": "tangent-line-parabola",
+                    "label": "Function y = x squared",
+                    "expression": "y = x^2",
+                    "domain": [-0.5, 2.5],
+                    "samples": [
+                      [-0.5, 0.25],
+                      [0, 0],
+                      [0.5, 0.25],
+                      [1, 1],
+                      [1.5, 2.25],
+                      [2, 4],
+                      [2.5, 6.25]
+                    ]
+                  },
+                  {
+                    "kind": "points",
+                    "id": "tangent-line-point",
+                    "label": "Tangent point at x = 1",
+                    "points": [[1, 1]]
+                  },
+                  {
+                    "kind": "line",
+                    "id": "tangent-line-line",
+                    "label": "Tangent line y = 2 x - 1",
+                    "through": [[0, -1], [2.5, 4]]
+                  }
+                ],
+                "annotations": [
+                  {
+                    "id": "tangent-line-annotation",
+                    "label": "(1, 1)",
+                    "point": [1, 1],
+                    "text": "The tangent line y = 2 x - 1 touches the parabola at this point."
+                  }
+                ]
+              }
+            },
+            {
+              "type": "intuition",
+              "id": "tangent-line-compare-graph",
+              "title": "Compare: graph to formula",
+              "body": [
+                { "kind": "text", "value": "Read the picture: the line touches the curve at exactly one nearby point and shares the same slope there. The equation captures that match using one point and one slope." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "The picture confirms the line that the formula produces." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "tangent-calculation",
+          "title": "Calculate One Tangent Line",
+          "blocks": [
+            {
+              "type": "workedExample",
+              "id": "tangent-to-x-squared-at-one",
+              "title": "Tangent to f(x) = x^2 at x = 1",
+              "goal": "Use the tangent line equation to produce y = 2 x - 1.",
+              "given": "f(x) = x^2, a = 1",
+              "steps": [
+                {
+                  "id": "tangent-line-compute-point",
+                  "label": "Compute the point",
+                  "explanation": "Evaluate the function at a = 1.",
+                  "latex": "f(1) = 1^2 = 1"
+                },
+                {
+                  "id": "tangent-line-compute-slope",
+                  "label": "Compute the slope",
+                  "explanation": "Use the power rule to get the derivative, then evaluate at a = 1.",
+                  "latex": "f'(x) = 2x, \\quad f'(1) = 2"
+                },
+                {
+                  "id": "tangent-line-substitute",
+                  "label": "Substitute into the tangent line equation",
+                  "explanation": "Use y = f(a) + f'(a)(x - a) with a = 1.",
+                  "latex": "y = 1 + 2(x - 1)"
+                },
+                {
+                  "id": "tangent-line-simplify",
+                  "label": "Simplify to slope-intercept form",
+                  "explanation": "Distribute and combine constants.",
+                  "latex": "y = 2x - 1"
+                }
+              ],
+              "interpretation": "The tangent line y = 2 x - 1 touches the parabola at (1, 1) with the same slope as the curve there."
+            },
+            {
+              "type": "commonMistake",
+              "id": "confuse-value-and-derivative",
+              "title": "Using f(a) as a slope",
+              "misconception": "The number f(a) gives both the point and the slope.",
+              "incorrectStep": "Writing the tangent line as y = f(a)(x - a) instead of y = f(a) + f'(a)(x - a).",
+              "whyWrong": "The point and the slope come from different evaluations: f(a) is the y-value on the curve, and f'(a) is the rate of change at that input.",
+              "correction": "Compute f(a) and f'(a) separately, then use both: y = f(a) + f'(a)(x - a).",
+              "checkPrompt": "Did you write the point value and the slope value as two different numbers?"
+            },
+            {
+              "type": "intuition",
+              "id": "tangent-line-pause",
+              "title": "Pause: two numbers, one line",
+              "body": [
+                { "kind": "text", "value": "Before answering, list two numbers: " },
+                { "kind": "inlineMath", "latex": "f(a)" },
+                { "kind": "text", "value": " and " },
+                { "kind": "inlineMath", "latex": "f'(a)" },
+                { "kind": "text", "value": ". Then plug both into the template." }
+              ],
+              "takeaway": [
+                { "kind": "text", "value": "Two distinct numbers, one tangent line." }
+              ]
+            },
+            {
+              "type": "quiz",
+              "id": "tangent-line-check",
+              "title": "Check: tangent line",
+              "questions": [
+                {
+                  "kind": "shortAnswer",
+                  "id": "tangent-line-equation-answer",
+                  "prompt": [
+                    { "kind": "text", "value": "Write the tangent line to " },
+                    { "kind": "inlineMath", "latex": "f(x)=x^2" },
+                    { "kind": "text", "value": " at " },
+                    { "kind": "inlineMath", "latex": "x=1" },
+                    { "kind": "text", "value": " in slope-intercept form." }
+                  ],
+                  "acceptedAnswers": [
+                    "y=2x-1",
+                    "y = 2x - 1",
+                    "y=2*x-1",
+                    "2x-1"
+                  ],
+                  "feedback": {
+                    "correct": "Correct. The point (1, 1) and slope 2 give y = 2 x - 1.",
+                    "incorrect": "Review the worked example. The line is y = 2 x - 1."
+                  },
+                  "conceptTags": ["tangent-line", "point-slope-form"],
+                  "hint": "Compute f(1) and f'(1) separately, then substitute."
+                },
+                {
+                  "kind": "multipleChoice",
+                  "id": "tangent-line-form-question",
+                  "prompt": [
+                    { "kind": "text", "value": "Which form is the tangent line equation at " },
+                    { "kind": "inlineMath", "latex": "x=a" },
+                    { "kind": "text", "value": "?" }
+                  ],
+                  "options": [
+                    {
+                      "id": "tangent-line-correct-form",
+                      "text": [{ "kind": "inlineMath", "latex": "y = f(a) + f'(a)(x - a)" }],
+                      "feedback": "Correct. This uses both the point value and the slope value at the same input."
+                    },
+                    {
+                      "id": "tangent-line-only-slope",
+                      "text": [{ "kind": "inlineMath", "latex": "y = f'(a)(x - a)" }],
+                      "feedback": "This is missing the constant f(a). The line would not pass through (a, f(a))."
+                    },
+                    {
+                      "id": "tangent-line-confuse-values",
+                      "text": [{ "kind": "inlineMath", "latex": "y = f(a)(x - a)" }],
+                      "feedback": "Review the mistake block. This uses f(a) as if it were the slope."
+                    }
+                  ],
+                  "correctOptionId": "tangent-line-correct-form",
+                  "conceptTags": ["tangent-line"],
+                  "hint": "The line uses both f(a) and f'(a)."
+                }
+              ]
+            },
+            {
+              "type": "summary",
+              "id": "tangent-line-summary",
+              "items": [
+                [
+                  { "kind": "text", "value": "A tangent line uses one point on the curve and the derivative slope at that point." }
+                ],
+                [
+                  { "kind": "text", "value": "The point-slope form is " },
+                  { "kind": "inlineMath", "latex": "y = f(a) + f'(a)(x - a)" },
+                  { "kind": "text", "value": "." }
+                ],
+                [
+                  { "kind": "text", "value": "For " },
+                  { "kind": "inlineMath", "latex": "f(x)=x^2" },
+                  { "kind": "text", "value": " at " },
+                  { "kind": "inlineMath", "latex": "x=1" },
+                  { "kind": "text", "value": ", the tangent line is " },
+                  { "kind": "inlineMath", "latex": "y = 2x - 1" },
+                  { "kind": "text", "value": "." }
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "revision": {
+        "keyIdeas": [
+          "The tangent line at x = a uses (a, f(a)) and slope f'(a).",
+          "The point-slope form is y = f(a) + f'(a)(x - a).",
+          "For f(x) = x^2 at x = 1, the tangent line is y = 2 x - 1.",
+          "Confusing f(a) with f'(a) breaks the tangent line."
+        ],
+        "recallPrompts": [
+          "Which input is used for both the point and the slope?",
+          "How is the point-slope form built from f(a) and f'(a)?",
+          "Why does the tangent line need both f(a) and f'(a)?",
+          "What is the tangent line to y = x^2 at x = 1?"
+        ],
+        "mistakeIds": ["confuse-value-and-derivative"],
+        "quizIds": ["tangent-line-check"]
+      }
     }
   ],
   "glossary": [
