@@ -9,10 +9,7 @@ export type QuizEvaluation = {
   feedback: string;
 };
 
-export function evaluateQuizAnswer(
-  question: QuizQuestion,
-  answer: string
-): QuizEvaluation {
+export function evaluateQuizAnswer(question: QuizQuestion, answer: string): QuizEvaluation {
   switch (question.kind) {
     case "multipleChoice":
       return evaluateMultipleChoiceAnswer(question, answer);
@@ -30,14 +27,9 @@ function evaluateMultipleChoiceAnswer(
   answer: string
 ): QuizEvaluation {
   const selectedOption = question.options.find((option) => option.id === answer);
-
   if (!selectedOption) {
-    return {
-      isCorrect: false,
-      feedback: "Choose an answer before checking."
-    };
+    return { isCorrect: false, feedback: "Choose an answer before checking." };
   }
-
   return {
     isCorrect: answer === question.correctOptionId,
     feedback: selectedOption.feedback
@@ -51,7 +43,6 @@ function evaluateShortAnswer(
   const normalizedAnswer = normalizeShortAnswer(answer);
   const acceptedAnswers = question.acceptedAnswers.map(normalizeShortAnswer);
   const isCorrect = acceptedAnswers.includes(normalizedAnswer);
-
   return {
     isCorrect,
     feedback: isCorrect ? question.feedback.correct : question.feedback.incorrect

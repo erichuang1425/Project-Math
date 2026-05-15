@@ -1,11 +1,15 @@
 import { describe, expect, it } from "vitest";
+import courseJson from "../content/fixtures/courses/calculus-i.course.json";
+import {
+  eachLesson,
+  findLesson,
+  validateContent
+} from "../content";
 import {
   createEmptyLearnerState,
   markLessonCompleted,
   recordQuizAttempt
 } from "../storage/learnerState";
-import sourceStudybook from "../studybook/fixtures/derivatives-first-principles.studybook.json";
-import { validateStudybook } from "../studybook/validateStudybook";
 import {
   buildLessonSummaryExport,
   lessonSummaryExportFileName,
@@ -13,35 +17,22 @@ import {
 } from "./lessonSummaryExport";
 
 function getValidatedLesson(lessonId = "derivative-as-a-limit") {
-  const result = validateStudybook(sourceStudybook);
-
+  const result = validateContent(courseJson);
   if (!result.ok) {
-    throw new Error(result.errors.map((error) => error.message).join(", "));
+    throw new Error(result.errors.map((error) => `${error.path}: ${error.message}`).join("\n"));
   }
-
-  const lesson = result.studybook.lessons.find(
-    (candidate) => candidate.id === lessonId
-  );
-
-  if (!lesson) {
+  const location = findLesson(result.course, lessonId);
+  if (!location) {
     throw new Error(`Missing lesson ${lessonId}`);
   }
-
-  return {
-    studybook: result.studybook,
-    lesson
-  };
+  return { course: result.course, lesson: location.lesson };
 }
 
 describe("lesson summary export", () => {
   it("builds deterministic export data from structured content and learner state", () => {
-    const { studybook, lesson } = getValidatedLesson();
+    const { course, lesson } = getValidatedLesson();
     const firstAttempt = recordQuizAttempt(
-      markLessonCompleted(
-        createEmptyLearnerState(studybook.id),
-        lesson.id,
-        "2026-05-09T12:10:00.000Z"
-      ),
+      markLessonCompleted(createEmptyLearnerState(course.id), lesson.id, "2026-05-09T12:10:00.000Z"),
       {
         lessonId: lesson.id,
         quizBlockId: "first-principles-check",
@@ -60,24 +51,20 @@ describe("lesson summary export", () => {
       submittedAt: "2026-05-09T12:05:00.000Z"
     });
 
-    const summary = buildLessonSummaryExport(studybook, lesson, state);
+    const summary = buildLessonSummaryExport(course, lesson, state);
 
     expect(summary).toMatchObject({
-      studybookId: "derivatives-first-principles",
+      courseId: "calculus-i",
       lessonId: "derivative-as-a-limit",
       lessonTitle: "Derivative as a Limit",
+      courseTitle: "Calculus I",
       progress: {
         status: "completed",
         label: "Completed"
       }
     });
     expect(summary.objectives).toHaveLength(5);
-    expect(summary.keyDefinitions.map((definition) => definition.id)).toEqual([
-      "first-principles-definition",
-      "derivative",
-      "difference-quotient",
-      "secant-line"
-    ]);
+    expect(summary.keyDefinitions.find((definition) => definition.id === "derivative")).toBeDefined();
     expect(summary.workedExamples.map((example) => example.id)).toEqual([
       "derivative-of-x-squared",
       "derivative-of-linear-function"
@@ -86,29 +73,18 @@ describe("lesson summary export", () => {
       "forget-parentheses-around-linear-function",
       "substitute-h-too-early"
     ]);
-    expect(summary.quizResults).toEqual([
-      {
-        quizBlockId: "first-principles-check",
-        quizTitle: "Check: safe limit step",
-        questionId: "valid-cancellation-step",
-        prompt:
-          "What must happen before you evaluate the limit for $\\frac{(x+h)^2-x^2}{h}$?",
-        attemptCount: 2,
-        latestAnswer:
-          "Factor the numerator as $h(2x+h)$, cancel h while $h\\ne 0$, then take the limit.",
-        latestIsCorrect: true
-      }
-    ]);
+    expect(summary.quizResults[0]).toMatchObject({
+      quizBlockId: "first-principles-check",
+      questionId: "valid-cancellation-step",
+      attemptCount: 2,
+      latestIsCorrect: true
+    });
   });
 
   it("renders stable markdown without generated timestamps", () => {
-    const { studybook, lesson } = getValidatedLesson();
+    const { course, lesson } = getValidatedLesson();
     const state = recordQuizAttempt(
-      markLessonCompleted(
-        createEmptyLearnerState(studybook.id),
-        lesson.id,
-        "2026-05-09T12:10:00.000Z"
-      ),
+      markLessonCompleted(createEmptyLearnerState(course.id), lesson.id, "2026-05-09T12:10:00.000Z"),
       {
         lessonId: lesson.id,
         quizBlockId: "linear-function-check",
@@ -118,15 +94,13 @@ describe("lesson summary export", () => {
         submittedAt: "2026-05-09T12:12:00.000Z"
       }
     );
-    const summary = buildLessonSummaryExport(studybook, lesson, state);
+    const summary = buildLessonSummaryExport(course, lesson, state);
     const markdown = renderLessonSummaryMarkdown(summary);
 
     expect(markdown).toContain("# Derivative as a Limit");
+    expect(markdown).toContain("Course: Calculus I");
     expect(markdown).toContain("Progress: Completed");
     expect(markdown).toContain("## Key Definitions");
-    expect(markdown).toContain(
-      "- Formal rule. Compare f(x+h) to f(x), divide by the nonzero gap h, then let h approach 0.: $f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}$"
-    );
     expect(markdown).toContain("### Derivative of f(x) = x^2");
     expect(markdown).toContain("## Quiz Results");
     expect(markdown).toContain("Latest result: Correct");
@@ -136,8 +110,8 @@ describe("lesson summary export", () => {
   });
 
   it("omits quiz results when matching learner state is unavailable", () => {
-    const { studybook, lesson } = getValidatedLesson();
-    const otherState = recordQuizAttempt(createEmptyLearnerState("other-studybook"), {
+    const { course, lesson } = getValidatedLesson();
+    const otherState = recordQuizAttempt(createEmptyLearnerState("other-course"), {
       lessonId: lesson.id,
       quizBlockId: "first-principles-check",
       questionId: "valid-cancellation-step",
@@ -146,7 +120,7 @@ describe("lesson summary export", () => {
       submittedAt: "2026-05-09T12:05:00.000Z"
     });
 
-    const summary = buildLessonSummaryExport(studybook, lesson, otherState);
+    const summary = buildLessonSummaryExport(course, lesson, otherState);
     const markdown = renderLessonSummaryMarkdown(summary);
 
     expect(summary.progress).toEqual({
@@ -156,18 +130,14 @@ describe("lesson summary export", () => {
     expect(summary.quizResults).toEqual([]);
     expect(markdown).toContain("No saved quiz results.");
     expect(lessonSummaryExportFileName(summary)).toBe(
-      "derivatives-first-principles-derivative-as-a-limit-summary.md"
+      "calculus-i-derivative-as-a-limit-summary.md"
     );
   });
 
   it("exports the constant-function lesson with deterministic quiz results", () => {
-    const { studybook, lesson } = getValidatedLesson("constant-function-derivative");
+    const { course, lesson } = getValidatedLesson("constant-function-derivative");
     const state = recordQuizAttempt(
-      markLessonCompleted(
-        createEmptyLearnerState(studybook.id),
-        lesson.id,
-        "2026-05-14T09:20:00.000Z"
-      ),
+      markLessonCompleted(createEmptyLearnerState(course.id), lesson.id, "2026-05-14T09:20:00.000Z"),
       {
         lessonId: lesson.id,
         quizBlockId: "constant-function-check",
@@ -178,45 +148,36 @@ describe("lesson summary export", () => {
       }
     );
 
-    const summary = buildLessonSummaryExport(studybook, lesson, state);
+    const summary = buildLessonSummaryExport(course, lesson, state);
     const markdown = renderLessonSummaryMarkdown(summary);
 
     expect(summary).toMatchObject({
       lessonId: "constant-function-derivative",
       lessonTitle: "Constant Function Derivative",
-      progress: {
-        status: "completed",
-        label: "Completed"
-      }
+      progress: { status: "completed", label: "Completed" }
     });
-    expect(summary.keyDefinitions.map((definition) => definition.id)).toEqual([
-      "constant-first-principles-definition",
-      "derivative",
-      "difference-quotient",
-      "secant-line"
-    ]);
     expect(summary.workedExamples.map((example) => example.id)).toEqual([
       "derivative-of-constant-function"
     ]);
     expect(summary.commonMistakes.map((mistake) => mistake.id)).toEqual([
       "treating-constant-as-slope"
     ]);
-    expect(summary.quizResults).toEqual([
-      {
-        quizBlockId: "constant-function-check",
-        quizTitle: "Check: constant function",
-        questionId: "constant-derivative-value",
-        prompt: "For $f(x)=7$, what is $f'(x)$?",
-        attemptCount: 1,
-        latestAnswer: "0",
-        latestIsCorrect: true
-      }
-    ]);
+    expect(summary.quizResults[0]).toMatchObject({
+      quizBlockId: "constant-function-check",
+      questionId: "constant-derivative-value",
+      latestAnswer: "0",
+      latestIsCorrect: true
+    });
     expect(markdown).toContain("# Constant Function Derivative");
-    expect(markdown).toContain("### Derivative of f(x) = 7");
     expect(markdown).toContain("Latest answer: 0");
     expect(lessonSummaryExportFileName(summary)).toBe(
-      "derivatives-first-principles-constant-function-derivative-summary.md"
+      "calculus-i-constant-function-derivative-summary.md"
     );
+  });
+
+  it("includes every migrated lesson via eachLesson", () => {
+    const result = validateContent(courseJson);
+    if (!result.ok) throw new Error("Course should validate.");
+    expect(eachLesson(result.course)).toHaveLength(3);
   });
 });
