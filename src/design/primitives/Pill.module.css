@@ -1,0 +1,63 @@
+.pill {
+  --pill-bg: var(--pm-color-surface-sunken);
+  --pill-fg: var(--pm-color-text-muted);
+  --pill-border: transparent;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pm-space-1);
+  font-size: var(--pm-size-xs);
+  font-weight: 600;
+  line-height: 1;
+  padding: var(--pm-space-1) var(--pm-space-3);
+  border-radius: var(--pm-radius-pill);
+  background: var(--pill-bg);
+  color: var(--pill-fg);
+  border: 1px solid var(--pill-border);
+  white-space: nowrap;
+  text-transform: none;
+  letter-spacing: 0.01em;
+}
+
+.neutral {
+  --pill-bg: var(--pm-color-surface-sunken);
+  --pill-fg: var(--pm-color-text-muted);
+}
+
+.accent {
+  --pill-bg: var(--pm-color-accent-soft);
+  --pill-fg: var(--pm-color-accent);
+}
+
+.correct {
+  --pill-bg: var(--pm-color-correct-soft);
+  --pill-fg: var(--pm-color-correct);
+  --pill-border: var(--pm-color-correct);
+}
+
+.incorrect {
+  --pill-bg: var(--pm-color-incorrect-soft);
+  --pill-fg: var(--pm-color-incorrect);
+  --pill-border: var(--pm-color-incorrect);
+}
+
+.warning {
+  --pill-bg: var(--pm-color-warning-soft);
+  --pill-fg: var(--pm-color-warning);
+}
+
+.info {
+  --pill-bg: var(--pm-color-info-soft);
+  --pill-fg: var(--pm-color-info);
+}
+
+.outline {
+  --pill-bg: transparent;
+  --pill-border: var(--pm-color-panel-border);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
