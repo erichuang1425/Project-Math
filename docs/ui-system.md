@@ -1,138 +1,130 @@
 # UI System
 
-## UI Intent
+## Intent
 
-The interface should feel like a focused desktop studybook. It should be quiet, readable, and efficient. The learning content is the main surface.
+Project-Math should feel like a polished MOOC shell wrapped around a focused, distraction-free reader. The shell pulls a low-motivation learner in with warmth, illustration, and visible progress. The reader stays calm and structured. Both modes share tokens, primitives, and accessibility floor.
+
+## Display Modes
+
+Both modes are first-class. Switching toggles `data-mode` on `<html>`. Both must pass the manual smoke checklist below.
+
+### Polished (default)
+
+- Warm neutral surfaces (cream/sand), deep indigo accent (#3b3aa1-ish), amber highlight on calls-to-action.
+- Subtle elevation (1–2px shadows) on cards.
+- 120–180ms transform/opacity transitions on hover, focus, and route change, gated behind `@media (prefers-reduced-motion: no-preference)`.
+- Course/lesson cards carry inline SVG illustrations from `src/design/illustrations/`.
+- Progress is loud-but-quiet: rings on course cards, chips on lessons, daily-progress stat in the top bar.
+
+### Calm (opt-in)
+
+- Higher-contrast warm neutrals (off-cream pane on warm-stone background; `--reader-pane-bg` ≈ `#ece6d4`).
+- No elevation, no transitions, no decorative illustration.
+- Reading rule visible at all section boundaries; no nested cards.
+- Status communicated with text + icon + border. No color-only cues.
+- WCAG AA contrast across the surface.
+
+## Tokens
+
+All color/space/radius/elevation/typography lives in `src/design/tokens.css`. CSS Modules consume tokens; nothing reads a literal color. Reader tokens (`--reader-*`) remain a layered subset that adapts to the active mode.
+
+## Primitives
+
+Lives in `src/design/primitives/`. Every screen composes from these:
+
+- `Button` (primary, ghost, subtle)
+- `Card` (with optional illustration slot)
+- `Pill` (status chips: not-started / in-progress / complete / locked)
+- `ProgressRing` (course cards)
+- `ProgressBar` (lesson + module)
+- `Stat` (daily progress, time-on-task)
+- `Dialog` (shortcuts, glossary)
+- `Icon` (wraps `lucide-react`)
 
 ## App Surfaces
 
-MVP surfaces:
-
-- Studybook library.
-- Lesson reader.
-- Section navigation.
-- Block renderer.
-- Worked example view.
-- Graph view.
-- Quiz interaction.
-- Revision summary.
-- Export action.
-- Validation error view.
+- **Courses dashboard** — grid of `CourseCard` plus a `ContinueCard` for the in-progress lesson.
+- **Course detail** — header with course illustration and overall progress; module accordions listing lessons with status chips, estimated time, and prerequisites.
+- **Reader** — `Breadcrumb` (Course / Module / Lesson); sticky lesson sidebar with active-section indicator (IntersectionObserver); main lesson pane; collapsible reader controls.
+- **Shortcuts dialog** — opened with `?`; lists `g h` / `g c` / `g l` and reader shortcuts.
+- **Glossary popover** — `<dialog>` element opened by term segments in rich text.
+- **Validation error view** — shows every validator error inline with file location.
 
 ## Layout Rules
 
-- Use a stable app shell with navigation and a primary reading pane.
-- Keep lesson content in a readable measure.
-- Keep controls close to the content they affect.
-- Do not build a marketing landing page as the first screen.
-- Avoid nested cards.
-- Use cards only for repeated items, quizzes, modals, or framed tool surfaces.
-- Desktop layout should work at narrow and wide windows.
+- Stable shell: top bar (always) + lesson sidebar (only inside the reader) + main pane.
+- `.readerPane` `max-width` scales with text size: `min(calc(68ch * var(--reader-font-scale)), 1120px)`. Line length stays comfortable at every reader text size.
+- Cards are reserved for course tiles, module accordions, and dialog surfaces. No nested cards.
+- Controls stay near the content they affect; reader controls collapse by default.
+- Skip links: "Skip to lesson content" + "Skip to next section".
 
 ## Typography
 
-- Equations and explanatory text must be visually distinct.
-- Use display math for derivations and definitions.
-- Use inline math for short symbols only.
-- Do not use oversized headings inside compact lesson panels.
-- Do not scale font size directly with viewport width.
-- Letter spacing should remain normal.
+- System sans for UI; system serif for body math context; KaTeX for equations.
+- Display math for derivations and definitions; inline math for short symbols only.
+- No oversized headings inside compact panels.
+- Reader text scale: 0.85, 1.0, 1.2, 1.35rem.
+- Reader line height: 1.5, 1.65, 1.8, 1.9 multipliers.
+- Labels in reader controls remain literal: "Reader font", "Text size", "Line spacing", "Calm mode".
 
-Approved reader typography controls:
+## Color & State
 
-- Keep reader controls near the lesson pane, not in a separate settings screen.
-- Make reader controls collapsible so they do not occupy the reading path by default.
-- The collapsed summary should name the active display settings in text.
-- Use literal labels: "Reader font", "Text size", "Line spacing", and "Low-glare mode".
-- Give each control a visible label and helper text where the setting may be unclear.
-- Offer system sans and system serif fonts only. Do not fetch fonts or add font packages.
-- Use CSS variables or scoped classes for font family, text size, line height, block spacing, and glare changes.
-- Keep KaTeX readable by changing the surrounding reader text, not by overriding KaTeX internals.
+Semantic state tokens: `accent`, `focus`, `selected`, `warning`, `correct`, `incorrect`, `disabled`. Every state pairs color with icon + label + border. Calm mode flattens decorative color but keeps state recognizable.
 
-## Color and State
+## Motion
 
-Use restrained color to communicate state:
+- All motion gated behind `prefers-reduced-motion: no-preference` and the `<MotionGate>` helper.
+- Allowed: opacity, transform translate/scale up to 4px / 1.02, 120–180ms.
+- Forbidden: marquee, parallax, attention-grabbing pulses, color flashes, decorative timers.
+- Calm mode disables all motion regardless of OS preference.
 
-- Definition.
-- Intuition.
-- Warning.
-- Correct.
-- Incorrect.
-- Selected.
-- Focused.
-- Disabled.
+## Block-Level Quality
 
-Do not rely on color alone. Pair state color with labels, icons, borders, or text.
+- Worked examples carry a numbered step rail with action-cue chips ("Write the definition", "Expand", "Take limit") and a clear final-answer band.
+- Common-mistake blocks open with the misconception, then the incorrect step, then the correction.
+- Quiz states: no answer / answer ready / submitted (correct/needs review). "Press Enter to submit" hint visible when an answer is ready. Correctness shown via icon + label + border.
+- Graphs are keyboard-focusable; pair the SVG with a text description of annotations.
 
-Approved low-sensory layout rules:
+## Empty / Error / Loading States
 
-- Prefer muted surfaces over pure white reading panels when low-glare mode is active.
-- Avoid decorative backgrounds, motion, flashing, timers, and urgency cues.
-- Segment the reading path with section labels, borders, and direct text, not nested cards.
-- Add direct compare cues after graph anchors when the graph supports a formula or calculation.
-- Make selected lesson, lesson progress, quiz selection, correct state, and incorrect state explicit in text.
-- Keep controls close to the content they affect.
-- Preserve a readable line length at narrow and wide desktop sizes.
+Required surfaces handle:
 
-Approved study workspace layout rules:
+- No courses found.
+- Course failed validation (with each error and its block ID).
+- Lesson has no blocks.
+- Unknown block type (renders a labelled placeholder, never throws).
+- Invalid LaTeX (renders the source verbatim with an error pill).
+- Failed local state load (surfaces a storage notice; learner can keep reading).
+- Loading is uncommon (everything is bundled) but a thin skeleton card is provided for slow async fixture loads.
 
-- The first screen should open directly into the study workspace with a lesson list, local progress status, reader controls, and the active lesson.
-- Include a skip link to the lesson content for keyboard users.
-- The lesson path may use a sticky side rail on wide screens, then collapse into the reading flow on narrow screens.
-- Block surfaces should identify their role in text, such as lesson opening, concept, equation, action cue, graph, worked example, common mistake, practice, or summary.
-- Graphs should be keyboard focusable and pair the SVG with text details for annotations when available.
-- Quiz questions should state whether no answer is selected, an answer is ready to check, or a submitted answer needs review.
-- Reader CSS variables should cover semantic states as well as surfaces: accent, focus, selected, warning, correct, incorrect, and disabled states must remain readable in low-glare mode.
+## Accessibility Floor
 
-## Math Rendering
+- Keyboard and pointer both work for every flow.
+- Focus visible (3px ring, 2px offset).
+- Tab order matches reading order.
+- Skip links land at lesson content + next section.
+- Live regions announce route changes and quiz state transitions.
+- Calm mode passes WCAG AA contrast across surface, text, and state.
 
-- KaTeX output should align with surrounding text.
-- Invalid LaTeX should not crash the lesson view.
-- Long equations should wrap or scroll in a controlled way.
-- Captions should be close to display equations.
+## Manual Smoke Checklist (every PR)
 
-## Graph Rendering
+In both Polished and Calm modes, on a desktop window ranging 900px → 1600px:
 
-- Graphs must include a title, text description, and axis labels.
-- Graphs should have stable dimensions to avoid layout shift.
-- The first graph renderer may be simple, but it must be behind `GraphSpec`.
-- Do not introduce a graphing library until requirements justify it.
-
-## Quiz Interaction
-
-- A quiz question should have clear selected, submitted, correct, and incorrect states.
-- Feedback should appear near the selected answer.
-- Retry behavior must be explicit.
-- Keyboard selection and submission should be possible.
-
-## Empty and Error States
-
-The UI must handle:
-
-- No studybooks found.
-- Studybook failed validation.
-- Lesson has no sections.
-- Unknown block type.
-- Invalid LaTeX.
-- Failed local state load.
-
-These states should be direct and useful. Do not hide data errors behind generic messages.
-
-## Accessibility
-
-- All interactive controls need accessible names.
-- Focus states must be visible.
-- Graphs need textual descriptions.
-- Quiz correctness must not rely only on color.
-- Navigation order should match reading order.
+1. Courses dashboard renders cards and the Continue card.
+2. Click a course → course detail shows modules and progress.
+3. Click a lesson → reader loads; sidebar reflects current section; breadcrumb is truthful.
+4. Bump text size to 1.35 → line length stays comfortable, no overlap.
+5. Take a quiz, submit → correctness shown via icon + label + border, not color alone.
+6. Open a glossary term → popover opens; Escape closes it; focus returns to the trigger.
+7. Toggle the other display mode → palette and motion behave per the rules above.
+8. Export lesson summary → clipboard contains valid markdown.
 
 ## What Done Means
 
-UI work is done when:
+A UI change is done when:
 
-- The screen works at small and large desktop window sizes.
-- Text does not overlap or overflow controls.
-- Required states are implemented.
-- Keyboard and pointer interactions both work for core flows.
-- The UI renders offline without remote assets.
-- Relevant component or smoke tests exist.
+- Both Polished and Calm modes render correctly.
+- Reduced-motion users see no transitions.
+- Text/measure scales gracefully with reader text size.
+- New states are added to the smoke checklist above when relevant.
+- Component + accessibility tests exist for the affected surface.

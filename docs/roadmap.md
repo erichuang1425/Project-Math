@@ -1,158 +1,99 @@
 # Roadmap
 
-## Phase 0: Repository Instructions and Planning
+Project-Math is being re-thought from a single-fixture studybook into a polished MOOC-style learner app. This roadmap supersedes earlier phases; legacy phases are archived in the project history.
 
-Status: complete when the requested docs and local skills exist.
+## Direction
 
-What done means:
+A warm, polished, motivating shell for low-motivation learners (inspired by Brilliant) with a first-class **Calm mode** for low-sensory and neurodivergent learners. Content is organized as **Course → Module → Lesson → Block** and validated deterministically. Fully offline.
 
-- `AGENTS.md`, `README.md`, and planning docs exist.
-- Local skills exist for studybook architecture, math rendering, desktop engineering, UX quality, and testing.
-- Future implementation tasks have concrete done criteria.
+## Phase 0 — Reset the Rules
 
-## Phase 1: Scaffold the Desktop App
+Status: in progress.
 
-Goal: Create the minimal Tauri, React, TypeScript, and Vite app shell.
+- Rewrite `AGENTS.md` to match the new direction (approved dep list, dual-mode design contract, MOOC content model, three concise principles). Done.
+- Update `docs/roadmap.md` (this file). Done.
+- Update `docs/ui-system.md` to describe Polished + Calm modes side by side.
+- Update `docs/content-schema.md` to describe `Course → Module → Lesson → Block`.
 
-Current status: React, TypeScript, Vite, the first lesson frontend, and a thin Tauri desktop shell are in place. The app now opens to a dashboard-first shell for the bundled derivatives studybook, then opens the existing reader through local app state without adding a router. The study workspace includes explicit lesson progress, a dashboard-return path, a keyboard skip link, collapsible reader controls, and a wider responsive lesson reader. Packaging and installer polish are not in scope yet.
+What done means: any new agent reading these docs gets an unambiguous picture of the product and the rules.
 
-Tasks:
+## Phase 1 — Design System v2 (Polished + Calm)
 
-- Initialize the app scaffold.
-- Add lint, format, typecheck, and test commands.
-- Create the basic app shell with library and lesson reader placeholders.
-- Confirm the app starts as a desktop app.
+Goal: a real token system and primitive library so every surface composes from the same parts.
 
-What done means:
+- `src/design/tokens.css` with `:root[data-mode="polished"]` and `:root[data-mode="calm"]` themes.
+- `src/design/primitives/`: `Button`, `Card`, `Pill`, `ProgressRing`, `ProgressBar`, `Stat`, `Dialog`, `Icon`.
+- `src/design/illustrations/`: deterministic inline SVG motifs per course.
+- `<MotionGate>` helper around `prefers-reduced-motion`.
+- Strip color literals from `src/rendering/lesson.module.css`; switch `.readerPane` `max-width` to scale with text size.
 
-- The app opens in a Tauri window.
-- `npm` or chosen package scripts can run dev, build, typecheck, and test.
-- No lesson content is hard-coded as arbitrary React pages.
-- README setup instructions match the actual commands.
+What done means: every existing rendered surface still works; both modes render distinctly; reduced-motion disables transitions.
 
-## Phase 2: Add Studybook Schema and Validation
+## Phase 2 — Content Schema v2 (MOOC Hierarchy)
 
-Goal: Implement the deterministic content model.
+Goal: a clean, validated `Course → Module → Lesson → Block` model.
 
-Current status: complete for the first vertical slice. The validator covers the bundled derivatives lesson plus invalid unknown block, duplicate id, invalid LaTeX, invalid graph axis, and invalid quiz-answer cases.
+- Move `src/studybook/` → `src/content/`. Rename `Studybook` → `Course`.
+- New shapes: `Course`, `Module`, `Lesson`, `Block` (with required IDs), `Glossary`, `RichTextSegment.kind:"term"` activated.
+- New `validateContent`, split into `validators/{course,module,lesson,block,glossary,prerequisites,objectives}.ts`. Paired invalid fixtures.
+- One-time migration: legacy fixture re-emerged as `src/content/fixtures/courses/calculus-i.course.json`.
+- `LearnerStateRepository` keyed by `courseId`; Tauri commands renamed.
 
-Tasks:
+What done means: validator rejects every invalid fixture and accepts the migrated course; render tests pass.
 
-- Add TypeScript schema types.
-- Add runtime validation.
-- Add valid and invalid fixtures.
-- Add unit tests for schema validation.
+## Phase 3 — App Shell v2 (MOOC Navigation)
 
-What done means:
+Goal: a real shell with Courses dashboard, Course detail, and Lesson reader.
 
-- Valid fixtures pass.
-- Invalid fixtures fail with useful errors.
-- Duplicate IDs, unknown block types, invalid quiz answers, missing graph labels, and invalid LaTeX are covered.
-- The renderer receives only validated content.
+- Decompose 760-line `App.tsx` into `Shell.tsx`, `Router.tsx`, `views/{CoursesDashboard,CourseDetail,Reader}View.tsx`, `components/{CourseCard,ContinueCard,LessonListItem,Breadcrumb,ShortcutsDialog}.tsx`.
+- Hash-based routing with `routeFromHash` / `routeToHash`.
+- "Continue where you left off" card; daily-progress chip; per-course progress rings.
+- Keyboard shortcuts: `?` shortcut dialog, `g h` / `g c` / `g l` jumps.
 
-## Phase 3: Build the Reusable Block Renderer
+What done means: dashboard → course → lesson navigation works; deep-link reload restores location; tab order matches reading order.
 
-Goal: Render core MVP blocks from structured data.
+## Phase 4 — Content Depth (Calculus I Starter)
 
-Current status: complete for the first vertical slice. The renderer covers title, concept, intuition, LaTeX, graph, worked example, common mistake, quiz, and summary blocks. The current UI pass adds role labels across all current block families, a wide-screen lesson path rail, graph annotation details, title-specific focusable SVG graphs, explicit quiz status text, and reader-scoped semantic state tokens without changing the studybook schema.
+Goal: one real course with three modules and ten-plus lessons.
 
-Tasks:
+- **Module A — Foundations:** functions refresher, limits intuitively, one-sided & infinite limits.
+- **Module B — Derivatives from First Principles:** derivative as a limit, derivative at a point, differentiability vs continuity, constant function derivative.
+- **Module C — Differentiation Rules:** power, sum/difference, product, quotient, chain, tangent line equation (capstone).
+- Glossary populated; `term` segments used throughout block text.
 
-- Implement paragraph and rich text rendering.
-- Implement inline and display math rendering with KaTeX.
-- Implement callout, worked example, common mistake, quiz, summary, and graph placeholder blocks.
-- Add component tests for renderer dispatch and key states.
+What done means: validator passes for the full course; every lesson mounts cleanly in jsdom; lesson summary export round-trips.
 
-What done means:
+## Phase 5 — Reader Polish & Accessibility
 
-- Each MVP block type renders from schema data.
-- Invalid LaTeX has a controlled fallback.
-- Quiz selected and submitted states work.
-- Graph blocks render title, description, axes, and placeholder or simple visual.
+- `vitest.config.ts` → jsdom; `@testing-library/react` adopted in the heaviest tests.
+- IntersectionObserver-driven active-section indicator.
+- Fix `ReaderControls.tsx` aria-labelledby conflation.
+- Worked-example step rail, action-cue chips, final-answer band.
+- Quiz: "Press Enter to submit" affordance; correctness via icon + label + border.
+- Glossary popover from `term` segments (`<dialog>`).
 
-## Phase 4: Author the First Lesson
+What done means: reader feels finished in both modes; axe-style landmark checks pass in tests.
 
-Goal: Add the first deterministic lesson for "Derivatives from First Principles".
+## Phase 6 — Desktop Polish (Tauri)
 
-Current status: complete through the approved autism-aware standard and three deterministic lessons. The first lesson includes the first-principles definition, secant graph spec, a graph-to-quotient compare cue, worked examples for f(x) = x^2 and f(x) = 3x - 5, common mistakes, pause prompt, quizzes, and revision summary. The second lesson includes a point-derivative study flow for f'(2) on f(x) = x^2 with a fixed-input definition, tangent graph spec, a graph-to-fixed-input compare cue, worked example, common mistake, pause prompt, quiz, and revision summary. The third lesson applies the approved standard to the derivative of a constant function, including a flat-function graph, first-principles worked example, misconception check, quiz, and revision summary.
+- Native menu (File / View / Help) with reader-setting shortcuts.
+- New commands: `open_course_dialog`, `export_learner_state`, `import_learner_state`, with safe-slug validation.
+- App icon set; window restores last position; title shows `Course — Lesson`.
+- Recent courses (last 5).
 
-Tasks:
+What done means: open invalid file surfaces validator errors; export/import round-trips state; window restore works.
 
-- Create the studybook JSON fixture.
-- Include objectives, sections, LaTeX definitions, worked examples, common mistakes, graph specs, quizzes, and revision layer.
-- Validate the content in tests.
+## Phase 7 — Engineering Hygiene & Agent Skills
 
-What done means:
+- ESLint + Prettier; scripts `lint`, `format`, `format:check`.
+- GitHub Actions: typecheck → lint → test → build.
+- `@vitest/coverage-v8` thresholds: 80% in `src/content/` and `src/rendering/blocks/`.
+- Agent skills: retire `ux-quality-reviewer` → relaunch as `learner-journey-reviewer`; add `motivation-ux-reviewer`; sharpen `studybook-architect` ↔ `test-and-regression-reviewer` boundary; give every skill a fixed output template.
 
-- The lesson passes schema validation.
-- Every LaTeX expression renders in tests or validation.
-- Worked examples show algebraic steps.
-- Quiz feedback maps to concepts and common mistakes.
+What done means: CI green from a clean clone; agent skills don't overlap.
 
-## Phase 5: Local Learner State
+## Known Risks
 
-Goal: Persist basic progress and quiz attempts locally.
-
-Current status: complete for the first learner-state vertical slice. The app now tracks lesson opened/completed status and quiz attempt history behind repository interfaces, stores JSON through thin Tauri commands in desktop mode, and falls back to localStorage for web/dev runs.
-
-Tasks:
-
-- Define learner state types. Completed.
-- Implement JSON-backed storage through repository interfaces. Completed.
-- Track lesson progress and quiz attempts. Completed.
-- Add unit tests with storage test doubles. Completed.
-
-What done means:
-
-- Learner state persists across app restarts.
-- React components do not depend directly on file paths.
-- Storage can later move to SQLite behind the same interface.
-- Corrupt or missing state has a clear recovery path.
-
-## Phase 6: Export MVP
-
-Goal: Export a useful lesson summary.
-
-Current status: complete through the clipboard delivery slice. The app now prepares markdown from validated lesson content and matching learner state, including objectives, key definitions, worked examples, common mistakes, lesson progress, and saved quiz results. Export uses built-in browser download and clipboard behavior without adding PDF, document, native save-dialog, or export dependencies.
-
-Tasks:
-
-- Define export data shape. Completed.
-- Generate lesson summary data from structured content. Completed.
-- Add a simple text or markdown export path. Completed.
-- Add copy-to-clipboard delivery for markdown summary. Completed.
-- Add tests for export output. Completed.
-
-What done means:
-
-- Export includes title, objectives, key definitions, worked examples, common mistakes, and quiz results if available.
-- Export is deterministic.
-- No heavy PDF or document dependency is added without approval.
-
-## Phase 7: Graph Renderer Decision
-
-Goal: Decide whether the internal graph renderer is enough or a library is justified.
-
-Current status: decision documented in `docs/architecture/graph-rendering-options.md`. The internal deterministic SVG renderer now supports explicit sampled points for function series and renders the two known graph requirements without adding a graphing library.
-
-Tasks:
-
-- List required graph interactions for the first two topics. Completed.
-- Compare at least three options, including no new library. Completed.
-- Evaluate maintenance, offline support, accessibility, bundle size, and rendering quality. Completed.
-
-What done means:
-
-- Decision is documented in `docs/architecture.md` or a future ADR. Completed.
-- Any new dependency is approved before installation. No dependency is approved or needed yet.
-- Existing `GraphSpec` content remains stable. Completed for the decision slice.
-
-## Next Three Implementation Tasks
-
-1. Review the dashboard-first course, lesson, and material navigation with the user and address concrete accessibility, visual, or interaction feedback.
-2. Review the new constant-function derivative lesson with the user and address concrete revision feedback if needed.
-3. Add the next deterministic derivatives lesson without adding new curriculum infrastructure after the current UI/content review is accepted.
-
-## Recommended First Vertical Slice
-
-Load one local studybook JSON file, validate it, render one lesson with text, LaTeX, a worked example, a graph placeholder, one common mistake, and one quiz, then run it offline in the Tauri desktop shell.
+- Polished mode risks crossing the autism-aware bar — Calm mode stays a first-class peer.
+- Schema migration breaks persisted learner state — a one-shot migrator maps `studybookId` → `courseId`.
+- Coverage thresholds will fail until Phase 4 content lands — keep them together in one PR.
