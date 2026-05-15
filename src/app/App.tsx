@@ -2,14 +2,17 @@ import {
   useCallback,
   useEffect,
   useMemo,
-  useReducer,
   useState,
   type CSSProperties
 } from "react";
-import sourceStudybook from "../studybook/fixtures/derivatives-first-principles.studybook.json";
-import { validateStudybook } from "../studybook";
-import type { Lesson, StudyBlock, Studybook } from "../studybook/schema";
-import { LessonView } from "../rendering/LessonView";
+import courseJson from "../content/fixtures/courses/calculus-i.course.json";
+import {
+  eachLesson,
+  findLesson,
+  totalLessons,
+  validateContent,
+  type Course
+} from "../content";
 import { createDefaultLearnerStateRepository } from "../storage/LearnerStateRepository";
 import {
   createEmptyLearnerState,
@@ -19,742 +22,333 @@ import {
   type LearnerState
 } from "../storage/learnerState";
 import type { QuizAttemptSubmission } from "../rendering/blocks/QuizBlockView";
-import { ReaderControls } from "./ReaderControls";
+import { Button } from "../design/primitives";
+import {
+  applyDisplayMode,
+  getInitialDisplayMode,
+  persistDisplayMode,
+  toggleDisplayMode,
+  type DisplayMode
+} from "./displayMode";
+import { routeFromHash, routeToHash, type Route } from "./Router";
+import { Shell } from "./components/Shell";
+import { ShortcutsDialog } from "./components/ShortcutsDialog";
+import { CoursesDashboardView, type CourseSummary } from "./views/CoursesDashboardView";
+import { CourseDetailView } from "./views/CourseDetailView";
+import { ReaderView } from "./views/ReaderView";
 import {
   createReaderSettingsStyle,
   loadReaderSettings,
   saveReaderSettings,
   type ReaderSettings
 } from "./readerSettings";
-import styles from "./App.module.css";
+import appStyles from "./App.module.css";
 
-export type AppShellNavigationState = {
-  view: "dashboard" | "reader";
-  selectedLessonId?: string;
-};
+const ALL_COURSES: Course[] = [];
 
-type AppShellNavigationAction =
-  | { type: "select-dashboard-lesson"; lessonId: string }
-  | { type: "open-selected-lesson" }
-  | { type: "open-reader-lesson"; lessonId: string }
-  | { type: "return-dashboard" };
-
-type AppProps = {
-  initialNavigation?: AppShellNavigationState;
-};
-
-const defaultNavigationState: AppShellNavigationState = {
-  view: "dashboard"
-};
-
-export function appShellNavigationReducer(
-  state: AppShellNavigationState,
-  action: AppShellNavigationAction
-): AppShellNavigationState {
-  switch (action.type) {
-    case "select-dashboard-lesson":
+function loadCourses(): {
+  courses: Course[];
+  errors: { courseId: string; message: string }[];
+} {
+  if (ALL_COURSES.length === 0) {
+    const result = validateContent(courseJson);
+    if (result.ok) {
+      ALL_COURSES.push(result.course);
+    } else {
       return {
-        view: "dashboard",
-        selectedLessonId: action.lessonId
+        courses: [],
+        errors: result.errors.map((e) => ({ courseId: "calculus-i", message: `${e.path}: ${e.message}` }))
       };
-    case "open-selected-lesson":
-      return {
-        ...state,
-        view: "reader"
-      };
-    case "open-reader-lesson":
-      return {
-        view: "reader",
-        selectedLessonId: action.lessonId
-      };
-    case "return-dashboard":
-      return {
-        ...state,
-        view: "dashboard"
-      };
+    }
   }
+  return { courses: ALL_COURSES, errors: [] };
 }
 
-export function App({ initialNavigation = defaultNavigationState }: AppProps = {}) {
-  const result = useMemo(() => validateStudybook(sourceStudybook), []);
-  const learnerStateRepository = useMemo(
-    () => createDefaultLearnerStateRepository(),
-    []
-  );
-  const [navigation, dispatchNavigation] = useReducer(
-    appShellNavigationReducer,
-    initialNavigation
+function buildSummary(course: Course, learnerState: LearnerState | undefined): CourseSummary {
+  const lessons = eachLesson(course);
+  const total = lessons.length;
+  const completed = lessons.filter(({ lesson }) => learnerState?.lessons[lesson.id]?.status === "completed").length;
+
+  let continueAt: CourseSummary["continueAt"] = null;
+  for (const entry of lessons) {
+    const progress = learnerState?.lessons[entry.lesson.id];
+    if (progress?.status === "in-progress") {
+      continueAt = { module: entry.module, lesson: entry.lesson };
+      break;
+    }
+  }
+  if (!continueAt) {
+    const firstUnfinished = lessons.find(
+      ({ lesson }) => learnerState?.lessons[lesson.id]?.status !== "completed"
+    );
+    if (firstUnfinished) {
+      continueAt = { module: firstUnfinished.module, lesson: firstUnfinished.lesson };
+    }
+  }
+
+  return { course, completedLessons: completed, totalLessons: total, continueAt };
+}
+
+export function App() {
+  const { courses, errors } = useMemo(() => loadCourses(), []);
+  const primaryCourse = courses[0];
+  const learnerStateRepository = useMemo(() => createDefaultLearnerStateRepository(), []);
+  const [route, setRoute] = useState<Route>(() =>
+    typeof window !== "undefined" ? routeFromHash(window.location.hash) : { kind: "home" }
   );
   const [learnerState, setLearnerState] = useState<LearnerState | undefined>();
   const [hasLoadedLearnerState, setHasLoadedLearnerState] = useState(false);
   const [storageNotice, setStorageNotice] = useState<string | undefined>();
   const [readerSettings, setReaderSettings] = useState<ReaderSettings>(() =>
-    loadReaderSettings(getBrowserStorage())
+    loadReaderSettings(typeof window !== "undefined" ? window.localStorage : undefined)
   );
   const readerSettingsStyle = useMemo(
     () => createReaderSettingsStyle(readerSettings) as CSSProperties,
     [readerSettings]
   );
-  const studybook = result.ok ? result.studybook : undefined;
-  const currentLesson = useMemo(
-    () => (studybook ? getRecommendedLesson(studybook.lessons, learnerState) : undefined),
-    [learnerState, studybook]
-  );
-  const selectedLesson =
-    studybook?.lessons.find(
-      (candidate) => candidate.id === navigation.selectedLessonId
-    ) ??
-    currentLesson ??
-    studybook?.lessons[0];
-  const completedLessonCount =
-    studybook?.lessons.filter(
-      (candidate) => learnerState?.lessons[candidate.id]?.status === "completed"
-    ).length ?? 0;
-  const lessonCompletionPercent = studybook?.lessons.length
-    ? Math.round((completedLessonCount / studybook.lessons.length) * 100)
-    : 0;
+  const [displayMode, setDisplayMode] = useState<DisplayMode>(() => getInitialDisplayMode());
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+
+  useEffect(() => {
+    applyDisplayMode(displayMode);
+  }, [displayMode]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onHashChange = () => setRoute(routeFromHash(window.location.hash));
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  const navigate = useCallback((next: Route) => {
+    if (typeof window !== "undefined") {
+      window.location.hash = routeToHash(next).slice(1);
+    }
+    setRoute(next);
+  }, []);
 
   const persistState = useCallback(
     (nextState: LearnerState) => {
       void learnerStateRepository.saveLearnerState(nextState).catch(() => {
-        setStorageNotice(
-          "Learner progress is available for this session, but it could not be saved."
-        );
+        setStorageNotice("Progress is available for this session but could not be saved.");
       });
     },
     [learnerStateRepository]
   );
 
   useEffect(() => {
-    if (!studybook) {
-      return;
-    }
-
-    const activeStudybook = studybook;
-    let isCurrent = true;
+    if (!primaryCourse) return;
+    let cancelled = false;
     setHasLoadedLearnerState(false);
-
-    async function loadLearnerState() {
+    async function load() {
       try {
-        const loaded = await learnerStateRepository.loadLearnerState(
-          activeStudybook.id
-        );
-
-        if (!isCurrent) {
-          return;
-        }
-
+        const loaded = await learnerStateRepository.loadLearnerState(primaryCourse.id);
+        if (cancelled) return;
         setLearnerState(loaded.state);
         setHasLoadedLearnerState(true);
-        setStorageNotice(
-          loaded.status === "recovered-from-corrupt"
-            ? "Saved learner state was unreadable, so progress was reset for this studybook."
-            : undefined
-        );
-      } catch {
-        if (!isCurrent) {
-          return;
+        if (loaded.status === "recovered-from-corrupt") {
+          setStorageNotice("Saved progress was unreadable, so it was reset for this course.");
         }
-
-        setLearnerState(createEmptyLearnerState(activeStudybook.id));
+      } catch {
+        if (cancelled) return;
+        setLearnerState(createEmptyLearnerState(primaryCourse.id));
         setHasLoadedLearnerState(true);
-        setStorageNotice(
-          "Learner progress is available for this session, but it could not be saved."
-        );
+        setStorageNotice("Progress is available for this session but could not be saved.");
       }
     }
-
-    void loadLearnerState();
-
+    void load();
     return () => {
-      isCurrent = false;
+      cancelled = true;
     };
-  }, [learnerStateRepository, studybook]);
+  }, [learnerStateRepository, primaryCourse]);
 
   useEffect(() => {
-    if (
-      !studybook ||
-      !selectedLesson ||
-      navigation.view !== "reader" ||
-      !hasLoadedLearnerState
-    ) {
-      return;
-    }
-
+    if (!primaryCourse || route.kind !== "lesson" || !hasLoadedLearnerState) return;
+    const lesson = findLesson(primaryCourse, route.lessonId)?.lesson;
+    if (!lesson) return;
     const openedAt = new Date().toISOString();
-
     setLearnerState((current) => {
-      const nextState = markLessonOpened(
-        current ?? createEmptyLearnerState(studybook.id),
-        selectedLesson.id,
-        openedAt
-      );
-      persistState(nextState);
-      return nextState;
+      const next = markLessonOpened(current ?? createEmptyLearnerState(primaryCourse.id), lesson.id, openedAt);
+      persistState(next);
+      return next;
     });
-  }, [
-    hasLoadedLearnerState,
-    navigation.view,
-    persistState,
-    selectedLesson,
-    studybook
-  ]);
+  }, [hasLoadedLearnerState, persistState, primaryCourse, route]);
 
-  const handleOpenSelectedLesson = useCallback(() => {
-    if (!selectedLesson) {
-      return;
-    }
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handler = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLElement) {
+        const tag = event.target.tagName;
+        if (tag === "INPUT" || tag === "TEXTAREA" || event.target.isContentEditable) return;
+      }
+      if (event.key === "?" || (event.key === "/" && event.shiftKey)) {
+        event.preventDefault();
+        setShortcutsOpen(true);
+      } else if (event.key === "Escape" && shortcutsOpen) {
+        setShortcutsOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [shortcutsOpen]);
 
-    dispatchNavigation({
-      type: "open-reader-lesson",
-      lessonId: selectedLesson.id
+  const handleToggleMode = useCallback(() => {
+    setDisplayMode((current) => {
+      const next = toggleDisplayMode(current);
+      persistDisplayMode(next);
+      return next;
     });
-  }, [selectedLesson]);
-
-  const handleSelectDashboardLesson = useCallback((lessonId: string) => {
-    dispatchNavigation({ type: "select-dashboard-lesson", lessonId });
-  }, []);
-
-  const handleOpenReaderLesson = useCallback((lessonId: string) => {
-    dispatchNavigation({ type: "open-reader-lesson", lessonId });
-  }, []);
-
-  const handleReturnDashboard = useCallback(() => {
-    dispatchNavigation({ type: "return-dashboard" });
   }, []);
 
   const handleReaderSettingsChange = useCallback((settings: ReaderSettings) => {
     setReaderSettings(settings);
-    saveReaderSettings(settings, getBrowserStorage());
+    saveReaderSettings(settings, typeof window !== "undefined" ? window.localStorage : undefined);
   }, []);
 
   const handleQuizAttempt = useCallback(
     (attempt: QuizAttemptSubmission) => {
-      if (!studybook) {
-        return;
-      }
-
+      if (!primaryCourse) return;
       setLearnerState((current) => {
-        const nextState = recordQuizAttempt(
-          current ?? createEmptyLearnerState(studybook.id),
-          {
-            ...attempt,
-            submittedAt: new Date().toISOString()
-          }
-        );
-        persistState(nextState);
-        return nextState;
+        const next = recordQuizAttempt(current ?? createEmptyLearnerState(primaryCourse.id), {
+          ...attempt,
+          submittedAt: new Date().toISOString()
+        });
+        persistState(next);
+        return next;
       });
     },
-    [persistState, studybook]
+    [persistState, primaryCourse]
   );
 
-  const handleCompleteLesson = useCallback(() => {
-    if (!studybook || !selectedLesson) {
-      return;
-    }
+  const handleCompleteLesson = useCallback(
+    (lessonId: string) => {
+      if (!primaryCourse) return;
+      setLearnerState((current) => {
+        const next = markLessonCompleted(
+          current ?? createEmptyLearnerState(primaryCourse.id),
+          lessonId,
+          new Date().toISOString()
+        );
+        persistState(next);
+        return next;
+      });
+    },
+    [persistState, primaryCourse]
+  );
 
-    setLearnerState((current) => {
-      const nextState = markLessonCompleted(
-        current ?? createEmptyLearnerState(studybook.id),
-        selectedLesson.id,
-        new Date().toISOString()
-      );
-      persistState(nextState);
-      return nextState;
-    });
-  }, [persistState, selectedLesson, studybook]);
-
-  if (!result.ok) {
+  if (errors.length > 0) {
     return (
-      <main className={styles.content}>
-        <section className={styles.errorPanel}>
-          <h1>Studybook validation failed</h1>
-          <p>The lesson did not pass deterministic validation.</p>
-          <ul>
-            {result.errors.map((error) => (
-              <li key={`${error.path}-${error.message}`}>
-                <code>{error.path}</code>: {error.message}
-              </li>
-            ))}
-          </ul>
-        </section>
-      </main>
-    );
-  }
-
-  if (!studybook || !selectedLesson || !currentLesson) {
-    return (
-      <main className={styles.content}>
-        <section className={styles.errorPanel}>
-          <h1>Studybook has no lessons</h1>
-          <p>The studybook passed validation but did not provide a lesson to open.</p>
-        </section>
-      </main>
-    );
-  }
-
-  if (navigation.view === "dashboard") {
-    return (
-      <div className={styles.dashboardShell}>
-        <a className={styles.skipLink} href="#dashboard-course">
-          Skip to course dashboard
-        </a>
-        <CourseDashboard
-          studybook={studybook}
-          selectedLesson={selectedLesson}
-          currentLesson={currentLesson}
-          learnerState={learnerState}
-          completedLessonCount={completedLessonCount}
-          lessonCompletionPercent={lessonCompletionPercent}
-          onSelectLesson={handleSelectDashboardLesson}
-          onOpenSelectedLesson={handleOpenSelectedLesson}
-        />
+      <div className={appStyles.errorView} role="alert">
+        <h1>Course validation failed.</h1>
+        <p>
+          The bundled course could not be loaded. Fix these errors and reload:
+        </p>
+        <ul>
+          {errors.map((error, idx) => (
+            <li key={idx}>
+              <code>{error.message}</code>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
 
-  return (
-    <div className={styles.appShell}>
-      <a className={styles.skipLink} href="#lesson-content">
-        Skip to lesson content
-      </a>
-      <aside className={styles.sidebar} aria-label="Studybook library">
-        <div className={styles.sidebarIntro}>
-          <p className={styles.brand}>Project Math</p>
-          <p className={styles.libraryLabel}>Studybook</p>
-          <h2>{studybook.title}</h2>
-          <p>{studybook.summary}</p>
-          <div
-            className={styles.progressMeter}
-            aria-label={`${completedLessonCount} of ${studybook.lessons.length} lessons completed`}
-          >
-            <span
-              className={styles.progressFill}
-              style={{ width: `${lessonCompletionPercent}%` }}
-            />
-          </div>
-          <p className={styles.progressSummary}>
-            {completedLessonCount} of {studybook.lessons.length} lessons complete.
-          </p>
-        </div>
-        <div className={styles.lessonList}>
-          {studybook.lessons.map((candidate, index) => {
-            const isSelected = candidate.id === selectedLesson.id;
-            const progressLabel = getReaderLessonProgressLabel(
-              learnerState?.lessons[candidate.id]?.status,
-              isSelected
-            );
+  if (!primaryCourse) {
+    return (
+      <div className={appStyles.errorView}>
+        <h1>No courses available.</h1>
+      </div>
+    );
+  }
 
-            return (
-              <button
-                key={candidate.id}
-                className={`${styles.lessonButton} ${
-                  isSelected ? styles.lessonButtonActive : ""
-                }`}
-                type="button"
-                aria-pressed={isSelected}
-                aria-current={isSelected ? "page" : undefined}
-                aria-label={`Open lesson ${index + 1}: ${candidate.title}. ${progressLabel}.`}
-                onClick={() => handleOpenReaderLesson(candidate.id)}
-              >
-                <span className={styles.lessonNumber}>Lesson {index + 1}</span>
-                <strong>{candidate.title}</strong>
-                <span className={styles.lessonSummary}>{candidate.summary}</span>
-                <span className={styles.lessonStatus}>{progressLabel}</span>
-              </button>
-            );
-          })}
-        </div>
-        <p className={styles.localSaveNote}>Progress is saved locally.</p>
-      </aside>
-      <main id="lesson-content" className={styles.content} style={readerSettingsStyle}>
-        <nav className={styles.readerTopBar} aria-label="Reader navigation">
-          <button
-            className={styles.dashboardReturnButton}
-            type="button"
-            onClick={handleReturnDashboard}
-          >
-            Back to dashboard
-          </button>
-          <p>
-            Reader view: {selectedLesson.title}. Lesson{" "}
-            {studybook.lessons.findIndex(
-              (candidate) => candidate.id === selectedLesson.id
-            ) + 1}{" "}
-            of {studybook.lessons.length}.
-          </p>
-        </nav>
-        <ReaderControls
-          settings={readerSettings}
-          onSettingsChange={handleReaderSettingsChange}
+  const summaries = courses.map((course) =>
+    buildSummary(course, course.id === primaryCourse.id ? learnerState : undefined)
+  );
+
+  const goHome = () => navigate({ kind: "home" });
+  const openCourse = (courseId: string) => navigate({ kind: "course", courseId });
+  const openLesson = (courseId: string, lessonId: string) =>
+    navigate({ kind: "lesson", courseId, lessonId });
+
+  let body: JSX.Element;
+  if (route.kind === "home") {
+    body = (
+      <CoursesDashboardView
+        summaries={summaries}
+        learnerState={learnerState}
+        onOpenCourse={openCourse}
+        onOpenLesson={openLesson}
+      />
+    );
+  } else if (route.kind === "course") {
+    const course = courses.find((c) => c.id === route.courseId);
+    if (!course) {
+      body = <NotFound onGoHome={goHome} />;
+    } else {
+      body = (
+        <CourseDetailView
+          course={course}
+          learnerState={course.id === primaryCourse.id ? learnerState : undefined}
+          onOpenLesson={(lessonId) => openLesson(course.id, lessonId)}
+          onGoHome={goHome}
         />
-        {storageNotice ? (
-          <div className={styles.storageNotice} role="status">
-            {storageNotice}
-          </div>
-        ) : null}
-        <LessonView
-          studybook={studybook}
-          lesson={selectedLesson}
-          learnerState={learnerState}
+      );
+    }
+  } else {
+    const course = courses.find((c) => c.id === route.courseId);
+    const lesson = course ? findLesson(course, route.lessonId)?.lesson : undefined;
+    if (!course || !lesson) {
+      body = <NotFound onGoHome={goHome} />;
+    } else {
+      body = (
+        <ReaderView
+          course={course}
+          lesson={lesson}
+          learnerState={course.id === primaryCourse.id ? learnerState : undefined}
+          onOpenLesson={(lessonId) => openLesson(course.id, lessonId)}
+          onOpenCourse={() => openCourse(course.id)}
+          onGoHome={goHome}
           onQuizAttempt={handleQuizAttempt}
-          onCompleteLesson={handleCompleteLesson}
+          onCompleteLesson={() => handleCompleteLesson(lesson.id)}
         />
-      </main>
+      );
+    }
+  }
+
+  void totalLessons;
+  void readerSettingsStyle;
+  void handleReaderSettingsChange;
+
+  return (
+    <div style={readerSettingsStyle as CSSProperties}>
+      {storageNotice ? (
+        <p className={appStyles.storageNotice} role="status" aria-live="polite">
+          {storageNotice}{" "}
+          <Button variant="ghost" size="sm" onClick={() => setStorageNotice(undefined)}>
+            Dismiss
+          </Button>
+        </p>
+      ) : null}
+      <Shell
+        mode={displayMode}
+        onToggleMode={handleToggleMode}
+        onOpenShortcuts={() => setShortcutsOpen(true)}
+        onGoHome={goHome}
+      >
+        {body}
+      </Shell>
+      <ShortcutsDialog open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
     </div>
   );
 }
 
-type DashboardProps = {
-  studybook: Studybook;
-  selectedLesson: Lesson;
-  currentLesson: Lesson;
-  learnerState?: LearnerState;
-  completedLessonCount: number;
-  lessonCompletionPercent: number;
-  onSelectLesson: (lessonId: string) => void;
-  onOpenSelectedLesson: () => void;
-};
-
-function CourseDashboard({
-  studybook,
-  selectedLesson,
-  currentLesson,
-  learnerState,
-  completedLessonCount,
-  lessonCompletionPercent,
-  onSelectLesson,
-  onOpenSelectedLesson
-}: DashboardProps) {
-  const selectedLessonIndex = studybook.lessons.findIndex(
-    (candidate) => candidate.id === selectedLesson.id
-  );
-  const selectedLessonStateLabel = getDashboardLessonProgressLabel(
-    learnerState?.lessons[selectedLesson.id]?.status,
-    true,
-    currentLesson.id === selectedLesson.id
-  );
-  const selectedLessonMaterials = getLessonMaterialEntries(selectedLesson);
-  const courseMaterialSummary = getCourseMaterialSummary(studybook.lessons);
-
+function NotFound({ onGoHome }: { onGoHome: () => void }) {
   return (
-    <main
-      id="dashboard-course"
-      className={styles.dashboard}
-      aria-labelledby="dashboard-title"
-    >
-      <header className={styles.dashboardHeader}>
-        <div>
-          <p className={styles.brand}>Project Math</p>
-          <h1 id="dashboard-title">Study dashboard</h1>
-          <p>
-            Open the bundled deterministic course, choose a lesson, then enter the
-            reader when you are ready to study.
-          </p>
-        </div>
-        <div className={styles.statusStack} aria-label="App status">
-          <span>Local-first</span>
-          <span>Offline-ready</span>
-          <span>Validated studybook content</span>
-        </div>
-      </header>
-
-      <section className={styles.dashboardOverview} aria-label="Course overview">
-        <section className={styles.coursePanel} aria-labelledby="course-title">
-          <p className={styles.dashboardLabel}>Course</p>
-          <h2 id="course-title">{studybook.title}</h2>
-          <p>{studybook.summary}</p>
-          <dl className={styles.courseFacts}>
-            <div>
-              <dt>Topic</dt>
-              <dd>{studybook.topic}</dd>
-            </div>
-            <div>
-              <dt>Lessons</dt>
-              <dd>{studybook.lessons.length}</dd>
-            </div>
-            <div>
-              <dt>Materials</dt>
-              <dd>{courseMaterialSummary}</dd>
-            </div>
-          </dl>
-          <div
-            className={styles.progressMeter}
-            aria-label={`${completedLessonCount} of ${studybook.lessons.length} lessons completed`}
-          >
-            <span
-              className={styles.progressFill}
-              style={{ width: `${lessonCompletionPercent}%` }}
-            />
-          </div>
-          <p className={styles.progressSummary}>
-            {completedLessonCount} of {studybook.lessons.length} lessons complete.
-          </p>
-          <button
-            className={styles.dashboardPrimaryButton}
-            type="button"
-            onClick={onOpenSelectedLesson}
-            aria-label={`Open selected lesson: ${selectedLesson.title}. ${selectedLessonStateLabel}.`}
-          >
-            Open selected lesson
-          </button>
-        </section>
-
-        <section
-          className={styles.materialPanel}
-          aria-labelledby="selected-materials-title"
-        >
-          <p className={styles.dashboardLabel}>Selected lesson materials</p>
-          <h2 id="selected-materials-title">{selectedLesson.title}</h2>
-          <p className={styles.selectedLessonStatus}>
-            Lesson {selectedLessonIndex + 1} of {studybook.lessons.length}:{" "}
-            {selectedLessonStateLabel}.
-          </p>
-          <dl className={styles.materialList}>
-            {selectedLessonMaterials.map((entry) => (
-              <div key={entry.label}>
-                <dt>{entry.label}</dt>
-                <dd>
-                  <strong>{entry.value}</strong>
-                  <span>{entry.detail}</span>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </section>
-      </section>
-
-      <section
-        className={styles.lessonSequencePanel}
-        aria-labelledby="lesson-sequence-title"
-      >
-        <div className={styles.sectionHeading}>
-          <p className={styles.dashboardLabel}>Lesson sequence</p>
-          <h2 id="lesson-sequence-title">Choose where to study next</h2>
-          <p>
-            Text labels show selected, current, completed, and not-started states.
-          </p>
-        </div>
-        <ol className={styles.dashboardLessonList}>
-          {studybook.lessons.map((candidate, index) => {
-            const materialSummary = getLessonMaterialSummary(candidate);
-            const isSelected = candidate.id === selectedLesson.id;
-            const isCurrent = candidate.id === currentLesson.id;
-            const statusLabel = getDashboardLessonProgressLabel(
-              learnerState?.lessons[candidate.id]?.status,
-              isSelected,
-              isCurrent
-            );
-
-            return (
-              <li key={candidate.id}>
-                <button
-                  className={classNames(
-                    styles.dashboardLessonButton,
-                    isSelected && styles.dashboardLessonButtonSelected,
-                    isCurrent && styles.dashboardLessonButtonCurrent
-                  )}
-                  type="button"
-                  aria-pressed={isSelected}
-                  aria-current={isCurrent ? "step" : undefined}
-                  aria-label={`Select lesson ${index + 1}: ${candidate.title}. ${statusLabel}.`}
-                  onClick={() => onSelectLesson(candidate.id)}
-                >
-                  <span className={styles.lessonNumber}>Lesson {index + 1}</span>
-                  <strong>{candidate.title}</strong>
-                  <span className={styles.lessonSummary}>{candidate.summary}</span>
-                  <span className={styles.lessonStatus}>{statusLabel}</span>
-                  <span className={styles.materialDigest}>
-                    {materialSummary.sections} sections, {materialSummary.graphs}{" "}
-                    graphs, {materialSummary.workedExamples} worked examples,{" "}
-                    {materialSummary.quizQuestions} practice questions.
-                  </span>
-                </button>
-              </li>
-            );
-          })}
-        </ol>
-      </section>
-    </main>
+    <div role="alert" style={{ padding: "var(--pm-space-6)" }}>
+      <h1>That page isn&apos;t available.</h1>
+      <p>Try going back to the courses dashboard.</p>
+      <Button onClick={onGoHome}>Go home</Button>
+    </div>
   );
-}
-
-function getReaderLessonProgressLabel(
-  status: LearnerState["lessons"][string]["status"] | undefined,
-  isSelected: boolean
-) {
-  if (status === "completed") {
-    return isSelected ? "Selected, completed" : "Completed";
-  }
-
-  if (status === "in-progress") {
-    return isSelected ? "Selected, in progress" : "Started";
-  }
-
-  return isSelected ? "Selected, not started" : "Not started";
-}
-
-export function getDashboardLessonProgressLabel(
-  status: LearnerState["lessons"][string]["status"] | undefined,
-  isSelected: boolean,
-  isCurrent: boolean
-) {
-  if (status === "completed") {
-    return isSelected ? "Selected, completed" : "Completed";
-  }
-
-  if (status === "in-progress") {
-    return isSelected ? "Selected, current" : "Current";
-  }
-
-  if (isCurrent) {
-    return isSelected
-      ? "Selected, current, not started"
-      : "Current, not started";
-  }
-
-  return isSelected ? "Selected, not started" : "Not started";
-}
-
-type LessonMaterialSummary = {
-  objectives: number;
-  sections: number;
-  graphs: number;
-  workedExamples: number;
-  commonMistakes: number;
-  quizBlocks: number;
-  quizQuestions: number;
-  summaries: number;
-};
-
-function getLessonMaterialSummary(lesson: Lesson): LessonMaterialSummary {
-  const blocks = lesson.sections.flatMap((section) => section.blocks);
-
-  return {
-    objectives: lesson.objectives.length,
-    sections: lesson.sections.length,
-    graphs: countBlocksByType(blocks, "graph"),
-    workedExamples: countBlocksByType(blocks, "workedExample"),
-    commonMistakes: countBlocksByType(blocks, "commonMistake"),
-    quizBlocks: countBlocksByType(blocks, "quiz"),
-    quizQuestions: countQuizQuestions(blocks),
-    summaries: countBlocksByType(blocks, "summary")
-  };
-}
-
-function getLessonMaterialEntries(lesson: Lesson) {
-  const summary = getLessonMaterialSummary(lesson);
-
-  return [
-    {
-      label: "Objectives",
-      value: String(summary.objectives),
-      detail: "Learning goals shown at the lesson opening."
-    },
-    {
-      label: "Sections",
-      value: String(summary.sections),
-      detail: "Ordered steps in the reader path."
-    },
-    {
-      label: "Graphs",
-      value: String(summary.graphs),
-      detail: "Focusable SVG graphs with text details."
-    },
-    {
-      label: "Worked examples",
-      value: String(summary.workedExamples),
-      detail: "Step-by-step calculations."
-    },
-    {
-      label: "Common mistakes",
-      value: String(summary.commonMistakes),
-      detail: "Misconception, correction, and check prompts."
-    },
-    {
-      label: "Practice",
-      value: `${summary.quizBlocks} quizzes, ${summary.quizQuestions} questions`,
-      detail: "Deterministic quiz feedback in the reader."
-    },
-    {
-      label: "Summary/export",
-      value: summary.summaries > 0 ? "Available" : "Export only",
-      detail: "Lesson summary and markdown export actions."
-    }
-  ];
-}
-
-function getCourseMaterialSummary(lessons: Lesson[]) {
-  const totals = lessons.reduce<LessonMaterialSummary>(
-    (current, lesson) => {
-      const summary = getLessonMaterialSummary(lesson);
-
-      return {
-        objectives: current.objectives + summary.objectives,
-        sections: current.sections + summary.sections,
-        graphs: current.graphs + summary.graphs,
-        workedExamples: current.workedExamples + summary.workedExamples,
-        commonMistakes: current.commonMistakes + summary.commonMistakes,
-        quizBlocks: current.quizBlocks + summary.quizBlocks,
-        quizQuestions: current.quizQuestions + summary.quizQuestions,
-        summaries: current.summaries + summary.summaries
-      };
-    },
-    {
-      objectives: 0,
-      sections: 0,
-      graphs: 0,
-      workedExamples: 0,
-      commonMistakes: 0,
-      quizBlocks: 0,
-      quizQuestions: 0,
-      summaries: 0
-    }
-  );
-
-  return `${totals.objectives} objectives, ${totals.sections} sections, ${totals.graphs} graphs, ${totals.workedExamples} worked examples, ${totals.commonMistakes} common mistakes, ${totals.quizQuestions} practice questions`;
-}
-
-function countBlocksByType(blocks: StudyBlock[], type: StudyBlock["type"]) {
-  return blocks.filter((block) => block.type === type).length;
-}
-
-function countQuizQuestions(blocks: StudyBlock[]) {
-  return blocks.reduce((count, block) => {
-    if (block.type !== "quiz") {
-      return count;
-    }
-
-    return count + block.questions.length;
-  }, 0);
-}
-
-function getRecommendedLesson(
-  lessons: Lesson[],
-  state: LearnerState | undefined
-) {
-  return (
-    lessons.find(
-      (lesson) => state?.lessons[lesson.id]?.status === "in-progress"
-    ) ??
-    lessons.find((lesson) => state?.lessons[lesson.id]?.status !== "completed") ??
-    lessons[0]
-  );
-}
-
-function classNames(...names: Array<string | false | undefined>) {
-  return names.filter(Boolean).join(" ");
-}
-
-function getBrowserStorage() {
-  if (typeof window === "undefined") {
-    return undefined;
-  }
-
-  try {
-    return window.localStorage;
-  } catch {
-    return undefined;
-  }
 }

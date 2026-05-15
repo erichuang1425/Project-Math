@@ -1,21 +1,21 @@
 import { getQuizAttempts, type LearnerState } from "../storage/learnerState";
 import type {
+  Block,
   CommonMistakeBlock,
+  Course,
   LatexBlock,
   Lesson,
   QuizBlock,
   QuizQuestion,
   RichTextSegment,
-  StudyBlock,
-  Studybook,
   WorkedExampleBlock,
   WorkedStep
-} from "../studybook/schema";
+} from "../content/schema";
 
 export type LessonSummaryExport = {
-  studybookId: string;
+  courseId: string;
   lessonId: string;
-  studybookTitle: string;
+  courseTitle: string;
   lessonTitle: string;
   lessonSummary: string;
   progress: LessonSummaryProgress;
@@ -76,25 +76,25 @@ export type LessonSummaryQuizResult = {
 };
 
 export function buildLessonSummaryExport(
-  studybook: Studybook,
+  course: Course,
   lesson: Lesson,
   learnerState?: LearnerState
 ): LessonSummaryExport {
   const matchingLearnerState =
-    learnerState?.studybookId === studybook.id ? learnerState : undefined;
+    learnerState?.studybookId === course.id ? learnerState : undefined;
   const blocks = getLessonBlocks(lesson);
 
   return {
-    studybookId: studybook.id,
+    courseId: course.id,
     lessonId: lesson.id,
-    studybookTitle: studybook.title,
+    courseTitle: course.title,
     lessonTitle: lesson.title,
     lessonSummary: lesson.summary,
     progress: buildProgressSummary(lesson, matchingLearnerState),
-    objectives: [...lesson.objectives],
+    objectives: lesson.objectives.map((objective) => objective.text),
     keyDefinitions: [
       ...blocks.filter(isLatexBlock).map(buildFormulaDefinition),
-      ...(studybook.glossary ?? []).map((entry) => ({
+      ...course.glossary.map((entry) => ({
         kind: "glossary" as const,
         id: entry.id,
         term: entry.term,
@@ -128,7 +128,7 @@ export function renderLessonSummaryMarkdown(summary: LessonSummaryExport): strin
 
   lines.push(`# ${summary.lessonTitle}`);
   lines.push("");
-  lines.push(`Studybook: ${summary.studybookTitle}`);
+  lines.push(`Course: ${summary.courseTitle}`);
   lines.push(`Progress: ${summary.progress.label}`);
   lines.push("");
   lines.push(summary.lessonSummary);
@@ -214,7 +214,7 @@ export function renderLessonSummaryMarkdown(summary: LessonSummaryExport): strin
 }
 
 export function lessonSummaryExportFileName(summary: LessonSummaryExport): string {
-  return `${summary.studybookId}-${summary.lessonId}-summary.md`;
+  return `${summary.courseId}-${summary.lessonId}-summary.md`;
 }
 
 function appendList(lines: string[], items: string[]) {
@@ -226,7 +226,7 @@ function appendList(lines: string[], items: string[]) {
   items.forEach((item) => lines.push(`- ${item}`));
 }
 
-function getLessonBlocks(lesson: Lesson): StudyBlock[] {
+function getLessonBlocks(lesson: Lesson): Block[] {
   return lesson.sections.flatMap((section) => section.blocks);
 }
 
@@ -266,7 +266,7 @@ function buildFormulaDefinition(block: LatexBlock): LessonSummaryDefinition {
 
 function buildQuizResults(
   lesson: Lesson,
-  blocks: StudyBlock[],
+  blocks: Block[],
   learnerState: LearnerState | undefined
 ): LessonSummaryQuizResult[] {
   if (!learnerState) {
@@ -321,18 +321,18 @@ function renderRichTextAsPlainText(segments: RichTextSegment[]): string {
     .trim();
 }
 
-function isLatexBlock(block: StudyBlock): block is LatexBlock {
+function isLatexBlock(block: Block): block is LatexBlock {
   return block.type === "latex";
 }
 
-function isWorkedExampleBlock(block: StudyBlock): block is WorkedExampleBlock {
+function isWorkedExampleBlock(block: Block): block is WorkedExampleBlock {
   return block.type === "workedExample";
 }
 
-function isCommonMistakeBlock(block: StudyBlock): block is CommonMistakeBlock {
+function isCommonMistakeBlock(block: Block): block is CommonMistakeBlock {
   return block.type === "commonMistake";
 }
 
-function isQuizBlock(block: StudyBlock): block is QuizBlock {
+function isQuizBlock(block: Block): block is QuizBlock {
   return block.type === "quiz";
 }

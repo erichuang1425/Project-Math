@@ -1,4 +1,4 @@
-import type { LatexBlock } from "../../studybook/schema";
+import type { LatexBlock } from "../../content/schema";
 import { MathBlock } from "../../math/MathBlock";
 import styles from "../lesson.module.css";
 

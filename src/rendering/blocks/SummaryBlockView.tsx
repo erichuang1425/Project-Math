@@ -1,4 +1,4 @@
-import type { SummaryBlock } from "../../studybook/schema";
+import type { SummaryBlock } from "../../content/schema";
 import { RichTextRows } from "../RichText";
 import styles from "../lesson.module.css";
 

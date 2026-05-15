@@ -1,4 +1,4 @@
-import type { TitleBlock } from "../../studybook/schema";
+import type { TitleBlock } from "../../content/schema";
 import { RichTextRows } from "../RichText";
 import styles from "../lesson.module.css";
 

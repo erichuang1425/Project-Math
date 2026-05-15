@@ -4,8 +4,8 @@ import type {
   QuizBlock,
   QuizQuestion,
   ShortAnswerQuestion
-} from "../../studybook/schema";
-import { evaluateQuizAnswer } from "../../studybook/quizScoring";
+} from "../../content/schema";
+import { evaluateQuizAnswer } from "../../content/quizScoring";
 import { RichText } from "../RichText";
 import styles from "../lesson.module.css";
 

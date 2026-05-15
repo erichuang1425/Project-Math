@@ -623,6 +623,39 @@
   font-weight: 700;
 }
 
+.termButton {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--pm-color-accent);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  padding: 0;
+}
+
+.termButton:hover,
+.termButton:focus-visible {
+  color: var(--pm-color-accent-hover);
+  text-decoration-style: solid;
+}
+
+.glossaryDefinition {
+  margin: 0 0 var(--pm-space-3);
+  font-size: var(--pm-size-md);
+  line-height: var(--pm-leading-normal);
+}
+
+.glossaryAliases {
+  margin: var(--pm-space-3) 0 0;
+  font-size: var(--pm-size-sm);
+  color: var(--pm-color-text-muted);
+}
+
 @media (max-width: 980px) {
   .lessonBody {
     grid-template-columns: 1fr;
