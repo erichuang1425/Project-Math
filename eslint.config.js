@@ -9,6 +9,7 @@ export default [
     ignores: [
       "node_modules/**",
       "dist/**",
+      "scripts/**",
       "src-tauri/target/**",
       "src-tauri/gen/**",
       "**/*.config.js",
