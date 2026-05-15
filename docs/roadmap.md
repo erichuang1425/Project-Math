@@ -147,11 +147,65 @@ What done means:
 - Any new dependency is approved before installation. No dependency is approved or needed yet.
 - Existing `GraphSpec` content remains stable. Completed for the decision slice.
 
+## Phase 8: Interactive Study Features
+
+Status: complete.
+
+What was done:
+
+- **Active-section IntersectionObserver**: The sticky lesson path rail highlights the current section as the learner scrolls, with `aria-current="step"` for accessibility.
+- **Worked-example step rail**: Worked examples use progressive step disclosure — a numbered pill tab for each step, Previous/Next buttons, and a step counter with `aria-live`.
+- **Glossary `<dialog>` focus trap**: Clicking a term link opens a native `<dialog>` via `showModal()`. Focus is trapped natively. Escape or backdrop click closes it. The dialog shows term, definition, and optional LaTeX formula.
+
+## Phase 9: Content Depth
+
+Status: complete.
+
+What was done:
+
+- 6 new deterministic lessons authored: power-rule-for-derivatives, sum-and-constant-multiple-rule, product-rule, quotient-rule, chain-rule, tangent-line-equation.
+- Studybook now has 9 lessons total (up from 3).
+- All lessons follow the autism-aware 2-section structure with title, concept, intuition, LaTeX, graph, worked example, common mistake, quiz, and summary blocks.
+- All 48 tests pass. Typecheck and build clean.
+
+Pending:
+
+- The 6 new lesson graph blocks need authored `spec.series[].samples` (currently valid stub specs).
+
+## Phase 10: Tauri Desktop Polish
+
+Status: in progress.
+
+What was done:
+
+- Native menus added (File: Export Lesson Summary, Close; Edit: standard; View: Return to Dashboard, Fullscreen).
+- Two new Tauri commands: `export_markdown_file` (writes to app data exports dir), `app_version`.
+- Menu events (`menu:go-to-dashboard`, `menu:export-summary`) emit from Rust to frontend; frontend event listeners not yet wired.
+
+Pending:
+
+- Wire `menu:go-to-dashboard` to navigate back to the dashboard.
+- Wire `menu:export-summary` to trigger the Download summary action.
+- Custom app icon (deferred; no image tooling available in this environment).
+
+## Phase 11: Agent Skill Refinement
+
+Status: complete.
+
+What was done:
+
+- `learner-journey-reviewer` skill created — end-to-end journey auditing replacing `ux-quality-reviewer`.
+- `motivation-ux-reviewer` skill created — intrinsic motivation and learner confidence auditing.
+- `ux-quality-reviewer` superseded (retained for reference).
+- `neurodivergent-learning-accessibility-reviewer` sharpened for step rail, glossary dialog, and active-section rail.
+- `AGENTS.md` updated to reference new skills.
+- `NEXT_CODEX_PROMPT.md` updated with current state and next task.
+
 ## Next Three Implementation Tasks
 
-1. Review the dashboard-first course, lesson, and material navigation with the user and address concrete accessibility, visual, or interaction feedback.
-2. Review the new constant-function derivative lesson with the user and address concrete revision feedback if needed.
-3. Add the next deterministic derivatives lesson without adding new curriculum infrastructure after the current UI/content review is accepted.
+1. Author sampled series for the 6 new lesson graph blocks (power-rule through tangent-line).
+2. Wire Tauri menu events to the frontend for dashboard navigation and export.
+3. Run the learner-journey-reviewer checklist and address concrete gaps in the step rail and glossary interaction.
 
 ## Recommended First Vertical Slice
 

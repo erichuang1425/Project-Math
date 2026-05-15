@@ -27,7 +27,7 @@ describe("App shell", () => {
     expect(html).toContain("Offline-ready");
     expect(html).toContain("Validated studybook content");
     expect(html).toContain("Derivatives from First Principles");
-    expect(html).toContain("0 of 3 lessons complete.");
+    expect(html).toContain("0 of 9 lessons complete.");
     expect(html).toContain("Open selected lesson");
     expect(html).not.toContain("Reader controls");
     expect(html).not.toContain('id="lesson-content"');
