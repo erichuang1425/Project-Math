@@ -5,10 +5,7 @@ import { ConceptBlockView } from "./blocks/ConceptBlockView";
 import { GraphBlockView } from "./blocks/GraphBlockView";
 import { IntuitionBlockView } from "./blocks/IntuitionBlockView";
 import { LatexBlockView } from "./blocks/LatexBlockView";
-import {
-  QuizBlockView,
-  type QuizAttemptSubmission
-} from "./blocks/QuizBlockView";
+import { QuizBlockView, type QuizAttemptSubmission } from "./blocks/QuizBlockView";
 import { SummaryBlockView } from "./blocks/SummaryBlockView";
 import { TitleBlockView } from "./blocks/TitleBlockView";
 import { WorkedExampleBlockView } from "./blocks/WorkedExampleBlockView";

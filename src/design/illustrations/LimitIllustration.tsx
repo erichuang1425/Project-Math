@@ -22,10 +22,41 @@ export function LimitIllustration() {
         stroke="var(--pm-color-accent)"
         strokeWidth="2.5"
       />
-      <circle cx="120" cy="40" r="4" fill="var(--pm-color-app-bg)" stroke="var(--pm-color-accent)" strokeWidth="2" />
-      <line x1="120" y1="40" x2="180" y2="40" stroke="var(--pm-color-highlight)" strokeWidth="1.5" strokeDasharray="3 3" />
-      <text x="184" y="42" fontSize="11" fill="var(--pm-color-highlight)" fontFamily="var(--pm-font-mono)">L</text>
-      <text x="124" y="80" fontSize="11" fill="var(--pm-color-text-muted)" fontFamily="var(--pm-font-mono)">a</text>
+      <circle
+        cx="120"
+        cy="40"
+        r="4"
+        fill="var(--pm-color-app-bg)"
+        stroke="var(--pm-color-accent)"
+        strokeWidth="2"
+      />
+      <line
+        x1="120"
+        y1="40"
+        x2="180"
+        y2="40"
+        stroke="var(--pm-color-highlight)"
+        strokeWidth="1.5"
+        strokeDasharray="3 3"
+      />
+      <text
+        x="184"
+        y="42"
+        fontSize="11"
+        fill="var(--pm-color-highlight)"
+        fontFamily="var(--pm-font-mono)"
+      >
+        L
+      </text>
+      <text
+        x="124"
+        y="80"
+        fontSize="11"
+        fill="var(--pm-color-text-muted)"
+        fontFamily="var(--pm-font-mono)"
+      >
+        a
+      </text>
     </svg>
   );
 }

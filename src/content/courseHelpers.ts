@@ -36,7 +36,14 @@ export function eachLesson(course: Course): LessonLocation[] {
   let globalIndex = 0;
   course.modules.forEach((mod, moduleIndex) => {
     mod.lessons.forEach((lesson, lessonIndex) => {
-      out.push({ course, module: mod, moduleIndex, lesson, lessonIndex, globalLessonIndex: globalIndex });
+      out.push({
+        course,
+        module: mod,
+        moduleIndex,
+        lesson,
+        lessonIndex,
+        globalLessonIndex: globalIndex
+      });
       globalIndex++;
     });
   });
@@ -63,7 +70,11 @@ export function lessonSections(lesson: Lesson): LessonSection[] {
   return lesson.sections;
 }
 
-export function isLessonBlocked(course: Course, lesson: Lesson, completedLessonIds: Set<string>): boolean {
+export function isLessonBlocked(
+  course: Course,
+  lesson: Lesson,
+  completedLessonIds: Set<string>
+): boolean {
   return lesson.prerequisiteLessonIds.some((id) => !completedLessonIds.has(id));
 }
 

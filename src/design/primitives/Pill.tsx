@@ -32,11 +32,7 @@ const toneClass: Record<PillTone, string> = {
 
 export function Pill({ tone = "neutral", icon, children, className, id, ariaLabel }: PillProps) {
   return (
-    <span
-      id={id}
-      aria-label={ariaLabel}
-      className={clsx(styles.pill, toneClass[tone], className)}
-    >
+    <span id={id} aria-label={ariaLabel} className={clsx(styles.pill, toneClass[tone], className)}>
       {icon ? (
         <span className={styles.icon} aria-hidden="true">
           {icon}

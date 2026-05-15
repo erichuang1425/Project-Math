@@ -48,9 +48,7 @@ export function QuizBlockView({
           answer={answers[question.id] ?? ""}
           submitted={submitted[question.id] ?? false}
           savedAttemptCount={attemptCountsByQuestionId[question.id] ?? 0}
-          onAnswer={(value) =>
-            setAnswers((current) => ({ ...current, [question.id]: value }))
-          }
+          onAnswer={(value) => setAnswers((current) => ({ ...current, [question.id]: value }))}
           onSubmit={() => {
             const answer = answers[question.id] ?? "";
             const evaluation = evaluateQuizAnswer(question, answer);
@@ -155,9 +153,7 @@ function MultipleChoiceView({
           {statusText}
         </p>
       </div>
-      {question.hint && !submitted ? (
-        <p className={styles.quizHint}>{question.hint}</p>
-      ) : null}
+      {question.hint && !submitted ? <p className={styles.quizHint}>{question.hint}</p> : null}
       <ul className={styles.optionList}>
         {question.options.map((option) => {
           const isSelected = answer === option.id;
@@ -192,9 +188,7 @@ function MultipleChoiceView({
                 disabled={submitted}
               >
                 <RichText segments={option.text} />
-                {stateLabel ? (
-                  <span className={styles.optionState}>{stateLabel}</span>
-                ) : null}
+                {stateLabel ? <span className={styles.optionState}>{stateLabel}</span> : null}
               </button>
             </li>
           );
@@ -258,9 +252,7 @@ function ShortAnswerView({
           {statusText}
         </p>
       </div>
-      {question.hint && !submitted ? (
-        <p className={styles.quizHint}>{question.hint}</p>
-      ) : null}
+      {question.hint && !submitted ? <p className={styles.quizHint}>{question.hint}</p> : null}
       <input
         aria-label="Short answer"
         aria-describedby={statusId}
@@ -304,14 +296,10 @@ function ShortAnswerView({
 
 function getQuestionStatus(answer: string, submitted: boolean, isCorrect: boolean) {
   if (submitted) {
-    return isCorrect
-      ? "Submitted answer is correct."
-      : "Submitted answer needs review.";
+    return isCorrect ? "Submitted answer is correct." : "Submitted answer needs review.";
   }
 
-  return answer
-    ? "Answer selected. Check answer when ready."
-    : "No answer selected yet.";
+  return answer ? "Answer selected. Check answer when ready." : "No answer selected yet.";
 }
 
 function AttemptCount({ count }: { count: number }) {

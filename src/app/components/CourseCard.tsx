@@ -13,7 +13,12 @@ export interface CourseCardProps {
 export function CourseCard({ course, completedLessons, totalLessons, onOpen }: CourseCardProps) {
   const illustration = getIllustration(course.illustrationId);
   return (
-    <button type="button" className={styles.card} onClick={onOpen} aria-label={`Open ${course.title}`}>
+    <button
+      type="button"
+      className={styles.card}
+      onClick={onOpen}
+      aria-label={`Open ${course.title}`}
+    >
       {illustration ? <div className={styles.illustration}>{illustration}</div> : null}
       <div className={styles.body}>
         <div className={styles.headerRow}>
@@ -28,7 +33,11 @@ export function CourseCard({ course, completedLessons, totalLessons, onOpen }: C
               {totalLessons} lesson{totalLessons === 1 ? "" : "s"}
             </Pill>
           </div>
-          <span>{course.prerequisites.length > 0 ? `Needs: ${course.prerequisites.join(", ")}` : "No prereqs"}</span>
+          <span>
+            {course.prerequisites.length > 0
+              ? `Needs: ${course.prerequisites.join(", ")}`
+              : "No prereqs"}
+          </span>
         </div>
       </div>
     </button>

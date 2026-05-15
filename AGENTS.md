@@ -67,7 +67,7 @@ Anything outside this list needs a one-paragraph proposal in the PR description:
 
 - IDs are required on `Course`, `Module`, `Lesson`, and every `Block`. Use kebab-case, stable across edits.
 - Every lesson runs through `validateContent` before rendering. Add a paired invalid fixture under `src/content/fixtures/invalid/` for any new validation rule.
-- Prefer the action micro-flow: **Observe → Predict → Calculate → Compare → Answer → Summarize**. Pause prompts go *before* the quiz, not after the common-mistake block.
+- Prefer the action micro-flow: **Observe → Predict → Calculate → Compare → Answer → Summarize**. Pause prompts go _before_ the quiz, not after the common-mistake block.
 - Reference glossary terms via `RichTextSegment.kind: "term"`; don't redefine inline.
 - One graph minimum per lesson; ≥2 worked examples; ≥2 common-mistake blocks; ≥3 quiz items.
 

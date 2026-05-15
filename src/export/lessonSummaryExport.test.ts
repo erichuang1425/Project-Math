@@ -1,10 +1,6 @@
 import { describe, expect, it } from "vitest";
 import courseJson from "../content/fixtures/courses/calculus-i.course.json";
-import {
-  eachLesson,
-  findLesson,
-  validateContent
-} from "../content";
+import { eachLesson, findLesson, validateContent } from "../content";
 import {
   createEmptyLearnerState,
   markLessonCompleted,
@@ -32,7 +28,11 @@ describe("lesson summary export", () => {
   it("builds deterministic export data from structured content and learner state", () => {
     const { course, lesson } = getValidatedLesson();
     const firstAttempt = recordQuizAttempt(
-      markLessonCompleted(createEmptyLearnerState(course.id), lesson.id, "2026-05-09T12:10:00.000Z"),
+      markLessonCompleted(
+        createEmptyLearnerState(course.id),
+        lesson.id,
+        "2026-05-09T12:10:00.000Z"
+      ),
       {
         lessonId: lesson.id,
         quizBlockId: "first-principles-check",
@@ -64,7 +64,9 @@ describe("lesson summary export", () => {
       }
     });
     expect(summary.objectives).toHaveLength(5);
-    expect(summary.keyDefinitions.find((definition) => definition.id === "derivative")).toBeDefined();
+    expect(
+      summary.keyDefinitions.find((definition) => definition.id === "derivative")
+    ).toBeDefined();
     expect(summary.workedExamples.map((example) => example.id)).toEqual([
       "derivative-of-x-squared",
       "derivative-of-linear-function"
@@ -84,7 +86,11 @@ describe("lesson summary export", () => {
   it("renders stable markdown without generated timestamps", () => {
     const { course, lesson } = getValidatedLesson();
     const state = recordQuizAttempt(
-      markLessonCompleted(createEmptyLearnerState(course.id), lesson.id, "2026-05-09T12:10:00.000Z"),
+      markLessonCompleted(
+        createEmptyLearnerState(course.id),
+        lesson.id,
+        "2026-05-09T12:10:00.000Z"
+      ),
       {
         lessonId: lesson.id,
         quizBlockId: "linear-function-check",
@@ -137,7 +143,11 @@ describe("lesson summary export", () => {
   it("exports the constant-function lesson with deterministic quiz results", () => {
     const { course, lesson } = getValidatedLesson("constant-function-derivative");
     const state = recordQuizAttempt(
-      markLessonCompleted(createEmptyLearnerState(course.id), lesson.id, "2026-05-14T09:20:00.000Z"),
+      markLessonCompleted(
+        createEmptyLearnerState(course.id),
+        lesson.id,
+        "2026-05-14T09:20:00.000Z"
+      ),
       {
         lessonId: lesson.id,
         quizBlockId: "constant-function-check",

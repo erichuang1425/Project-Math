@@ -80,8 +80,7 @@ export function buildLessonSummaryExport(
   lesson: Lesson,
   learnerState?: LearnerState
 ): LessonSummaryExport {
-  const matchingLearnerState =
-    learnerState?.studybookId === course.id ? learnerState : undefined;
+  const matchingLearnerState = learnerState?.studybookId === course.id ? learnerState : undefined;
   const blocks = getLessonBlocks(lesson);
 
   return {

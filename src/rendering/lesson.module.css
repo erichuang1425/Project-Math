@@ -1,5 +1,5 @@
 .lesson {
-  max-width: 1120px;
+  max-width: min(calc(72ch * var(--reader-font-scale, 1)), 1120px);
   margin: 0 auto;
   color: var(--reader-text, #20231f);
   font-family: var(

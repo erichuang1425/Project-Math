@@ -6,12 +6,16 @@ import { LessonView } from "../../rendering/LessonView";
 import { ProgressBar } from "../../design/primitives";
 import { Breadcrumb } from "../components/Breadcrumb";
 import { LessonListItem, type LessonStatus } from "../components/LessonListItem";
+import { ReaderControls } from "../ReaderControls";
+import type { ReaderSettings } from "../readerSettings";
 import styles from "./ReaderView.module.css";
 
 export interface ReaderViewProps {
   course: Course;
   lesson: Lesson;
   learnerState: LearnerState | undefined;
+  readerSettings: ReaderSettings;
+  onReaderSettingsChange: (settings: ReaderSettings) => void;
   onOpenLesson: (lessonId: string) => void;
   onOpenCourse: () => void;
   onGoHome: () => void;
@@ -29,6 +33,8 @@ export function ReaderView({
   course,
   lesson,
   learnerState,
+  readerSettings,
+  onReaderSettingsChange,
   onOpenLesson,
   onOpenCourse,
   onGoHome,
@@ -56,7 +62,11 @@ export function ReaderView({
       <div className={styles.reader}>
         <aside className={styles.sidebar} aria-label="Lesson navigation">
           <p className={styles.sidebarTitle}>{location.module.title}</p>
-          <ProgressBar value={completed} total={total} label={`${completed} of ${total} lessons complete`} />
+          <ProgressBar
+            value={completed}
+            total={total}
+            label={`${completed} of ${total} lessons complete`}
+          />
           <ul className={styles.lessonList}>
             {location.module.lessons.map((sibling, index) => (
               <li key={sibling.id}>
@@ -70,6 +80,7 @@ export function ReaderView({
               </li>
             ))}
           </ul>
+          <ReaderControls settings={readerSettings} onSettingsChange={onReaderSettingsChange} />
         </aside>
         <div className={styles.main}>
           <LessonView

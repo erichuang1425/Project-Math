@@ -19,9 +19,7 @@ export async function copyLessonSummaryMarkdown(
   }
 }
 
-export function getLessonSummaryCopyStatusMessage(
-  status: LessonSummaryCopyStatus
-): string {
+export function getLessonSummaryCopyStatusMessage(status: LessonSummaryCopyStatus): string {
   switch (status) {
     case "idle":
       return "";

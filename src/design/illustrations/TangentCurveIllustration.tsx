@@ -23,11 +23,7 @@ export function TangentCurveIllustration() {
         stroke="var(--pm-color-accent)"
         strokeWidth="2.5"
       />
-      <path
-        d="M 20 100 Q 80 5 220 80 L 220 110 L 20 110 Z"
-        fill="url(#tc-grad)"
-        opacity="0.8"
-      />
+      <path d="M 20 100 Q 80 5 220 80 L 220 110 L 20 110 Z" fill="url(#tc-grad)" opacity="0.8" />
       <line
         x1="60"
         y1="78"

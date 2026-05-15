@@ -16,9 +16,7 @@ describe("Router", () => {
   });
 
   it("decodes lesson route", () => {
-    expect(
-      routeFromHash("#/course/calculus-i/lesson/derivative-as-a-limit")
-    ).toEqual({
+    expect(routeFromHash("#/course/calculus-i/lesson/derivative-as-a-limit")).toEqual({
       kind: "lesson",
       courseId: "calculus-i",
       lessonId: "derivative-as-a-limit"

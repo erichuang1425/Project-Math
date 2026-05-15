@@ -25,11 +25,11 @@
 
   /* Type. */
   --pm-font-sans:
-    system-ui, -apple-system, "Segoe UI", "Helvetica Neue", "Arial Nova", "Liberation Sans", sans-serif;
+    system-ui, -apple-system, "Segoe UI", "Helvetica Neue", "Arial Nova", "Liberation Sans",
+    sans-serif;
   --pm-font-serif:
     "Iowan Old Style", "Palatino Linotype", "Source Serif Pro", Cambria, Georgia, serif;
-  --pm-font-mono:
-    ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --pm-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
   --pm-size-xs: 0.78rem;
   --pm-size-sm: 0.875rem;

@@ -494,7 +494,8 @@
   color: var(--reader-accent, #2f5d62);
 }
 
-.readerControlSummary span:last-child {
+.readerControlSummary span:last-child,
+.readerControlSummaryStatus {
   color: var(--reader-muted-text, #586057);
   font-size: 0.86rem;
   font-weight: 600;

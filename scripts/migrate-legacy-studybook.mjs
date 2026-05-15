@@ -109,7 +109,8 @@ function buildCourse(legacy) {
       {
         id: "constant-function",
         term: "constant function",
-        definition: "A function whose output never changes, written f(x) = c for some real number c."
+        definition:
+          "A function whose output never changes, written f(x) = c for some real number c."
       },
       {
         id: "slope",
@@ -128,7 +129,5 @@ writeFileSync(TARGET, JSON.stringify(course, null, 2) + "\n");
 
 console.log(`Wrote ${TARGET}`);
 console.log(`Modules: ${course.modules.length}`);
-console.log(
-  `Lessons: ${course.modules.reduce((sum, m) => sum + m.lessons.length, 0)}`
-);
+console.log(`Lessons: ${course.modules.reduce((sum, m) => sum + m.lessons.length, 0)}`);
 console.log(`Glossary terms: ${course.glossary.length}`);
