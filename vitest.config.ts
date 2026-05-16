@@ -18,7 +18,19 @@ export default defineConfig({
         lines: 60,
         statements: 60,
         branches: 60,
-        functions: 60
+        functions: 60,
+        "src/content/**": {
+          lines: 80,
+          statements: 80,
+          branches: 80,
+          functions: 80
+        },
+        "src/rendering/blocks/**": {
+          lines: 80,
+          statements: 80,
+          branches: 80,
+          functions: 80
+        }
       }
     }
   }

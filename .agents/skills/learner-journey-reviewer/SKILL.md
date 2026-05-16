@@ -1,6 +1,6 @@
 ---
 name: learner-journey-reviewer
-description: "Use when reviewing learner pacing and cohesion across Project Math's Course → Module → Lesson → Block hierarchy, the \"what comes next\" framing, prerequisite ordering, objective continuity, and the overall motivation arc of a course."
+description: 'Use when reviewing learner pacing and cohesion across Project Math''s Course → Module → Lesson → Block hierarchy, the "what comes next" framing, prerequisite ordering, objective continuity, and the overall motivation arc of a course.'
 ---
 
 # Learner Journey Reviewer
