@@ -1,10 +1,10 @@
 # Project State
 
-Last updated: 2026-05-15
+Last updated: 2026-05-16
 
 ## Current Slice
 
-The current slice adds a dashboard-first app shell for the existing validated studybook after the user asked for clearer access to courses, lessons, and materials. The work stays in the React app-shell and CSS module layer; it does not add schemas, lesson content, PDF ingestion, routing, dependencies, storage changes, or Tauri/Rust behavior.
+The next slice is **Phase 7 — Engineering Hygiene & Agent Skills** (see `docs/roadmap.md`). It raises Vitest coverage gates to 80% on `src/content/**` and `src/rendering/blocks/**`, adds the missing block-view and helper tests to satisfy them, retires `ux-quality-reviewer` in favor of `learner-journey-reviewer` + `motivation-ux-reviewer`, sharpens the `studybook-architect` ↔ `test-and-regression-reviewer` boundary, and standardizes a fixed Output Template across every `SKILL.md`. The slice is intentionally scoped to engineering hygiene and agent skills only — no new lessons, reader polish, or Tauri commands.
 
 ## Current App Shape
 
@@ -35,7 +35,7 @@ The current slice adds a dashboard-first app shell for the existing validated st
 
 ## Next Task
 
-Review the dashboard-first navigation and visual hierarchy in the running app, then address concrete accessibility, layout, or interaction feedback before continuing curriculum production or adding any material-ingestion infrastructure.
+Execute the Phase 7 slice in one PR: per-directory coverage thresholds in `vitest.config.ts`, direct render tests for every block view in `src/rendering/blocks/__tests__/`, a dedicated `courseHelpers` test file, branch coverage closure on `validateContent.ts`, retire `ux-quality-reviewer`, add `learner-journey-reviewer` and `motivation-ux-reviewer`, add explicit "Out of Scope" sections to `studybook-architect` and `test-and-regression-reviewer`, and standardize a fixed Output Template across every `SKILL.md`. Do not begin Phase 4 content production, Phase 5 reader polish, or Phase 6 Tauri commands in this slice.
 
 ## Workflow Notes
 

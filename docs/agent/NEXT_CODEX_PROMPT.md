@@ -5,117 +5,6 @@
 ```txt
 Use AGENTS.md and the relevant Project Math skills.
 
-Implement only the next narrow dashboard-first app-shell slice.
-
-Current state:
-- The app remains a local-first deterministic React/Vite/Tauri studybook.
-- Lesson content still flows through studybook JSON -> validation -> reusable block renderer.
-- No new runtime dependencies, graphing libraries, fonts, UI frameworks, AI, sync, accounts, telemetry, database, PDF, or document dependencies were added.
-- The only bundled studybook/course for this slice is the validated `Derivatives from First Principles` studybook.
-- The current app opens directly into the study workspace with a sidebar lesson list, local progress, collapsible reader controls, the active lesson reader, and a sticky lesson path rail.
-- The study workspace now includes:
-  - sidebar studybook summary and lesson progress
-  - keyboard skip link to lesson content
-  - collapsible local reader controls
-  - responsive wide lesson reader
-  - sticky wide-screen lesson path rail
-  - block role labels for concept, action cue, graph, worked example, common mistake, practice, and summary
-  - block role labels are now propagated to lesson opening and equation blocks too
-  - focusable title-specific SVG graphs with text annotation details
-  - explicit quiz status text for unselected, ready-to-check, correct, and review states
-  - reader-scoped semantic tokens for accent, focus, selected, warning, correct, incorrect, and disabled states, including low-glare variants
-- There is an untracked `External material/` folder with PDFs, but this dashboard slice must not ingest or model those PDFs.
-- For this slice, "course" means a dashboard presentation of the existing studybook, and "materials" means existing in-app lesson resources: objectives, lesson sections, graph blocks, worked examples, common mistakes, quizzes, summaries, and export actions.
-
-Newest user feedback:
-- The app needs a dashboard for accessing and navigating courses, lessons, and materials.
-- Critically and carefully design the navigation, layout, and visual hierarchy.
-
-Important workflow rule:
-Do not create or update docs/agent/CODEX_PROMPT_QUEUE.md.
-Keep the durable fresh-thread prompt in docs/agent/NEXT_CODEX_PROMPT.md.
-
-Before editing:
-1. Inspect the repo with literal-path handling.
-2. Load AGENTS.md and the relevant local skills:
-   - frontend-visual-system-designer
-   - neurodivergent-learning-accessibility-reviewer
-   - ux-quality-reviewer
-   - design-token-architect if CSS variables or state tokens change
-   - studybook-architect if lesson content or renderer contracts change
-   - math-rendering-reviewer if graph/math content changes
-   - test-and-regression-reviewer
-   - frontend-regression-visual-qa
-3. Read:
-   - docs/agent/PROJECT_STATE.md
-   - docs/agent/NEXT_CODEX_PROMPT.md
-   - docs/architecture.md
-   - docs/learning-design.md
-   - docs/ui-system.md
-   - docs/roadmap.md
-   - docs/testing-strategy.md
-   - src/app/App.tsx
-   - src/app/App.module.css
-   - src/app/App.test.tsx
-   - src/app/ReaderControls.tsx
-   - src/rendering/LessonView.tsx
-   - src/rendering/lesson.module.css
-   - src/rendering/sampleContentRenderable.test.tsx if reader integration expectations change
-4. Summarize the newest user feedback and propose a concise plan with exact files to change before editing.
-
-Scope:
-1. Build a dashboard-first first screen over the existing validated studybook, treating `Derivatives from First Principles` as the first course.
-2. Selecting a lesson from the dashboard opens the existing reader experience for that lesson.
-3. Provide a clear route from the reader back to the dashboard.
-4. Keep the lesson reader, `LessonView`, `BlockRenderer`, quiz behavior, graph rendering, export behavior, and reader controls deterministic and offline.
-5. Do not add a `Course` schema, `Material` schema, PDF ingestion, new content files, new curriculum lessons, routing dependency, runtime dependency, font package, UI framework, graphing library, database, sync, AI, accounts, telemetry, document dependency, or PDF dependency.
-6. Preserve structured studybook content and stable IDs. If a schema/content edit seems necessary, stop and document the blocker instead of broadening the slice.
-
-Implementation direction:
-1. Keep this in the React app shell layer. A small local app-shell state such as `dashboard` versus `reader` and `selectedLessonId` is enough; do not add a router dependency.
-2. The dashboard should show:
-   - Project Math identity and local-first/offline status.
-   - A course card or course panel for the existing studybook.
-   - Overall progress: completed lessons out of total lessons.
-   - A lesson sequence with selected/current/completed/not-started text labels.
-   - Material entry points derived from existing lesson data: objectives, sections, graph/worked-example/common-mistake/quiz counts where practical, and summary/export availability.
-   - A primary action to continue or open the selected lesson.
-3. The reader view should keep the existing lesson experience and reader controls, but include dashboard navigation that is keyboard and pointer accessible.
-4. Do not treat the PDFs in `External material/` as app materials in this slice. Mention in docs/final response that PDF material ingestion is intentionally deferred.
-
-Design requirements:
-1. Dashboard first screen must feel like a quiet, focused desktop studybook workspace, not a marketing landing page or generic admin dashboard.
-2. Use strong information hierarchy for course access, lesson sequence, progress, and material entry points.
-3. Keep navigation predictable: the learner should know where they are, what is selected, what is complete, and how to enter or return from a lesson.
-4. Use visible focus states and text labels in addition to color for selected, current, completed, unavailable, and disabled states.
-5. Keep text, controls, progress labels, and material labels from overflowing or overlapping at narrow and wide desktop sizes.
-6. Reuse existing CSS modules and semantic app/reader tokens where practical. Add only small local CSS variables if they clarify repeated dashboard roles.
-7. Avoid decorative backgrounds, large hero layouts, nested cards, surprise motion, urgency cues, and visual decoration that competes with math content.
-
-Expected touch points:
-- Likely app shell and focused tests: `src/app/App.tsx`, `src/app/App.module.css`, `src/app/App.test.tsx`.
-- Only touch `src/rendering/LessonView.tsx` or `src/rendering/lesson.module.css` if the reader needs a minimal dashboard-return affordance that cannot be cleanly owned by `App.tsx`.
-- Update `docs/agent/PROJECT_STATE.md`, `docs/roadmap.md`, and `docs/agent/NEXT_CODEX_PROMPT.md` only if the implementation changes durable state or handoff instructions.
-- Do not touch studybook fixture content, schema, graph contracts, storage repositories, Tauri/Rust, export internals, or the untracked PDF files unless a concrete blocker is documented first.
-
-Done criteria:
-1. The app opens to a dashboard first.
-2. The dashboard gives access to the existing studybook/course, lesson sequence, progress, and in-app material entry points without adding schema or content infrastructure.
-3. Selecting a lesson opens the reader, and the reader has a clear dashboard-return path.
-4. Keyboard and pointer paths work for dashboard navigation, lesson selection, reader controls, graphs, quizzes, and export actions.
-5. State is explicit in text and not color-only.
-6. Dashboard and reader layouts work at narrow and wide desktop sizes without overflow, overlap, or clipped controls.
-7. Tests cover dashboard-first rendering, course/progress text, lesson selection into the reader, material entry labels, keyboard-accessible navigation expectations where practical, and unchanged validation/error behavior.
-8. Run npm.cmd run typecheck, npm.cmd test, npm.cmd run build, and git diff --check, or document exact blockers.
-9. Run or document the local preview smoke path at http://127.0.0.1:4173.
-10. Update docs/agent/NEXT_CODEX_PROMPT.md with this previous prompt and the exact next fresh-thread prompt.
-```
-
-## Next Prompt
-
-```txt
-Use AGENTS.md and the relevant Project Math skills.
-
 Review the dashboard-first app-shell slice, then implement only the next narrow revision needed from that review.
 
 Current state:
@@ -177,4 +66,95 @@ Done criteria:
 6. Run npm.cmd run typecheck, npm.cmd test, npm.cmd run build, and git diff --check, or document exact blockers.
 7. Run or document the local preview smoke path at http://127.0.0.1:4173.
 8. Update docs/agent/NEXT_CODEX_PROMPT.md with this previous prompt and the exact next fresh-thread prompt.
+```
+
+## Next Prompt
+
+```txt
+Use AGENTS.md and the relevant Project Math skills.
+
+Implement the Phase 7 — Engineering Hygiene & Agent Skills slice as described in docs/roadmap.md. Land it in one PR so coverage thresholds and the tests that satisfy them go in together.
+
+Current state:
+- The app remains a local-first deterministic React/Vite/Tauri studybook.
+- Content is the v2 Course → Module → Lesson → Block model under `src/content/`, with one bundled course `calculus-i` (one module, three lessons).
+- The app shell is decomposed into Shell + Router + views/components; hash routing works.
+- ESLint, Prettier, and a CI workflow (typecheck → lint → test → build) are in place.
+- Vitest runs in jsdom with `@vitest/coverage-v8` at a 60% global floor on lines / statements / branches / functions.
+- Existing skills under `.agents/skills/` are: design-token-architect, desktop-app-engineer, frontend-regression-visual-qa, frontend-visual-system-designer, math-rendering-reviewer, neurodivergent-learning-accessibility-reviewer, studybook-architect, test-and-regression-reviewer, ux-quality-reviewer.
+
+Important workflow rule:
+Do not create or update docs/agent/CODEX_PROMPT_QUEUE.md.
+Keep the durable fresh-thread prompt in docs/agent/NEXT_CODEX_PROMPT.md.
+
+Before editing:
+1. Inspect the repo with literal-path handling.
+2. Load AGENTS.md and the relevant local skills:
+   - test-and-regression-reviewer
+   - studybook-architect (for any fixture used in block tests)
+   - frontend-regression-visual-qa (for block render tests)
+   - math-rendering-reviewer (if a block test touches LaTeX/graph output)
+3. Read:
+   - docs/agent/PROJECT_STATE.md
+   - docs/agent/NEXT_CODEX_PROMPT.md
+   - docs/architecture.md
+   - docs/content-schema.md
+   - docs/testing-strategy.md
+   - docs/roadmap.md (Phase 7 in particular)
+   - vitest.config.ts
+   - src/content/courseHelpers.ts
+   - src/content/validateContent.ts
+   - src/content/__tests__/*.ts
+   - src/rendering/blocks/*.tsx
+   - src/rendering/sampleContentRenderable.test.tsx
+   - every `.agents/skills/*/SKILL.md`
+4. Run `npm run test:coverage` once to capture the current per-file coverage baseline before adding tests. Note which lines/branches in `src/content/courseHelpers.ts`, `src/content/validateContent.ts`, and `src/rendering/blocks/*` are uncovered.
+5. Propose a concise plan with exact files to change before editing.
+
+Scope (Phase 7 only — do not broaden):
+
+A. Per-directory coverage thresholds.
+1. Edit `vitest.config.ts` so coverage thresholds use per-path overrides:
+   - `src/content/**`: 80 / 80 / 80 / 80
+   - `src/rendering/blocks/**`: 80 / 80 / 80 / 80
+   - Default (everything else under `src/**`): keep at 60 / 60 / 60 / 60.
+2. Use whatever per-path mechanism Vitest 2.x supports (`thresholds["src/content/**"]` keys). If the version in this repo does not support that, document the blocker in the PR and ship per-file `coverage` ignore or a top-level `perFile` threshold instead — do not weaken the global floor.
+
+B. Tests to close the new gates.
+3. Add `src/content/__tests__/courseHelpers.test.ts` covering every exported helper in `src/content/courseHelpers.ts` (progress, continue-lesson lookup, lesson-by-id, etc.) with deterministic fixtures.
+4. Extend or split `src/content/__tests__/validateContent.test.ts` so every branch flagged uncovered by coverage gets a paired invalid fixture failing for ONE primary reason. Do not soften error messages.
+5. Add `src/rendering/blocks/__tests__/*.test.tsx` files — one per block view — mounting the view directly with a minimal `Block` fixture. Cover the previously uncovered branches: `QuizBlockView` (retry, correct, incorrect, ready-to-check, unselected), `WorkedExampleBlockView` (final-answer band on/off), `GraphBlockView` (annotations on/off), and one happy-path test for each of `CommonMistakeBlockView`, `IntuitionBlockView`, `LatexBlockView`, `TitleBlockView`, `SummaryBlockView`, `ConceptBlockView`.
+6. Do not touch `sampleContentRenderable.test.tsx` other than to delete duplicates if a per-block test fully supersedes them.
+
+C. Skill retire / relaunch.
+7. Delete `.agents/skills/ux-quality-reviewer/` (the entire directory).
+8. Add `.agents/skills/learner-journey-reviewer/SKILL.md`. Scope: learner pacing and cohesion across Course → Module → Lesson → Block; "what comes next" framing; motivation arc. Explicit Out of Scope: visual polish (handled by frontend-visual-system-designer).
+9. Add `.agents/skills/motivation-ux-reviewer/SKILL.md`. Scope: motivation cues for low-motivation and neurodivergent learners — progress feedback, partway-through framing, calm encouragement vs. urgency, Calm-mode parity. Explicit Out of Scope: cognitive accessibility audits (handled by neurodivergent-learning-accessibility-reviewer).
+10. Add an "Out of Scope" section to `.agents/skills/studybook-architect/SKILL.md` ("does not write the tests, recommends them") and `.agents/skills/test-and-regression-reviewer/SKILL.md` ("does not redesign schemas, recommends fixture-shape changes back").
+11. Standardize every `SKILL.md` to end with the same fixed Output Template section:
+    - Files touched
+    - Risks / non-obvious interactions
+    - Tests added or run
+    - Remaining work
+    - What done means recap
+
+D. Docs.
+12. Update `docs/roadmap.md` Phase 7 status from "in progress (next slice)" to "done" once everything above lands.
+13. Update `docs/agent/PROJECT_STATE.md`: current slice, next task, decisions reflecting the new thresholds and skill set.
+14. Rotate `docs/agent/NEXT_CODEX_PROMPT.md`: move this prompt into "Previous Prompt"; the new "Next Prompt" should plan the first Phase 4 content slice (Module A — Foundations, lesson 1: functions refresher).
+
+Out of scope (defer):
+- Adding `Module A` content lessons.
+- Phase 5 reader polish items (aria-labelledby fix, IntersectionObserver active section, glossary popover).
+- Phase 6 Tauri commands (`open_course_dialog`, export/import, window restore, recent courses).
+- Any runtime dependency, font, UI framework, graphing library, database, sync, AI, accounts, telemetry, document, or PDF dependency.
+
+Done criteria:
+1. `npm run test:coverage` is green with 80/80/80/80 enforced on `src/content/**` and `src/rendering/blocks/**`, and 60/60/60/60 on the rest.
+2. Every block view has a direct render test in `src/rendering/blocks/__tests__/`.
+3. `courseHelpers` has a dedicated test file, and every branch in `validateContent.ts` is covered.
+4. `.agents/skills/` lists nine skills: design-token-architect, desktop-app-engineer, frontend-regression-visual-qa, frontend-visual-system-designer, learner-journey-reviewer, math-rendering-reviewer, motivation-ux-reviewer, neurodivergent-learning-accessibility-reviewer, studybook-architect, test-and-regression-reviewer — and `ux-quality-reviewer` is removed. (Yes, that is ten counting the two new + eight retained minus one retired; confirm the final count and update AGENTS.md if it names skills.)
+5. Every `SKILL.md` ends with the same five-section Output Template.
+6. `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm run test`, `npm run build`, and `git diff --check` all pass (or exact blockers are documented).
+7. `docs/roadmap.md` Phase 7 is marked done; `docs/agent/PROJECT_STATE.md` is current; `docs/agent/NEXT_CODEX_PROMPT.md` rotated.
 ```
