@@ -6,6 +6,7 @@ import {
   createEmptyLearnerState,
   markLessonCompleted,
   markLessonOpened,
+  markLessonSectionViewed,
   recordQuizAttempt,
   type LearnerState
 } from "../storage/learnerState";
@@ -72,7 +73,8 @@ function buildSummary(course: Course, learnerState: LearnerState | undefined): C
   for (const entry of lessons) {
     const progress = learnerState?.lessons[entry.lesson.id];
     if (progress?.status === "in-progress") {
-      continueAt = { module: entry.module, lesson: entry.lesson };
+      const section = entry.lesson.sections.find((s) => s.id === progress.lastSectionId);
+      continueAt = { module: entry.module, lesson: entry.lesson, section };
       break;
     }
   }
@@ -81,7 +83,11 @@ function buildSummary(course: Course, learnerState: LearnerState | undefined): C
       ({ lesson }) => learnerState?.lessons[lesson.id]?.status !== "completed"
     );
     if (firstUnfinished) {
-      continueAt = { module: firstUnfinished.module, lesson: firstUnfinished.lesson };
+      continueAt = {
+        module: firstUnfinished.module,
+        lesson: firstUnfinished.lesson,
+        section: undefined
+      };
     }
   }
 
@@ -298,6 +304,20 @@ export function App() {
     [persistState, primaryCourse]
   );
 
+  const handleSectionView = useCallback(
+    (lessonId: string, sectionId: string) => {
+      if (!primaryCourse) return;
+      setLearnerState((current) => {
+        const base = current ?? createEmptyLearnerState(primaryCourse.id);
+        const next = markLessonSectionViewed(base, lessonId, sectionId, new Date().toISOString());
+        if (next === base) return current;
+        persistState(next);
+        return next;
+      });
+    },
+    [persistState, primaryCourse]
+  );
+
   const handleCompleteLesson = useCallback(
     (lessonId: string) => {
       if (!primaryCourse) return;
@@ -389,6 +409,7 @@ export function App() {
           onGoHome={goHome}
           onQuizAttempt={handleQuizAttempt}
           onCompleteLesson={() => handleCompleteLesson(lesson.id)}
+          onSectionView={(sectionId) => handleSectionView(lesson.id, sectionId)}
         />
       );
     }

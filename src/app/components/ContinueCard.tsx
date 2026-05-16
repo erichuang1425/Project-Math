@@ -8,6 +8,7 @@ export interface ContinueCardProps {
   course: Course;
   module: Module;
   lesson: Lesson;
+  sectionTitle?: string;
   onContinue: () => void;
   onOpenCourse: () => void;
   isFresh: boolean;
@@ -17,6 +18,7 @@ export function ContinueCard({
   course,
   module: courseModule,
   lesson,
+  sectionTitle,
   onContinue,
   onOpenCourse,
   isFresh
@@ -30,6 +32,9 @@ export function ContinueCard({
           {isFresh ? "Start with" : "Pick up where you left off"}
         </p>
         <h2 className={styles.title}>{lesson.title}</h2>
+        {sectionTitle && !isFresh ? (
+          <p className={styles.resumeLine}>Resume at: {sectionTitle}</p>
+        ) : null}
         <p className={styles.summary}>
           {course.title} · {courseModule.title} · {lesson.estimatedMinutes} min
         </p>

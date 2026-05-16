@@ -1,4 +1,4 @@
-import type { Course, Lesson, Module } from "../../content/schema";
+import type { Course, Lesson, LessonSection, Module } from "../../content/schema";
 import type { LearnerState } from "../../storage/learnerState";
 import { Stat } from "../../design/primitives";
 import { CourseCard } from "../components/CourseCard";
@@ -9,7 +9,7 @@ export interface CourseSummary {
   course: Course;
   completedLessons: number;
   totalLessons: number;
-  continueAt: { module: Module; lesson: Lesson } | null;
+  continueAt: { module: Module; lesson: Lesson; section?: LessonSection } | null;
 }
 
 export interface CoursesDashboardViewProps {
@@ -50,6 +50,7 @@ export function CoursesDashboardView({
           course={focusSummary.course}
           module={focusSummary.continueAt.module}
           lesson={focusSummary.continueAt.lesson}
+          sectionTitle={focusSummary.continueAt.section?.title}
           isFresh={isFresh}
           onContinue={() =>
             focusSummary.continueAt &&

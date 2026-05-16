@@ -53,8 +53,14 @@ type Lesson = {
   prerequisiteLessonIds: string[];
   estimatedMinutes: number;
   difficulty: "intro" | "core" | "stretch";
-  blocks: Block[];
+  sections: LessonSection[];
   revision?: RevisionLayer;
+};
+
+type LessonSection = {
+  id: string;
+  title: string;
+  blocks: Block[];
 };
 
 type LessonObjective = {
@@ -62,6 +68,8 @@ type LessonObjective = {
   text: string;
 };
 ```
+
+Blocks live inside `Lesson.sections[].blocks`, not directly on the lesson. The reader uses section titles as in-lesson landmarks; `courseHelpers.lessonBlocks(lesson)` flattens sections when callers need a flat block list.
 
 ## Block
 
@@ -161,14 +169,20 @@ Every validation rule has a paired invalid fixture under `src/content/fixtures/i
           "prerequisiteLessonIds": [],
           "estimatedMinutes": 24,
           "difficulty": "intro",
-          "blocks": [
+          "sections": [
             {
-              "type": "latex",
-              "id": "derivative-definition-formula",
-              "objectiveIds": ["obj-define"],
-              "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
-              "caption": "Derivative from first principles",
-              "display": true
+              "id": "definition",
+              "title": "Definition",
+              "blocks": [
+                {
+                  "type": "latex",
+                  "id": "derivative-definition-formula",
+                  "objectiveIds": ["obj-define"],
+                  "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
+                  "caption": "Derivative from first principles",
+                  "display": true
+                }
+              ]
             }
           ]
         }

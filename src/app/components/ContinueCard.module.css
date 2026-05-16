@@ -42,6 +42,17 @@
   max-width: 56ch;
 }
 
+.resumeLine {
+  margin: 0 0 var(--pm-space-2);
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: var(--pm-radius-pill);
+  background: var(--pm-color-accent-soft);
+  color: var(--pm-color-accent);
+  font-size: var(--pm-size-sm);
+  font-weight: 700;
+}
+
 .actions {
   display: flex;
   gap: var(--pm-space-3);

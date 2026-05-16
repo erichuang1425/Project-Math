@@ -21,6 +21,7 @@ export interface ReaderViewProps {
   onGoHome: () => void;
   onQuizAttempt?: (attempt: QuizAttemptSubmission) => void;
   onCompleteLesson?: () => void;
+  onSectionView?: (sectionId: string) => void;
 }
 
 function statusFor(learnerState: LearnerState | undefined, lessonId: string): LessonStatus {
@@ -39,7 +40,8 @@ export function ReaderView({
   onOpenCourse,
   onGoHome,
   onQuizAttempt,
-  onCompleteLesson
+  onCompleteLesson,
+  onSectionView
 }: ReaderViewProps) {
   const location = findLesson(course, lesson.id);
   if (!location) return null;
@@ -75,6 +77,7 @@ export function ReaderView({
                   index={index}
                   status={statusFor(learnerState, sibling.id)}
                   isCurrent={sibling.id === lesson.id}
+                  compact
                   onOpen={() => onOpenLesson(sibling.id)}
                 />
               </li>
@@ -92,6 +95,8 @@ export function ReaderView({
             learnerState={learnerState}
             onQuizAttempt={onQuizAttempt}
             onCompleteLesson={onCompleteLesson}
+            initialSectionId={learnerState?.lessons[lesson.id]?.lastSectionId}
+            onSectionView={onSectionView}
           />
         </div>
       </div>
