@@ -31,15 +31,15 @@ Use this skill to verify that a frontend change did not damage the study experie
 - For local preview smoke, prefer the documented repo fallback: `npm.cmd run preview -- --port 4173` plus a probe to `http://127.0.0.1:4173`.
 - Do not add visual regression dependencies without explicit approval.
 
-## Report Format
+## Fixed Output Template
 
-Report:
+When reporting, use these sections and nothing else:
 
-- Checks run.
-- Viewports or surfaces inspected.
-- Keyboard states inspected.
-- Failures or blockers with exact messages.
-- Remaining visual risk.
+- **Files touched** — diffs inspected, screenshots produced, smoke scripts run.
+- **Risks / non-obvious interactions** — viewport-specific layout shifts, focus order regressions, Polished / Calm parity gaps, low-glare interactions.
+- **Tests added or run** — exact commands executed (`npm.cmd run typecheck`, `npm.cmd test`, `npm.cmd run build`, `npm.cmd run preview -- --port 4173`, `git diff --check`); name any browser or desktop smoke skipped and the exact blocker.
+- **Remaining work** — visual surfaces or states still unchecked.
+- **What done means recap** — one or two sentences restating the QA outcome.
 
 ## What Done Means
 

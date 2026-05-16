@@ -30,15 +30,15 @@ Use this skill when visual consistency depends on named values rather than one-o
 - Keep focus rings visible and calm across pointer and keyboard use.
 - Preserve offline behavior and CSS module ownership.
 
-## Output
+## Fixed Output Template
 
-When proposing or reviewing token work, report:
+When reporting, use these sections and nothing else:
 
-- Token roles added or reused.
-- CSS files affected.
-- Raw values intentionally left local.
-- Accessibility states covered.
-- Any app surfaces that should wait for a later slice.
+- **Files touched** — token files, CSS modules, and any consumers updated.
+- **Risks / non-obvious interactions** — reader CSS variable behavior, KaTeX readability, focus visibility, Polished / Calm mode parity, raw values intentionally left local.
+- **Tests added or run** — token-consuming render tests, visual smoke commands actually executed; explicitly note any visual check skipped.
+- **Remaining work** — surfaces deferred to a later slice, tokens flagged for promotion later.
+- **What done means recap** — one or two sentences restating the token outcome.
 
 ## What Done Means
 

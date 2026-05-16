@@ -113,6 +113,9 @@ Shipped:
 - ESLint + Prettier; scripts `lint`, `format`, `format:check`.
 - GitHub Actions: typecheck → lint → test → build, runs on `main` and `claude/**`.
 - `@vitest/coverage-v8` wired with a 60% global floor across lines / statements / branches / functions.
+- **Skill retire and relaunch.** Deleted `.agents/skills/ux-quality-reviewer/`. Added `.agents/skills/learner-journey-reviewer/` (pacing and cohesion across Course → Module → Lesson → Block, "what comes next" framing) and `.agents/skills/motivation-ux-reviewer/` (motivation cues for low-motivation and neurodivergent learners, Calm-mode parity). Each carries an explicit "Out of Scope" section pointing at the neighbouring skills.
+- **Sharpened `studybook-architect` ↔ `test-and-regression-reviewer` boundary.** Both skills now carry an "Out of Scope" section: `studybook-architect` recommends tests but hands them off; `test-and-regression-reviewer` recommends fixture-shape changes back instead of redesigning the schema.
+- **Fixed Output Template across every skill.** Every `SKILL.md` ends with the same sections: Files touched · Risks / non-obvious interactions · Tests added or run · Remaining work · What done means recap.
 
 Open (next slice):
 
@@ -121,19 +124,8 @@ Open (next slice):
    - `src/content/courseHelpers.ts`: direct unit tests for the progress / continue-lesson / lesson-look-up helpers (currently only exercised transitively).
    - `src/content/validateContent.ts`: invalid-fixture variants for any uncovered validator branches (run coverage first, then patch the uncovered branches).
    - `src/rendering/blocks/`: direct render tests per block view (`QuizBlockView` retry / correct / incorrect, `WorkedExampleBlockView` final-answer band, `GraphBlockView` annotations, `CommonMistakeBlockView`, `IntuitionBlockView`, `LatexBlockView`, `TitleBlockView`, `SummaryBlockView`, `ConceptBlockView`). Tests should mount the view directly with a deterministic block fixture, not go through the whole lesson.
-3. **Skill retire and relaunch.**
-   - Delete `.agents/skills/ux-quality-reviewer/`.
-   - Add `.agents/skills/learner-journey-reviewer/SKILL.md` — reviews learner pacing and cohesion across Course → Module → Lesson → Block, the "what comes next" framing, and motivation arc. Out of scope: visual polish (handled by `frontend-visual-system-designer`).
-   - Add `.agents/skills/motivation-ux-reviewer/SKILL.md` — reviews motivation cues for low-motivation and neurodivergent learners: progress feedback, "you're partway through" framing, calm encouragement vs. urgency, Calm-mode parity. Out of scope: cognitive accessibility audits (handled by `neurodivergent-learning-accessibility-reviewer`).
-4. **Sharpen `studybook-architect` ↔ `test-and-regression-reviewer` boundary.** Add an explicit "Out of Scope" section to both: `studybook-architect` doesn't write the tests (recommends them), `test-and-regression-reviewer` doesn't redesign schemas (recommends fixture-shape changes back).
-5. **Fixed Output Template across every skill.** Standardize a final section in every `SKILL.md`:
-   - Files touched
-   - Risks / non-obvious interactions
-   - Tests added or run
-   - Remaining work
-   - What done means recap
 
-What done means: CI green from a clean clone with the new per-directory thresholds; nine skills with no overlap and identical output templates.
+What done means: CI green from a clean clone with the new per-directory thresholds; ten skills with no overlap and identical output templates.
 
 ## Known Risks
 

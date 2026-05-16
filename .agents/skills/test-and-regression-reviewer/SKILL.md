@@ -29,15 +29,26 @@ Use this skill to keep changes covered at the lowest useful test layer.
 - Tests should use stable IDs and deterministic data.
 - Do not rely on network access.
 
-## Review Output
+## Out of Scope
 
-Report:
+This skill writes and reviews tests. It does **not** redesign schemas or fixture shapes — if a test surface requires the underlying schema or fixture to change, recommend the change back to `studybook-architect` and stop.
 
-- Tests added.
-- Tests run.
-- Important behavior not covered.
-- Recommended next regression test.
-- Any skipped test and exact reason.
+Also out of scope:
+
+- Visual regression and viewport / keyboard checks for frontend slices — use `frontend-regression-visual-qa`.
+- Math content correctness review beyond rendering tests — use `math-rendering-reviewer`.
+- Cognitive accessibility checks — use `neurodivergent-learning-accessibility-reviewer`.
+- Tauri build and desktop smoke configuration — use `desktop-app-engineer`.
+
+## Fixed Output Template
+
+When reporting, use these sections and nothing else:
+
+- **Files touched** — test files, fixtures, and config touched (e.g. `vitest.config.ts` thresholds).
+- **Risks / non-obvious interactions** — flaky surfaces, shared fixture coupling, coverage thresholds at risk after the change.
+- **Tests added or run** — explicit list of test names plus commands actually executed (`npm.cmd test`, `npm.cmd run typecheck`); name any test skipped and the exact reason.
+- **Remaining work** — uncovered branches, regression tests still owed, schema-shape changes recommended back to `studybook-architect`.
+- **What done means recap** — one or two sentences restating what is and is not verified.
 
 ## What Done Means
 

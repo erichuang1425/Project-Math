@@ -28,22 +28,34 @@ Use this skill before changing lesson content structure, schema validation, rend
 
 Check that the change:
 
-- Preserves the `studybook JSON -> validation -> domain model -> renderer` flow.
+- Preserves the `course JSON -> validation -> domain model -> renderer` flow.
 - Keeps domain logic outside React components where practical.
 - Adds or updates valid and invalid fixtures.
 - Documents any schema migration.
 - Does not introduce a runtime dependency without approval.
 - Keeps graph data behind `GraphSpec`.
 
-## Output Format
+## Out of Scope
 
-When reviewing or implementing, report:
+This skill recommends what schema, fixtures, and validator changes are needed. It does **not** write the tests that exercise them — recommend the test surface and hand off to `test-and-regression-reviewer`.
 
-- Schema or content files touched.
-- Renderer contracts affected.
-- Validation rules added or changed.
-- Tests added or still needed.
-- Migration or compatibility concerns.
+Also out of scope:
+
+- Visual presentation of validated content — use `frontend-visual-system-designer`.
+- Math correctness of equations or graph data — use `math-rendering-reviewer`.
+- Pacing or sequencing of lessons inside a course — use `learner-journey-reviewer`.
+- Cognitive accessibility of rendered blocks — use `neurodivergent-learning-accessibility-reviewer`.
+- Tauri shell, storage paths, and desktop integration — use `desktop-app-engineer`.
+
+## Fixed Output Template
+
+When reporting, use these sections and nothing else:
+
+- **Files touched** — schema, fixtures, validator, renderer contracts, repository interfaces.
+- **Risks / non-obvious interactions** — migration concerns, persisted learner-state compatibility, renderer assumptions broken by the change.
+- **Tests added or run** — fixture coverage, validator branches; explicitly note tests recommended but handed off to `test-and-regression-reviewer`.
+- **Remaining work** — open schema questions, pending fixture variants, documentation updates.
+- **What done means recap** — one or two sentences restating the architectural outcome.
 
 ## What Done Means
 
