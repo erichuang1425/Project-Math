@@ -83,9 +83,11 @@ export function ReaderView({
               </li>
             ))}
           </ul>
-          <ReaderControls settings={readerSettings} onSettingsChange={onReaderSettingsChange} />
         </aside>
         <div className={styles.main}>
+          <div className={styles.readerControlsBar}>
+            <ReaderControls settings={readerSettings} onSettingsChange={onReaderSettingsChange} />
+          </div>
           <LessonView
             course={course}
             module={location.module}
