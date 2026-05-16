@@ -8,6 +8,7 @@ export type LessonProgress = {
   startedAt: string;
   lastOpenedAt: string;
   completedAt?: string;
+  lastSectionId?: string;
 };
 
 export type QuizAttempt = {
@@ -72,6 +73,33 @@ export function markLessonOpened(
             startedAt: openedAt,
             lastOpenedAt: openedAt
           }
+    }
+  };
+}
+
+export function markLessonSectionViewed(
+  state: LearnerState,
+  lessonId: string,
+  sectionId: string,
+  viewedAt: string
+): LearnerState {
+  const existing = state.lessons[lessonId];
+  if (existing && existing.lastSectionId === sectionId) {
+    return state;
+  }
+  const base: LessonProgress = existing
+    ? { ...existing, lastOpenedAt: viewedAt }
+    : {
+        lessonId,
+        status: "in-progress",
+        startedAt: viewedAt,
+        lastOpenedAt: viewedAt
+      };
+  return {
+    ...state,
+    lessons: {
+      ...state.lessons,
+      [lessonId]: { ...base, lastSectionId: sectionId }
     }
   };
 }
@@ -234,6 +262,12 @@ function validateLessonProgress(key: string, input: unknown, errors: string[]) {
 
   if (input.completedAt !== undefined) {
     validateTimestamp(input.completedAt, `Lesson progress "${key}" completedAt`, errors);
+  }
+
+  if (input.lastSectionId !== undefined) {
+    if (typeof input.lastSectionId !== "string" || !isSafeId(input.lastSectionId)) {
+      errors.push(`Lesson progress "${key}" lastSectionId must be lowercase kebab-case.`);
+    }
   }
 }
 

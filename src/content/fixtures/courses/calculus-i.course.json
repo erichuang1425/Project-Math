@@ -10,6 +10,587 @@
   "prerequisites": ["algebra", "functions", "limits"],
   "modules": [
     {
+      "id": "foundations",
+      "title": "Foundations",
+      "summary": "Refresh function notation and value lookup before building the derivative. Read each input, find one output, and keep the parentheses honest.",
+      "lessons": [
+        {
+          "id": "functions-refresher",
+          "slug": "functions-refresher",
+          "title": "Functions Refresher",
+          "summary": "Read a function as input goes in, one output comes out. Evaluate f(x) at a number and at x + h.",
+          "objectives": [
+            {
+              "id": "functions-refresher-obj-1",
+              "text": "State that a function maps each input to exactly one output."
+            },
+            {
+              "id": "functions-refresher-obj-2",
+              "text": "Read function notation f(x) as the output produced by input x."
+            },
+            {
+              "id": "functions-refresher-obj-3",
+              "text": "Evaluate f(x) at a single number and read the value from a graph."
+            },
+            {
+              "id": "functions-refresher-obj-4",
+              "text": "Evaluate f(x + h) by substituting the whole expression into f."
+            },
+            {
+              "id": "functions-refresher-obj-5",
+              "text": "Avoid dropping parentheses when the input is an expression."
+            }
+          ],
+          "prerequisiteLessonIds": [],
+          "estimatedMinutes": 20,
+          "difficulty": "intro",
+          "sections": [
+            {
+              "id": "define-and-evaluate",
+              "title": "Define and Evaluate",
+              "blocks": [
+                {
+                  "type": "title",
+                  "id": "functions-refresher-title",
+                  "kicker": "Calculus foundations",
+                  "title": "Functions Refresher",
+                  "subtitle": "Each input goes in. Exactly one output comes out. Keep the parentheses on every substitution.",
+                  "objectives": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Observe a "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "function",
+                        "label": "function"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " as a rule that sends each input to one output."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Calculate "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "f(x)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " at a number and at "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x+h"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Check the common mistake: dropping parentheses around the input expression."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "concept",
+                  "id": "function-as-rule",
+                  "title": "Observe: function as a rule",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "A "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "function",
+                      "label": "function"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " sends each "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "input",
+                      "label": "input"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " to exactly one "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "output",
+                      "label": "output"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The set of allowed inputs is the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "domain",
+                      "label": "domain"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The set of produced outputs is the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "range",
+                      "label": "range"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ],
+                  "keyIdeas": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Same input always gives the same output."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Different inputs are allowed to share an output, but one input cannot have two outputs."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "latex",
+                  "id": "function-notation-formula",
+                  "latex": "f(x)=x^2",
+                  "caption": "Read this as: the function f sends input x to the output x squared.",
+                  "display": true
+                },
+                {
+                  "type": "intuition",
+                  "id": "predict-same-input-same-output",
+                  "title": "Predict: same input, same output",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Pick any input first. Apply the rule. The output is fixed. Pick the same input again and the output is the same number."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "Function evaluation is a lookup. Use "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "function-notation",
+                      "label": "function notation"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " to keep the input and the output visible together."
+                    }
+                  ]
+                },
+                {
+                  "type": "graph",
+                  "id": "functions-refresher-graph",
+                  "title": "Compare: read values from y = x^2",
+                  "description": "Notice the curve y = x^2 first. Two marked points read the output at x = 1 and at x = 3. The point at x = 1 reads y = 1. The point at x = 3 reads y = 9.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": 0,
+                      "max": 3,
+                      "ticks": [0, 1, 2, 3]
+                    },
+                    "yAxis": {
+                      "label": "output f(x)",
+                      "min": 0,
+                      "max": 9,
+                      "ticks": [0, 1, 4, 9]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "refresher-x-squared",
+                        "label": "Function",
+                        "expression": "y = x^2",
+                        "domain": [0, 3],
+                        "samples": [
+                          [0, 0],
+                          [0.5, 0.25],
+                          [1, 1],
+                          [1.5, 2.25],
+                          [2, 4],
+                          [2.5, 6.25],
+                          [3, 9]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "refresher-value-points",
+                        "label": "Marked values",
+                        "points": [
+                          [1, 1],
+                          [3, 9]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "refresher-value-at-one",
+                        "label": "f(1) = 1",
+                        "point": [1, 1],
+                        "text": "Read up from x = 1 to the curve. The output is 1."
+                      },
+                      {
+                        "id": "refresher-value-at-three",
+                        "label": "f(3) = 9",
+                        "point": [3, 9],
+                        "text": "Read up from x = 3 to the curve. The output is 9."
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "intuition",
+                  "id": "compare-graph-to-notation",
+                  "title": "Compare: graph to notation",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Read the graph in this order: pick an input on the x axis, move up to the curve, then read the output on the y axis. The notation "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(1)=1"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " says the same thing in symbols."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "The graph and the notation describe one rule. The notation is the form used in algebra below."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "use-the-notation",
+              "title": "Use the Notation",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "evaluate-f-of-x-plus-h",
+                  "title": "Evaluate f(x + h) for f(x) = x^2",
+                  "goal": "Substitute the whole expression x + h into f without dropping parentheses.",
+                  "given": "f(x) = x^2",
+                  "steps": [
+                    {
+                      "id": "fxh-write-rule",
+                      "label": "Write the rule",
+                      "explanation": "State the function before any substitution.",
+                      "latex": "f(x)=x^2"
+                    },
+                    {
+                      "id": "fxh-substitute",
+                      "label": "Substitute the whole input",
+                      "explanation": "Replace x with the expression x + h. Keep the parentheses around x + h.",
+                      "latex": "f(x+h)=(x+h)^2"
+                    },
+                    {
+                      "id": "fxh-expand",
+                      "label": "Expand the square",
+                      "explanation": "Apply the square to every term inside the parentheses. The cross term is 2xh.",
+                      "latex": "f(x+h)=x^2+2xh+h^2"
+                    },
+                    {
+                      "id": "fxh-state-result",
+                      "label": "State the result",
+                      "explanation": "This is the value of f at the input x + h. It is the form used in the difference quotient.",
+                      "latex": "f(x+h)=x^2+2xh+h^2"
+                    }
+                  ],
+                  "interpretation": "The expression x + h is the next input the derivative lesson will use. Keep the parentheses until after the square is expanded."
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "drop-parentheses-on-x-plus-h",
+                  "title": "Dropping the parentheses around x + h",
+                  "misconception": "Substituting x + h into f(x) = x^2 means writing x + h^2.",
+                  "incorrectStep": "Writing f(x + h) = x + h^2 instead of f(x + h) = (x + h)^2.",
+                  "whyWrong": "The square applies to the whole input x + h. Without parentheses, only h is squared, which changes the output.",
+                  "correction": "Substitute the whole expression in parentheses: f(x + h) = (x + h)^2. Then expand to x^2 + 2xh + h^2.",
+                  "checkPrompt": "Did you keep parentheses around the whole input before applying the rule?"
+                },
+                {
+                  "type": "intuition",
+                  "id": "pause-predict-substitution",
+                  "title": "Pause: predict the safe substitution",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Before the quiz, say it in words. To evaluate "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " at an expression, replace "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " with the whole expression in parentheses, then apply the rule."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "Same rule, new input. The parentheses keep the rule honest."
+                    }
+                  ]
+                },
+                {
+                  "type": "quiz",
+                  "id": "functions-refresher-evaluate-check",
+                  "title": "Check: evaluate at a number",
+                  "questions": [
+                    {
+                      "kind": "multipleChoice",
+                      "id": "evaluate-f-of-three",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "If "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "f(x)=x^2-1"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ", what is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "f(3)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "eight",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "8"
+                            }
+                          ],
+                          "feedback": "Correct. Square 3 to get 9, then subtract 1."
+                        },
+                        {
+                          "id": "nine",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "9"
+                            }
+                          ],
+                          "feedback": "Review the rule. The function subtracts 1 after squaring."
+                        },
+                        {
+                          "id": "five",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "5"
+                            }
+                          ],
+                          "feedback": "Review the order. Square 3 first, then subtract 1."
+                        },
+                        {
+                          "id": "neg-one",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "-1"
+                            }
+                          ],
+                          "feedback": "Review the substitution. Replace x with 3 before subtracting 1."
+                        }
+                      ],
+                      "correctOptionId": "eight",
+                      "conceptTags": ["function-evaluation", "function-notation"],
+                      "hint": "Replace x with 3 in the rule, then simplify."
+                    }
+                  ]
+                },
+                {
+                  "type": "quiz",
+                  "id": "functions-refresher-expression-check",
+                  "title": "Check: evaluate at an expression",
+                  "questions": [
+                    {
+                      "kind": "shortAnswer",
+                      "id": "evaluate-f-of-x-plus-h-linear",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "If "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "f(x)=2x+1"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ", write "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "f(x+h)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": " in expanded form."
+                        }
+                      ],
+                      "acceptedAnswers": [
+                        "2(x+h)+1",
+                        "2x+2h+1",
+                        "2h+2x+1",
+                        "1+2x+2h",
+                        "1+2h+2x"
+                      ],
+                      "feedback": {
+                        "correct": "Correct. Substitute x + h for x, then distribute the 2.",
+                        "incorrect": "Review the parentheses mistake. Substitute (x + h) into 2x + 1, then distribute the 2 to get 2x + 2h + 1."
+                      },
+                      "conceptTags": ["function-evaluation", "function-notation", "algebra"],
+                      "hint": "Replace x with x + h, then distribute."
+                    }
+                  ]
+                },
+                {
+                  "type": "summary",
+                  "id": "functions-refresher-summary",
+                  "items": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "A "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "function",
+                        "label": "function"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " sends each input to exactly one output."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Read "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "f(x)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " as the output the rule produces from the input "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "To evaluate at an expression, substitute the whole expression in parentheses, then simplify."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "For "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "f(x)=x^2"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ", "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "f(x+h)=x^2+2xh+h^2"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "revision": {
+            "keyIdeas": [
+              "A function sends each input to exactly one output.",
+              "Function notation f(x) names the output produced by the input x.",
+              "To evaluate f at an expression, substitute the whole expression in parentheses.",
+              "For f(x) = x^2, f(x + h) = x^2 + 2xh + h^2."
+            ],
+            "recallPrompts": [
+              "What does same input, same output mean for a function?",
+              "Why must x + h stay inside parentheses when substituting into x^2?",
+              "What is f(3) when f(x) = x^2 - 1, and why?",
+              "What is f(x + h) when f(x) = 2x + 1, written without parentheses?"
+            ],
+            "mistakeIds": ["drop-parentheses-on-x-plus-h"],
+            "quizIds": ["functions-refresher-evaluate-check", "functions-refresher-expression-check"]
+          }
+        }
+      ]
+    },
+    {
       "id": "first-principles",
       "title": "Derivatives from First Principles",
       "summary": "Build the derivative as a limit of slopes between two points. Stay inside the definition before invoking shortcuts.",
@@ -41,7 +622,7 @@
               "text": "Avoid substituting h = 0 before the quotient is simplified."
             }
           ],
-          "prerequisiteLessonIds": [],
+          "prerequisiteLessonIds": ["functions-refresher"],
           "estimatedMinutes": 32,
           "difficulty": "intro",
           "sections": [
@@ -2431,6 +3012,38 @@
       "id": "slope",
       "term": "slope",
       "definition": "The ratio of vertical change to horizontal change between two points; for a line, the rise over the run."
+    },
+    {
+      "id": "function",
+      "term": "function",
+      "definition": "A rule that sends each allowed input to exactly one output."
+    },
+    {
+      "id": "input",
+      "term": "input",
+      "definition": "The value supplied to a function, written as the argument in f(x).",
+      "aliases": ["argument"]
+    },
+    {
+      "id": "output",
+      "term": "output",
+      "definition": "The value produced by a function for a given input, written as f(x).",
+      "aliases": ["value"]
+    },
+    {
+      "id": "domain",
+      "term": "domain",
+      "definition": "The set of inputs a function is allowed to accept."
+    },
+    {
+      "id": "range",
+      "term": "range",
+      "definition": "The set of outputs a function actually produces over its domain."
+    },
+    {
+      "id": "function-notation",
+      "term": "function notation",
+      "definition": "The form f(x) used to name a function and show its input. Read aloud as \"f of x\"."
     }
   ]
 }

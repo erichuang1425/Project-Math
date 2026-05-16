@@ -4,7 +4,7 @@ Last updated: 2026-05-16
 
 ## Current Slice
 
-The next slice is **Phase 7 — Engineering Hygiene & Agent Skills** (see `docs/roadmap.md`). It raises Vitest coverage gates to 80% on `src/content/**` and `src/rendering/blocks/**`, adds the missing block-view and helper tests to satisfy them, retires `ux-quality-reviewer` in favor of `learner-journey-reviewer` + `motivation-ux-reviewer`, sharpens the `studybook-architect` ↔ `test-and-regression-reviewer` boundary, and standardizes a fixed Output Template across every `SKILL.md`. The slice is intentionally scoped to engineering hygiene and agent skills only — no new lessons, reader polish, or Tauri commands.
+The current slice is the first **Phase 4 — Content Depth** increment: authoring **Module A lesson 1 (`functions-refresher`)** as the foundations entry point and wiring it as the prerequisite for `derivative-as-a-limit`. The slice adds one module above `first-principles`, one lesson (title → concept → latex → intuition → graph → worked example → common mistake → quiz → quiz → summary, plus revision layer), six new glossary terms (`function`, `input`, `output`, `domain`, `range`, `function-notation`), and the first live `term` segments in lesson body text. The slice is content + docs only — no schema change, no block-type change, no new dependency, no Phase 5/6 work.
 
 ## Current App Shape
 
@@ -35,7 +35,7 @@ The next slice is **Phase 7 — Engineering Hygiene & Agent Skills** (see `docs/
 
 ## Next Task
 
-Execute the Phase 7 slice in one PR: per-directory coverage thresholds in `vitest.config.ts`, direct render tests for every block view in `src/rendering/blocks/__tests__/`, a dedicated `courseHelpers` test file, branch coverage closure on `validateContent.ts`, retire `ux-quality-reviewer`, add `learner-journey-reviewer` and `motivation-ux-reviewer`, add explicit "Out of Scope" sections to `studybook-architect` and `test-and-regression-reviewer`, and standardize a fixed Output Template across every `SKILL.md`. Do not begin Phase 4 content production, Phase 5 reader polish, or Phase 6 Tauri commands in this slice.
+The next slice is **Phase 4 — Module A lesson 2 (`limits-intuitively`)**: an autism-aware foundations lesson that introduces the limit informally (numerical tables that approach a value, graph-based "what value is the curve heading for") and sets up the limit step the derivative lessons depend on. Follow the same block ordering as `functions-refresher`. Reuse the `limit` glossary term; add no new dependencies, no new block types, and no Phase 5/6 work. Wire `derivative-as-a-limit.prerequisiteLessonIds` to `["functions-refresher", "limits-intuitively"]` only after the new lesson exists.
 
 ## Workflow Notes
 

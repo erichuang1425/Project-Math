@@ -5,74 +5,6 @@
 ```txt
 Use AGENTS.md and the relevant Project Math skills.
 
-Review the dashboard-first app-shell slice, then implement only the next narrow revision needed from that review.
-
-Current state:
-- The app remains a local-first deterministic React/Vite/Tauri studybook.
-- Lesson content still flows through studybook JSON -> validation -> reusable block renderer.
-- No new runtime dependencies, graphing libraries, fonts, UI frameworks, AI, sync, accounts, telemetry, database, PDF, or document dependencies were added.
-- The only bundled studybook/course is the validated `Derivatives from First Principles` studybook.
-- The app now opens to a dashboard-first shell.
-- The dashboard presents Project Math identity, local-first/offline status, the existing studybook as the first course, completed-lessons progress, a lesson sequence, selected/current/completed/not-started text labels, and material summaries derived from existing in-app lesson resources.
-- Selecting a lesson on the dashboard sets the local app-shell selection, and the primary action opens the existing reader experience for that lesson.
-- The reader view keeps the existing lesson workspace, sidebar lesson progress, collapsible reader controls, sticky lesson path, graph/quiz/export behavior, and includes a keyboard/pointer accessible `Back to dashboard` route.
-- "Course" still means a dashboard presentation of the existing studybook. "Materials" still means existing in-app lesson resources: objectives, sections, graph blocks, worked examples, common mistakes, quizzes, summaries, and export actions.
-- The untracked `External material/` PDFs were intentionally not ingested or modeled.
-
-Important workflow rule:
-Do not create or update docs/agent/CODEX_PROMPT_QUEUE.md.
-Keep the durable fresh-thread prompt in docs/agent/NEXT_CODEX_PROMPT.md.
-
-Before editing:
-1. Inspect the repo with literal-path handling.
-2. Load AGENTS.md and the relevant local skills:
-   - frontend-visual-system-designer
-   - neurodivergent-learning-accessibility-reviewer
-   - ux-quality-reviewer
-   - design-token-architect if CSS variables or state tokens change
-   - studybook-architect if lesson content or renderer contracts change
-   - math-rendering-reviewer if graph/math content changes
-   - test-and-regression-reviewer
-   - frontend-regression-visual-qa
-3. Read:
-   - docs/agent/PROJECT_STATE.md
-   - docs/agent/NEXT_CODEX_PROMPT.md
-   - docs/architecture.md
-   - docs/learning-design.md
-   - docs/ui-system.md
-   - docs/roadmap.md
-   - docs/testing-strategy.md
-   - src/app/App.tsx
-   - src/app/App.module.css
-   - src/app/App.test.tsx
-   - src/app/ReaderControls.tsx
-   - src/rendering/LessonView.tsx
-   - src/rendering/lesson.module.css
-   - src/rendering/sampleContentRenderable.test.tsx if reader integration expectations change
-4. Summarize the review target or newest user feedback and propose a concise plan with exact files to change before editing.
-
-Scope:
-1. If the user gives concrete dashboard/navigation/layout/accessibility feedback, revise only the affected app shell, focused tests, CSS, and durable docs.
-2. If no concrete feedback is given, run visual QA of the dashboard and reader at narrow and wide desktop sizes and fix only clear regressions such as overflow, overlap, clipped controls, unclear state text, or poor focus order.
-3. Do not add a `Course` schema, `Material` schema, PDF ingestion, new content files, new curriculum lessons, routing dependency, runtime dependency, font package, UI framework, graphing library, database, sync, AI, accounts, telemetry, document dependency, or PDF dependency.
-4. Preserve structured studybook content and stable IDs. If a schema/content edit seems necessary, stop and document the blocker instead of broadening the slice.
-
-Done criteria:
-1. Dashboard and reader navigation remain predictable and keyboard/pointer accessible.
-2. State is explicit in text and not color-only.
-3. Dashboard and reader layouts work at narrow and wide desktop sizes without overflow, overlap, or clipped controls.
-4. Existing lesson reader, `LessonView`, `BlockRenderer`, quiz behavior, graph rendering, export behavior, and reader controls remain deterministic and offline.
-5. Tests cover changed behavior at the lowest useful layer.
-6. Run npm.cmd run typecheck, npm.cmd test, npm.cmd run build, and git diff --check, or document exact blockers.
-7. Run or document the local preview smoke path at http://127.0.0.1:4173.
-8. Update docs/agent/NEXT_CODEX_PROMPT.md with this previous prompt and the exact next fresh-thread prompt.
-```
-
-## Next Prompt
-
-```txt
-Use AGENTS.md and the relevant Project Math skills.
-
 Implement the Phase 7 — Engineering Hygiene & Agent Skills slice as described in docs/roadmap.md. Land it in one PR so coverage thresholds and the tests that satisfy them go in together.
 
 Current state:
@@ -157,4 +89,80 @@ Done criteria:
 5. Every `SKILL.md` ends with the same five-section Output Template.
 6. `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm run test`, `npm run build`, and `git diff --check` all pass (or exact blockers are documented).
 7. `docs/roadmap.md` Phase 7 is marked done; `docs/agent/PROJECT_STATE.md` is current; `docs/agent/NEXT_CODEX_PROMPT.md` rotated.
+```
+
+## Next Prompt
+
+```txt
+Use AGENTS.md and the relevant Project Math skills.
+
+Implement the next Phase 4 — Content Depth slice: author Module A lesson 2, `limits-intuitively`, as the second foundations lesson. Land it in one PR with content, docs, and the prerequisite wiring it enables.
+
+Current state:
+- The app remains a local-first deterministic React/Vite/Tauri studybook.
+- Content is the v2 Course → Module → Lesson → Block model under `src/content/`, with one bundled course `calculus-i`.
+- Calculus I now has two modules: `foundations` (1 lesson, `functions-refresher`) and `first-principles` (3 lessons). Four lessons total.
+- `functions-refresher` is authored in the approved autism-aware style: title → concept → latex → intuition → graph → intuition (compare) → worked example → common mistake → intuition (pause) → quiz (multipleChoice) → quiz (shortAnswer) → summary, plus a revision layer.
+- `derivative-as-a-limit.prerequisiteLessonIds` lists `["functions-refresher"]` — the first real cross-module prerequisite edge.
+- Glossary now includes `function`, `input`, `output`, `domain`, `range`, `function-notation` alongside the original derivatives terms. `term` segments are used live in `functions-refresher` body text.
+- ESLint, Prettier, CI, jsdom Vitest, and 80% per-directory coverage gates on `src/content/**` and `src/rendering/blocks/**` are in place. 60% global floor everywhere else.
+
+Important workflow rule:
+Do not create or update docs/agent/CODEX_PROMPT_QUEUE.md.
+Keep the durable fresh-thread prompt in docs/agent/NEXT_CODEX_PROMPT.md.
+
+Before editing:
+1. Inspect the repo with literal-path handling.
+2. Load AGENTS.md and the relevant local skills:
+   - studybook-architect
+   - learner-journey-reviewer
+   - motivation-ux-reviewer
+   - neurodivergent-learning-accessibility-reviewer
+   - math-rendering-reviewer
+   - test-and-regression-reviewer
+3. Read:
+   - docs/agent/PROJECT_STATE.md
+   - docs/agent/NEXT_CODEX_PROMPT.md
+   - docs/learning-design.md (autism-aware micro-flow)
+   - docs/content-schema.md (sections-with-blocks shape)
+   - docs/roadmap.md (Phase 4 in particular)
+   - src/content/schema.ts
+   - src/content/validateContent.ts
+   - src/content/fixtures/courses/calculus-i.course.json (note `functions-refresher` as the structural reference)
+   - src/content/__tests__/calculusI.test.ts
+4. Propose a concise plan with exact files to change before editing.
+
+Scope (Phase 4, Module A lesson 2 only — do not broaden):
+
+A. Lesson content — `src/content/fixtures/courses/calculus-i.course.json`.
+1. Append a second lesson `limits-intuitively` to the existing `foundations` module, after `functions-refresher`. Keep `functions-refresher` unchanged.
+2. Mirror the `functions-refresher` block ordering and autism-aware micro-flow (Observe → Predict → Calculate → Compare → Answer → Summarize):
+   - Section 1 "Observe and predict": title, concept (uses `term` segments for `limit`, `function`, `input`, `output`), latex (display) showing `lim_{x→a} f(x)`, intuition, graph showing a function approaching a value at an input not in the rule (a deterministic samples array, axes, ticks, two annotated points before and after the target input).
+   - Section 2 "Read and compare": worked example computing a limit by table of values for `f(x) = (x^2 - 1)/(x - 1)` near `x = 1`, common mistake (substituting the undefined input directly), intuition (pause prompt), quiz multipleChoice (which value is the limit), quiz shortAnswer (state the limit value), summary, revision layer.
+3. Use only existing block types and the existing `limit` glossary term plus any of the new `function*` terms. Do not add glossary entries unless a new term is referenced in body text by a `term` segment; if you add one, mirror the structure of `function-notation`.
+4. Stable kebab-case IDs everywhere. Keep `prerequisiteLessonIds: ["functions-refresher"]` on `limits-intuitively`.
+5. After authoring, update `derivative-as-a-limit.prerequisiteLessonIds` to `["functions-refresher", "limits-intuitively"]`.
+
+B. Tests.
+6. Update `src/content/__tests__/calculusI.test.ts` so the lesson-order assertion lists five lessons in the new order, the total-lesson assertion is `5`, and the prerequisite assertion on `derivative-as-a-limit` lists both prerequisites.
+7. Do not add new block-view test files for a content-only slice. If coverage on `src/content/**` drops below 80% because of newly exercised validator branches, add the minimum invalid fixture (single primary failure reason) to `validateContent.test.ts` to close the branch.
+
+C. Docs.
+8. `docs/roadmap.md` Phase 4: bump shipped count and move `limits intuitively` from Open to Shipped.
+9. `docs/agent/PROJECT_STATE.md`: update Current Slice and Next Task (Module A lesson 3, `one-sided-and-infinite-limits`).
+10. Rotate `docs/agent/NEXT_CODEX_PROMPT.md`: move this prompt into "Previous Prompt"; the new "Next Prompt" should plan Module A lesson 3 with the same structural rules.
+
+Out of scope (defer):
+- Module A lesson 3 (one-sided and infinite limits).
+- Module B `differentiability-vs-continuity` lesson.
+- Module C lessons.
+- Reader polish (Phase 5).
+- Tauri commands (Phase 6).
+- Any new block type, runtime dependency, schema field, font, UI framework, graphing library, database, sync, AI, accounts, telemetry, document, or PDF dependency.
+
+Done criteria:
+1. `npm run lint`, `npm run format:check`, `npm run typecheck`, `npm run test`, `npm run test:coverage`, `npm run build`, and `git diff --check` all pass (or exact blockers are documented).
+2. `calculus-i` has five lessons across two modules; the validator accepts the course; `derivative-as-a-limit` requires both foundations lessons.
+3. `limits-intuitively` mounts cleanly in `sampleContentRenderable.test.tsx` (and any per-block tests still pass without changes).
+4. `docs/roadmap.md`, `docs/agent/PROJECT_STATE.md`, and `docs/agent/NEXT_CODEX_PROMPT.md` are in sync with the code.
 ```

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   copyLessonSummaryMarkdown,
   getLessonSummaryCopyStatusMessage,
@@ -20,6 +20,8 @@ type LessonViewProps = {
   learnerState?: LearnerState;
   onQuizAttempt?: (attempt: QuizAttemptSubmission) => void;
   onCompleteLesson?: () => void;
+  initialSectionId?: string;
+  onSectionView?: (sectionId: string) => void;
 };
 
 export function LessonView({
@@ -30,13 +32,52 @@ export function LessonView({
   totalLessons,
   learnerState,
   onQuizAttempt,
-  onCompleteLesson
+  onCompleteLesson,
+  initialSectionId,
+  onSectionView
 }: LessonViewProps) {
   const lessonProgress = learnerState?.lessons[lesson.id];
   const isCompleted = lessonProgress?.status === "completed";
   const [copyStatus, setCopyStatus] = useState<LessonSummaryCopyStatus>("idle");
   const copyStatusMessage = getLessonSummaryCopyStatusMessage(copyStatus);
   const isCopyingSummary = copyStatus === "copying";
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(
+    lesson.sections[0]?.id ?? null
+  );
+
+  useEffect(() => {
+    setActiveSectionId(lesson.sections[0]?.id ?? null);
+    if (typeof window === "undefined" || typeof IntersectionObserver === "undefined") return;
+    const sectionEls = lesson.sections
+      .map((section) => document.getElementById(section.id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (sectionEls.length === 0) return;
+
+    if (initialSectionId && initialSectionId !== lesson.sections[0]?.id) {
+      const target = sectionEls.find((el) => el.id === initialSectionId);
+      if (target) {
+        target.scrollIntoView({ block: "start" });
+        setActiveSectionId(initialSectionId);
+      }
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActiveSectionId(visible[0].target.id);
+      },
+      { rootMargin: "0px 0px -70% 0px", threshold: 0 }
+    );
+    sectionEls.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [lesson.id, lesson.sections, initialSectionId]);
+
+  useEffect(() => {
+    if (!onSectionView || !activeSectionId) return;
+    onSectionView(activeSectionId);
+  }, [activeSectionId, onSectionView]);
 
   async function handleCopySummary() {
     const { markdown } = buildLessonSummaryFile(course, lesson, learnerState);
@@ -53,23 +94,18 @@ export function LessonView({
   return (
     <article className={styles.lesson}>
       <header className={styles.lessonHeader}>
-        <div className={styles.lessonHeaderText}>
-          <p className={styles.lessonEyebrow}>{lessonModule.title}</p>
-          <h1>{lesson.title}</h1>
-          <p>{lesson.summary}</p>
-        </div>
-        <div className={styles.lessonStatePanel} aria-label="Current lesson state">
-          <span>Status</span>
-          <strong>{isCompleted ? "Completed" : "Ready to study"}</strong>
+        <p className={styles.lessonStatusLine} aria-label="Current lesson state">
           <span>
             Lesson {lessonNumber} of {totalLessons}
           </span>
-        </div>
+          <span aria-hidden="true">·</span>
+          <span>{isCompleted ? "Completed" : "Ready to study"}</span>
+        </p>
+        <h1>{lesson.title}</h1>
+        <p className={styles.lessonSummary}>{lesson.summary}</p>
         <div className={styles.metadata} aria-label="Lesson metadata">
-          <span className={styles.pill}>Lesson {lessonNumber}</span>
           <span className={styles.pill}>{course.title}</span>
           <span className={styles.pill}>{lesson.estimatedMinutes} min</span>
-          <span className={styles.pill}>{isCompleted ? "Completed" : "In progress"}</span>
           <span className={styles.pill}>{lesson.difficulty}</span>
         </div>
       </header>
@@ -78,15 +114,22 @@ export function LessonView({
         <nav className={styles.sectionPath} aria-label="Lesson sections">
           <p>Lesson path</p>
           <ol>
-            {lesson.sections.map((section, index) => (
-              <li key={section.id}>
-                <a href={`#${section.id}`}>
-                  <span className={styles.pathStep}>Step {index + 1}</span>
-                  <span>{section.title}</span>
-                  <span>{section.blocks.length} study blocks</span>
-                </a>
-              </li>
-            ))}
+            {lesson.sections.map((section, index) => {
+              const isActive = section.id === activeSectionId;
+              return (
+                <li key={section.id}>
+                  <a
+                    href={`#${section.id}`}
+                    className={isActive ? styles.sectionPathLinkActive : undefined}
+                    aria-current={isActive ? "step" : undefined}
+                  >
+                    <span className={styles.pathStep}>Step {index + 1}</span>
+                    <span>{section.title}</span>
+                    <span>{section.blocks.length} study blocks</span>
+                  </a>
+                </li>
+              );
+            })}
           </ol>
         </nav>
 

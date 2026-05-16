@@ -31,9 +31,33 @@
   box-shadow: var(--pm-shadow-1);
 }
 
+.itemCompact {
+  padding: var(--pm-space-2) var(--pm-space-3);
+  align-items: center;
+  gap: var(--pm-space-2);
+}
+
+.itemCompact .body {
+  gap: 0;
+}
+
+.itemCompact .meta {
+  flex-direction: row;
+  align-items: center;
+}
+
 .locked {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.item:active {
+  transform: translateY(0);
+}
+
+[data-mode="polished"] .item:active {
+  transform: translateY(1px);
+  box-shadow: none;
 }
 
 .numberDot {
@@ -48,6 +72,14 @@
   font-weight: 700;
   font-size: var(--pm-size-sm);
   flex-shrink: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .numberDot {
+    transition:
+      background-color var(--pm-duration-base) var(--pm-ease-standard),
+      color var(--pm-duration-base) var(--pm-ease-standard);
+  }
 }
 
 .numberDotComplete {

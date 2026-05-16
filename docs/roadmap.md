@@ -52,18 +52,19 @@ What done means: dashboard → course → lesson navigation works; deep-link rel
 
 ## Phase 4 — Content Depth (Calculus I Starter)
 
-Status: ~25%. One module, three lessons of the targeted three modules / 10+ lessons.
+Status: ~33%. Two modules, four lessons of the targeted three modules / 10+ lessons.
 
 Shipped:
 
-- **Module B — Derivatives from First Principles:** `derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative` with full block sets and authored graph samples.
+- **Module A — Foundations:** `functions-refresher` with full block set (title, concept, latex, intuition, graph, worked example, common mistake, two quizzes, summary, revision layer), six new glossary terms (`function`, `input`, `output`, `domain`, `range`, `function-notation`), and the first live `term` segments in lesson body text.
+- **Module B — Derivatives from First Principles:** `derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative` with full block sets and authored graph samples. `derivative-as-a-limit` now lists `functions-refresher` as a prerequisite, exercising the validator's cross-module prerequisite path on real content.
 
 Open:
 
-- **Module A — Foundations:** functions refresher, limits intuitively, one-sided & infinite limits.
+- **Module A — Foundations:** limits intuitively, one-sided & infinite limits.
 - **Module B — Derivatives from First Principles:** add differentiability vs continuity.
 - **Module C — Differentiation Rules:** power, sum/difference, product, quotient, chain, tangent line equation (capstone).
-- Glossary populated; `term` segments used throughout block text.
+- Glossary populated; `term` segments used throughout block text. (Started: `functions-refresher` uses term segments; remaining lessons still author `term` segments lesson-by-lesson.)
 
 What done means: validator passes for the full course; every lesson mounts cleanly in jsdom; lesson summary export round-trips.
 

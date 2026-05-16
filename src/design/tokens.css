@@ -229,3 +229,9 @@ body {
 :target {
   scroll-margin-top: var(--pm-space-6);
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

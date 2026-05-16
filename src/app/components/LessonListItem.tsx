@@ -10,6 +10,7 @@ export interface LessonListItemProps {
   index: number;
   status: LessonStatus;
   isCurrent?: boolean;
+  compact?: boolean;
   onOpen: () => void;
 }
 
@@ -27,12 +28,19 @@ const statusClass: Record<LessonStatus, string> = {
   locked: styles.statusLocked
 };
 
-export function LessonListItem({ lesson, index, status, isCurrent, onOpen }: LessonListItemProps) {
+export function LessonListItem({
+  lesson,
+  index,
+  status,
+  isCurrent,
+  compact,
+  onOpen
+}: LessonListItemProps) {
   const locked = status === "locked";
   return (
     <button
       type="button"
-      className={clsx(styles.item, locked && styles.locked)}
+      className={clsx(styles.item, compact && styles.itemCompact, locked && styles.locked)}
       onClick={locked ? undefined : onOpen}
       disabled={locked}
       aria-current={isCurrent ? "true" : undefined}
@@ -49,13 +57,15 @@ export function LessonListItem({ lesson, index, status, isCurrent, onOpen }: Les
       </span>
       <span className={styles.body}>
         <span className={styles.title}>{lesson.title}</span>
-        <span className={styles.summary}>{lesson.summary}</span>
+        {compact ? null : <span className={styles.summary}>{lesson.summary}</span>}
       </span>
       <span className={styles.meta}>
         <span className={clsx(styles.status, statusClass[status])}>{statusLabel[status]}</span>
-        <span>
-          <Clock size={12} aria-hidden="true" /> {lesson.estimatedMinutes} min
-        </span>
+        {compact ? null : (
+          <span>
+            <Clock size={12} aria-hidden="true" /> {lesson.estimatedMinutes} min
+          </span>
+        )}
       </span>
     </button>
   );

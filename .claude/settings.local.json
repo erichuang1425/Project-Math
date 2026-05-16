@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(node -e \"require\\('clsx'\\); require\\('lucide-react'\\); console.log\\('OK'\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(node -e \"const c = require\\('./src/content/fixtures/courses/calculus-i.course.json'\\); console.log\\('Modules:'\\); c.modules.forEach\\(m => { console.log\\('  -', m.id, ':', m.title\\); m.lessons.forEach\\(l => console.log\\('     *', l.id, l.title, '\\(' + l.sections.length + ' sections\\)'\\)\\); }\\); console.log\\('Glossary:'\\); c.glossary.forEach\\(g => console.log\\('  -', g.id, ':', g.term\\)\\); console.log\\('Prereqs:', c.prerequisites\\);\")",
+      "Bash(npx vitest *)",
+      "Bash(npm run *)",
+      "Bash(node -e \"const p = require\\('./package.json'\\); console.log\\(JSON.stringify\\(p.scripts, null, 2\\)\\)\")"
+    ]
+  }
+}

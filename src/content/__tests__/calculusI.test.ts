@@ -13,11 +13,12 @@ describe("calculus-i course fixture", () => {
     expect(result.course.id).toBe("calculus-i");
   });
 
-  it("contains the three migrated derivatives lessons", () => {
+  it("orders foundations before the first-principles lessons", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
     const lessons = eachLesson(result.course).map((entry) => entry.lesson.id);
     expect(lessons).toEqual([
+      "functions-refresher",
       "derivative-as-a-limit",
       "derivative-at-a-point",
       "constant-function-derivative"
@@ -27,13 +28,26 @@ describe("calculus-i course fixture", () => {
   it("reports the correct lesson count via totalLessons", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
-    expect(totalLessons(result.course)).toBe(3);
+    expect(totalLessons(result.course)).toBe(4);
   });
 
-  it("ships a non-empty glossary", () => {
+  it("wires derivative-as-a-limit to require functions-refresher", () => {
+    const result = validateContent(courseJson);
+    if (!result.ok) throw new Error("Fixture failed to validate.");
+    const derivative = eachLesson(result.course).find(
+      (entry) => entry.lesson.id === "derivative-as-a-limit"
+    );
+    expect(derivative?.lesson.prerequisiteLessonIds).toEqual(["functions-refresher"]);
+  });
+
+  it("ships a non-empty glossary covering the new functions terms", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
     expect(result.course.glossary.length).toBeGreaterThanOrEqual(5);
-    expect(result.course.glossary.map((term) => term.id)).toContain("derivative");
+    const ids = result.course.glossary.map((term) => term.id);
+    expect(ids).toContain("derivative");
+    expect(ids).toEqual(
+      expect.arrayContaining(["function", "domain", "range", "input", "output", "function-notation"])
+    );
   });
 });
