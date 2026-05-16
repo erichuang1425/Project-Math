@@ -278,6 +278,106 @@
                   }
                 },
                 {
+                  "type": "graph",
+                  "id": "secant-shrinking-graph",
+                  "title": "Shrinking the gap toward the tangent slope",
+                  "description": "Notice the fixed base point (1, 1) first. As h shrinks from 2 to 1 to 0.5, the secant rotates toward the tangent line at (1, 1). The secant slopes 4, 3, and 2.5 approach the tangent slope 2.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": 0,
+                      "max": 3,
+                      "ticks": [0, 1, 2, 3]
+                    },
+                    "yAxis": {
+                      "label": "output f(x)",
+                      "min": 0,
+                      "max": 9,
+                      "ticks": [0, 1, 4, 9]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "shrinking-x-squared",
+                        "label": "Function",
+                        "expression": "y = x^2",
+                        "domain": [0, 3],
+                        "samples": [
+                          [0, 0],
+                          [0.25, 0.0625],
+                          [0.5, 0.25],
+                          [0.75, 0.5625],
+                          [1, 1],
+                          [1.25, 1.5625],
+                          [1.5, 2.25],
+                          [1.75, 3.0625],
+                          [2, 4],
+                          [2.25, 5.0625],
+                          [2.5, 6.25],
+                          [2.75, 7.5625],
+                          [3, 9]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "shrinking-anchor-point",
+                        "label": "Fixed base point at x = 1",
+                        "points": [[1, 1]]
+                      },
+                      {
+                        "kind": "line",
+                        "id": "shrinking-secant-h-two",
+                        "label": "Secant for h = 2, slope 4",
+                        "through": [
+                          [1, 1],
+                          [3, 9]
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "id": "shrinking-secant-h-one",
+                        "label": "Secant for h = 1, slope 3",
+                        "through": [
+                          [1, 1],
+                          [2, 4]
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "id": "shrinking-secant-h-half",
+                        "label": "Secant for h = 0.5, slope 2.5",
+                        "through": [
+                          [1, 1],
+                          [1.5, 2.25]
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "id": "shrinking-tangent-line",
+                        "label": "Tangent line slope 2",
+                        "through": [
+                          [0.5, 0],
+                          [2, 3]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "shrinking-base-point",
+                        "label": "(1, 1)",
+                        "point": [1, 1],
+                        "text": "Base point stays fixed while h shrinks toward 0."
+                      },
+                      {
+                        "id": "shrinking-slope-sequence",
+                        "label": "slopes 4, 3, 2.5 toward 2",
+                        "point": [2, 3],
+                        "text": "Secant slopes for h = 2, 1, 0.5 are 4, 3, 2.5; they approach the tangent slope 2."
+                      }
+                    ]
+                  }
+                },
+                {
                   "type": "intuition",
                   "id": "compare-secant-graph-to-rule",
                   "title": "Compare: graph to quotient",
@@ -359,6 +459,90 @@
                     }
                   ],
                   "interpretation": "The result says: at input x, the tangent slope of y = x^2 is 2x."
+                },
+                {
+                  "type": "graph",
+                  "id": "derivative-of-x-squared-graph",
+                  "title": "f(x) = x^2 and its derivative f'(x) = 2x",
+                  "description": "Notice the curve y = x^2 first, then the straight line y = 2x. The derivative line reads the tangent slope at each input: at x = 1 the slope is 2, at x = 2 the slope is 4, at x = 3 the slope is 6.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": 0,
+                      "max": 3,
+                      "ticks": [0, 1, 2, 3]
+                    },
+                    "yAxis": {
+                      "label": "output",
+                      "min": 0,
+                      "max": 9,
+                      "ticks": [0, 2, 4, 6, 9]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "overlay-x-squared",
+                        "label": "Function",
+                        "expression": "y = x^2",
+                        "domain": [0, 3],
+                        "samples": [
+                          [0, 0],
+                          [0.5, 0.25],
+                          [1, 1],
+                          [1.5, 2.25],
+                          [2, 4],
+                          [2.5, 6.25],
+                          [3, 9]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "overlay-derivative-two-x",
+                        "label": "Derivative",
+                        "expression": "y = 2x",
+                        "domain": [0, 3],
+                        "samples": [
+                          [0, 0],
+                          [0.5, 1],
+                          [1, 2],
+                          [1.5, 3],
+                          [2, 4],
+                          [2.5, 5],
+                          [3, 6]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "overlay-slope-readouts",
+                        "label": "Tangent slope readouts",
+                        "points": [
+                          [1, 2],
+                          [2, 4],
+                          [3, 6]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "overlay-slope-at-one",
+                        "label": "f'(1) = 2",
+                        "point": [1, 2],
+                        "text": "On the derivative line, x = 1 reads y = 2. The tangent slope at x = 1 is 2."
+                      },
+                      {
+                        "id": "overlay-slope-at-two",
+                        "label": "f'(2) = 4",
+                        "point": [2, 4],
+                        "text": "Both the curve and the derivative line read 4 at x = 2. The tangent slope at x = 2 is 4."
+                      },
+                      {
+                        "id": "overlay-slope-at-three",
+                        "label": "f'(3) = 6",
+                        "point": [3, 6],
+                        "text": "At x = 3 the curve climbs to 9, but the derivative line gives 6. The tangent slope at x = 3 is 6."
+                      }
+                    ]
+                  }
                 },
                 {
                   "type": "workedExample",
@@ -1004,6 +1188,85 @@
                   }
                 },
                 {
+                  "type": "graph",
+                  "id": "tangent-shrinking-both-sides-graph",
+                  "title": "Secants approach the tangent from both sides",
+                  "description": "Notice the fixed point (2, 4) first. The secant from x = 1 has slope 3. The secant to x = 3 has slope 5. As the nearby input moves toward 2 from either side, the secant slope approaches the tangent slope 4.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": 0,
+                      "max": 4,
+                      "ticks": [0, 1, 2, 3, 4]
+                    },
+                    "yAxis": {
+                      "label": "output f(x)",
+                      "min": 0,
+                      "max": 10,
+                      "ticks": [0, 1, 4, 8, 10]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "both-sides-x-squared",
+                        "label": "Function",
+                        "expression": "y = x^2",
+                        "domain": [0, 3.1622776601683795],
+                        "samples": [
+                          [0, 0],
+                          [0.5, 0.25],
+                          [1, 1],
+                          [1.5, 2.25],
+                          [2, 4],
+                          [2.5, 6.25],
+                          [3, 9]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "both-sides-fixed-point",
+                        "label": "Fixed base point at x = 2",
+                        "points": [[2, 4]]
+                      },
+                      {
+                        "kind": "line",
+                        "id": "both-sides-left-secant",
+                        "label": "Left secant from x = 1, slope 3",
+                        "through": [
+                          [1, 1],
+                          [2, 4]
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "id": "both-sides-right-secant",
+                        "label": "Right secant to x = 3, slope 5",
+                        "through": [
+                          [2, 4],
+                          [3, 9]
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "id": "both-sides-tangent",
+                        "label": "Tangent line slope 4",
+                        "through": [
+                          [1, 0],
+                          [3, 8]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "both-sides-fixed",
+                        "label": "(2, 4)",
+                        "point": [2, 4],
+                        "text": "Left secant slope 3 and right secant slope 5 both close in on the tangent slope 4."
+                      }
+                    ]
+                  }
+                },
+                {
                   "type": "intuition",
                   "id": "compare-tangent-graph-to-rule",
                   "title": "Compare: graph to fixed input",
@@ -1093,6 +1356,72 @@
                     }
                   ],
                   "interpretation": "The result says: at the point (2, 4), the tangent slope of y = x^2 is 4."
+                },
+                {
+                  "type": "graph",
+                  "id": "derivative-function-at-two-graph",
+                  "title": "Read f'(2) from the derivative line",
+                  "description": "Notice the derivative line y = 2x first. Reading off x = 2 gives y = 4. That value is the tangent slope of y = x^2 at the fixed point (2, 4).",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": 0,
+                      "max": 4,
+                      "ticks": [0, 1, 2, 3, 4]
+                    },
+                    "yAxis": {
+                      "label": "output",
+                      "min": 0,
+                      "max": 10,
+                      "ticks": [0, 2, 4, 6, 8, 10]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "two-overlay-curve",
+                        "label": "Function",
+                        "expression": "y = x^2",
+                        "domain": [0, 3.1622776601683795],
+                        "samples": [
+                          [0, 0],
+                          [0.5, 0.25],
+                          [1, 1],
+                          [1.5, 2.25],
+                          [2, 4],
+                          [2.5, 6.25],
+                          [3, 9]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "two-overlay-derivative",
+                        "label": "Derivative",
+                        "expression": "y = 2x",
+                        "domain": [0, 4],
+                        "samples": [
+                          [0, 0],
+                          [1, 2],
+                          [2, 4],
+                          [3, 6],
+                          [4, 8]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "two-overlay-readout",
+                        "label": "Derivative reading at x = 2",
+                        "points": [[2, 4]]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "two-overlay-slope-reading",
+                        "label": "f'(2) = 4",
+                        "point": [2, 4],
+                        "text": "On the derivative line y = 2x, the input x = 2 reads y = 4. That is the tangent slope at the fixed point (2, 4)."
+                      }
+                    ]
+                  }
                 },
                 {
                   "type": "commonMistake",
@@ -1573,6 +1902,75 @@
                   }
                 },
                 {
+                  "type": "graph",
+                  "id": "constant-comparison-graph",
+                  "title": "Three constants, all with slope 0",
+                  "description": "Notice that y = 3, y = 5, and y = 7 are all horizontal lines. The vertical position changes with the constant, but the output never changes with x. Every secant slope is 0, so every tangent slope is 0.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": -2,
+                      "max": 4,
+                      "ticks": [-2, -1, 0, 1, 2, 3, 4]
+                    },
+                    "yAxis": {
+                      "label": "output f(x)",
+                      "min": 0,
+                      "max": 10,
+                      "ticks": [0, 3, 5, 7, 10]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "constant-three",
+                        "label": "Function y = 3",
+                        "expression": "y = 3",
+                        "domain": [-2, 4],
+                        "samples": [
+                          [-2, 3],
+                          [0, 3],
+                          [2, 3],
+                          [4, 3]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "constant-five",
+                        "label": "Function y = 5",
+                        "expression": "y = 5",
+                        "domain": [-2, 4],
+                        "samples": [
+                          [-2, 5],
+                          [0, 5],
+                          [2, 5],
+                          [4, 5]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "constant-seven-compare",
+                        "label": "Function y = 7",
+                        "expression": "y = 7",
+                        "domain": [-2, 4],
+                        "samples": [
+                          [-2, 7],
+                          [0, 7],
+                          [2, 7],
+                          [4, 7]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "compare-zero-slope",
+                        "label": "every slope is 0",
+                        "point": [2, 5],
+                        "text": "Each constant value sets a height. The output change is 0 between any two inputs, so every tangent slope is 0."
+                      }
+                    ]
+                  }
+                },
+                {
                   "type": "intuition",
                   "id": "compare-constant-graph-to-rule",
                   "title": "Compare: graph to numerator",
@@ -1658,6 +2056,71 @@
                     }
                   ],
                   "interpretation": "The result says: a flat function has tangent slope 0 at every input."
+                },
+                {
+                  "type": "graph",
+                  "id": "constant-derivative-zero-graph",
+                  "title": "f(x) = 7 and its derivative f'(x) = 0",
+                  "description": "Notice the flat function y = 7 sitting at height 7. The derivative function y = 0 sits on the x-axis. Both lines are horizontal, because the slope of any constant is 0 at every input.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": -2,
+                      "max": 4,
+                      "ticks": [-2, -1, 0, 1, 2, 3, 4]
+                    },
+                    "yAxis": {
+                      "label": "output",
+                      "min": 0,
+                      "max": 8,
+                      "ticks": [0, 4, 7, 8]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "constant-seven-original",
+                        "label": "Function",
+                        "expression": "y = 7",
+                        "domain": [-2, 4],
+                        "samples": [
+                          [-2, 7],
+                          [0, 7],
+                          [2, 7],
+                          [4, 7]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "constant-derivative-zero",
+                        "label": "Derivative",
+                        "expression": "y = 0",
+                        "domain": [-2, 4],
+                        "samples": [
+                          [-2, 0],
+                          [0, 0],
+                          [2, 0],
+                          [4, 0]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "constant-derivative-readout",
+                        "label": "Derivative reading at sample inputs",
+                        "points": [
+                          [0, 0],
+                          [2, 0]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "constant-zero-slope-everywhere",
+                        "label": "f'(x) = 0",
+                        "point": [2, 0],
+                        "text": "The derivative line never leaves the x-axis. Every input gives slope 0."
+                      }
+                    ]
+                  }
                 },
                 {
                   "type": "commonMistake",

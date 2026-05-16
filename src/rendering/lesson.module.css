@@ -335,6 +335,98 @@
   border-top: none;
 }
 
+.stepRail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 0;
+}
+
+.stepPill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--reader-strong-border, #cbd3c4);
+  border-radius: 999px;
+  background: var(--reader-surface, #ffffff);
+  color: var(--reader-muted-text, #586057);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color 0.1s,
+    background 0.1s;
+}
+
+.stepPill:hover,
+.stepPill:focus-visible {
+  border-color: var(--reader-accent, #2f5d62);
+  outline: 2px solid var(--reader-focus-ring, rgba(47, 93, 98, 0.22));
+  outline-offset: 2px;
+}
+
+.stepPillActive {
+  border-color: var(--reader-accent, #2f5d62);
+  background: var(--reader-selected-surface, #eef7f5);
+  color: var(--reader-accent-text, #244e52);
+}
+
+.stepPillNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--reader-soft-surface, #fbfcf8);
+  font-size: 0.76rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.stepPillActive .stepPillNumber {
+  background: var(--reader-accent, #2f5d62);
+  color: #ffffff;
+}
+
+.stepPillLabel {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stepPanel {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid var(--reader-border, #d9ded3);
+  border-radius: 8px;
+  background: var(--reader-soft-surface, #fbfcf8);
+}
+
+.stepPanelTitle {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: var(--reader-muted-text, #586057);
+}
+
+.stepNavigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.stepPosition {
+  flex: 1;
+  text-align: center;
+  color: var(--reader-muted-text, #586057);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
 .step h4 {
   margin: 0 0 4px;
   font-size: 0.98rem;
