@@ -32,15 +32,15 @@ Use this skill when a lesson or UI change affects cognitive load, predictability
 - Layout reduces memory load by keeping related text, equations, and controls close together.
 - Low-glare and spacing choices reduce sensory strain without hiding structure.
 
-## Output
+## Fixed Output Template
 
-When reviewing, report:
+When reporting, use these sections and nothing else:
 
-- Cognitive load risks.
-- Predictability or input-assistance gaps.
-- Low-sensory concerns.
-- Specific lesson block, component, or state affected.
-- Concrete revision recommendation.
+- **Files touched** — components, lesson fixtures, copy, or CSS that affect cognitive load.
+- **Risks / non-obvious interactions** — predictability gaps, sensory intensity, surprise motion, idiomatic or vague copy, state cues that rely on color alone.
+- **Tests added or run** — render tests, reduced-motion smoke, Calm-mode mounts; explicitly note any manual check skipped.
+- **Remaining work** — blocks, components, or states still owed an accessibility revision.
+- **What done means recap** — one or two sentences restating the accessibility outcome.
 
 ## What Done Means
 
