@@ -1,6 +1,6 @@
 ---
 name: motivation-ux-reviewer
-description: "Use when reviewing Project Math motivation cues for low-motivation and neurodivergent learners: progress feedback, \"you're partway through\" framing, calm encouragement vs. urgency pressure, retry tone, and Calm-mode parity with Polished mode."
+description: 'Use when reviewing Project Math motivation cues for low-motivation and neurodivergent learners: progress feedback, "you''re partway through" framing, calm encouragement vs. urgency pressure, retry tone, and Calm-mode parity with Polished mode.'
 ---
 
 # Motivation UX Reviewer
