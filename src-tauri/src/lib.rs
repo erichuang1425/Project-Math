@@ -1,6 +1,9 @@
 use std::path::PathBuf;
 
-use tauri::Manager;
+use tauri::menu::{MenuBuilder, MenuItemBuilder, PredefinedMenuItem, SubmenuBuilder};
+use tauri::{Emitter, Manager};
+
+const MENU_EVENT_CHANNEL: &str = "menu";
 
 #[tauri::command]
 fn load_learner_state(
@@ -58,9 +61,86 @@ fn is_safe_studybook_id(input: &str) -> bool {
         && !input.contains("--")
 }
 
+fn build_app_menu(app: &tauri::AppHandle) -> tauri::Result<()> {
+    let quit = PredefinedMenuItem::quit(app, Some("Quit Project Math"))?;
+    let file_menu = SubmenuBuilder::new(app, "File").item(&quit).build()?;
+
+    let toggle_mode = MenuItemBuilder::with_id("menu:toggle-mode", "Toggle Display Mode")
+        .accelerator("CmdOrCtrl+M")
+        .build(app)?;
+
+    let text_standard =
+        MenuItemBuilder::with_id("menu:text-size:standard", "Standard").build(app)?;
+    let text_large = MenuItemBuilder::with_id("menu:text-size:large", "Large").build(app)?;
+    let text_extra_large =
+        MenuItemBuilder::with_id("menu:text-size:extra-large", "Extra Large").build(app)?;
+    let text_size_menu = SubmenuBuilder::new(app, "Reader Text Size")
+        .item(&text_standard)
+        .item(&text_large)
+        .item(&text_extra_large)
+        .build()?;
+
+    let line_standard =
+        MenuItemBuilder::with_id("menu:line-spacing:standard", "Standard").build(app)?;
+    let line_comfortable =
+        MenuItemBuilder::with_id("menu:line-spacing:comfortable", "Comfortable").build(app)?;
+    let line_wide = MenuItemBuilder::with_id("menu:line-spacing:wide", "Wide").build(app)?;
+    let line_spacing_menu = SubmenuBuilder::new(app, "Reader Line Spacing")
+        .item(&line_standard)
+        .item(&line_comfortable)
+        .item(&line_wide)
+        .build()?;
+
+    let font_sans = MenuItemBuilder::with_id("menu:font:sans", "System Sans").build(app)?;
+    let font_serif = MenuItemBuilder::with_id("menu:font:serif", "System Serif").build(app)?;
+    let font_menu = SubmenuBuilder::new(app, "Reader Font")
+        .item(&font_sans)
+        .item(&font_serif)
+        .build()?;
+
+    let toggle_low_glare =
+        MenuItemBuilder::with_id("menu:toggle-low-glare", "Toggle Low-Glare Mode")
+            .accelerator("CmdOrCtrl+G")
+            .build(app)?;
+
+    let view_menu = SubmenuBuilder::new(app, "View")
+        .item(&toggle_mode)
+        .separator()
+        .item(&text_size_menu)
+        .item(&line_spacing_menu)
+        .item(&font_menu)
+        .separator()
+        .item(&toggle_low_glare)
+        .build()?;
+
+    let shortcuts = MenuItemBuilder::with_id("menu:shortcuts", "Keyboard Shortcuts")
+        .accelerator("CmdOrCtrl+/")
+        .build(app)?;
+    let help_menu = SubmenuBuilder::new(app, "Help").item(&shortcuts).build()?;
+
+    let menu = MenuBuilder::new(app)
+        .item(&file_menu)
+        .item(&view_menu)
+        .item(&help_menu)
+        .build()?;
+
+    app.set_menu(menu)?;
+    Ok(())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .setup(|app| {
+            build_app_menu(app.handle())?;
+            Ok(())
+        })
+        .on_menu_event(|app, event| {
+            let id = event.id().as_ref().to_string();
+            if id.starts_with("menu:") {
+                let _ = app.emit(MENU_EVENT_CHANNEL, id);
+            }
+        })
         .invoke_handler(tauri::generate_handler![
             load_learner_state,
             save_learner_state
