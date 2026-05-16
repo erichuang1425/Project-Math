@@ -30,6 +30,11 @@ import {
   saveReaderSettings,
   type ReaderSettings
 } from "./readerSettings";
+import {
+  getTauriEventListener,
+  subscribeToMenuEvents,
+  type TauriMenuEventUnlisten
+} from "./tauriMenu";
 import appStyles from "./App.module.css";
 
 const ALL_COURSES: Course[] = [];
@@ -201,6 +206,57 @@ export function App() {
     setReaderSettings(settings);
     saveReaderSettings(settings, typeof window !== "undefined" ? window.localStorage : undefined);
   }, []);
+
+  const applyReaderSettingsPatch = useCallback((patch: Partial<ReaderSettings>) => {
+    setReaderSettings((current) => {
+      const next = { ...current, ...patch };
+      saveReaderSettings(next, typeof window !== "undefined" ? window.localStorage : undefined);
+      return next;
+    });
+  }, []);
+
+  useEffect(() => {
+    const listener = getTauriEventListener();
+    if (!listener) return;
+    let unlisten: TauriMenuEventUnlisten | undefined;
+    let cancelled = false;
+    void subscribeToMenuEvents(
+      {
+        onToggleMode: () => {
+          setDisplayMode((current) => {
+            const next = toggleDisplayMode(current);
+            persistDisplayMode(next);
+            return next;
+          });
+        },
+        onToggleLowGlare: () => {
+          setReaderSettings((current) => {
+            const next = { ...current, lowGlare: !current.lowGlare };
+            saveReaderSettings(
+              next,
+              typeof window !== "undefined" ? window.localStorage : undefined
+            );
+            return next;
+          });
+        },
+        onSetTextSize: (textSize) => applyReaderSettingsPatch({ textSize }),
+        onSetLineSpacing: (lineSpacing) => applyReaderSettingsPatch({ lineSpacing }),
+        onSetFont: (font) => applyReaderSettingsPatch({ font }),
+        onOpenShortcuts: () => setShortcutsOpen(true)
+      },
+      listener
+    ).then((u) => {
+      if (cancelled) {
+        u();
+      } else {
+        unlisten = u;
+      }
+    });
+    return () => {
+      cancelled = true;
+      unlisten?.();
+    };
+  }, [applyReaderSettingsPatch]);
 
   const handleQuizAttempt = useCallback(
     (attempt: QuizAttemptSubmission) => {
