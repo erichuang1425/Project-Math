@@ -9,6 +9,8 @@ export type MenuEventHandlers = {
   onSetLineSpacing: (spacing: ReaderLineSpacing) => void;
   onSetFont: (font: ReaderFont) => void;
   onOpenShortcuts: () => void;
+  onGoToDashboard: () => void;
+  onExportSummary: () => void;
 };
 
 export type TauriMenuEventUnlisten = () => void;
@@ -69,6 +71,12 @@ export function dispatchMenuEvent(eventId: string, handlers: MenuEventHandlers):
       return true;
     case "menu:shortcuts":
       handlers.onOpenShortcuts();
+      return true;
+    case "menu:go-to-dashboard":
+      handlers.onGoToDashboard();
+      return true;
+    case "menu:export-summary":
+      handlers.onExportSummary();
       return true;
     default:
       return false;

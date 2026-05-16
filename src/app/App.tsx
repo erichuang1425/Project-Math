@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import courseJson from "../content/fixtures/courses/calculus-i.course.json";
 import { eachLesson, findLesson, totalLessons, validateContent, type Course } from "../content";
 import { createDefaultLearnerStateRepository } from "../storage/LearnerStateRepository";
@@ -35,6 +35,7 @@ import {
   subscribeToMenuEvents,
   type TauriMenuEventUnlisten
 } from "./tauriMenu";
+import { triggerLessonSummaryDownload } from "../export/lessonSummaryDownload";
 import appStyles from "./App.module.css";
 
 const ALL_COURSES: Course[] = [];
@@ -215,6 +216,16 @@ export function App() {
     });
   }, []);
 
+  const menuContextRef = useRef({
+    route,
+    courses,
+    learnerState,
+    navigate
+  });
+  useEffect(() => {
+    menuContextRef.current = { route, courses, learnerState, navigate };
+  }, [route, courses, learnerState, navigate]);
+
   useEffect(() => {
     const listener = getTauriEventListener();
     if (!listener) return;
@@ -242,7 +253,21 @@ export function App() {
         onSetTextSize: (textSize) => applyReaderSettingsPatch({ textSize }),
         onSetLineSpacing: (lineSpacing) => applyReaderSettingsPatch({ lineSpacing }),
         onSetFont: (font) => applyReaderSettingsPatch({ font }),
-        onOpenShortcuts: () => setShortcutsOpen(true)
+        onOpenShortcuts: () => setShortcutsOpen(true),
+        onGoToDashboard: () => menuContextRef.current.navigate({ kind: "home" }),
+        onExportSummary: () => {
+          const {
+            route: currentRoute,
+            courses: ctxCourses,
+            learnerState: ctxState
+          } = menuContextRef.current;
+          if (currentRoute.kind !== "lesson") return;
+          const course = ctxCourses.find((c) => c.id === currentRoute.courseId);
+          if (!course) return;
+          const location = findLesson(course, currentRoute.lessonId);
+          if (!location) return;
+          triggerLessonSummaryDownload(course, location.lesson, ctxState);
+        }
       },
       listener
     ).then((u) => {

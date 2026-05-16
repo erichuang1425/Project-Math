@@ -37,6 +37,38 @@ fn save_learner_state(
     std::fs::write(path, json).map_err(|error| format!("Could not write learner state: {error}"))
 }
 
+#[tauri::command]
+fn app_version(app: tauri::AppHandle) -> String {
+    app.package_info().version.to_string()
+}
+
+#[tauri::command]
+fn export_markdown_file(
+    app: tauri::AppHandle,
+    filename: String,
+    content: String,
+) -> Result<String, String> {
+    if filename.contains('/') || filename.contains('\\') || filename.contains("..") {
+        return Err("Filename must not contain path separators.".to_string());
+    }
+
+    let mut path = app
+        .path()
+        .app_data_dir()
+        .map_err(|error| format!("Could not resolve app data directory: {error}"))?;
+    path.push("exports");
+
+    std::fs::create_dir_all(&path)
+        .map_err(|error| format!("Could not create export directory: {error}"))?;
+
+    path.push(&filename);
+
+    std::fs::write(&path, content)
+        .map_err(|error| format!("Could not write export file: {error}"))?;
+
+    Ok(path.to_string_lossy().to_string())
+}
+
 fn learner_state_path(app: &tauri::AppHandle, studybook_id: &str) -> Result<PathBuf, String> {
     if !is_safe_studybook_id(studybook_id) {
         return Err("Studybook id must be lowercase kebab-case.".to_string());
@@ -62,8 +94,31 @@ fn is_safe_studybook_id(input: &str) -> bool {
 }
 
 fn build_app_menu(app: &tauri::AppHandle) -> tauri::Result<()> {
+    let export_summary =
+        MenuItemBuilder::with_id("menu:export-summary", "Export Lesson Summary")
+            .accelerator("CmdOrCtrl+E")
+            .build(app)?;
+    let go_to_dashboard =
+        MenuItemBuilder::with_id("menu:go-to-dashboard", "Return to Dashboard")
+            .accelerator("CmdOrCtrl+Shift+D")
+            .build(app)?;
     let quit = PredefinedMenuItem::quit(app, Some("Quit Project Math"))?;
-    let file_menu = SubmenuBuilder::new(app, "File").item(&quit).build()?;
+    let file_menu = SubmenuBuilder::new(app, "File")
+        .item(&export_summary)
+        .item(&go_to_dashboard)
+        .separator()
+        .item(&quit)
+        .build()?;
+
+    let edit_menu = SubmenuBuilder::new(app, "Edit")
+        .undo()
+        .redo()
+        .separator()
+        .cut()
+        .copy()
+        .paste()
+        .select_all()
+        .build()?;
 
     let toggle_mode = MenuItemBuilder::with_id("menu:toggle-mode", "Toggle Display Mode")
         .accelerator("CmdOrCtrl+M")
@@ -111,6 +166,8 @@ fn build_app_menu(app: &tauri::AppHandle) -> tauri::Result<()> {
         .item(&font_menu)
         .separator()
         .item(&toggle_low_glare)
+        .separator()
+        .fullscreen()
         .build()?;
 
     let shortcuts = MenuItemBuilder::with_id("menu:shortcuts", "Keyboard Shortcuts")
@@ -120,6 +177,7 @@ fn build_app_menu(app: &tauri::AppHandle) -> tauri::Result<()> {
 
     let menu = MenuBuilder::new(app)
         .item(&file_menu)
+        .item(&edit_menu)
         .item(&view_menu)
         .item(&help_menu)
         .build()?;
@@ -143,7 +201,9 @@ pub fn run() {
         })
         .invoke_handler(tauri::generate_handler![
             load_learner_state,
-            save_learner_state
+            save_learner_state,
+            export_markdown_file,
+            app_version,
         ])
         .run(tauri::generate_context!())
         .expect("error while running Project Math");

@@ -4,11 +4,7 @@ import {
   getLessonSummaryCopyStatusMessage,
   type LessonSummaryCopyStatus
 } from "../export/lessonSummaryClipboard";
-import {
-  buildLessonSummaryExport,
-  lessonSummaryExportFileName,
-  renderLessonSummaryMarkdown
-} from "../export/lessonSummaryExport";
+import { buildLessonSummaryFile, downloadTextFile } from "../export/lessonSummaryDownload";
 import type { Course, Lesson, Module } from "../content/schema";
 import type { LearnerState } from "../storage/learnerState";
 import { BlockRenderer } from "./BlockRenderer";
@@ -42,23 +38,15 @@ export function LessonView({
   const copyStatusMessage = getLessonSummaryCopyStatusMessage(copyStatus);
   const isCopyingSummary = copyStatus === "copying";
 
-  function buildSummaryMarkdown() {
-    const summary = buildLessonSummaryExport(course, lesson, learnerState);
-    return {
-      fileName: lessonSummaryExportFileName(summary),
-      markdown: renderLessonSummaryMarkdown(summary)
-    };
-  }
-
   async function handleCopySummary() {
-    const { markdown } = buildSummaryMarkdown();
+    const { markdown } = buildLessonSummaryFile(course, lesson, learnerState);
     setCopyStatus("copying");
     const result = await copyLessonSummaryMarkdown(markdown);
     setCopyStatus(result.status);
   }
 
   function handleExportSummary() {
-    const { fileName, markdown } = buildSummaryMarkdown();
+    const { fileName, markdown } = buildLessonSummaryFile(course, lesson, learnerState);
     downloadTextFile(fileName, markdown);
   }
 
@@ -165,17 +153,4 @@ export function LessonView({
       </footer>
     </article>
   );
-}
-
-function downloadTextFile(fileName: string, content: string) {
-  const blob = new Blob([content], { type: "text/markdown;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement("a");
-
-  anchor.href = url;
-  anchor.download = fileName;
-  document.body.append(anchor);
-  anchor.click();
-  anchor.remove();
-  URL.revokeObjectURL(url);
 }

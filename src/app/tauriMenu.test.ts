@@ -19,7 +19,9 @@ function makeHandlers(): MenuEventHandlers & {
     onSetTextSize: (size) => calls.push({ name: "set-text-size", arg: size }),
     onSetLineSpacing: (spacing) => calls.push({ name: "set-line-spacing", arg: spacing }),
     onSetFont: (font) => calls.push({ name: "set-font", arg: font }),
-    onOpenShortcuts: () => calls.push({ name: "open-shortcuts" })
+    onOpenShortcuts: () => calls.push({ name: "open-shortcuts" }),
+    onGoToDashboard: () => calls.push({ name: "go-to-dashboard" }),
+    onExportSummary: () => calls.push({ name: "export-summary" })
   };
 }
 
@@ -38,7 +40,9 @@ describe("dispatchMenuEvent", () => {
       "menu:line-spacing:wide",
       "menu:font:sans",
       "menu:font:serif",
-      "menu:shortcuts"
+      "menu:shortcuts",
+      "menu:go-to-dashboard",
+      "menu:export-summary"
     ];
 
     for (const id of events) {
@@ -56,7 +60,9 @@ describe("dispatchMenuEvent", () => {
       { name: "set-line-spacing", arg: "wide" },
       { name: "set-font", arg: "sans" },
       { name: "set-font", arg: "serif" },
-      { name: "open-shortcuts" }
+      { name: "open-shortcuts" },
+      { name: "go-to-dashboard" },
+      { name: "export-summary" }
     ]);
   });
 
