@@ -42,6 +42,16 @@ Use this skill for math correctness, LaTeX quality, graph meaning, and feedback 
 - Expression strings are not evaluated by an unsafe parser.
 - Color is not the only way to distinguish series.
 
+## Fixed Output Template
+
+When reporting, use these sections and nothing else:
+
+- **Files touched** — lesson fixtures, LaTeX strings, graph data, quiz feedback copy, math renderer code.
+- **Risks / non-obvious interactions** — KaTeX rendering edge cases, JSON escape hazards, graph sample / expression mismatch, hidden domain assumptions.
+- **Tests added or run** — valid / invalid LaTeX fixtures exercised, graph render tests run, quiz scoring tests run.
+- **Remaining work** — math claims still unverified, graph captions or fixtures still owed.
+- **What done means recap** — one or two sentences restating the math-rendering outcome.
+
 ## What Done Means
 
 A math rendering task is done when:
