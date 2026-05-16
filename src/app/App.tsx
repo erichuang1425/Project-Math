@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import courseJson from "../content/fixtures/courses/calculus-i.course.json";
 import { eachLesson, findLesson, totalLessons, validateContent, type Course } from "../content";
 import { createDefaultLearnerStateRepository } from "../storage/LearnerStateRepository";
@@ -30,6 +30,12 @@ import {
   saveReaderSettings,
   type ReaderSettings
 } from "./readerSettings";
+import {
+  getTauriEventListener,
+  subscribeToMenuEvents,
+  type TauriMenuEventUnlisten
+} from "./tauriMenu";
+import { triggerLessonSummaryDownload } from "../export/lessonSummaryDownload";
 import appStyles from "./App.module.css";
 
 const ALL_COURSES: Course[] = [];
@@ -201,6 +207,81 @@ export function App() {
     setReaderSettings(settings);
     saveReaderSettings(settings, typeof window !== "undefined" ? window.localStorage : undefined);
   }, []);
+
+  const applyReaderSettingsPatch = useCallback((patch: Partial<ReaderSettings>) => {
+    setReaderSettings((current) => {
+      const next = { ...current, ...patch };
+      saveReaderSettings(next, typeof window !== "undefined" ? window.localStorage : undefined);
+      return next;
+    });
+  }, []);
+
+  const menuContextRef = useRef({
+    route,
+    courses,
+    learnerState,
+    navigate
+  });
+  useEffect(() => {
+    menuContextRef.current = { route, courses, learnerState, navigate };
+  }, [route, courses, learnerState, navigate]);
+
+  useEffect(() => {
+    const listener = getTauriEventListener();
+    if (!listener) return;
+    let unlisten: TauriMenuEventUnlisten | undefined;
+    let cancelled = false;
+    void subscribeToMenuEvents(
+      {
+        onToggleMode: () => {
+          setDisplayMode((current) => {
+            const next = toggleDisplayMode(current);
+            persistDisplayMode(next);
+            return next;
+          });
+        },
+        onToggleLowGlare: () => {
+          setReaderSettings((current) => {
+            const next = { ...current, lowGlare: !current.lowGlare };
+            saveReaderSettings(
+              next,
+              typeof window !== "undefined" ? window.localStorage : undefined
+            );
+            return next;
+          });
+        },
+        onSetTextSize: (textSize) => applyReaderSettingsPatch({ textSize }),
+        onSetLineSpacing: (lineSpacing) => applyReaderSettingsPatch({ lineSpacing }),
+        onSetFont: (font) => applyReaderSettingsPatch({ font }),
+        onOpenShortcuts: () => setShortcutsOpen(true),
+        onGoToDashboard: () => menuContextRef.current.navigate({ kind: "home" }),
+        onExportSummary: () => {
+          const {
+            route: currentRoute,
+            courses: ctxCourses,
+            learnerState: ctxState
+          } = menuContextRef.current;
+          if (currentRoute.kind !== "lesson") return;
+          const course = ctxCourses.find((c) => c.id === currentRoute.courseId);
+          if (!course) return;
+          const location = findLesson(course, currentRoute.lessonId);
+          if (!location) return;
+          triggerLessonSummaryDownload(course, location.lesson, ctxState);
+        }
+      },
+      listener
+    ).then((u) => {
+      if (cancelled) {
+        u();
+      } else {
+        unlisten = u;
+      }
+    });
+    return () => {
+      cancelled = true;
+      unlisten?.();
+    };
+  }, [applyReaderSettingsPatch]);
 
   const handleQuizAttempt = useCallback(
     (attempt: QuizAttemptSubmission) => {
