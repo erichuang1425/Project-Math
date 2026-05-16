@@ -151,4 +151,183 @@ describe("validateContent", () => {
       expect(messagesAt(result.errors, "id").join(" ")).toMatch(/kebab-case/);
     }
   });
+
+  it("rejects a non-boolean display on a latex block", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const latex = blocks.find((b: any) => b.type === "latex");
+    latex.display = "yes";
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "display").join(" ")).toMatch(/boolean/);
+    }
+  });
+
+  it("rejects an unknown rich text segment kind", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const concept = blocks.find((b: any) => b.type === "concept");
+    concept.body.push({ kind: "marquee", value: "?" });
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "kind").join(" ")).toMatch(/rich text segment kind/);
+    }
+  });
+
+  it("rejects a term segment whose termId is not lowercase kebab-case", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const concept = blocks.find((b: any) => b.type === "concept");
+    concept.body.push({ kind: "term", termId: "BadTermId", label: "phantom" });
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "termId").join(" ")).toMatch(/kebab-case/);
+    }
+  });
+
+  it("rejects an unknown quiz question kind", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const quiz = blocks.find((b: any) => b.type === "quiz");
+    quiz.questions[0] = { ...quiz.questions[0], kind: "ranking" };
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "kind").join(" ")).toMatch(/quiz question kind/);
+    }
+  });
+
+  it("accepts a valid shortAnswer question and rejects missing feedback", () => {
+    const okCourse = clone(makeMinimalCourse());
+    const okBlocks = okCourse.modules[0].lessons[0].sections[0].blocks;
+    const okQuiz = okBlocks.find((b: any) => b.type === "quiz");
+    okQuiz.questions[0] = {
+      kind: "shortAnswer",
+      id: "q1",
+      prompt: [{ kind: "text", value: "Name it." }],
+      acceptedAnswers: ["derivative"],
+      feedback: { correct: "Right.", incorrect: "Try again." },
+      conceptTags: ["derivative"]
+    };
+    const okResult = validateContent(okCourse);
+    expect(okResult.ok).toBe(true);
+
+    const badCourse = clone(okCourse);
+    const badBlocks = badCourse.modules[0].lessons[0].sections[0].blocks;
+    const badQuiz = badBlocks.find((b: any) => b.type === "quiz");
+    delete badQuiz.questions[0].feedback;
+    const badResult = validateContent(badCourse);
+    expect(badResult.ok).toBe(false);
+    if (!badResult.ok) {
+      expect(messagesAt(badResult.errors, "feedback").join(" ")).toMatch(
+        /Short answer feedback is required/
+      );
+    }
+  });
+
+  it("rejects an unknown graph series kind", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const graph = blocks.find((b: any) => b.type === "graph");
+    graph.spec.series[0] = { id: "f", label: "f", kind: "spiral" };
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "kind").join(" ")).toMatch(/graph series kind/);
+    }
+  });
+
+  it("accepts a points series and a line series, rejecting bad point pairs", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const graph = blocks.find((b: any) => b.type === "graph");
+    graph.spec.series = [
+      {
+        id: "p",
+        label: "Special points",
+        kind: "points",
+        points: [
+          [0, 0],
+          [1, 1]
+        ]
+      },
+      {
+        id: "l",
+        label: "Tangent",
+        kind: "line",
+        through: [
+          [0, 0],
+          [1, 2]
+        ]
+      }
+    ];
+    expect(validateContent(course).ok).toBe(true);
+
+    graph.spec.series[1].through = [[0, 0]];
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "through").join(" ")).toMatch(/two points/);
+    }
+  });
+
+  it("rejects function samples shorter than two pairs", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const graph = blocks.find((b: any) => b.type === "graph");
+    graph.spec.series[0].samples = [[0, 0]];
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "samples").join(" ")).toMatch(/at least two/);
+    }
+  });
+
+  it("rejects graph annotations that are not unique by id", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const graph = blocks.find((b: any) => b.type === "graph");
+    graph.spec.annotations = [
+      { id: "ann", label: "First" },
+      { id: "ann", label: "Second" }
+    ];
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "annotations").join(" ")).toMatch(/Duplicate/);
+    }
+  });
+
+  it("rejects a duplicate block id within a lesson", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    blocks.push({ ...blocks[0] });
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.errors.map((e) => e.message).join(" ")).toMatch(/Duplicate/);
+    }
+  });
+
+  it("accepts a revision layer and rejects a non-object one", () => {
+    const okCourse = clone(makeMinimalCourse());
+    okCourse.modules[0].lessons[0].revision = {
+      keyIdeas: ["Slope as limit."],
+      recallPrompts: ["State the definition."],
+      mistakeIds: ["intro-mistake"],
+      quizIds: ["intro-quiz"]
+    };
+    expect(validateContent(okCourse).ok).toBe(true);
+
+    const badCourse = clone(okCourse);
+    badCourse.modules[0].lessons[0].revision = "not-an-object";
+    const result = validateContent(badCourse);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "revision").join(" ")).toMatch(/object/);
+    }
+  });
 });

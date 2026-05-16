@@ -31,15 +31,15 @@ Use this skill when a frontend slice needs a Project Math visual direction, not 
 - Keep graph and equation attention cues direct: state what to notice, then show it.
 - Do not add UI frameworks, font packages, animation libraries, graphing libraries, or runtime dependencies.
 
-## Output
+## Fixed Output Template
 
-When proposing or reviewing a visual-system change, report:
+When reporting, use these sections and nothing else:
 
-- Surfaces affected.
-- Visual principle applied.
-- Accessibility and low-sensory impact.
-- Files expected to change.
-- Verification or smoke path needed.
+- **Files touched** — components, CSS modules, illustrations, and tokens updated.
+- **Risks / non-obvious interactions** — math / graph legibility, Polished vs. Calm parity, focus and state cues that depend on color alone, narrow-desktop overflow.
+- **Tests added or run** — render tests, visual smoke commands executed (`npm.cmd run typecheck`, `npm.cmd test`, `npm.cmd run preview`); note any visual check skipped.
+- **Remaining work** — surfaces deferred to a follow-up visual slice.
+- **What done means recap** — one or two sentences restating the visual outcome.
 
 ## What Done Means
 

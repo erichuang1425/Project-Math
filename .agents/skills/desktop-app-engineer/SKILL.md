@@ -44,6 +44,16 @@ The minimum desktop smoke path is:
 5. Quiz can be answered.
 6. App still works without network access.
 
+## Fixed Output Template
+
+When reporting, use these sections and nothing else:
+
+- **Files touched** — Rust crate sources, `tauri.conf.json`, repository adapters, build scripts, README sections.
+- **Risks / non-obvious interactions** — offline behavior, learner-state path resolution, command surface broken into UI, Windows / macOS / Linux divergence.
+- **Tests added or run** — `npm.cmd test`, `npm.cmd run typecheck`, `npm.cmd run build`, desktop smoke steps actually walked; explicitly note any platform not exercised.
+- **Remaining work** — outstanding native integration tasks (menu wiring, icons, window restore, recent courses).
+- **What done means recap** — one or two sentences restating the desktop outcome.
+
 ## What Done Means
 
 A desktop engineering task is done when:
