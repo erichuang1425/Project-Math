@@ -141,6 +141,10 @@
 }
 
 .pathStep {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
   color: var(--reader-muted-text, #586057);
   font-size: 0.78rem;
   font-weight: 800;
@@ -149,6 +153,29 @@
 
 .sectionPathLinkActive .pathStep {
   color: var(--reader-accent-text, #244e52);
+}
+
+.pathStepMarker {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--reader-accent, #2f5d62);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .lessonBody {

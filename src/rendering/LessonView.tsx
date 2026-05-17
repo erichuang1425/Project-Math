@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   copyLessonSummaryMarkdown,
   getLessonSummaryCopyStatusMessage,
@@ -9,6 +9,7 @@ import type { Course, Lesson, Module } from "../content/schema";
 import type { LearnerState } from "../storage/learnerState";
 import { BlockRenderer } from "./BlockRenderer";
 import type { QuizAttemptSubmission } from "./blocks/QuizBlockView";
+import { useActiveSection } from "./useActiveSection";
 import styles from "./lesson.module.css";
 
 type LessonViewProps = {
@@ -41,38 +42,27 @@ export function LessonView({
   const [copyStatus, setCopyStatus] = useState<LessonSummaryCopyStatus>("idle");
   const copyStatusMessage = getLessonSummaryCopyStatusMessage(copyStatus);
   const isCopyingSummary = copyStatus === "copying";
-  const [activeSectionId, setActiveSectionId] = useState<string | null>(
-    lesson.sections[0]?.id ?? null
-  );
 
+  const sectionIds = useMemo(() => lesson.sections.map((s) => s.id), [lesson.sections]);
+  const activeSectionId = useActiveSection({ sectionIds, initialSectionId });
+  const activeSection = lesson.sections.find((s) => s.id === activeSectionId) ?? null;
+  const activeSectionIndex = activeSection ? lesson.sections.indexOf(activeSection) : -1;
+
+  const lastAnnouncedRef = useRef<string | null>(null);
+  const [announcement, setAnnouncement] = useState<string>("");
   useEffect(() => {
-    setActiveSectionId(lesson.sections[0]?.id ?? null);
-    if (typeof window === "undefined" || typeof IntersectionObserver === "undefined") return;
-    const sectionEls = lesson.sections
-      .map((section) => document.getElementById(section.id))
-      .filter((el): el is HTMLElement => el !== null);
-    if (sectionEls.length === 0) return;
-
-    if (initialSectionId && initialSectionId !== lesson.sections[0]?.id) {
-      const target = sectionEls.find((el) => el.id === initialSectionId);
-      if (target) {
-        target.scrollIntoView({ block: "start" });
-        setActiveSectionId(initialSectionId);
-      }
+    if (!activeSection) return;
+    // Skip the initial mount; let the screen reader announce the heading itself.
+    if (lastAnnouncedRef.current === null) {
+      lastAnnouncedRef.current = activeSection.id;
+      return;
     }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-        if (visible[0]) setActiveSectionId(visible[0].target.id);
-      },
-      { rootMargin: "0px 0px -70% 0px", threshold: 0 }
+    if (lastAnnouncedRef.current === activeSection.id) return;
+    lastAnnouncedRef.current = activeSection.id;
+    setAnnouncement(
+      `Now reading step ${activeSectionIndex + 1} of ${lesson.sections.length}: ${activeSection.title}`
     );
-    sectionEls.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, [lesson.id, lesson.sections, initialSectionId]);
+  }, [activeSection, activeSectionIndex, lesson.sections.length]);
 
   useEffect(() => {
     if (!onSectionView || !activeSectionId) return;
@@ -123,7 +113,14 @@ export function LessonView({
                     className={isActive ? styles.sectionPathLinkActive : undefined}
                     aria-current={isActive ? "step" : undefined}
                   >
-                    <span className={styles.pathStep}>Step {index + 1}</span>
+                    <span className={styles.pathStep}>
+                      Step {index + 1}
+                      {isActive ? (
+                        <span className={styles.pathStepMarker} aria-hidden="true">
+                          You are here
+                        </span>
+                      ) : null}
+                    </span>
                     <span>{section.title}</span>
                     <span>{section.blocks.length} study blocks</span>
                   </a>
@@ -131,6 +128,15 @@ export function LessonView({
               );
             })}
           </ol>
+          <p
+            className={styles.visuallyHidden}
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            data-testid="active-section-announcement"
+          >
+            {announcement}
+          </p>
         </nav>
 
         <div className={styles.sectionStack}>
