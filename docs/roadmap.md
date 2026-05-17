@@ -79,10 +79,10 @@ Shipped:
 - Quiz status text is explicit for unselected / ready-to-check / correct / review states.
 - Glossary popover anchored to `term` segments: non-modal `<dialog>` with viewport-edge flipping, focus return on every close path (ESC, X button, outside click, scroll), Calm-mode parity (no animation, no shadow), and full test coverage across `RichText`, `GlossaryPopover`, `GlossaryContext`, the `popoverPosition` helper, and the shared `Dialog` primitive.
 - `ReaderControls.tsx` aria-labelledby conflation fixed: the disclosure `<summary>` carries a stable `aria-label="Reader controls"` so its accessible name no longer mutates with each live-status update, the panel no longer borrows the trigger's heading id as its label, and the intro copy is now `aria-describedby`'d onto the inner `<fieldset>` that actually groups the controls. Regression tests in `ReaderControls.test.tsx` guard the stable label, the absence of `aria-labelledby="reader-controls-heading"`, and the fieldset description wiring.
+- IntersectionObserver-driven active-section indicator extracted into `useActiveSection` (`src/rendering/useActiveSection.ts`): first section active on mount, topmost intersecting section wins on scroll, `initialSectionId` deep-links resume by scrolling and marking that section active, observer disconnects on unmount. Side-nav `aria-current="step"` flips with the observer, the active entry now carries a visible "You are here" pill, and a visually-hidden `aria-live="polite"` region in the path nav announces `"Now reading step N of M: <title>"` on every subsequent change (initial mount stays silent so screen readers don't double-announce the lesson heading). Covered by `src/rendering/__tests__/useActiveSection.test.tsx` (9 hook-level cases) and `src/rendering/__tests__/LessonView.activeSection.test.tsx` (4 integration cases) using a mock IntersectionObserver.
 
 Open:
 
-- IntersectionObserver-driven active-section indicator.
 - Worked-example step rail, action-cue chips, final-answer band.
 - Quiz: "Press Enter to submit" affordance; correctness via icon + label + border.
 
@@ -132,13 +132,12 @@ What done means: CI green from a clean clone with the new per-directory threshol
 
 Next vertical slices, smallest first. Each row is intended as a single PR.
 
-1. Phase 5 — IntersectionObserver-driven active-section indicator in the reader.
-2. Phase 5 — Worked-example step rail, action-cue chips, final-answer band.
-3. Phase 5 — Quiz "Press Enter to submit" affordance + correctness via icon + label + border.
-4. Phase 4 — Author `term` segments across the remaining authored lessons (`derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative`).
-5. Phase 4 — Module A: limits intuitively, one-sided & infinite limits.
-6. Phase 4 — Module B: differentiability vs continuity.
-7. Phase 4 — Module C: power, sum/difference, product, quotient, chain, tangent-line capstone.
-8. Phase 6 — Rust-side File / View / Help menu emission with reader-setting shortcuts.
-9. Phase 6 — `open_course_dialog`, `export_learner_state`, `import_learner_state` with safe-slug validation.
-10. Phase 6 — App icon set, window restore, dynamic title (`Course — Lesson`), recent courses (last 5).
+1. Phase 5 — Worked-example step rail, action-cue chips, final-answer band.
+2. Phase 5 — Quiz "Press Enter to submit" affordance + correctness via icon + label + border.
+3. Phase 4 — Author `term` segments across the remaining authored lessons (`derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative`).
+4. Phase 4 — Module A: limits intuitively, one-sided & infinite limits.
+5. Phase 4 — Module B: differentiability vs continuity.
+6. Phase 4 — Module C: power, sum/difference, product, quotient, chain, tangent-line capstone.
+7. Phase 6 — Rust-side File / View / Help menu emission with reader-setting shortcuts.
+8. Phase 6 — `open_course_dialog`, `export_learner_state`, `import_learner_state` with safe-slug validation.
+9. Phase 6 — App icon set, window restore, dynamic title (`Course — Lesson`), recent courses (last 5).
