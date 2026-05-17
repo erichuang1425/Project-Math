@@ -100,15 +100,21 @@ export function makeMinimalCourse(): Course {
                         id: "step-write",
                         label: "Write the definition",
                         explanation: "Start with the limit definition.",
-                        latex: "\\frac{f(x+h)-f(x)}{h}"
+                        latex: "\\frac{f(x+h)-f(x)}{h}",
+                        actionCue: "Define"
                       },
                       {
                         id: "step-cancel",
                         label: "Cancel h",
                         explanation: "Simplify the numerator.",
-                        latex: "2x+h"
+                        latex: "2x+h",
+                        actionCue: "Simplify"
                       }
                     ],
+                    finalAnswer: {
+                      latex: "f'(x) = 2x",
+                      summary: "The slope at x is 2x."
+                    },
                     interpretation: "The slope is 2x."
                   },
                   {
