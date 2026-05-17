@@ -47,7 +47,14 @@ describe("calculus-i course fixture", () => {
     const ids = result.course.glossary.map((term) => term.id);
     expect(ids).toContain("derivative");
     expect(ids).toEqual(
-      expect.arrayContaining(["function", "domain", "range", "input", "output", "function-notation"])
+      expect.arrayContaining([
+        "function",
+        "domain",
+        "range",
+        "input",
+        "output",
+        "function-notation"
+      ])
     );
   });
 });
