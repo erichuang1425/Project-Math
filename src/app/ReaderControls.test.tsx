@@ -50,4 +50,29 @@ describe("ReaderControls", () => {
     expect(html).toContain('id="reader-controls-status"');
     expect(html).toContain('aria-live="polite"');
   });
+
+  it("locks the disclosure trigger's accessible name to a stable label", () => {
+    const html = renderToStaticMarkup(
+      <ReaderControls settings={defaultReaderSettings} onSettingsChange={() => {}} />
+    );
+
+    expect(html).toMatch(/<summary[^>]*aria-label="Reader controls"/);
+  });
+
+  it("does not borrow the disclosure trigger's heading id as the panel label", () => {
+    const html = renderToStaticMarkup(
+      <ReaderControls settings={defaultReaderSettings} onSettingsChange={() => {}} />
+    );
+
+    expect(html).not.toContain('aria-labelledby="reader-controls-heading"');
+  });
+
+  it("describes the controls fieldset with the panel intro copy", () => {
+    const html = renderToStaticMarkup(
+      <ReaderControls settings={defaultReaderSettings} onSettingsChange={() => {}} />
+    );
+
+    expect(html).toMatch(/<fieldset[^>]*aria-describedby="reader-controls-description"/);
+    expect(html).toContain('id="reader-controls-description"');
+  });
 });
