@@ -287,6 +287,8 @@ function validateBlock(
   }
 }
 
+const ACTION_CUE_MAX_LENGTH = 32;
+
 function validateWorkedExample(
   input: Record<string, unknown>,
   path: string,
@@ -296,6 +298,16 @@ function validateWorkedExample(
   expectNonEmptyString(input.goal, `${path}.goal`, ctx);
   expectOptionalString(input.given, `${path}.given`, ctx);
   expectOptionalString(input.interpretation, `${path}.interpretation`, ctx);
+
+  if (input.finalAnswer !== undefined) {
+    const fa = input.finalAnswer;
+    if (!isRecord(fa)) {
+      addError(ctx, `${path}.finalAnswer`, "Final answer must be an object.");
+    } else {
+      validateLatex(fa.latex, `${path}.finalAnswer.latex`, true, ctx);
+      expectOptionalString(fa.summary, `${path}.finalAnswer.summary`, ctx);
+    }
+  }
 
   const steps = expectNonEmptyArray(input.steps, `${path}.steps`, ctx);
   if (!steps) return;
@@ -312,6 +324,18 @@ function validateWorkedExample(
     expectNonEmptyString(step.explanation, `${stepPath}.explanation`, ctx);
     if (step.latex !== undefined) {
       validateLatex(step.latex, `${stepPath}.latex`, true, ctx);
+    }
+    if (step.actionCue !== undefined) {
+      if (!expectNonEmptyString(step.actionCue, `${stepPath}.actionCue`, ctx)) {
+        return;
+      }
+      if ((step.actionCue as string).length > ACTION_CUE_MAX_LENGTH) {
+        addError(
+          ctx,
+          `${stepPath}.actionCue`,
+          `Action cue must be ${ACTION_CUE_MAX_LENGTH} characters or fewer.`
+        );
+      }
     }
   });
 }

@@ -87,4 +87,86 @@ describe("WorkedExampleBlockView", () => {
     await user.click(tabs[2]);
     expect(screen.getByText(/Step 3 of 3/)).toBeInTheDocument();
   });
+
+  it("renders an action-cue chip on the active step panel when actionCue is set", async () => {
+    const user = userEvent.setup();
+    const cueBlock = {
+      ...threeStepBlock,
+      steps: [
+        { ...threeStepBlock.steps[0], actionCue: "Define" },
+        { ...threeStepBlock.steps[1], actionCue: "Expand" },
+        { ...threeStepBlock.steps[2], actionCue: "Conclude" }
+      ]
+    };
+    render(<WorkedExampleBlockView block={cueBlock} />);
+
+    const panel = screen.getByRole("tabpanel");
+    expect(panel).toHaveTextContent("Action");
+    expect(panel).toHaveTextContent("Define");
+    expect(screen.getAllByText("Define")).toHaveLength(2);
+
+    await user.click(screen.getByRole("button", { name: "Next step" }));
+    expect(screen.getByText(/Step 2 of 3/)).toBeInTheDocument();
+    const nextPanel = screen.getByRole("tabpanel");
+    expect(nextPanel).toHaveTextContent("Expand");
+    expect(nextPanel).not.toHaveTextContent("Define");
+  });
+
+  it("renders cues on every step pill, including inactive ones", () => {
+    const cueBlock = {
+      ...threeStepBlock,
+      steps: [
+        { ...threeStepBlock.steps[0], actionCue: "Define" },
+        { ...threeStepBlock.steps[1], actionCue: "Expand" },
+        { ...threeStepBlock.steps[2], actionCue: "Conclude" }
+      ]
+    };
+    render(<WorkedExampleBlockView block={cueBlock} />);
+
+    const tabs = screen.getAllByRole("tab");
+    expect(tabs[0]).toHaveTextContent("Define");
+    expect(tabs[1]).toHaveTextContent("Expand");
+    expect(tabs[2]).toHaveTextContent("Conclude");
+  });
+
+  it("omits the action-cue chip when no actionCue is provided", () => {
+    render(<WorkedExampleBlockView block={threeStepBlock} />);
+    expect(screen.queryByText("Action")).not.toBeInTheDocument();
+  });
+
+  it("renders a final-answer band with latex and summary when finalAnswer is set", () => {
+    render(
+      <WorkedExampleBlockView
+        block={{
+          ...threeStepBlock,
+          finalAnswer: {
+            latex: "f'(x) = 2x",
+            summary: "The slope of x^2 is 2x at every input."
+          }
+        }}
+      />
+    );
+    expect(screen.getByLabelText("Final answer")).toBeInTheDocument();
+    expect(screen.getByText("Final answer")).toBeInTheDocument();
+    expect(screen.getByText(/The slope of x\^2 is 2x at every input\./)).toBeInTheDocument();
+  });
+
+  it("renders the final-answer band without summary when summary is omitted", () => {
+    render(
+      <WorkedExampleBlockView
+        block={{
+          ...threeStepBlock,
+          finalAnswer: { latex: "f'(x) = 2x" }
+        }}
+      />
+    );
+    const band = screen.getByLabelText("Final answer");
+    expect(band).toBeInTheDocument();
+    expect(band.querySelectorAll("p")).toHaveLength(1);
+  });
+
+  it("omits the final-answer band when finalAnswer is not provided", () => {
+    render(<WorkedExampleBlockView block={threeStepBlock} />);
+    expect(screen.queryByLabelText("Final answer")).not.toBeInTheDocument();
+  });
 });

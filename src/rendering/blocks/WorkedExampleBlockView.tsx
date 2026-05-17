@@ -41,6 +41,11 @@ export function WorkedExampleBlockView({ block }: WorkedExampleBlockViewProps) {
             onClick={() => setActiveIndex(i)}
           >
             <span className={styles.stepPillNumber}>{i + 1}</span>
+            {s.actionCue ? (
+              <span className={styles.stepPillCue} aria-hidden="true">
+                {s.actionCue}
+              </span>
+            ) : null}
             <span className={styles.stepPillLabel}>{s.label}</span>
           </button>
         ))}
@@ -59,6 +64,14 @@ export function WorkedExampleBlockView({ block }: WorkedExampleBlockViewProps) {
             </strong>{" "}
             {step.label}
           </p>
+          {step.actionCue ? (
+            <p className={styles.stepActionCue}>
+              <span className={styles.actionCueChip}>
+                <span className={styles.actionCueLabel}>Action</span>
+                <span className={styles.actionCueText}>{step.actionCue}</span>
+              </span>
+            </p>
+          ) : null}
           <p>{step.explanation}</p>
           {step.latex ? <MathBlock latex={step.latex} /> : null}
           <div className={styles.stepNavigation}>
@@ -85,6 +98,20 @@ export function WorkedExampleBlockView({ block }: WorkedExampleBlockViewProps) {
             </button>
           </div>
         </div>
+      ) : null}
+
+      {block.finalAnswer ? (
+        <aside
+          className={styles.finalAnswerBand}
+          aria-label="Final answer"
+          data-testid="final-answer-band"
+        >
+          <p className={styles.finalAnswerLabel}>Final answer</p>
+          <MathBlock latex={block.finalAnswer.latex} />
+          {block.finalAnswer.summary ? (
+            <p className={styles.finalAnswerSummary}>{block.finalAnswer.summary}</p>
+          ) : null}
+        </aside>
       ) : null}
 
       {block.interpretation ? (
