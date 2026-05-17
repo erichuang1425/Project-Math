@@ -481,13 +481,7 @@
                           "value": " in expanded form."
                         }
                       ],
-                      "acceptedAnswers": [
-                        "2(x+h)+1",
-                        "2x+2h+1",
-                        "2h+2x+1",
-                        "1+2x+2h",
-                        "1+2h+2x"
-                      ],
+                      "acceptedAnswers": ["2(x+h)+1", "2x+2h+1", "2h+2x+1", "1+2x+2h", "1+2h+2x"],
                       "feedback": {
                         "correct": "Correct. Substitute x + h for x, then distribute the 2.",
                         "incorrect": "Review the parentheses mistake. Substitute (x + h) into 2x + 1, then distribute the 2 to get 2x + 2h + 1."
@@ -585,7 +579,10 @@
               "What is f(x + h) when f(x) = 2x + 1, written without parentheses?"
             ],
             "mistakeIds": ["drop-parentheses-on-x-plus-h"],
-            "quizIds": ["functions-refresher-evaluate-check", "functions-refresher-expression-check"]
+            "quizIds": [
+              "functions-refresher-evaluate-check",
+              "functions-refresher-expression-check"
+            ]
           }
         }
       ]
