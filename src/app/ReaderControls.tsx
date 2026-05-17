@@ -17,7 +17,7 @@ export function ReaderControls({ settings, onSettingsChange }: ReaderControlsPro
 
   return (
     <details className={styles.readerControls}>
-      <summary className={styles.readerControlSummary}>
+      <summary className={styles.readerControlSummary} aria-label="Reader controls">
         <span id="reader-controls-heading">Reader controls</span>
         <span
           id="reader-controls-status"
@@ -27,14 +27,12 @@ export function ReaderControls({ settings, onSettingsChange }: ReaderControlsPro
           {settingsSummary}
         </span>
       </summary>
-      <div
-        className={styles.readerControlPanel}
-        role="group"
-        aria-labelledby="reader-controls-heading"
-        aria-describedby="reader-controls-description"
-      >
+      <div className={styles.readerControlPanel}>
         <p id="reader-controls-description">These controls change this reading pane only.</p>
-        <fieldset className={styles.readerControlFieldset}>
+        <fieldset
+          className={styles.readerControlFieldset}
+          aria-describedby="reader-controls-description"
+        >
           <legend>Display choices</legend>
           <div className={styles.readerControlGrid}>
             <div className={styles.readerControlItem}>
