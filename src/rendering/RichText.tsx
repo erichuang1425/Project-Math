@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { RichTextSegment } from "../content/schema";
 import { MathInline } from "../math/MathInline";
 import { useGlossaryTerm } from "./GlossaryContext";
@@ -28,6 +28,7 @@ export function RichText({ segments }: RichTextProps) {
 
 function TermSegment({ termId, label }: { termId: string; label: string }) {
   const [open, setOpen] = useState(false);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
   const term = useGlossaryTerm(termId);
 
   if (!term) {
@@ -41,16 +42,22 @@ function TermSegment({ termId, label }: { termId: string; label: string }) {
   return (
     <>
       <button
+        ref={triggerRef}
         type="button"
         className={styles.termButton}
         data-term-id={termId}
         aria-haspopup="dialog"
         aria-expanded={open}
-        onClick={() => setOpen(true)}
+        onClick={() => setOpen((current) => !current)}
       >
         {label}
       </button>
-      <GlossaryPopover term={term} open={open} onClose={() => setOpen(false)} />
+      <GlossaryPopover
+        term={term}
+        open={open}
+        onClose={() => setOpen(false)}
+        triggerRef={triggerRef}
+      />
     </>
   );
 }
