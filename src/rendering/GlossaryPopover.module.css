@@ -1,0 +1,76 @@
+.popover {
+  position: fixed;
+  z-index: 50;
+  max-width: min(22rem, 92vw);
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--pm-color-panel-border);
+  background: var(--pm-color-surface);
+  color: var(--pm-color-text);
+  border-radius: var(--pm-radius-3);
+  box-shadow: var(--pm-shadow-2);
+  font-family: inherit;
+}
+
+.popover::backdrop {
+  display: none;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pm-space-3);
+  padding: var(--pm-space-3) var(--pm-space-4);
+  border-bottom: 1px solid var(--pm-color-rule);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--pm-size-md);
+  font-weight: 700;
+}
+
+.body {
+  padding: var(--pm-space-4);
+  font-size: var(--pm-size-sm);
+  line-height: var(--pm-leading-normal);
+}
+
+.closeButton {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--pm-color-text-muted);
+  cursor: pointer;
+  padding: var(--pm-space-1) var(--pm-space-2);
+  border-radius: var(--pm-radius-1);
+  font: inherit;
+}
+
+.closeButton:hover,
+.closeButton:focus-visible {
+  background: var(--pm-color-surface-sunken);
+  color: var(--pm-color-text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-mode="polished"] .popover[open] {
+    animation: pm-popover-in 140ms var(--pm-ease-standard, ease) both;
+  }
+}
+
+[data-mode="calm"] .popover {
+  box-shadow: none;
+}
+
+@keyframes pm-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
