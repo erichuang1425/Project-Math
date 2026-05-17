@@ -1,5 +1,5 @@
 .lesson {
-  max-width: min(calc(72ch * var(--reader-font-scale, 1)), 1120px);
+  max-width: min(calc(82ch * var(--reader-font-scale, 1)), 100%);
   margin: 0 auto;
   color: var(--reader-text, #20231f);
   font-family: var(
@@ -153,8 +153,8 @@
 
 .lessonBody {
   display: grid;
-  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
-  gap: 22px;
+  grid-template-columns: minmax(160px, 200px) minmax(0, 1fr);
+  gap: 28px;
   align-items: start;
 }
 
