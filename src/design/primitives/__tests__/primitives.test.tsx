@@ -1,6 +1,7 @@
-import { afterEach, describe, expect, it } from "vitest";
-import { cleanup, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { Button } from "../Button";
+import { Dialog } from "../Dialog";
 import { Pill } from "../Pill";
 import { ProgressRing } from "../ProgressRing";
 import { ProgressBar } from "../ProgressBar";
@@ -67,5 +68,54 @@ describe("Stat", () => {
     render(<Stat label="Streak" value="4 days" />);
     expect(screen.getByText("Streak")).toBeInTheDocument();
     expect(screen.getByText("4 days")).toBeInTheDocument();
+  });
+});
+
+describe("Dialog", () => {
+  it("opens the underlying dialog element when open is true", () => {
+    render(
+      <Dialog open title="Settings" onClose={() => undefined}>
+        <p>Body</p>
+      </Dialog>
+    );
+    const dialog = document.querySelector("dialog");
+    expect(dialog?.hasAttribute("open")).toBe(true);
+    expect(screen.getByRole("heading", { name: "Settings" })).toBeInTheDocument();
+    expect(screen.getByText("Body")).toBeInTheDocument();
+  });
+
+  it("invokes onClose when the close button is clicked", () => {
+    const onClose = vi.fn();
+    render(
+      <Dialog open title="Settings" onClose={onClose}>
+        <p>Body</p>
+      </Dialog>
+    );
+    fireEvent.click(screen.getByRole("button", { name: "Close dialog" }));
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("invokes onClose when the backdrop (dialog element) is clicked", () => {
+    const onClose = vi.fn();
+    render(
+      <Dialog open title="Settings" onClose={onClose}>
+        <p>Body</p>
+      </Dialog>
+    );
+    const dialog = document.querySelector("dialog")!;
+    fireEvent.click(dialog);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("invokes onClose when the dialog cancel (ESC) event fires", () => {
+    const onClose = vi.fn();
+    render(
+      <Dialog open title="Settings" onClose={onClose}>
+        <p>Body</p>
+      </Dialog>
+    );
+    const dialog = document.querySelector("dialog")!;
+    fireEvent(dialog, new Event("cancel", { cancelable: true }));
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 });
