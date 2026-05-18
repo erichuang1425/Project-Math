@@ -103,6 +103,11 @@ type RichTextSegment =
 
 Block payloads are unchanged from schemaVersion 1.0 except for the universal `id` + optional `objectiveIds` + optional `estimatedMinutes` additions. See `src/content/schema.ts` for the authoritative source.
 
+`WorkedExampleBlock` also accepts two reader-polish fields:
+
+- `steps[i].actionCue` — optional short verb-like cue (≤32 chars) shown as a chip on the step pill and inside the active step panel. Use it to label what the step _does_ ("Substitute", "Expand", "Cancel", "Take limit").
+- `finalAnswer` — optional `{ latex: string; summary?: string }`. Renders as a distinct "Final answer" band below the steps, separate from `interpretation` (which stays a prose sentence about meaning).
+
 ## Glossary
 
 ```ts

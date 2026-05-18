@@ -307,27 +307,35 @@
                       "id": "fxh-write-rule",
                       "label": "Write the rule",
                       "explanation": "State the function before any substitution.",
-                      "latex": "f(x)=x^2"
+                      "latex": "f(x)=x^2",
+                      "actionCue": "State"
                     },
                     {
                       "id": "fxh-substitute",
                       "label": "Substitute the whole input",
                       "explanation": "Replace x with the expression x + h. Keep the parentheses around x + h.",
-                      "latex": "f(x+h)=(x+h)^2"
+                      "latex": "f(x+h)=(x+h)^2",
+                      "actionCue": "Substitute"
                     },
                     {
                       "id": "fxh-expand",
                       "label": "Expand the square",
                       "explanation": "Apply the square to every term inside the parentheses. The cross term is 2xh.",
-                      "latex": "f(x+h)=x^2+2xh+h^2"
+                      "latex": "f(x+h)=x^2+2xh+h^2",
+                      "actionCue": "Expand"
                     },
                     {
                       "id": "fxh-state-result",
                       "label": "State the result",
                       "explanation": "This is the value of f at the input x + h. It is the form used in the difference quotient.",
-                      "latex": "f(x+h)=x^2+2xh+h^2"
+                      "latex": "f(x+h)=x^2+2xh+h^2",
+                      "actionCue": "Conclude"
                     }
                   ],
+                  "finalAnswer": {
+                    "latex": "f(x+h)=x^2+2xh+h^2",
+                    "summary": "Substituting x + h into x^2 and expanding leaves x^2, the cross term 2xh, and h^2."
+                  },
                   "interpretation": "The expression x + h is the next input the derivative lesson will use. Keep the parentheses until after the square is expanded."
                 },
                 {
@@ -997,45 +1005,56 @@
                       "id": "start-definition",
                       "label": "Write the definition",
                       "explanation": "Start with the formal rule. The gap h is not zero yet.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
+                      "actionCue": "Define"
                     },
                     {
                       "id": "substitute-function",
                       "label": "Substitute f(x) = x^2",
                       "explanation": "Replace f(x+h) with (x+h)^2. Replace f(x) with x^2.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{(x+h)^2-x^2}{h}"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{(x+h)^2-x^2}{h}",
+                      "actionCue": "Substitute"
                     },
                     {
                       "id": "expand-square",
                       "label": "Expand the square",
                       "explanation": "Write out the numerator so the matching terms are visible.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{x^2+2xh+h^2-x^2}{h}"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{x^2+2xh+h^2-x^2}{h}",
+                      "actionCue": "Expand"
                     },
                     {
                       "id": "combine-terms",
                       "label": "Combine like terms",
                       "explanation": "The terms x^2 and -x^2 add to zero.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{2xh+h^2}{h}"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{2xh+h^2}{h}",
+                      "actionCue": "Combine"
                     },
                     {
                       "id": "factor-h",
                       "label": "Factor h while h is not zero",
                       "explanation": "Each remaining numerator term has a factor h. This is the safe reason cancellation will work.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{h(2x+h)}{h},\\quad h\\ne 0"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{h(2x+h)}{h},\\quad h\\ne 0",
+                      "actionCue": "Factor"
                     },
                     {
                       "id": "cancel-h",
                       "label": "Cancel the common factor",
                       "explanation": "Now the quotient no longer divides by h.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}(2x+h)"
+                      "latex": "f'(x)=\\lim_{h\\to 0}(2x+h)",
+                      "actionCue": "Cancel"
                     },
                     {
                       "id": "evaluate-limit",
                       "label": "Evaluate the limit",
                       "explanation": "Now h can approach 0. There is no division by h left.",
-                      "latex": "f'(x)=2x"
+                      "latex": "f'(x)=2x",
+                      "actionCue": "Take limit"
                     }
                   ],
+                  "finalAnswer": {
+                    "latex": "f'(x)=2x",
+                    "summary": "The tangent slope of y = x^2 at input x equals 2x."
+                  },
                   "interpretation": "The result says: at input x, the tangent slope of y = x^2 is 2x."
                 },
                 {
@@ -1133,39 +1152,49 @@
                       "id": "linear-start-definition",
                       "label": "Write the definition",
                       "explanation": "Use the same first-principles rule. Keep h nonzero during algebra.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
+                      "actionCue": "Define"
                     },
                     {
                       "id": "linear-substitute-function",
                       "label": "Substitute f(x) = 3x - 5",
                       "explanation": "Replace f(x+h) with 3(x+h)-5. Subtract the whole expression 3x-5.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{(3(x+h)-5)-(3x-5)}{h}"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{(3(x+h)-5)-(3x-5)}{h}",
+                      "actionCue": "Substitute"
                     },
                     {
                       "id": "linear-expand",
                       "label": "Expand and distribute the subtraction",
                       "explanation": "Expand 3(x+h). Then apply the minus sign to every term in 3x-5.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{3x+3h-5-3x+5}{h}"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{3x+3h-5-3x+5}{h}",
+                      "actionCue": "Expand"
                     },
                     {
                       "id": "linear-combine-terms",
                       "label": "Combine like terms",
                       "explanation": "The x terms cancel. The constants also cancel.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{3h}{h}"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{3h}{h}",
+                      "actionCue": "Combine"
                     },
                     {
                       "id": "linear-cancel-h",
                       "label": "Cancel h while h is not zero",
                       "explanation": "The numerator and denominator share the factor h. Cancel it before the limit step.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}3,\\quad h\\ne 0"
+                      "latex": "f'(x)=\\lim_{h\\to 0}3,\\quad h\\ne 0",
+                      "actionCue": "Cancel"
                     },
                     {
                       "id": "linear-evaluate-limit",
                       "label": "Evaluate the limit",
                       "explanation": "The expression is already the constant 3.",
-                      "latex": "f'(x)=3"
+                      "latex": "f'(x)=3",
+                      "actionCue": "Take limit"
                     }
                   ],
+                  "finalAnswer": {
+                    "latex": "f'(x)=3",
+                    "summary": "Every input on y = 3x - 5 has tangent slope 3."
+                  },
                   "interpretation": "The result says: every point on y = 3x - 5 has tangent slope 3."
                 },
                 {
@@ -1894,45 +1923,56 @@
                       "id": "point-start-definition",
                       "label": "Write the point definition",
                       "explanation": "Fix the base input at 2. Let the nearby input be 2 + h.",
-                      "latex": "f'(2)=\\lim_{h\\to 0}\\frac{f(2+h)-f(2)}{h}"
+                      "latex": "f'(2)=\\lim_{h\\to 0}\\frac{f(2+h)-f(2)}{h}",
+                      "actionCue": "Define"
                     },
                     {
                       "id": "point-substitute-function",
                       "label": "Substitute f(x) = x^2",
                       "explanation": "Replace f(2+h) with (2+h)^2. Replace f(2) with 2^2.",
-                      "latex": "f'(2)=\\lim_{h\\to 0}\\frac{(2+h)^2-2^2}{h}"
+                      "latex": "f'(2)=\\lim_{h\\to 0}\\frac{(2+h)^2-2^2}{h}",
+                      "actionCue": "Substitute"
                     },
                     {
                       "id": "point-expand-square",
                       "label": "Expand the square",
                       "explanation": "Expand (2+h)^2 so the matching constants are visible.",
-                      "latex": "f'(2)=\\lim_{h\\to 0}\\frac{4+4h+h^2-4}{h}"
+                      "latex": "f'(2)=\\lim_{h\\to 0}\\frac{4+4h+h^2-4}{h}",
+                      "actionCue": "Expand"
                     },
                     {
                       "id": "point-combine-terms",
                       "label": "Combine like terms",
                       "explanation": "The constants 4 and -4 add to zero.",
-                      "latex": "f'(2)=\\lim_{h\\to 0}\\frac{4h+h^2}{h}"
+                      "latex": "f'(2)=\\lim_{h\\to 0}\\frac{4h+h^2}{h}",
+                      "actionCue": "Combine"
                     },
                     {
                       "id": "point-factor-h",
                       "label": "Factor h while h is not zero",
                       "explanation": "Each remaining numerator term has a factor h. The gap is still nonzero.",
-                      "latex": "f'(2)=\\lim_{h\\to 0}\\frac{h(4+h)}{h},\\quad h\\ne 0"
+                      "latex": "f'(2)=\\lim_{h\\to 0}\\frac{h(4+h)}{h},\\quad h\\ne 0",
+                      "actionCue": "Factor"
                     },
                     {
                       "id": "point-cancel-h",
                       "label": "Cancel the common factor",
                       "explanation": "Now the expression no longer divides by h.",
-                      "latex": "f'(2)=\\lim_{h\\to 0}(4+h)"
+                      "latex": "f'(2)=\\lim_{h\\to 0}(4+h)",
+                      "actionCue": "Cancel"
                     },
                     {
                       "id": "point-evaluate-limit",
                       "label": "Evaluate the limit",
                       "explanation": "Now h can approach 0 without division by zero.",
-                      "latex": "f'(2)=4"
+                      "latex": "f'(2)=4",
+                      "actionCue": "Take limit"
                     }
                   ],
+                  "finalAnswer": {
+                    "latex": "f'(2)=4",
+                    "summary": "At the point (2, 4), the tangent slope of y = x^2 is 4."
+                  },
                   "interpretation": "The result says: at the point (2, 4), the tangent slope of y = x^2 is 4."
                 },
                 {
@@ -2606,33 +2646,42 @@
                       "id": "constant-start-definition",
                       "label": "Write the definition",
                       "explanation": "Use the same first-principles rule. The input gap h is not zero yet.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
+                      "actionCue": "Define"
                     },
                     {
                       "id": "constant-substitute-function",
                       "label": "Substitute f(x) = 7",
                       "explanation": "Both f(x+h) and f(x) equal 7.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{7-7}{h}"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{7-7}{h}",
+                      "actionCue": "Substitute"
                     },
                     {
                       "id": "constant-combine-output-change",
                       "label": "Combine the output change",
                       "explanation": "The numerator is zero because the output did not change.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{0}{h},\\quad h\\ne 0"
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{0}{h},\\quad h\\ne 0",
+                      "actionCue": "Combine"
                     },
                     {
                       "id": "constant-simplify-quotient",
                       "label": "Simplify while h is not zero",
                       "explanation": "Zero divided by any nonzero h is zero.",
-                      "latex": "f'(x)=\\lim_{h\\to 0}0"
+                      "latex": "f'(x)=\\lim_{h\\to 0}0",
+                      "actionCue": "Simplify"
                     },
                     {
                       "id": "constant-evaluate-limit",
                       "label": "Evaluate the limit",
                       "explanation": "The expression is already the constant 0.",
-                      "latex": "f'(x)=0"
+                      "latex": "f'(x)=0",
+                      "actionCue": "Take limit"
                     }
                   ],
+                  "finalAnswer": {
+                    "latex": "f'(x)=0",
+                    "summary": "Every input on the flat function y = 7 has tangent slope 0."
+                  },
                   "interpretation": "The result says: a flat function has tangent slope 0 at every input."
                 },
                 {

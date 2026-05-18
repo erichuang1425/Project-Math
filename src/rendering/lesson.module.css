@@ -450,6 +450,23 @@
   white-space: nowrap;
 }
 
+.stepPillCue {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--reader-soft-surface, #fbfcf8);
+  color: var(--reader-muted-text, #586057);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.stepPillActive .stepPillCue {
+  background: var(--reader-surface, #ffffff);
+  color: var(--reader-accent-text, #244e52);
+}
+
 .stepPanel {
   margin-top: 14px;
   padding: 14px;
@@ -462,6 +479,60 @@
   margin: 0 0 8px;
   font-size: 0.9rem;
   color: var(--reader-muted-text, #586057);
+}
+
+.stepActionCue {
+  margin: 0 0 10px;
+}
+
+.actionCueChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border: 1px solid var(--reader-strong-border, #cbd3c4);
+  border-radius: 999px;
+  background: var(--reader-surface, #ffffff);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.actionCueLabel {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--reader-accent, #2f5d62);
+  color: #ffffff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.actionCueText {
+  color: var(--reader-accent-text, #244e52);
+}
+
+.finalAnswerBand {
+  margin-top: 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--reader-border, #d9ded3);
+  border-left: 4px solid var(--reader-correct, #506d3b);
+  border-radius: 8px;
+  background: var(--reader-correct-surface, #f4f9ee);
+}
+
+.finalAnswerLabel {
+  margin: 0 0 4px;
+  color: var(--reader-correct, #506d3b);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.finalAnswerSummary {
+  margin: 6px 0 0;
+  color: var(--reader-text, #20231f);
 }
 
 .stepNavigation {
