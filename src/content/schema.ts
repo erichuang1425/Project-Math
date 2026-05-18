@@ -122,6 +122,7 @@ export interface WorkedExampleBlock extends BlockBase {
   goal: string;
   given?: string;
   steps: WorkedStep[];
+  finalAnswer?: WorkedFinalAnswer;
   interpretation?: string;
 }
 
@@ -130,6 +131,12 @@ export interface WorkedStep {
   label: string;
   explanation: string;
   latex?: string;
+  actionCue?: string;
+}
+
+export interface WorkedFinalAnswer {
+  latex: string;
+  summary?: string;
 }
 
 export interface CommonMistakeBlock extends BlockBase {

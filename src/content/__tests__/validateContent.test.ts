@@ -312,6 +312,101 @@ describe("validateContent", () => {
     }
   });
 
+  it("accepts a worked example with actionCue on every step", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const worked = blocks.find((b: any) => b.type === "workedExample");
+    worked.steps[0].actionCue = "Define";
+    worked.steps[1].actionCue = "Simplify";
+    expect(validateContent(course).ok).toBe(true);
+  });
+
+  it("rejects a worked-step actionCue that is empty or too long", () => {
+    const empty = clone(makeMinimalCourse());
+    const emptyBlocks = empty.modules[0].lessons[0].sections[0].blocks;
+    const emptyWorked = emptyBlocks.find((b: any) => b.type === "workedExample");
+    emptyWorked.steps[0].actionCue = "";
+    const emptyResult = validateContent(empty);
+    expect(emptyResult.ok).toBe(false);
+    if (!emptyResult.ok) {
+      expect(messagesAt(emptyResult.errors, "actionCue").join(" ")).toMatch(/non-empty string/);
+    }
+
+    const longCourse = clone(makeMinimalCourse());
+    const longBlocks = longCourse.modules[0].lessons[0].sections[0].blocks;
+    const longWorked = longBlocks.find((b: any) => b.type === "workedExample");
+    longWorked.steps[0].actionCue = "a".repeat(33);
+    const longResult = validateContent(longCourse);
+    expect(longResult.ok).toBe(false);
+    if (!longResult.ok) {
+      expect(messagesAt(longResult.errors, "actionCue").join(" ")).toMatch(
+        /32 characters or fewer/
+      );
+    }
+  });
+
+  it("rejects a worked-step actionCue that is not a string", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const worked = blocks.find((b: any) => b.type === "workedExample");
+    worked.steps[0].actionCue = 7;
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "actionCue").join(" ")).toMatch(/non-empty string/);
+    }
+  });
+
+  it("accepts a worked example with a finalAnswer (latex + optional summary)", () => {
+    const both = clone(makeMinimalCourse());
+    const bothBlocks = both.modules[0].lessons[0].sections[0].blocks;
+    const bothWorked = bothBlocks.find((b: any) => b.type === "workedExample");
+    bothWorked.finalAnswer = { latex: "f'(x)=2x", summary: "Slope at x is 2x." };
+    expect(validateContent(both).ok).toBe(true);
+
+    const summarylessCourse = clone(makeMinimalCourse());
+    const summarylessBlocks = summarylessCourse.modules[0].lessons[0].sections[0].blocks;
+    const summarylessWorked = summarylessBlocks.find((b: any) => b.type === "workedExample");
+    summarylessWorked.finalAnswer = { latex: "f'(x)=2x" };
+    expect(validateContent(summarylessCourse).ok).toBe(true);
+  });
+
+  it("rejects a finalAnswer that is not an object", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const worked = blocks.find((b: any) => b.type === "workedExample");
+    worked.finalAnswer = "f'(x)=2x";
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "finalAnswer").join(" ")).toMatch(/must be an object/);
+    }
+  });
+
+  it("rejects a finalAnswer whose latex fails KaTeX", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const worked = blocks.find((b: any) => b.type === "workedExample");
+    worked.finalAnswer = { latex: "\\frac{1" };
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "finalAnswer.latex").join(" ")).toMatch(/KaTeX/);
+    }
+  });
+
+  it("rejects a finalAnswer summary that is not a string", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const worked = blocks.find((b: any) => b.type === "workedExample");
+    worked.finalAnswer = { latex: "f'(x)=2x", summary: 42 };
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "finalAnswer.summary").join(" ")).toMatch(/string/);
+    }
+  });
+
   it("accepts a revision layer and rejects a non-object one", () => {
     const okCourse = clone(makeMinimalCourse());
     okCourse.modules[0].lessons[0].revision = {
