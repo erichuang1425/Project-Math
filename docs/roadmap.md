@@ -81,10 +81,7 @@ Shipped:
 - `ReaderControls.tsx` aria-labelledby conflation fixed: the disclosure `<summary>` carries a stable `aria-label="Reader controls"` so its accessible name no longer mutates with each live-status update, the panel no longer borrows the trigger's heading id as its label, and the intro copy is now `aria-describedby`'d onto the inner `<fieldset>` that actually groups the controls. Regression tests in `ReaderControls.test.tsx` guard the stable label, the absence of `aria-labelledby="reader-controls-heading"`, and the fieldset description wiring.
 - IntersectionObserver-driven active-section indicator extracted into `useActiveSection` (`src/rendering/useActiveSection.ts`): first section active on mount, topmost intersecting section wins on scroll, `initialSectionId` deep-links resume by scrolling and marking that section active, observer disconnects on unmount. Side-nav `aria-current="step"` flips with the observer, the active entry now carries a visible "You are here" pill, and a visually-hidden `aria-live="polite"` region in the path nav announces `"Now reading step N of M: <title>"` on every subsequent change (initial mount stays silent so screen readers don't double-announce the lesson heading). Covered by `src/rendering/__tests__/useActiveSection.test.tsx` (9 hook-level cases) and `src/rendering/__tests__/LessonView.activeSection.test.tsx` (4 integration cases) using a mock IntersectionObserver.
 - Worked-example step rail + action-cue chips + final-answer band. `WorkedStep` gained optional `actionCue` (short verb-like cue, ≤32 chars) and `WorkedExampleBlock` gained optional `finalAnswer: { latex; summary? }`. The renderer surfaces `actionCue` as a small chip on every step pill (`aria-hidden`, so the pill's accessible name stays the label) and as a labelled "Action" chip inside the active step panel. The `finalAnswer` band renders as an `aside` with `aria-label="Final answer"`, a correct-color border-left, a prominent KaTeX block, and an optional summary line — distinct from `interpretation`, which stays a prose sentence about meaning. Validator now rejects an actionCue that is not a non-empty string or exceeds 32 chars, a non-object finalAnswer, a finalAnswer.latex that fails KaTeX, and a non-string finalAnswer.summary. All 5 worked examples in `calculus-i.course.json` and the minimal-course fixture exercise the new fields end-to-end.
-
-Open:
-
-- Quiz: "Press Enter to submit" affordance; correctness via icon + label + border.
+- Quiz: form-wrapped "Press Enter to submit" affordance + correctness via icon + label + border. Each question now lives inside a `<form>` whose `onKeyDown` intercepts Enter (no shift/ctrl/meta/alt) and calls `onSubmit` only when there is a valid pending answer — Enter from a focused option button no longer reselects, and Enter from the short-answer input no longer triggers a stray native submit. The Check-answer button became `type="submit"` with `aria-keyshortcuts="Enter"`, and a visible `Press ⌨ Enter to submit` hint (sub-muted, with a `<kbd>` glyph) shows next to it while the answer is pending and disappears on submit. Correctness signals now ship all three required cues: lucide `Check` / `AlertCircle` icons sit inside the "Correct answer" / "Your answer" option pills and inside the feedback panel, paired with the existing bold "Correct." / "Review." labels and the correct-/incorrect-color border-left. Tests cover Enter-submits from option focus across siblings, Enter no-op before any answer, modifier-Enter no-op, Enter from the short-answer input, hint visibility transitions, and feedback/option icons in both correct and review states.
 
 What done means: reader feels finished in both modes; axe-style landmark checks pass in tests.
 
@@ -132,11 +129,10 @@ What done means: CI green from a clean clone with the new per-directory threshol
 
 Next vertical slices, smallest first. Each row is intended as a single PR.
 
-1. Phase 5 — Quiz "Press Enter to submit" affordance + correctness via icon + label + border.
-2. Phase 4 — Author `term` segments across the remaining authored lessons (`derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative`).
-3. Phase 4 — Module A: limits intuitively, one-sided & infinite limits.
-4. Phase 4 — Module B: differentiability vs continuity.
-5. Phase 4 — Module C: power, sum/difference, product, quotient, chain, tangent-line capstone.
-6. Phase 6 — Rust-side File / View / Help menu emission with reader-setting shortcuts.
-7. Phase 6 — `open_course_dialog`, `export_learner_state`, `import_learner_state` with safe-slug validation.
-8. Phase 6 — App icon set, window restore, dynamic title (`Course — Lesson`), recent courses (last 5).
+1. Phase 4 — Author `term` segments across the remaining authored lessons (`derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative`).
+2. Phase 4 — Module A: limits intuitively, one-sided & infinite limits.
+3. Phase 4 — Module B: differentiability vs continuity.
+4. Phase 4 — Module C: power, sum/difference, product, quotient, chain, tangent-line capstone.
+5. Phase 6 — Rust-side File / View / Help menu emission with reader-setting shortcuts.
+6. Phase 6 — `open_course_dialog`, `export_learner_state`, `import_learner_state` with safe-slug validation.
+7. Phase 6 — App icon set, window restore, dynamic title (`Course — Lesson`), recent courses (last 5).
