@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, type FormEvent, type KeyboardEvent, type ReactNode } from "react";
+import { AlertCircle, Check } from "lucide-react";
 import type {
   MultipleChoiceQuestion,
   QuizBlock,
@@ -6,6 +7,7 @@ import type {
   ShortAnswerQuestion
 } from "../../content/schema";
 import { evaluateQuizAnswer } from "../../content/quizScoring";
+import { Icon } from "../../design/primitives/Icon";
 import { RichText } from "../RichText";
 import styles from "../lesson.module.css";
 
@@ -142,89 +144,86 @@ function MultipleChoiceView({
   const isCorrect = submitted && evaluation.isCorrect;
   const statusId = `${question.id}-status`;
   const statusText = getQuestionStatus(answer, submitted, isCorrect);
+  const canSubmit = Boolean(answer) && !submitted;
 
   return (
-    <div className={styles.quizQuestion}>
-      <div className={styles.questionHeader}>
-        <p>
-          <RichText segments={question.prompt} />
-        </p>
-        <p id={statusId} className={styles.quizInstruction}>
-          {statusText}
-        </p>
-      </div>
-      {question.hint && !submitted ? <p className={styles.quizHint}>{question.hint}</p> : null}
-      <ul className={styles.optionList}>
-        {question.options.map((option) => {
-          const isSelected = answer === option.id;
-          const optionIsCorrect = submitted && option.id === question.correctOptionId;
-          const optionIsIncorrect = submitted && isSelected && !optionIsCorrect;
-          const stateLabel =
-            submitted && optionIsCorrect
-              ? "Correct answer"
-              : optionIsIncorrect
-                ? "Your answer"
-                : isSelected
-                  ? "Selected"
-                  : "";
-          const className = [
-            styles.optionButton,
-            isSelected ? styles.selected : "",
-            optionIsCorrect ? styles.correct : "",
-            optionIsIncorrect ? styles.incorrect : ""
-          ]
-            .filter(Boolean)
-            .join(" ");
+    <QuestionForm questionId={question.id} canSubmit={canSubmit} onSubmit={onSubmit}>
+      <div className={styles.quizQuestion}>
+        <div className={styles.questionHeader}>
+          <p>
+            <RichText segments={question.prompt} />
+          </p>
+          <p id={statusId} className={styles.quizInstruction}>
+            {statusText}
+          </p>
+        </div>
+        {question.hint && !submitted ? <p className={styles.quizHint}>{question.hint}</p> : null}
+        <ul className={styles.optionList}>
+          {question.options.map((option) => {
+            const isSelected = answer === option.id;
+            const optionIsCorrect = submitted && option.id === question.correctOptionId;
+            const optionIsIncorrect = submitted && isSelected && !optionIsCorrect;
+            const stateLabel =
+              submitted && optionIsCorrect
+                ? "Correct answer"
+                : optionIsIncorrect
+                  ? "Your answer"
+                  : isSelected
+                    ? "Selected"
+                    : "";
+            const stateIcon = optionIsCorrect ? Check : optionIsIncorrect ? AlertCircle : null;
+            const className = [
+              styles.optionButton,
+              isSelected ? styles.selected : "",
+              optionIsCorrect ? styles.correct : "",
+              optionIsIncorrect ? styles.incorrect : ""
+            ]
+              .filter(Boolean)
+              .join(" ");
 
-          return (
-            <li key={option.id}>
-              <button
-                className={className}
-                data-testid={`quiz-option-${question.id}-${option.id}`}
-                type="button"
-                aria-pressed={isSelected}
-                aria-describedby={statusId}
-                onClick={() => onAnswer(option.id)}
-                disabled={submitted}
-              >
-                <RichText segments={option.text} />
-                {stateLabel ? <span className={styles.optionState}>{stateLabel}</span> : null}
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-      <div className={styles.quizActions}>
-        <button
-          className={styles.primaryButton}
-          data-testid={`quiz-submit-${question.id}`}
-          type="button"
-          onClick={onSubmit}
-          disabled={!answer || submitted}
-        >
-          Check answer
-        </button>
-        {submitted ? (
-          <button className={styles.secondaryButton} type="button" onClick={onRetry}>
-            Try again
-          </button>
+            return (
+              <li key={option.id}>
+                <button
+                  className={className}
+                  data-testid={`quiz-option-${question.id}-${option.id}`}
+                  type="button"
+                  aria-pressed={isSelected}
+                  aria-describedby={statusId}
+                  onClick={() => onAnswer(option.id)}
+                  disabled={submitted}
+                >
+                  <RichText segments={option.text} />
+                  {stateLabel ? (
+                    <span className={styles.optionState}>
+                      {stateIcon ? (
+                        <Icon
+                          source={stateIcon}
+                          size={14}
+                          strokeWidth={2.5}
+                          className={styles.optionStateIcon}
+                          data-testid={`quiz-option-icon-${question.id}-${option.id}`}
+                        />
+                      ) : null}
+                      {stateLabel}
+                    </span>
+                  ) : null}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+        <QuizActions
+          questionId={question.id}
+          canSubmit={canSubmit}
+          submitted={submitted}
+          onRetry={onRetry}
+        />
+        {submitted && selectedOption ? (
+          <FeedbackPanel isCorrect={isCorrect}>{evaluation.feedback}</FeedbackPanel>
         ) : null}
+        <AttemptCount count={savedAttemptCount} />
       </div>
-      {submitted && selectedOption ? (
-        <p
-          className={`${styles.feedback} ${
-            isCorrect ? styles.feedbackCorrect : styles.feedbackReview
-          }`}
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          <strong>{isCorrect ? "Correct. " : "Review. "}</strong>
-          {evaluation.feedback}
-        </p>
-      ) : null}
-      <AttemptCount count={savedAttemptCount} />
-    </div>
+    </QuestionForm>
   );
 }
 
@@ -241,56 +240,136 @@ function ShortAnswerView({
   const isCorrect = submitted && evaluation.isCorrect;
   const statusId = `${question.id}-status`;
   const statusText = getQuestionStatus(answer, submitted, isCorrect);
+  const canSubmit = Boolean(answer.trim()) && !submitted;
 
   return (
-    <div className={styles.quizQuestion}>
-      <div className={styles.questionHeader}>
-        <p>
-          <RichText segments={question.prompt} />
-        </p>
-        <p id={statusId} className={styles.quizInstruction}>
-          {statusText}
-        </p>
-      </div>
-      {question.hint && !submitted ? <p className={styles.quizHint}>{question.hint}</p> : null}
-      <input
-        aria-label="Short answer"
-        aria-describedby={statusId}
-        value={answer}
-        onChange={(event) => onAnswer(event.currentTarget.value)}
-        disabled={submitted}
-      />
-      <div className={styles.quizActions}>
-        <button
-          className={styles.primaryButton}
-          data-testid={`quiz-submit-${question.id}`}
-          type="button"
-          onClick={onSubmit}
-          disabled={!answer.trim() || submitted}
-        >
-          Check answer
-        </button>
+    <QuestionForm questionId={question.id} canSubmit={canSubmit} onSubmit={onSubmit}>
+      <div className={styles.quizQuestion}>
+        <div className={styles.questionHeader}>
+          <p>
+            <RichText segments={question.prompt} />
+          </p>
+          <p id={statusId} className={styles.quizInstruction}>
+            {statusText}
+          </p>
+        </div>
+        {question.hint && !submitted ? <p className={styles.quizHint}>{question.hint}</p> : null}
+        <input
+          aria-label="Short answer"
+          aria-describedby={statusId}
+          value={answer}
+          onChange={(event) => onAnswer(event.currentTarget.value)}
+          disabled={submitted}
+        />
+        <QuizActions
+          questionId={question.id}
+          canSubmit={canSubmit}
+          submitted={submitted}
+          onRetry={onRetry}
+        />
         {submitted ? (
-          <button className={styles.secondaryButton} type="button" onClick={onRetry}>
-            Try again
-          </button>
+          <FeedbackPanel isCorrect={isCorrect}>{evaluation.feedback}</FeedbackPanel>
         ) : null}
+        <AttemptCount count={savedAttemptCount} />
       </div>
-      {submitted ? (
-        <p
-          className={`${styles.feedback} ${
-            isCorrect ? styles.feedbackCorrect : styles.feedbackReview
-          }`}
-          role="status"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          <strong>{isCorrect ? "Correct. " : "Review. "}</strong>
-          {evaluation.feedback}
-        </p>
+    </QuestionForm>
+  );
+}
+
+type QuestionFormProps = {
+  questionId: string;
+  canSubmit: boolean;
+  onSubmit: () => void;
+  children: ReactNode;
+};
+
+function QuestionForm({ questionId, canSubmit, onSubmit, children }: QuestionFormProps) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (canSubmit) {
+      onSubmit();
+    }
+  }
+
+  function handleKeyDown(event: KeyboardEvent<HTMLFormElement>) {
+    if (event.key !== "Enter" || event.shiftKey || event.metaKey || event.ctrlKey || event.altKey) {
+      return;
+    }
+    if (!canSubmit) {
+      return;
+    }
+    event.preventDefault();
+    onSubmit();
+  }
+
+  return (
+    <form
+      className={styles.quizQuestionForm}
+      data-testid={`quiz-form-${questionId}`}
+      onSubmit={handleSubmit}
+      onKeyDown={handleKeyDown}
+    >
+      {children}
+    </form>
+  );
+}
+
+type QuizActionsProps = {
+  questionId: string;
+  canSubmit: boolean;
+  submitted: boolean;
+  onRetry: () => void;
+};
+
+function QuizActions({ questionId, canSubmit, submitted, onRetry }: QuizActionsProps) {
+  return (
+    <div className={styles.quizActions}>
+      <button
+        className={styles.primaryButton}
+        data-testid={`quiz-submit-${questionId}`}
+        type="submit"
+        disabled={!canSubmit}
+        aria-keyshortcuts={canSubmit ? "Enter" : undefined}
+      >
+        Check answer
+      </button>
+      {canSubmit ? (
+        <span className={styles.submitHint} data-testid={`quiz-submit-hint-${questionId}`}>
+          Press <kbd className={styles.kbd}>Enter</kbd> to submit
+        </span>
       ) : null}
-      <AttemptCount count={savedAttemptCount} />
+      {submitted ? (
+        <button className={styles.secondaryButton} type="button" onClick={onRetry}>
+          Try again
+        </button>
+      ) : null}
     </div>
+  );
+}
+
+type FeedbackPanelProps = {
+  isCorrect: boolean;
+  children: ReactNode;
+};
+
+function FeedbackPanel({ isCorrect, children }: FeedbackPanelProps) {
+  return (
+    <p
+      className={`${styles.feedback} ${isCorrect ? styles.feedbackCorrect : styles.feedbackReview}`}
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <Icon
+        source={isCorrect ? Check : AlertCircle}
+        size={18}
+        strokeWidth={2.5}
+        className={styles.feedbackIcon}
+        data-testid={isCorrect ? "quiz-feedback-icon-correct" : "quiz-feedback-icon-review"}
+      />
+      <strong>{isCorrect ? "Correct. " : "Review. "}</strong>
+      {children}
+    </p>
   );
 }
 
