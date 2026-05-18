@@ -670,6 +670,9 @@
 
 .optionState {
   width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   padding: 2px 6px;
   border: 1px solid currentColor;
   border-radius: 6px;
@@ -677,11 +680,41 @@
   font-weight: 700;
 }
 
+.optionStateIcon {
+  flex: none;
+}
+
+.quizQuestionForm {
+  display: contents;
+}
+
 .quizActions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
   margin-top: 12px;
+}
+
+.submitHint {
+  color: var(--reader-muted-text, #586057);
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+.kbd {
+  display: inline-block;
+  min-width: 1.8em;
+  padding: 1px 6px;
+  border: 1px solid var(--reader-strong-border, #cbd3c4);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--reader-subtle-surface, #f1f4ec);
+  color: var(--reader-text, #20231f);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-align: center;
 }
 
 .primaryButton,
@@ -717,11 +750,28 @@
 }
 
 .feedback {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
   margin-top: 12px;
   padding: 10px 12px;
   border: 1px solid var(--reader-border, #d9ded3);
   border-radius: 8px;
   background: var(--reader-subtle-surface, #f1f4ec);
+}
+
+.feedbackIcon {
+  flex: none;
+  margin-top: 2px;
+}
+
+.feedbackCorrect .feedbackIcon {
+  color: var(--reader-correct, #506d3b);
+}
+
+.feedbackReview .feedbackIcon {
+  color: var(--reader-incorrect, #9b3a2f);
 }
 
 @media (prefers-reduced-motion: no-preference) {
