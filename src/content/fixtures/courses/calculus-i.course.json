@@ -693,7 +693,25 @@
                   "body": [
                     {
                       "kind": "text",
-                      "value": "Pick two different inputs. The average rate of change is the slope between their output points: "
+                      "value": "Pick two different inputs. The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "difference-quotient",
+                      "label": "average rate of change"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " is the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "slope",
+                      "label": "slope"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " between their output points: "
                     },
                     {
                       "kind": "inlineMath",
@@ -701,7 +719,16 @@
                     },
                     {
                       "kind": "text",
-                      "value": ". This is a secant slope."
+                      "value": ". This is a "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "secant-line",
+                      "label": "secant"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " slope."
                     }
                   ],
                   "keyIdeas": [
@@ -722,7 +749,16 @@
                     [
                       {
                         "kind": "text",
-                        "value": "A derivative asks what value these slopes approach when the inputs move together."
+                        "value": "A "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "derivative",
+                        "label": "derivative"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " asks what value these slopes approach when the inputs move together."
                       }
                     ]
                   ]
@@ -780,7 +816,16 @@
                     },
                     {
                       "kind": "text",
-                      "value": ". Use the limit only after the quotient no longer divides by "
+                      "value": ". Use the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "limit",
+                      "label": "limit"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " only after the quotient no longer divides by "
                     },
                     {
                       "kind": "inlineMath",
@@ -970,7 +1015,16 @@
                   "body": [
                     {
                       "kind": "text",
-                      "value": "Read the graph in this order: the curve, the fixed point, the nearby point, then the secant line. The quotient measures the slope of that secant line."
+                      "value": "Read the graph in this order: the curve, the fixed point, the nearby point, then the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "secant-line",
+                      "label": "secant line"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The quotient measures the slope of that secant line."
                     }
                   ],
                   "takeaway": [
@@ -1397,7 +1451,16 @@
                     [
                       {
                         "kind": "text",
-                        "value": "A derivative starts with slopes between two different inputs."
+                        "value": "A "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "derivative",
+                        "label": "derivative"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " starts with slopes between two different inputs."
                       }
                     ],
                     [
@@ -1575,7 +1638,16 @@
                   "body": [
                     {
                       "kind": "text",
-                      "value": "A derivative function "
+                      "value": "A "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "derivative",
+                      "label": "derivative"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " function "
                     },
                     {
                       "kind": "inlineMath",
@@ -1583,7 +1655,16 @@
                     },
                     {
                       "kind": "text",
-                      "value": " gives a slope rule for variable inputs. A derivative value such as "
+                      "value": " gives a "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "slope",
+                      "label": "slope"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " rule for variable inputs. A derivative value such as "
                     },
                     {
                       "kind": "inlineMath",
@@ -1591,7 +1672,16 @@
                     },
                     {
                       "kind": "text",
-                      "value": " asks for one number at one fixed input, if the limit exists."
+                      "value": " asks for one number at one fixed input, if the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "limit",
+                      "label": "limit"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " exists."
                     }
                   ],
                   "keyIdeas": [
@@ -1880,7 +1970,25 @@
                   "body": [
                     {
                       "kind": "text",
-                      "value": "Read the graph in this order: the fixed point, the nearby point, the secant line, then the tangent line. The fixed point stays at "
+                      "value": "Read the graph in this order: the fixed point, the nearby point, the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "secant-line",
+                      "label": "secant line"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", then the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "tangent-line",
+                      "label": "tangent line"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The fixed point stays at "
                     },
                     {
                       "kind": "inlineMath",
@@ -2216,7 +2324,16 @@
                     [
                       {
                         "kind": "text",
-                        "value": "A derivative value fixes one input before the limit is taken."
+                        "value": "A "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "derivative",
+                        "label": "derivative"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " value fixes one input before the limit is taken."
                       }
                     ],
                     [
@@ -2266,7 +2383,16 @@
                       },
                       {
                         "kind": "text",
-                        "value": " is the tangent slope at "
+                        "value": " is the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "tangent-line",
+                        "label": "tangent"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " slope at "
                       },
                       {
                         "kind": "inlineMath",
@@ -2384,7 +2510,25 @@
                     },
                     {
                       "kind": "text",
-                      "value": ", every input has output "
+                      "value": ", every "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "input",
+                      "label": "input"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " has "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "output",
+                      "label": "output"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " value "
                     },
                     {
                       "kind": "inlineMath",
@@ -2595,7 +2739,16 @@
                   "body": [
                     {
                       "kind": "text",
-                      "value": "Read the graph in this order: the flat line, the two marked points, then the horizontal secant line. The formula sees the same fact as "
+                      "value": "Read the graph in this order: the flat line, the two marked points, then the horizontal "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "secant-line",
+                      "label": "secant line"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The formula sees the same fact as "
                     },
                     {
                       "kind": "inlineMath",
@@ -2924,7 +3077,16 @@
                     [
                       {
                         "kind": "text",
-                        "value": "A constant function has the same output at every input."
+                        "value": "A "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "constant-function",
+                        "label": "constant function"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " has the same output at every input."
                       }
                     ],
                     [
