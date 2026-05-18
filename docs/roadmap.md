@@ -58,13 +58,13 @@ Shipped:
 
 - **Module A — Foundations:** `functions-refresher` with full block set (title, concept, latex, intuition, graph, worked example, common mistake, two quizzes, summary, revision layer), six new glossary terms (`function`, `input`, `output`, `domain`, `range`, `function-notation`), and the first live `term` segments in lesson body text.
 - **Module B — Derivatives from First Principles:** `derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative` with full block sets and authored graph samples. `derivative-as-a-limit` now lists `functions-refresher` as a prerequisite, exercising the validator's cross-module prerequisite path on real content.
+- **Glossary `term` segments authored across every existing lesson.** All four authored lessons now surface live `term` segments in concept / intuition / summary block prose (counts: `functions-refresher` 8, `derivative-as-a-limit` 7, `derivative-at-a-point` 7, `constant-function-derivative` 4). New regression test `authors term segments in every lesson, including the first-principles trio` in `src/content/__tests__/calculusI.test.ts` walks every lesson, asserts every lesson carries at least one `term` segment, and pins per-lesson minimums for the first-principles trio so the wiring cannot silently revert to plain text.
 
 Open:
 
 - **Module A — Foundations:** limits intuitively, one-sided & infinite limits.
 - **Module B — Derivatives from First Principles:** add differentiability vs continuity.
 - **Module C — Differentiation Rules:** power, sum/difference, product, quotient, chain, tangent line equation (capstone).
-- Glossary populated; `term` segments used throughout block text. (Started: `functions-refresher` uses term segments; remaining lessons still author `term` segments lesson-by-lesson.)
 
 What done means: validator passes for the full course; every lesson mounts cleanly in jsdom; lesson summary export round-trips.
 
@@ -129,10 +129,9 @@ What done means: CI green from a clean clone with the new per-directory threshol
 
 Next vertical slices, smallest first. Each row is intended as a single PR.
 
-1. Phase 4 — Author `term` segments across the remaining authored lessons (`derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative`).
-2. Phase 4 — Module A: limits intuitively, one-sided & infinite limits.
-3. Phase 4 — Module B: differentiability vs continuity.
-4. Phase 4 — Module C: power, sum/difference, product, quotient, chain, tangent-line capstone.
-5. Phase 6 — Rust-side File / View / Help menu emission with reader-setting shortcuts.
-6. Phase 6 — `open_course_dialog`, `export_learner_state`, `import_learner_state` with safe-slug validation.
-7. Phase 6 — App icon set, window restore, dynamic title (`Course — Lesson`), recent courses (last 5).
+1. Phase 4 — Module A: limits intuitively, one-sided & infinite limits.
+2. Phase 4 — Module B: differentiability vs continuity.
+3. Phase 4 — Module C: power, sum/difference, product, quotient, chain, tangent-line capstone.
+4. Phase 6 — Rust-side File / View / Help menu emission with reader-setting shortcuts.
+5. Phase 6 — `open_course_dialog`, `export_learner_state`, `import_learner_state` with safe-slug validation.
+6. Phase 6 — App icon set, window restore, dynamic title (`Course — Lesson`), recent courses (last 5).
