@@ -54,6 +54,7 @@ describe("QuizBlockView (multipleChoice)", () => {
 
     expect(screen.getByText("No answer selected yet.")).toBeInTheDocument();
     expect(screen.getByTestId("quiz-submit-q1")).toBeDisabled();
+    expect(screen.queryByTestId("quiz-submit-hint-q1")).not.toBeInTheDocument();
     expect(screen.getByText("Use the power rule.")).toBeInTheDocument();
   });
 
@@ -73,6 +74,10 @@ describe("QuizBlockView (multipleChoice)", () => {
 
     const submit = screen.getByTestId("quiz-submit-q1");
     expect(submit).toBeEnabled();
+    expect(submit).toHaveAttribute("type", "submit");
+    expect(submit).toHaveAttribute("aria-keyshortcuts", "Enter");
+    expect(screen.getByTestId("quiz-submit-hint-q1")).toBeInTheDocument();
+
     await user.click(submit);
 
     expect(onQuizAttempt).toHaveBeenCalledTimes(1);
@@ -87,6 +92,19 @@ describe("QuizBlockView (multipleChoice)", () => {
     expect(screen.getByRole("status")).toHaveTextContent(/Correct\./);
     expect(screen.getByText("Correct answer")).toBeInTheDocument();
     expect(screen.queryByText("Use the power rule.")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("quiz-submit-hint-q1")).not.toBeInTheDocument();
+  });
+
+  it("renders a check icon next to the correct-answer pill and an alert icon on the feedback panel", async () => {
+    const user = userEvent.setup();
+    render(<QuizBlockView block={multipleChoiceBlock()} lessonId="lesson-a" />);
+
+    await user.click(screen.getByTestId("quiz-option-q1-a"));
+    await user.click(screen.getByTestId("quiz-submit-q1"));
+
+    expect(screen.getByTestId("quiz-option-icon-q1-a")).toBeInTheDocument();
+    expect(screen.getByTestId("quiz-feedback-icon-correct")).toBeInTheDocument();
+    expect(screen.queryByTestId("quiz-feedback-icon-review")).not.toBeInTheDocument();
   });
 
   it("submits an incorrect answer, shows review status, and resets on Try again", async () => {
@@ -108,10 +126,77 @@ describe("QuizBlockView (multipleChoice)", () => {
     expect(screen.getByRole("status")).toHaveTextContent(/Review\./);
     expect(screen.getByText("Your answer")).toBeInTheDocument();
     expect(screen.getByText("Correct answer")).toBeInTheDocument();
+    expect(screen.getByTestId("quiz-option-icon-q1-a")).toBeInTheDocument();
+    expect(screen.getByTestId("quiz-option-icon-q1-b")).toBeInTheDocument();
+    expect(screen.getByTestId("quiz-feedback-icon-review")).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Try again" }));
     expect(screen.getByText("No answer selected yet.")).toBeInTheDocument();
     expect(screen.getByTestId("quiz-submit-q1")).toBeDisabled();
+    expect(screen.queryByTestId("quiz-submit-hint-q1")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("quiz-feedback-icon-correct")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("quiz-feedback-icon-review")).not.toBeInTheDocument();
+  });
+
+  it("submits the selected option on Enter even when focus is on a different option", async () => {
+    const user = userEvent.setup();
+    const onQuizAttempt = vi.fn();
+    render(
+      <QuizBlockView
+        block={multipleChoiceBlock()}
+        lessonId="lesson-a"
+        onQuizAttempt={onQuizAttempt}
+      />
+    );
+
+    await user.click(screen.getByTestId("quiz-option-q1-a"));
+    screen.getByTestId("quiz-option-q1-b").focus();
+    await user.keyboard("{Enter}");
+
+    expect(onQuizAttempt).toHaveBeenCalledTimes(1);
+    expect(onQuizAttempt.mock.calls[0][0]).toMatchObject({
+      questionId: "q1",
+      answer: "a",
+      isCorrect: true
+    });
+    expect(screen.getByText(/Submitted answer is correct/)).toBeInTheDocument();
+  });
+
+  it("does not record an attempt when Enter is pressed before any option is selected", async () => {
+    const user = userEvent.setup();
+    const onQuizAttempt = vi.fn();
+    render(
+      <QuizBlockView
+        block={multipleChoiceBlock()}
+        lessonId="lesson-a"
+        onQuizAttempt={onQuizAttempt}
+      />
+    );
+
+    const option = screen.getByTestId("quiz-option-q1-a");
+    option.focus();
+    await user.keyboard("{Enter}");
+
+    expect(onQuizAttempt).not.toHaveBeenCalled();
+  });
+
+  it("ignores Enter+modifier combos so global shortcuts are not hijacked", async () => {
+    const user = userEvent.setup();
+    const onQuizAttempt = vi.fn();
+    render(
+      <QuizBlockView
+        block={multipleChoiceBlock()}
+        lessonId="lesson-a"
+        onQuizAttempt={onQuizAttempt}
+      />
+    );
+
+    const option = screen.getByTestId("quiz-option-q1-a");
+    await user.click(option);
+    option.focus();
+    await user.keyboard("{Shift>}{Enter}{/Shift}");
+
+    expect(onQuizAttempt).not.toHaveBeenCalled();
   });
 
   it("renders saved attempts using singular and plural copy", () => {
@@ -154,6 +239,7 @@ describe("QuizBlockView (shortAnswer)", () => {
     const input = screen.getByRole("textbox", { name: "Short answer" });
     await user.type(input, "   ");
     expect(screen.getByTestId("quiz-submit-q1")).toBeDisabled();
+    expect(screen.queryByTestId("quiz-submit-hint-q1")).not.toBeInTheDocument();
   });
 
   it("submits a correct typed answer and renders correct feedback", async () => {
@@ -164,11 +250,45 @@ describe("QuizBlockView (shortAnswer)", () => {
     );
 
     await user.type(screen.getByRole("textbox", { name: "Short answer" }), "derivative");
+    expect(screen.getByTestId("quiz-submit-hint-q1")).toBeInTheDocument();
     await user.click(screen.getByTestId("quiz-submit-q1"));
 
     expect(onQuizAttempt.mock.calls[0][0].isCorrect).toBe(true);
     expect(screen.getByText(/Yes, that is the derivative/)).toBeInTheDocument();
     expect(screen.getByText(/Submitted answer is correct/)).toBeInTheDocument();
+    expect(screen.getByTestId("quiz-feedback-icon-correct")).toBeInTheDocument();
+  });
+
+  it("submits the typed answer when Enter is pressed inside the input", async () => {
+    const user = userEvent.setup();
+    const onQuizAttempt = vi.fn();
+    render(
+      <QuizBlockView block={shortAnswerBlock()} lessonId="lesson-b" onQuizAttempt={onQuizAttempt} />
+    );
+
+    await user.type(screen.getByRole("textbox", { name: "Short answer" }), "derivative{Enter}");
+
+    expect(onQuizAttempt).toHaveBeenCalledTimes(1);
+    expect(onQuizAttempt.mock.calls[0][0]).toMatchObject({
+      questionId: "q1",
+      answer: "derivative",
+      isCorrect: true
+    });
+    expect(screen.getByText(/Submitted answer is correct/)).toBeInTheDocument();
+  });
+
+  it("does not submit on Enter when the input is empty", async () => {
+    const user = userEvent.setup();
+    const onQuizAttempt = vi.fn();
+    render(
+      <QuizBlockView block={shortAnswerBlock()} lessonId="lesson-b" onQuizAttempt={onQuizAttempt} />
+    );
+
+    const input = screen.getByRole("textbox", { name: "Short answer" });
+    input.focus();
+    await user.keyboard("{Enter}");
+
+    expect(onQuizAttempt).not.toHaveBeenCalled();
   });
 
   it("submits an incorrect typed answer and exposes Try again", async () => {
@@ -181,5 +301,6 @@ describe("QuizBlockView (shortAnswer)", () => {
     expect(screen.getByText(/Reread the definition/)).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Try again" })).toBeInTheDocument();
     expect(screen.getByRole("textbox", { name: "Short answer" })).toBeDisabled();
+    expect(screen.getByTestId("quiz-feedback-icon-review")).toBeInTheDocument();
   });
 });
