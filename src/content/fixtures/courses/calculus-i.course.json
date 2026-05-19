@@ -592,6 +592,794 @@
               "functions-refresher-expression-check"
             ]
           }
+        },
+        {
+          "id": "limits-intuitively",
+          "slug": "limits-intuitively",
+          "title": "Limits Intuitively",
+          "summary": "Build the limit idea by watching what value a function approaches as the input approaches a target from both sides.",
+          "objectives": [
+            {
+              "id": "limits-intuitively-obj-1",
+              "text": "Read lim_{x→a} f(x) = L as the value f approaches as the input approaches a."
+            },
+            {
+              "id": "limits-intuitively-obj-2",
+              "text": "Estimate a limit by sampling inputs close to the target from the left and from the right."
+            },
+            {
+              "id": "limits-intuitively-obj-3",
+              "text": "Recognise that a limit can exist even when the function is undefined at the target input."
+            },
+            {
+              "id": "limits-intuitively-obj-4",
+              "text": "Distinguish the limit value as x approaches a from the function value f(a)."
+            },
+            {
+              "id": "limits-intuitively-obj-5",
+              "text": "Avoid the shortcut of substituting x = a before checking that the function is defined there."
+            }
+          ],
+          "prerequisiteLessonIds": ["functions-refresher"],
+          "estimatedMinutes": 22,
+          "difficulty": "intro",
+          "sections": [
+            {
+              "id": "limit-observe",
+              "title": "Observe What the Function Approaches",
+              "blocks": [
+                {
+                  "type": "title",
+                  "id": "limits-intuitively-title",
+                  "kicker": "Foundations for the derivative",
+                  "title": "Limits Intuitively",
+                  "subtitle": "Watch the output as the input slides toward a target. Approach from both sides.",
+                  "objectives": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Observe outputs as the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "input",
+                        "label": "input"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " approaches a target."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Calculate "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\lim_{x\\to a}f(x)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " by sampling from both sides."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Compare the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "limit",
+                        "label": "limit"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " value with the function value at the target."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "concept",
+                  "id": "limit-as-approach",
+                  "title": "Observe: the output as x approaches a",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Fix a target "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "a"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " on the x axis and pick inputs that move toward it. A "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "limit",
+                      "label": "limit"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " names the value the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "output",
+                      "label": "output"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " gets close to as the input approaches "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "a"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The input never has to land exactly on "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "a"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " for the limit to make sense."
+                    }
+                  ],
+                  "keyIdeas": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Sample inputs from "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x<a"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " and from "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x>a"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "; both sides should agree."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The limit is about the trend, not about plugging in "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x=a"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "latex",
+                  "id": "limit-notation",
+                  "objectiveIds": ["limits-intuitively-obj-1"],
+                  "latex": "\\lim_{x\\to a}f(x)=L",
+                  "caption": "Read aloud: the limit of f(x) as x approaches a equals L.",
+                  "display": true
+                },
+                {
+                  "type": "intuition",
+                  "id": "read-the-notation",
+                  "title": "Read: the symbols match the picture",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "The arrow "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x\\to a"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " says the input is moving toward "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "a"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " without necessarily reaching it. The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "function",
+                      "label": "function"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " produces outputs along the way; the limit "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "L"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " is the value those outputs head toward."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "If both sides head to the same number, that number is the limit. If the two sides disagree, the limit does not exist."
+                    }
+                  ]
+                },
+                {
+                  "type": "graph",
+                  "id": "limit-approach-graph",
+                  "title": "Approaching x = 2 on f(x) = 2x + 1",
+                  "description": "Notice the line y = 2x + 1 first. Marked points at x = 1.5, 1.9, 2.1, and 2.5 show inputs sliding toward 2 from both sides. The outputs are 4, 4.8, 5.2, and 6, heading toward 5.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": 0,
+                      "max": 4,
+                      "ticks": [0, 1, 2, 3, 4]
+                    },
+                    "yAxis": {
+                      "label": "output f(x)",
+                      "min": 0,
+                      "max": 9,
+                      "ticks": [0, 3, 5, 7, 9]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "linear-two-x-plus-one",
+                        "label": "Function",
+                        "expression": "y = 2x + 1",
+                        "domain": [0, 4],
+                        "samples": [
+                          [0, 1],
+                          [1, 3],
+                          [2, 5],
+                          [3, 7],
+                          [4, 9]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "approach-from-left",
+                        "label": "Approach from the left",
+                        "points": [
+                          [1.5, 4],
+                          [1.9, 4.8]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "approach-from-right",
+                        "label": "Approach from the right",
+                        "points": [
+                          [2.5, 6],
+                          [2.1, 5.2]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "limit-target",
+                        "label": "Limit value",
+                        "points": [[2, 5]]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "approach-target",
+                        "label": "limit = 5",
+                        "point": [2, 5],
+                        "text": "Both sides head toward output 5 as the input approaches 2."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "limit-read-from-table",
+              "title": "Estimate Limits From Samples",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "linear-limit-from-table",
+                  "title": "Estimate lim_{x→2}(2x + 1)",
+                  "goal": "Estimate the limit by sampling inputs that approach 2 from both sides.",
+                  "given": "f(x) = 2x + 1, target a = 2",
+                  "steps": [
+                    {
+                      "id": "linear-pick-left-inputs",
+                      "label": "Sample inputs from the left",
+                      "explanation": "Choose inputs less than 2 that move closer to 2.",
+                      "latex": "x = 1.9,\\; 1.99,\\; 1.999",
+                      "actionCue": "Sample left"
+                    },
+                    {
+                      "id": "linear-evaluate-left",
+                      "label": "Evaluate from the left",
+                      "explanation": "Compute the outputs at the chosen left-side inputs.",
+                      "latex": "f(1.9)=4.8,\\; f(1.99)=4.98,\\; f(1.999)=4.998",
+                      "actionCue": "Approach left"
+                    },
+                    {
+                      "id": "linear-pick-right-inputs",
+                      "label": "Sample inputs from the right",
+                      "explanation": "Choose inputs greater than 2 that move closer to 2.",
+                      "latex": "x = 2.1,\\; 2.01,\\; 2.001",
+                      "actionCue": "Sample right"
+                    },
+                    {
+                      "id": "linear-evaluate-right",
+                      "label": "Evaluate from the right",
+                      "explanation": "Compute the outputs at the chosen right-side inputs.",
+                      "latex": "f(2.1)=5.2,\\; f(2.01)=5.02,\\; f(2.001)=5.002",
+                      "actionCue": "Approach right"
+                    },
+                    {
+                      "id": "linear-compare-sides",
+                      "label": "Compare the two trends",
+                      "explanation": "Both sides head toward 5; the gap to 5 shrinks at every step.",
+                      "latex": "f(x)\\to 5\\;\\text{as}\\; x\\to 2",
+                      "actionCue": "Compare"
+                    },
+                    {
+                      "id": "linear-state-limit",
+                      "label": "State the limit",
+                      "explanation": "Because both sides agree on 5, the limit equals 5.",
+                      "latex": "\\lim_{x\\to 2}(2x+1)=5",
+                      "actionCue": "Conclude"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\lim_{x\\to 2}(2x+1)=5",
+                    "summary": "The outputs head to 5 from both sides, so the limit is 5."
+                  },
+                  "interpretation": "For this line, the limit equals f(2) = 5. That match is a special case, not a definition."
+                },
+                {
+                  "type": "workedExample",
+                  "id": "removable-hole-limit",
+                  "title": "Estimate lim_{x→2}(x^2 − 4)/(x − 2)",
+                  "goal": "Estimate the limit when the function is undefined at the target input.",
+                  "given": "g(x) = (x^2 − 4)/(x − 2), target a = 2",
+                  "steps": [
+                    {
+                      "id": "hole-check-at-target",
+                      "label": "Check the function at x = 2",
+                      "explanation": "Substitute x = 2 first to see what happens at the target itself.",
+                      "latex": "g(2)=\\frac{2^2-4}{2-2}=\\frac{0}{0}\\;\\text{(undefined)}",
+                      "actionCue": "Test x = a"
+                    },
+                    {
+                      "id": "hole-sample-near-two",
+                      "label": "Sample inputs near 2",
+                      "explanation": "The limit only requires inputs close to 2, not equal to 2.",
+                      "latex": "x = 1.99,\\; 1.999,\\; 2.001,\\; 2.01",
+                      "actionCue": "Sample"
+                    },
+                    {
+                      "id": "hole-factor-and-cancel",
+                      "label": "Simplify while x ≠ 2",
+                      "explanation": "Factor the numerator and cancel the common (x − 2) since x is not 2 in our samples.",
+                      "latex": "\\frac{x^2-4}{x-2}=\\frac{(x-2)(x+2)}{x-2}=x+2,\\quad x\\ne 2",
+                      "actionCue": "Factor and cancel"
+                    },
+                    {
+                      "id": "hole-read-simplified",
+                      "label": "Read the simplified form near 2",
+                      "explanation": "On the simplified rule x + 2, the output heads to 4 as x heads to 2.",
+                      "latex": "g(1.999)\\approx 3.999,\\; g(2.001)\\approx 4.001",
+                      "actionCue": "Approach"
+                    },
+                    {
+                      "id": "hole-state-limit",
+                      "label": "State the limit",
+                      "explanation": "The limit is 4 even though g is undefined exactly at x = 2.",
+                      "latex": "\\lim_{x\\to 2}\\frac{x^2-4}{x-2}=4",
+                      "actionCue": "Conclude"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\lim_{x\\to 2}\\frac{x^2-4}{x-2}=4",
+                    "summary": "The function value at 2 is undefined, but the outputs near 2 head to 4."
+                  },
+                  "interpretation": "The limit answers a trend question. A missing value at the target does not block the trend."
+                },
+                {
+                  "type": "graph",
+                  "id": "removable-hole-graph",
+                  "title": "g(x) = (x^2 − 4)/(x − 2) approaches 4 at x = 2",
+                  "description": "Notice the line y = x + 2 first, since (x^2 − 4)/(x − 2) simplifies to x + 2 when x is not 2. At x = 2 the function is undefined: the point (2, 4) is marked as the limit value the outputs head toward from both sides.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": 0,
+                      "max": 4,
+                      "ticks": [0, 1, 2, 3, 4]
+                    },
+                    "yAxis": {
+                      "label": "output g(x)",
+                      "min": 0,
+                      "max": 7,
+                      "ticks": [0, 2, 4, 6]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "simplified-x-plus-two",
+                        "label": "Simplified function (x ≠ 2)",
+                        "expression": "y = x + 2",
+                        "domain": [0, 4],
+                        "samples": [
+                          [0, 2],
+                          [1, 3],
+                          [1.9, 3.9],
+                          [2.1, 4.1],
+                          [3, 5],
+                          [4, 6]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "hole-approach-left",
+                        "label": "Approach from the left",
+                        "points": [
+                          [1.5, 3.5],
+                          [1.9, 3.9]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "hole-approach-right",
+                        "label": "Approach from the right",
+                        "points": [
+                          [2.5, 4.5],
+                          [2.1, 4.1]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "hole-limit-marker",
+                        "label": "Limit value (function undefined here)",
+                        "points": [[2, 4]]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "hole-at-two",
+                        "label": "g undefined at x = 2",
+                        "point": [2, 4],
+                        "text": "The function is undefined at x = 2, but the outputs from both sides head to 4."
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "plug-in-to-find-limit",
+                  "title": "Plugging in x = a to find the limit",
+                  "misconception": "The limit of f(x) as x approaches a is always f(a).",
+                  "incorrectStep": "Writing lim_{x→2} (x^2 − 4)/(x − 2) = (4 − 4)/(2 − 2) = 0/0, then concluding the limit does not exist.",
+                  "whyWrong": "The limit asks about the trend as x approaches the target, not the value at the target. The form 0/0 is a signal to simplify, not a final answer.",
+                  "correction": "Sample inputs near 2, or simplify (x^2 − 4)/(x − 2) to x + 2 while x ≠ 2, then read the trend: outputs head to 4.",
+                  "checkPrompt": "Did you ask what the outputs do near a, or did you only check the value at a?"
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "undefined-means-no-limit",
+                  "title": "Treating an undefined value as no limit",
+                  "misconception": "If the function is undefined at x = a, the limit cannot exist.",
+                  "incorrectStep": "Stopping at g(2) is undefined and writing lim_{x→2} g(x) does not exist.",
+                  "whyWrong": "Existence of the limit depends on the trend from both sides, not on whether f(a) is defined.",
+                  "correction": "Sample inputs close to 2 from both sides. If both sides head to the same number, that number is the limit.",
+                  "checkPrompt": "Are both sides agreeing on one value?"
+                },
+                {
+                  "type": "intuition",
+                  "id": "pause-predict-two-sides",
+                  "title": "Pause: predict from both sides",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Before the quiz, predict the trend. For "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x)=2x+1"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " near "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x=3"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", what value does the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "output",
+                      "label": "output"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " approach?"
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "If your left-side and right-side samples agree, you have the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "limit",
+                      "label": "limit"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ]
+                },
+                {
+                  "type": "quiz",
+                  "id": "limits-intuitively-check",
+                  "title": "Check: limits intuitively",
+                  "questions": [
+                    {
+                      "kind": "multipleChoice",
+                      "id": "linear-limit-at-three",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\lim_{x\\to 3}(2x+1)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "linear-limit-seven",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "7"
+                            }
+                          ],
+                          "feedback": "Correct. Inputs near 3 produce outputs near 2(3) + 1 = 7."
+                        },
+                        {
+                          "id": "linear-limit-three",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "3"
+                            }
+                          ],
+                          "feedback": "3 is the target input, not the output. Read the output the function produces as x approaches 3."
+                        },
+                        {
+                          "id": "linear-limit-one",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "1"
+                            }
+                          ],
+                          "feedback": "1 is f(0), not the limit near x = 3."
+                        }
+                      ],
+                      "correctOptionId": "linear-limit-seven",
+                      "conceptTags": ["limits", "linear-functions"],
+                      "hint": "Sample 2.9 and 3.1 and check which value the outputs hug."
+                    },
+                    {
+                      "kind": "multipleChoice",
+                      "id": "removable-hole-question",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "For "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "g(x)=\\frac{x^2-4}{x-2}"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ", what is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\lim_{x\\to 2}g(x)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "hole-limit-four",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "4"
+                            }
+                          ],
+                          "feedback": "Correct. The simplified rule x + 2 heads to 4 as x heads to 2, even though g(2) is undefined."
+                        },
+                        {
+                          "id": "hole-limit-undefined",
+                          "text": [
+                            {
+                              "kind": "text",
+                              "value": "Undefined — the limit cannot exist."
+                            }
+                          ],
+                          "feedback": "Review the second mistake block. The limit measures the trend, not the value at the target."
+                        },
+                        {
+                          "id": "hole-limit-zero",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "0"
+                            }
+                          ],
+                          "feedback": "0/0 is a signal to simplify, not the final value of the limit."
+                        }
+                      ],
+                      "correctOptionId": "hole-limit-four",
+                      "conceptTags": ["limits", "removable-discontinuity"],
+                      "hint": "Factor x^2 − 4 and cancel the common factor while x ≠ 2."
+                    },
+                    {
+                      "kind": "shortAnswer",
+                      "id": "constant-shift-limit",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "Estimate "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\lim_{x\\to 0}(x+5)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": " by sampling inputs close to 0."
+                        }
+                      ],
+                      "acceptedAnswers": ["5", "= 5", "limit = 5", "f(0)=5"],
+                      "feedback": {
+                        "correct": "Correct. Inputs near 0 produce outputs near 5 from both sides.",
+                        "incorrect": "Sample x = −0.1 and 0.1; both outputs are very close to 5."
+                      },
+                      "conceptTags": ["limits", "linear-functions"],
+                      "hint": "Pick one input slightly less than 0 and one slightly greater than 0."
+                    }
+                  ]
+                },
+                {
+                  "type": "summary",
+                  "id": "limits-intuitively-summary",
+                  "items": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "A "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "limit",
+                        "label": "limit"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " names the value an "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "output",
+                        "label": "output"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " approaches as the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "input",
+                        "label": "input"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " approaches a target."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Estimate the limit by sampling inputs that approach the target from both sides."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "If the two sides agree on a value, that value is the limit."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "A limit can exist even when the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "function",
+                        "label": "function"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " is undefined at the target input."
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "revision": {
+            "keyIdeas": [
+              "A limit names the value f(x) approaches as x approaches a target.",
+              "Sample inputs from both sides of the target.",
+              "If the two sides agree, the limit equals that value.",
+              "A limit can exist even when f(a) is undefined."
+            ],
+            "recallPrompts": [
+              "What does lim_{x→a} f(x) = L say in words?",
+              "Why do we sample inputs from both sides of the target?",
+              "Why does lim_{x→2} (x^2 − 4)/(x − 2) equal 4 even though g(2) is undefined?",
+              "What does 0/0 signal when you try to plug x = a directly?"
+            ],
+            "mistakeIds": ["plug-in-to-find-limit", "undefined-means-no-limit"],
+            "quizIds": ["limits-intuitively-check"]
+          }
         }
       ]
     },
@@ -627,7 +1415,7 @@
               "text": "Avoid substituting h = 0 before the quotient is simplified."
             }
           ],
-          "prerequisiteLessonIds": ["functions-refresher"],
+          "prerequisiteLessonIds": ["functions-refresher", "limits-intuitively"],
           "estimatedMinutes": 32,
           "difficulty": "intro",
           "sections": [
