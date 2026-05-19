@@ -65,6 +65,7 @@ describe("calculus-i course fixture", () => {
     expect(lessons).toEqual([
       "functions-refresher",
       "limits-intuitively",
+      "one-sided-and-infinite-limits",
       "derivative-as-a-limit",
       "derivative-at-a-point",
       "constant-function-derivative"
@@ -74,7 +75,7 @@ describe("calculus-i course fixture", () => {
   it("reports the correct lesson count via totalLessons", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
-    expect(totalLessons(result.course)).toBe(5);
+    expect(totalLessons(result.course)).toBe(6);
   });
 
   it("wires derivative-as-a-limit to require functions-refresher and limits-intuitively", () => {
@@ -98,6 +99,18 @@ describe("calculus-i course fixture", () => {
     expect(limits?.lesson.prerequisiteLessonIds).toEqual(["functions-refresher"]);
   });
 
+  it("wires one-sided-and-infinite-limits to build on functions-refresher and limits-intuitively", () => {
+    const result = validateContent(courseJson);
+    if (!result.ok) throw new Error("Fixture failed to validate.");
+    const lesson = eachLesson(result.course).find(
+      (entry) => entry.lesson.id === "one-sided-and-infinite-limits"
+    );
+    expect(lesson?.lesson.prerequisiteLessonIds).toEqual([
+      "functions-refresher",
+      "limits-intuitively"
+    ]);
+  });
+
   it("authors term segments in every lesson, including the first-principles trio", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
@@ -111,6 +124,7 @@ describe("calculus-i course fixture", () => {
       );
     }
     expect(counts.get("limits-intuitively")).toBeGreaterThanOrEqual(5);
+    expect(counts.get("one-sided-and-infinite-limits")).toBeGreaterThanOrEqual(5);
     expect(counts.get("derivative-as-a-limit")).toBeGreaterThanOrEqual(5);
     expect(counts.get("derivative-at-a-point")).toBeGreaterThanOrEqual(4);
     expect(counts.get("constant-function-derivative")).toBeGreaterThanOrEqual(3);
@@ -130,6 +144,20 @@ describe("calculus-i course fixture", () => {
         "input",
         "output",
         "function-notation"
+      ])
+    );
+  });
+
+  it("ships glossary terms for one-sided and infinite limit vocabulary", () => {
+    const result = validateContent(courseJson);
+    if (!result.ok) throw new Error("Fixture failed to validate.");
+    const ids = result.course.glossary.map((term) => term.id);
+    expect(ids).toEqual(
+      expect.arrayContaining([
+        "one-sided-limit",
+        "infinite-limit",
+        "vertical-asymptote",
+        "jump-discontinuity"
       ])
     );
   });
