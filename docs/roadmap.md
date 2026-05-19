@@ -52,17 +52,18 @@ What done means: dashboard → course → lesson navigation works; deep-link rel
 
 ## Phase 4 — Content Depth (Calculus I Starter)
 
-Status: ~33%. Two modules, four lessons of the targeted three modules / 10+ lessons.
+Status: ~42%. Two modules, five lessons of the targeted three modules / 10+ lessons.
 
 Shipped:
 
 - **Module A — Foundations:** `functions-refresher` with full block set (title, concept, latex, intuition, graph, worked example, common mistake, two quizzes, summary, revision layer), six new glossary terms (`function`, `input`, `output`, `domain`, `range`, `function-notation`), and the first live `term` segments in lesson body text.
-- **Module B — Derivatives from First Principles:** `derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative` with full block sets and authored graph samples. `derivative-as-a-limit` now lists `functions-refresher` as a prerequisite, exercising the validator's cross-module prerequisite path on real content.
-- **Glossary `term` segments authored across every existing lesson.** All four authored lessons now surface live `term` segments in concept / intuition / summary block prose (counts: `functions-refresher` 8, `derivative-as-a-limit` 7, `derivative-at-a-point` 7, `constant-function-derivative` 4). New regression test `authors term segments in every lesson, including the first-principles trio` in `src/content/__tests__/calculusI.test.ts` walks every lesson, asserts every lesson carries at least one `term` segment, and pins per-lesson minimums for the first-principles trio so the wiring cannot silently revert to plain text.
+- **Module A — Foundations:** `limits-intuitively` with full block set (title, concept, latex, two intuition blocks, two graphs, two worked examples with `actionCue` chips and `finalAnswer` bands, two common mistakes, three-question quiz, summary, revision layer). The two worked examples cover a linear limit and a removable-discontinuity limit (`(x^2 − 4)/(x − 2)` at `x = 2`), establishing that a limit can exist where the function is undefined. `limits-intuitively` requires `functions-refresher`, and `derivative-as-a-limit` now requires `["functions-refresher", "limits-intuitively"]`, so the first-principles definition rests on an authored intuitive notion of a limit instead of an unsupported reference.
+- **Module B — Derivatives from First Principles:** `derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative` with full block sets and authored graph samples.
+- **Glossary `term` segments authored across every existing lesson.** All five authored lessons now surface live `term` segments in concept / intuition / summary block prose. Regression test `authors term segments in every lesson, including the first-principles trio` in `src/content/__tests__/calculusI.test.ts` walks every lesson, asserts every lesson carries at least one `term` segment, and pins per-lesson minimums for `limits-intuitively` and the first-principles trio so the wiring cannot silently revert to plain text.
 
 Open:
 
-- **Module A — Foundations:** limits intuitively, one-sided & infinite limits.
+- **Module A — Foundations:** one-sided & infinite limits.
 - **Module B — Derivatives from First Principles:** add differentiability vs continuity.
 - **Module C — Differentiation Rules:** power, sum/difference, product, quotient, chain, tangent line equation (capstone).
 
@@ -129,7 +130,7 @@ What done means: CI green from a clean clone with the new per-directory threshol
 
 Next vertical slices, smallest first. Each row is intended as a single PR.
 
-1. Phase 4 — Module A: limits intuitively, one-sided & infinite limits.
+1. Phase 4 — Module A: one-sided & infinite limits.
 2. Phase 4 — Module B: differentiability vs continuity.
 3. Phase 4 — Module C: power, sum/difference, product, quotient, chain, tangent-line capstone.
 4. Phase 6 — Rust-side File / View / Help menu emission with reader-setting shortcuts.
