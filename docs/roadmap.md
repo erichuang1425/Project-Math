@@ -52,18 +52,18 @@ What done means: dashboard → course → lesson navigation works; deep-link rel
 
 ## Phase 4 — Content Depth (Calculus I Starter)
 
-Status: ~42%. Two modules, five lessons of the targeted three modules / 10+ lessons.
+Status: ~50%. Two modules, six lessons of the targeted three modules / 10+ lessons.
 
 Shipped:
 
 - **Module A — Foundations:** `functions-refresher` with full block set (title, concept, latex, intuition, graph, worked example, common mistake, two quizzes, summary, revision layer), six new glossary terms (`function`, `input`, `output`, `domain`, `range`, `function-notation`), and the first live `term` segments in lesson body text.
 - **Module A — Foundations:** `limits-intuitively` with full block set (title, concept, latex, two intuition blocks, two graphs, two worked examples with `actionCue` chips and `finalAnswer` bands, two common mistakes, three-question quiz, summary, revision layer). The two worked examples cover a linear limit and a removable-discontinuity limit (`(x^2 − 4)/(x − 2)` at `x = 2`), establishing that a limit can exist where the function is undefined. `limits-intuitively` requires `functions-refresher`, and `derivative-as-a-limit` now requires `["functions-refresher", "limits-intuitively"]`, so the first-principles definition rests on an authored intuitive notion of a limit instead of an unsupported reference.
+- **Module A — Foundations:** `one-sided-and-infinite-limits` with full block set (title, concept, latex, two intuition blocks, two graphs, two worked examples with `actionCue` chips and `finalAnswer` bands, two common mistakes, three-question quiz, summary, revision layer). The two worked examples cover the sign function `x/|x|` at `x = 0` (one-sided limits exist but disagree, so the two-sided limit does not exist) and `1/x^2` at `x = 0` (both sides head to `+∞`, recorded as an infinite limit). Four new glossary terms ship: `one-sided-limit`, `infinite-limit`, `vertical-asymptote`, `jump-discontinuity`. The lesson requires `["functions-refresher", "limits-intuitively"]` and sits as a Foundations sibling of `limits-intuitively`, so the existing `functions-refresher → limits-intuitively → derivative-as-a-limit` path stays unblocked.
 - **Module B — Derivatives from First Principles:** `derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative` with full block sets and authored graph samples.
-- **Glossary `term` segments authored across every existing lesson.** All five authored lessons now surface live `term` segments in concept / intuition / summary block prose. Regression test `authors term segments in every lesson, including the first-principles trio` in `src/content/__tests__/calculusI.test.ts` walks every lesson, asserts every lesson carries at least one `term` segment, and pins per-lesson minimums for `limits-intuitively` and the first-principles trio so the wiring cannot silently revert to plain text.
+- **Glossary `term` segments authored across every existing lesson.** All authored lessons surface live `term` segments in concept / intuition / summary block prose. Regression test `authors term segments in every lesson, including the first-principles trio` in `src/content/__tests__/calculusI.test.ts` walks every lesson, asserts every lesson carries at least one `term` segment, and pins per-lesson minimums for `limits-intuitively`, `one-sided-and-infinite-limits`, and the first-principles trio so the wiring cannot silently revert to plain text.
 
 Open:
 
-- **Module A — Foundations:** one-sided & infinite limits.
 - **Module B — Derivatives from First Principles:** add differentiability vs continuity.
 - **Module C — Differentiation Rules:** power, sum/difference, product, quotient, chain, tangent line equation (capstone).
 
@@ -130,9 +130,13 @@ What done means: CI green from a clean clone with the new per-directory threshol
 
 Next vertical slices, smallest first. Each row is intended as a single PR.
 
-1. Phase 4 — Module A: one-sided & infinite limits.
-2. Phase 4 — Module B: differentiability vs continuity.
-3. Phase 4 — Module C: power, sum/difference, product, quotient, chain, tangent-line capstone.
-4. Phase 6 — Rust-side File / View / Help menu emission with reader-setting shortcuts.
-5. Phase 6 — `open_course_dialog`, `export_learner_state`, `import_learner_state` with safe-slug validation.
-6. Phase 6 — App icon set, window restore, dynamic title (`Course — Lesson`), recent courses (last 5).
+1. Phase 4 — Module B: differentiability vs continuity.
+2. Phase 4 — Module C kickoff: introduce the `differentiation-rules` module and author the power rule lesson (rule statement, derivation from first principles for `x^2` and `x^3`, generalisation to `x^n`, worked examples, common mistakes, quiz).
+3. Phase 4 — Module C: sum/difference rule lesson.
+4. Phase 4 — Module C: product rule lesson.
+5. Phase 4 — Module C: quotient rule lesson.
+6. Phase 4 — Module C: chain rule lesson.
+7. Phase 4 — Module C: tangent-line equation capstone (uses every rule above; ties back to the first-principles definition of the derivative).
+8. Phase 6 — accelerators on the Rust-side reader submenu items (text size, line spacing, font). Note: the File / View / Help menu is already built and `menu:*` events already emit from `src-tauri/src/lib.rs:96-201`; only the submenu accelerators are missing.
+9. Phase 6 — `open_course_dialog`, `export_learner_state`, `import_learner_state` with safe-slug validation.
+10. Phase 6 — App icon set, window restore, dynamic title (`Course — Lesson`), recent courses (last 5).
