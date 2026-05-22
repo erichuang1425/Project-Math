@@ -68,14 +68,15 @@ describe("calculus-i course fixture", () => {
       "one-sided-and-infinite-limits",
       "derivative-as-a-limit",
       "derivative-at-a-point",
-      "constant-function-derivative"
+      "constant-function-derivative",
+      "differentiability-vs-continuity"
     ]);
   });
 
   it("reports the correct lesson count via totalLessons", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
-    expect(totalLessons(result.course)).toBe(6);
+    expect(totalLessons(result.course)).toBe(7);
   });
 
   it("wires derivative-as-a-limit to require functions-refresher and limits-intuitively", () => {
@@ -111,6 +112,18 @@ describe("calculus-i course fixture", () => {
     ]);
   });
 
+  it("wires differentiability-vs-continuity to require one-sided limits and the difference quotient", () => {
+    const result = validateContent(courseJson);
+    if (!result.ok) throw new Error("Fixture failed to validate.");
+    const lesson = eachLesson(result.course).find(
+      (entry) => entry.lesson.id === "differentiability-vs-continuity"
+    );
+    expect(lesson?.lesson.prerequisiteLessonIds).toEqual([
+      "one-sided-and-infinite-limits",
+      "derivative-as-a-limit"
+    ]);
+  });
+
   it("authors term segments in every lesson, including the first-principles trio", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
@@ -128,6 +141,7 @@ describe("calculus-i course fixture", () => {
     expect(counts.get("derivative-as-a-limit")).toBeGreaterThanOrEqual(5);
     expect(counts.get("derivative-at-a-point")).toBeGreaterThanOrEqual(4);
     expect(counts.get("constant-function-derivative")).toBeGreaterThanOrEqual(3);
+    expect(counts.get("differentiability-vs-continuity")).toBeGreaterThanOrEqual(5);
   });
 
   it("ships a non-empty glossary covering the new functions terms", () => {
