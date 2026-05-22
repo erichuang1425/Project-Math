@@ -4838,6 +4838,947 @@
             "mistakeIds": ["treating-constant-as-slope"],
             "quizIds": ["constant-function-check"]
           }
+        },
+        {
+          "id": "differentiability-vs-continuity",
+          "slug": "differentiability-vs-continuity",
+          "title": "Differentiability vs Continuity",
+          "summary": "Continuity demands no jump. Differentiability adds a single tangent slope. A corner shows the second demand can fail.",
+          "objectives": [
+            {
+              "id": "differentiability-vs-continuity-obj-1",
+              "text": "State the two demands: continuity needs a limit equal to the value, differentiability needs a single tangent slope."
+            },
+            {
+              "id": "differentiability-vs-continuity-obj-2",
+              "text": "Confirm f(x) = |x| is continuous at x = 0 using one-sided limits."
+            },
+            {
+              "id": "differentiability-vs-continuity-obj-3",
+              "text": "Compute the left and right difference quotients of f(x) = |x| at x = 0."
+            },
+            {
+              "id": "differentiability-vs-continuity-obj-4",
+              "text": "Conclude the derivative does not exist where the two one-sided difference quotients disagree."
+            },
+            {
+              "id": "differentiability-vs-continuity-obj-5",
+              "text": "Distinguish 'continuous means differentiable' from the correct direction 'differentiable means continuous'."
+            }
+          ],
+          "prerequisiteLessonIds": ["one-sided-and-infinite-limits", "derivative-as-a-limit"],
+          "estimatedMinutes": 28,
+          "difficulty": "intro",
+          "sections": [
+            {
+              "id": "two-demands",
+              "title": "Observe Two Demands",
+              "blocks": [
+                {
+                  "type": "title",
+                  "id": "differentiability-vs-continuity-title",
+                  "kicker": "First principles pattern",
+                  "title": "Differentiability vs Continuity",
+                  "subtitle": "A continuous graph can still have a corner where the tangent slope fails to exist.",
+                  "objectives": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Observe two demands placed on a function at the same input."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Check that "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "f(x)=|x|"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " passes the continuity demand at "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x=0"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Compute the left and right difference quotients and compare them."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Name the direction: differentiable implies continuous, not the reverse."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "concept",
+                  "id": "two-demands-explained",
+                  "title": "Observe: two demands at the same input",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Two ideas can both fail or succeed at one input. A "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "function",
+                      "label": "function"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " is "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "continuity",
+                      "label": "continuous"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " at "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x=a"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " when its "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "limit",
+                      "label": "limit"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " at "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "a"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " equals its "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "output",
+                      "label": "output"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " at "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "a"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". A function is "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "differentiability",
+                      "label": "differentiable"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " at "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x=a"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " when the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "difference-quotient",
+                      "label": "difference quotient"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " has one limit as "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "h\\to 0"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " from both sides."
+                    }
+                  ],
+                  "keyIdeas": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Continuity says the graph does not jump at "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "a"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Differentiability says the graph has one tangent slope at "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "a"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Differentiable implies continuous. A continuous function may still fail to be differentiable."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "latex",
+                  "id": "continuity-definition-formula",
+                  "latex": "\\lim_{x\\to a} f(x) = f(a)",
+                  "caption": "Continuity at x = a: the two-sided limit exists and equals the function value.",
+                  "display": true
+                },
+                {
+                  "type": "intuition",
+                  "id": "predict-where-derivative-fails",
+                  "title": "Predict: where could the derivative fail?",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Two short questions before the graph. Ask each separately. First, does the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "function",
+                      "label": "function"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " value match the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "limit",
+                      "label": "limit"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " at "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x=0"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "? Second, do the two "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "one-sided-limit",
+                      "label": "one-sided"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " difference quotients agree at "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x=0"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "?"
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "Continuity asks about values. Differentiability asks about slopes. The two demands are not the same."
+                    }
+                  ]
+                },
+                {
+                  "type": "graph",
+                  "id": "absolute-value-corner-graph",
+                  "title": "The corner of f(x) = |x| at x = 0",
+                  "description": "Notice the V-shape first. The graph reaches the point (0, 0) without a break, so the continuity demand is met. Then notice the two short secant lines: one from (-1, 1) down to (0, 0) has slope -1, and one from (0, 0) up to (1, 1) has slope +1. The slopes from the two sides disagree at the corner.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": -2,
+                      "max": 2,
+                      "ticks": [-2, -1, 0, 1, 2]
+                    },
+                    "yAxis": {
+                      "label": "output |x|",
+                      "min": 0,
+                      "max": 2,
+                      "ticks": [0, 1, 2]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "absolute-value-curve",
+                        "label": "Function y = |x|",
+                        "expression": "y = |x|",
+                        "domain": [-2, 2],
+                        "samples": [
+                          [-2, 2],
+                          [-1, 1],
+                          [-0.5, 0.5],
+                          [0, 0],
+                          [0.5, 0.5],
+                          [1, 1],
+                          [2, 2]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "corner-marker",
+                        "label": "Corner point",
+                        "points": [[0, 0]]
+                      },
+                      {
+                        "kind": "line",
+                        "id": "left-secant-slope-minus-one",
+                        "label": "Left secant slope = -1",
+                        "through": [
+                          [-1, 1],
+                          [0, 0]
+                        ]
+                      },
+                      {
+                        "kind": "line",
+                        "id": "right-secant-slope-plus-one",
+                        "label": "Right secant slope = +1",
+                        "through": [
+                          [0, 0],
+                          [1, 1]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "corner-at-zero",
+                        "label": "corner at x = 0",
+                        "point": [0, 0],
+                        "text": "The graph reaches this point continuously, but the slope changes from -1 to +1 across it."
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "intuition",
+                  "id": "compare-graph-to-demands",
+                  "title": "Compare: graph to the two demands",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Read the graph in this order: the V-shape, the corner point at the origin, the left secant, the right secant. The corner is reached without a break, so the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "continuity",
+                      "label": "continuity"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " demand is met. The two secants meet at the corner with different slopes, so the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "differentiability",
+                      "label": "differentiability"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " demand fails."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "Continuous yes. Differentiable no. A single graph can show both answers at the same input."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "test-the-corner",
+              "title": "Test the Corner",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "continuity-of-absolute-value",
+                  "title": "Continuity of f(x) = |x| at x = 0",
+                  "goal": "Confirm that f(x) = |x| satisfies the continuity demand at x = 0.",
+                  "given": "f(x) = |x| for every real x.",
+                  "steps": [
+                    {
+                      "id": "abs-read-value-at-zero",
+                      "label": "Read the value at x = 0",
+                      "explanation": "The function value at the input 0 is |0| = 0.",
+                      "latex": "f(0)=|0|=0",
+                      "actionCue": "Read value"
+                    },
+                    {
+                      "id": "abs-approach-from-left",
+                      "label": "Approach from the left",
+                      "explanation": "For x less than 0, |x| equals -x. As x approaches 0 from the left, -x approaches 0.",
+                      "latex": "\\lim_{x\\to 0^-} |x| = \\lim_{x\\to 0^-} (-x) = 0",
+                      "actionCue": "Left side"
+                    },
+                    {
+                      "id": "abs-approach-from-right",
+                      "label": "Approach from the right",
+                      "explanation": "For x greater than 0, |x| equals x. As x approaches 0 from the right, x approaches 0.",
+                      "latex": "\\lim_{x\\to 0^+} |x| = \\lim_{x\\to 0^+} x = 0",
+                      "actionCue": "Right side"
+                    },
+                    {
+                      "id": "abs-compare-sides",
+                      "label": "Compare the two sides",
+                      "explanation": "Both one-sided limits equal 0, so the two-sided limit is 0.",
+                      "latex": "\\lim_{x\\to 0} |x| = 0",
+                      "actionCue": "Compare"
+                    },
+                    {
+                      "id": "abs-check-continuity",
+                      "label": "Check the continuity demand",
+                      "explanation": "The limit at 0 equals the value at 0, so the function is continuous at x = 0.",
+                      "latex": "\\lim_{x\\to 0} f(x) = 0 = f(0)",
+                      "actionCue": "Check demand"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\lim_{x\\to 0} |x| = 0 = f(0)",
+                    "summary": "The continuity demand is met at x = 0."
+                  },
+                  "interpretation": "The graph passes through the corner without a break. Continuity is settled before any slope question is asked."
+                },
+                {
+                  "type": "workedExample",
+                  "id": "derivative-test-at-the-corner",
+                  "title": "Test f'(0) for f(x) = |x|",
+                  "goal": "Compute the left and right difference quotients at x = 0 and compare them.",
+                  "given": "f(x) = |x|, evaluated at x = 0.",
+                  "steps": [
+                    {
+                      "id": "abs-write-quotient",
+                      "label": "Write the difference quotient",
+                      "explanation": "Apply the first-principles definition at the input 0.",
+                      "latex": "\\frac{f(0+h)-f(0)}{h} = \\frac{|h|-0}{h} = \\frac{|h|}{h}",
+                      "actionCue": "Write quotient"
+                    },
+                    {
+                      "id": "abs-simplify-for-negative-h",
+                      "label": "Simplify for h less than 0",
+                      "explanation": "When h is negative, |h| equals -h. The quotient becomes -h divided by h. Cancel while h is nonzero.",
+                      "latex": "\\frac{|h|}{h} = \\frac{-h}{h} = -1,\\quad h<0",
+                      "actionCue": "Pick h<0"
+                    },
+                    {
+                      "id": "abs-state-left-limit",
+                      "label": "State the left-side limit",
+                      "explanation": "Every left-side value of the quotient is -1, so the left-side limit is -1.",
+                      "latex": "\\lim_{h\\to 0^-} \\frac{|h|}{h} = -1",
+                      "actionCue": "Left limit"
+                    },
+                    {
+                      "id": "abs-simplify-for-positive-h",
+                      "label": "Simplify for h greater than 0",
+                      "explanation": "When h is positive, |h| equals h. The quotient becomes h divided by h. Cancel while h is nonzero.",
+                      "latex": "\\frac{|h|}{h} = \\frac{h}{h} = 1,\\quad h>0",
+                      "actionCue": "Pick h>0"
+                    },
+                    {
+                      "id": "abs-state-right-limit",
+                      "label": "State the right-side limit",
+                      "explanation": "Every right-side value of the quotient is +1, so the right-side limit is +1.",
+                      "latex": "\\lim_{h\\to 0^+} \\frac{|h|}{h} = 1",
+                      "actionCue": "Right limit"
+                    },
+                    {
+                      "id": "abs-compare-and-conclude",
+                      "label": "Compare the two sides",
+                      "explanation": "The left and right limits disagree, so the two-sided limit of the difference quotient does not exist. The derivative at 0 does not exist.",
+                      "latex": "\\lim_{h\\to 0^-} \\frac{|h|}{h} = -1 \\ne 1 = \\lim_{h\\to 0^+} \\frac{|h|}{h}",
+                      "actionCue": "Compare"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\lim_{h\\to 0^-} \\frac{|h|}{h} = -1 \\ne 1 = \\lim_{h\\to 0^+} \\frac{|h|}{h}",
+                    "summary": "Left slope -1 and right slope +1 disagree, so f'(0) does not exist."
+                  },
+                  "interpretation": "The function is continuous at 0 but is not differentiable there. The corner breaks the second demand."
+                },
+                {
+                  "type": "graph",
+                  "id": "smooth-vs-cornered-graph",
+                  "title": "Smooth versus cornered at x = 0",
+                  "description": "Notice y = x^2 first. Its slopes from the left and from the right both approach 0 at x = 0, so it has a single tangent slope there. Now notice y = |x|. Its slopes from the left and from the right disagree at the corner, so a single tangent slope is missing.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "input x",
+                      "min": -2,
+                      "max": 2,
+                      "ticks": [-2, -1, 0, 1, 2]
+                    },
+                    "yAxis": {
+                      "label": "output",
+                      "min": 0,
+                      "max": 4,
+                      "ticks": [0, 1, 2, 4]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "x-squared-smooth",
+                        "label": "Function y = x^2 (smooth)",
+                        "expression": "y = x^2",
+                        "domain": [-2, 2],
+                        "samples": [
+                          [-2, 4],
+                          [-1.5, 2.25],
+                          [-1, 1],
+                          [-0.5, 0.25],
+                          [0, 0],
+                          [0.5, 0.25],
+                          [1, 1],
+                          [1.5, 2.25],
+                          [2, 4]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "absolute-value-cornered",
+                        "label": "Function y = |x| (cornered)",
+                        "expression": "y = |x|",
+                        "domain": [-2, 2],
+                        "samples": [
+                          [-2, 2],
+                          [-1, 1],
+                          [0, 0],
+                          [1, 1],
+                          [2, 2]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "shared-origin",
+                        "label": "Shared point (0, 0)",
+                        "points": [[0, 0]]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "smooth-vs-corner-contrast",
+                        "label": "smooth versus corner",
+                        "point": [0, 0],
+                        "text": "Both curves pass through (0, 0). At that input y = x^2 has matching one-sided slopes of 0, while y = |x| has slopes -1 and +1."
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "assuming-continuous-means-differentiable",
+                  "title": "Assuming continuous means differentiable",
+                  "misconception": "A function with no jumps must have a derivative everywhere.",
+                  "incorrectStep": "Writing f'(0) = 0 (or any single value) for f(x) = |x| because the graph is unbroken at x = 0.",
+                  "whyWrong": "Continuity only checks function values and their limit. Differentiability also asks whether the left and right difference quotients agree. At x = 0 they disagree (-1 and +1), so the derivative does not exist there.",
+                  "correction": "Compute the left and right difference quotients separately. Compare them. The derivative exists only when the two values agree.",
+                  "checkPrompt": "Did you compare the two one-sided difference quotients, or did you only check the function value?"
+                },
+                {
+                  "type": "intuition",
+                  "id": "pause-before-the-quiz",
+                  "title": "Pause: separate the two demands",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Two short questions before the quiz. First, ask whether "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x)=|x|"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " is "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "continuity",
+                      "label": "continuous"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " at "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x=0"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". Second, ask whether the same function is "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "differentiability",
+                      "label": "differentiable"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " at "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x=0"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "Answer each demand on its own. The answers can be different at the same input."
+                    }
+                  ]
+                },
+                {
+                  "type": "quiz",
+                  "id": "differentiability-vs-continuity-check",
+                  "title": "Check: the two demands",
+                  "questions": [
+                    {
+                      "kind": "multipleChoice",
+                      "id": "implication-direction-question",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "Which statement is true?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "differentiable-implies-continuous",
+                          "text": [
+                            {
+                              "kind": "text",
+                              "value": "Every differentiable function is continuous, but a continuous function may fail to be differentiable."
+                            }
+                          ],
+                          "feedback": "Correct. Differentiable implies continuous. The reverse can fail at a corner."
+                        },
+                        {
+                          "id": "continuous-implies-differentiable",
+                          "text": [
+                            {
+                              "kind": "text",
+                              "value": "Every continuous function is differentiable."
+                            }
+                          ],
+                          "feedback": "Review the mistake block. f(x) = |x| is continuous at x = 0 but not differentiable there."
+                        },
+                        {
+                          "id": "continuous-equals-differentiable",
+                          "text": [
+                            {
+                              "kind": "text",
+                              "value": "Continuous and differentiable mean the same thing."
+                            }
+                          ],
+                          "feedback": "They are different demands. Continuity is about values; differentiability is about slopes."
+                        },
+                        {
+                          "id": "defined-implies-differentiable",
+                          "text": [
+                            {
+                              "kind": "text",
+                              "value": "A function is differentiable wherever it is defined."
+                            }
+                          ],
+                          "feedback": "f(x) = |x| is defined at x = 0 but not differentiable there. Being defined is not enough."
+                        }
+                      ],
+                      "correctOptionId": "differentiable-implies-continuous",
+                      "conceptTags": ["differentiability", "continuity"],
+                      "hint": "One direction always holds. The other can fail at a corner."
+                    },
+                    {
+                      "kind": "multipleChoice",
+                      "id": "right-side-quotient-question",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "For "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "f(x)=|x|"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ", what is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\lim_{h\\to 0^+}\\frac{|h|}{h}"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "right-slope-plus-one",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "1"
+                            }
+                          ],
+                          "feedback": "Correct. For h greater than 0, |h|/h = h/h = 1."
+                        },
+                        {
+                          "id": "right-slope-minus-one",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "-1"
+                            }
+                          ],
+                          "feedback": "That is the left-side value, where h is negative and |h| = -h."
+                        },
+                        {
+                          "id": "right-slope-zero",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "0"
+                            }
+                          ],
+                          "feedback": "Zero would mean the slope is flat. For h greater than 0, |h|/h equals 1."
+                        },
+                        {
+                          "id": "right-slope-dne",
+                          "text": [
+                            {
+                              "kind": "text",
+                              "value": "does not exist"
+                            }
+                          ],
+                          "feedback": "The right-side limit exists and equals 1. Only the two-sided limit fails."
+                        }
+                      ],
+                      "correctOptionId": "right-slope-plus-one",
+                      "conceptTags": ["one-sided-limit", "difference-quotient"],
+                      "hint": "For h greater than 0, |h| equals h."
+                    },
+                    {
+                      "kind": "shortAnswer",
+                      "id": "differentiable-at-zero-question",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "Is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "f(x)=|x|"
+                        },
+                        {
+                          "kind": "text",
+                          "value": " differentiable at "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "x=0"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "? Answer yes or no."
+                        }
+                      ],
+                      "acceptedAnswers": [
+                        "no",
+                        "not differentiable",
+                        "f is not differentiable",
+                        "does not exist",
+                        "dne"
+                      ],
+                      "feedback": {
+                        "correct": "Correct. The left and right difference quotients disagree at 0, so the derivative does not exist there.",
+                        "incorrect": "Review the second worked example. The left limit is -1 and the right limit is +1, so the derivative at 0 does not exist."
+                      },
+                      "conceptTags": ["differentiability", "first-principles"],
+                      "hint": "Compare the two one-sided difference quotients."
+                    }
+                  ]
+                },
+                {
+                  "type": "summary",
+                  "id": "differentiability-vs-continuity-summary",
+                  "items": [
+                    [
+                      {
+                        "kind": "term",
+                        "termId": "continuity",
+                        "label": "Continuity"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " at "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x=a"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " means the limit at "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "a"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " equals "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "f(a)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "term",
+                        "termId": "differentiability",
+                        "label": "Differentiability"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " at "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x=a"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " means the two one-sided difference quotients agree as "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "h\\to 0"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Differentiable implies continuous. The reverse is not always true."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "For "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "f(x)=|x|"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " at "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x=0"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ": continuous yes, differentiable no, because the left and right limits of "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "|h|/h"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " disagree."
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "revision": {
+            "keyIdeas": [
+              "Continuity at x = a means lim_{x→a} f(x) = f(a).",
+              "Differentiability at x = a means the left and right difference quotients agree as h → 0.",
+              "Differentiable implies continuous. The reverse can fail at a corner.",
+              "For f(x) = |x| at x = 0, the left limit is -1 and the right limit is +1, so the derivative does not exist."
+            ],
+            "recallPrompts": [
+              "What does continuity at x = a require?",
+              "What does differentiability at x = a require?",
+              "Which implication always holds: continuity to differentiability, or differentiability to continuity?",
+              "Why does f(x) = |x| fail the differentiability demand at x = 0?"
+            ],
+            "mistakeIds": ["assuming-continuous-means-differentiable"],
+            "quizIds": ["differentiability-vs-continuity-check"]
+          }
         }
       ]
     }
