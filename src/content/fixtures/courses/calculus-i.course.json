@@ -6892,6 +6892,1054 @@
             ],
             "quizIds": ["power-rule-quiz"]
           }
+        },
+        {
+          "id": "sum-difference-rule",
+          "slug": "sum-difference-rule",
+          "title": "The Sum and Difference Rules",
+          "summary": "Prove that the derivative of a sum is the sum of the derivatives, extend the idea to differences and constant multiples, and use all three rules to differentiate any polynomial.",
+          "objectives": [
+            {
+              "id": "sum-diff-obj-1",
+              "text": "State the constant multiple rule: d/dx[cf(x)] = c·f’(x)."
+            },
+            {
+              "id": "sum-diff-obj-2",
+              "text": "State the sum rule: d/dx[f(x) + g(x)] = f’(x) + g’(x)."
+            },
+            {
+              "id": "sum-diff-obj-3",
+              "text": "Derive the sum rule from the limit definition of the derivative."
+            },
+            {
+              "id": "sum-diff-obj-4",
+              "text": "Apply the sum, difference, and constant multiple rules to differentiate a polynomial."
+            },
+            {
+              "id": "sum-diff-obj-5",
+              "text": "Recognise that the sum and difference rules do not extend to products or quotients."
+            }
+          ],
+          "prerequisiteLessonIds": ["power-rule"],
+          "estimatedMinutes": 24,
+          "difficulty": "core",
+          "sections": [
+            {
+              "id": "sum-diff-intro",
+              "title": "Derivatives Term by Term",
+              "blocks": [
+                {
+                  "type": "title",
+                  "id": "sum-diff-title",
+                  "kicker": "Differentiation rules",
+                  "title": "The Sum and Difference Rules",
+                  "subtitle": "Prove that derivatives pass through addition and subtraction, then combine the power rule with these rules to differentiate any polynomial.",
+                  "objectives": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "State and apply the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "constant-multiple-rule",
+                        "label": "constant multiple rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " and the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "sum-rule",
+                        "label": "sum rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Derive the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "sum-rule",
+                        "label": "sum rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " from the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "limit",
+                        "label": "limit"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " definition of the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "derivative",
+                        "label": "derivative"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Differentiate any "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "polynomial",
+                        "label": "polynomial"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " by combining these rules with the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "power-rule",
+                        "label": "power rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "concept",
+                  "id": "sum-diff-motivation",
+                  "objectiveIds": ["sum-diff-obj-2"],
+                  "title": "Why term by term?",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "power-rule",
+                      "label": "power rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " handles a single term like "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^4"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". Most functions you meet are sums of terms: "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "3x^4 + 2x^3 - x + 7"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". To differentiate a "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "polynomial",
+                      "label": "polynomial"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " like that, you need rules that let you break the expression apart and handle each piece separately."
+                    }
+                  ]
+                },
+                {
+                  "type": "intuition",
+                  "id": "sum-diff-rates-add",
+                  "objectiveIds": ["sum-diff-obj-2"],
+                  "title": "Rates of change add",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Imagine two bank accounts growing at different rates. One earns "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(t)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " dollars per day, and the other earns "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "g'(t)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " dollars per day. Your total balance is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(t)+g(t)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The total grows at "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(t)+g'(t)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " dollars per day. Rates of change add when the quantities add."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "If two quantities add, their rates of change add. That is the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "sum-rule",
+                      "label": "sum rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "constant-multiple",
+              "title": "The Constant Multiple Rule",
+              "blocks": [
+                {
+                  "type": "concept",
+                  "id": "sum-diff-const-mult-concept",
+                  "objectiveIds": ["sum-diff-obj-1"],
+                  "title": "Scaling a function scales its rate",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "If a car travels at speed "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(t)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", then three identical cars still each travel at "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(t)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". Their combined distance is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "3f(t)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " and their combined speed is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "3f'(t)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". A constant factor passes straight through the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "derivative",
+                      "label": "derivative"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ]
+                },
+                {
+                  "type": "latex",
+                  "id": "sum-diff-const-mult-formula",
+                  "objectiveIds": ["sum-diff-obj-1"],
+                  "latex": "\\frac{d}{dx}[\\,c\\,f(x)\\,] = c\\,f'(x)",
+                  "caption": "The constant multiple rule: the constant c stays in front.",
+                  "display": true
+                },
+                {
+                  "type": "workedExample",
+                  "id": "sum-diff-const-mult-example",
+                  "objectiveIds": ["sum-diff-obj-1", "sum-diff-obj-4"],
+                  "title": "Differentiate f(x) = 5x³",
+                  "goal": "Apply the constant multiple rule with the power rule to find f’(x).",
+                  "given": "f(x) = 5x³",
+                  "steps": [
+                    {
+                      "id": "cm-identify",
+                      "label": "Identify the constant factor",
+                      "explanation": "The function is 5 times x³. The constant is c = 5 and the inner function is x³.",
+                      "latex": "f(x) = 5 \\cdot x^3",
+                      "actionCue": "Identify"
+                    },
+                    {
+                      "id": "cm-apply-rule",
+                      "label": "Pull the constant through",
+                      "explanation": "The constant multiple rule says the 5 stays in front of the derivative.",
+                      "latex": "f'(x) = 5 \\cdot \\frac{d}{dx}(x^3)",
+                      "actionCue": "Apply rule"
+                    },
+                    {
+                      "id": "cm-power-rule",
+                      "label": "Apply the power rule to x³",
+                      "explanation": "The power rule gives d/dx(x³) = 3x². Multiply by the constant 5.",
+                      "latex": "f'(x) = 5 \\cdot 3x^2 = 15x^2",
+                      "actionCue": "Power rule"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}(5x^3) = 15x^2",
+                    "summary": "The constant 5 multiplied the power-rule result 3x²."
+                  },
+                  "interpretation": "At any input x, the slope of y = 5x³ is 15x²."
+                }
+              ]
+            },
+            {
+              "id": "prove-sum-rule",
+              "title": "Prove the Sum Rule",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "sum-diff-sum-rule-proof",
+                  "objectiveIds": ["sum-diff-obj-2", "sum-diff-obj-3"],
+                  "title": "Derive the sum rule from the limit definition",
+                  "goal": "Show that d/dx[f(x) + g(x)] = f’(x) + g’(x) using the first-principles definition.",
+                  "steps": [
+                    {
+                      "id": "sr-write-def",
+                      "label": "Write the limit definition",
+                      "explanation": "Let s(x) = f(x) + g(x). Start from the first-principles definition of s’(x).",
+                      "latex": "s'(x) = \\lim_{h \\to 0} \\frac{s(x+h) - s(x)}{h}",
+                      "actionCue": "Define"
+                    },
+                    {
+                      "id": "sr-substitute",
+                      "label": "Substitute s = f + g",
+                      "explanation": "Replace every s(·) with f(·) + g(·).",
+                      "latex": "s'(x) = \\lim_{h \\to 0} \\frac{[f(x+h)+g(x+h)] - [f(x)+g(x)]}{h}",
+                      "actionCue": "Substitute"
+                    },
+                    {
+                      "id": "sr-regroup",
+                      "label": "Regroup by function",
+                      "explanation": "Pair the f terms together and the g terms together.",
+                      "latex": "s'(x) = \\lim_{h \\to 0} \\frac{[f(x+h)-f(x)] + [g(x+h)-g(x)]}{h}",
+                      "actionCue": "Regroup"
+                    },
+                    {
+                      "id": "sr-split",
+                      "label": "Split the fraction",
+                      "explanation": "A sum in the numerator splits into two fractions with the same denominator.",
+                      "latex": "s'(x) = \\lim_{h \\to 0} \\left[\\frac{f(x+h)-f(x)}{h} + \\frac{g(x+h)-g(x)}{h}\\right]",
+                      "actionCue": "Split"
+                    },
+                    {
+                      "id": "sr-limit-sum",
+                      "label": "Apply the limit sum law",
+                      "explanation": "The limit of a sum equals the sum of the limits, provided both limits exist.",
+                      "latex": "s'(x) = \\lim_{h \\to 0} \\frac{f(x+h)-f(x)}{h} + \\lim_{h \\to 0} \\frac{g(x+h)-g(x)}{h}",
+                      "actionCue": "Limit law"
+                    },
+                    {
+                      "id": "sr-recognise",
+                      "label": "Recognise the derivatives",
+                      "explanation": "Each limit is the definition of a derivative. The first is f’(x) and the second is g’(x).",
+                      "latex": "s'(x) = f'(x) + g'(x)",
+                      "actionCue": "Recognise"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}[f(x)+g(x)] = f'(x)+g'(x)",
+                    "summary": "The derivative of a sum is the sum of the derivatives."
+                  },
+                  "interpretation": "Each function contributes its own rate of change independently."
+                },
+                {
+                  "type": "latex",
+                  "id": "sum-diff-sum-rule-formula",
+                  "objectiveIds": ["sum-diff-obj-2"],
+                  "latex": "\\frac{d}{dx}[f(x)+g(x)] = f'(x)+g'(x)",
+                  "caption": "The sum rule.",
+                  "display": true
+                },
+                {
+                  "type": "concept",
+                  "id": "sum-diff-difference-rule-concept",
+                  "objectiveIds": ["sum-diff-obj-2"],
+                  "title": "The difference rule follows immediately",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Replace "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "g"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " with "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "-g"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " in the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "sum-rule",
+                      "label": "sum rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". Because "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "\\tfrac{d}{dx}[-g(x)] = -g'(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " by the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "constant-multiple-rule",
+                      "label": "constant multiple rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " with "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "c = -1"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", you get:"
+                    }
+                  ],
+                  "keyIdeas": [
+                    [
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}[f(x) - g(x)] = f'(x) - g'(x)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " — the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "derivative",
+                        "label": "derivative"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " of a difference is the difference of the derivatives."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "graph",
+                  "id": "sum-diff-sum-visual-graph",
+                  "objectiveIds": ["sum-diff-obj-2"],
+                  "title": "f(x) = x² + x and its derivative f’(x) = 2x + 1",
+                  "description": "The curve y = x² + x is shown alongside its derivative y = 2x + 1. At x = 1, the tangent slope is 3. At x = −0.5, the derivative is 0 and the curve has a turning point.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "x",
+                      "min": -3,
+                      "max": 3,
+                      "ticks": [-3, -2, -1, 0, 1, 2, 3]
+                    },
+                    "yAxis": {
+                      "label": "y",
+                      "min": -4,
+                      "max": 12,
+                      "ticks": [-4, -2, 0, 2, 4, 6, 8, 10, 12]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "sum-visual-f",
+                        "label": "f(x) = x² + x",
+                        "expression": "y = x^2 + x",
+                        "domain": [-3, 3],
+                        "samples": [
+                          [-3, 6],
+                          [-2, 2],
+                          [-1, 0],
+                          [-0.5, -0.25],
+                          [0, 0],
+                          [1, 2],
+                          [2, 6],
+                          [3, 12]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "sum-visual-fprime",
+                        "label": "f’(x) = 2x + 1",
+                        "expression": "y = 2x + 1",
+                        "domain": [-3, 3],
+                        "samples": [
+                          [-3, -5],
+                          [-2, -3],
+                          [-1, -1],
+                          [-0.5, 0],
+                          [0, 1],
+                          [1, 3],
+                          [2, 5],
+                          [3, 7]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "sum-visual-key-points",
+                        "label": "Key points",
+                        "points": [
+                          [1, 2],
+                          [-0.5, -0.25]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "slope-at-1-sum",
+                        "label": "slope = 3",
+                        "point": [1, 2],
+                        "text": "At x = 1, f’(1) = 2(1) + 1 = 3. The slope equals the sum of the individual derivatives: 2x gives 2 and 1 gives 1."
+                      },
+                      {
+                        "id": "turning-point",
+                        "label": "slope = 0",
+                        "point": [-0.5, -0.25],
+                        "text": "At x = −0.5, f’(−0.5) = 0. The curve has a turning point here."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "apply-sum-difference",
+              "title": "Apply the Rules to Polynomials",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "sum-diff-example-cubic-minus-square",
+                  "objectiveIds": ["sum-diff-obj-4"],
+                  "title": "Differentiate f(x) = x³ − x²",
+                  "goal": "Use the difference rule and the power rule to find f’(x).",
+                  "given": "f(x) = x³ − x²",
+                  "steps": [
+                    {
+                      "id": "cs-split",
+                      "label": "Apply the difference rule",
+                      "explanation": "The derivative of a difference is the difference of the derivatives.",
+                      "latex": "f'(x) = \\frac{d}{dx}(x^3) - \\frac{d}{dx}(x^2)",
+                      "actionCue": "Split"
+                    },
+                    {
+                      "id": "cs-power-each",
+                      "label": "Apply the power rule to each term",
+                      "explanation": "d/dx(x³) = 3x² and d/dx(x²) = 2x.",
+                      "latex": "f'(x) = 3x^2 - 2x",
+                      "actionCue": "Power rule"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}(x^3 - x^2) = 3x^2 - 2x",
+                    "summary": "Differentiate each power term separately and keep the minus sign."
+                  },
+                  "interpretation": "At x = 1 the slope is 3(1) − 2(1) = 1; the curve is rising."
+                },
+                {
+                  "type": "workedExample",
+                  "id": "sum-diff-example-polynomial",
+                  "objectiveIds": ["sum-diff-obj-1", "sum-diff-obj-4"],
+                  "title": "Differentiate f(x) = 3x⁴ + 2x³ − x",
+                  "goal": "Combine the constant multiple, sum, and difference rules with the power rule.",
+                  "given": "f(x) = 3x⁴ + 2x³ − x",
+                  "steps": [
+                    {
+                      "id": "poly-split",
+                      "label": "Split into three derivatives",
+                      "explanation": "Apply the sum and difference rules to break the expression into three pieces.",
+                      "latex": "f'(x) = \\frac{d}{dx}(3x^4) + \\frac{d}{dx}(2x^3) - \\frac{d}{dx}(x)",
+                      "actionCue": "Split"
+                    },
+                    {
+                      "id": "poly-const-mult",
+                      "label": "Pull constants through",
+                      "explanation": "The constant multiple rule lets each coefficient stay in front.",
+                      "latex": "f'(x) = 3\\cdot\\frac{d}{dx}(x^4) + 2\\cdot\\frac{d}{dx}(x^3) - \\frac{d}{dx}(x)",
+                      "actionCue": "Constants out"
+                    },
+                    {
+                      "id": "poly-power",
+                      "label": "Apply the power rule to each term",
+                      "explanation": "d/dx(x⁴) = 4x³, d/dx(x³) = 3x², and d/dx(x) = 1.",
+                      "latex": "f'(x) = 3(4x^3) + 2(3x^2) - 1",
+                      "actionCue": "Power rule"
+                    },
+                    {
+                      "id": "poly-simplify",
+                      "label": "Simplify",
+                      "explanation": "Multiply each constant by its coefficient.",
+                      "latex": "f'(x) = 12x^3 + 6x^2 - 1",
+                      "actionCue": "Simplify"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}(3x^4 + 2x^3 - x) = 12x^3 + 6x^2 - 1",
+                    "summary": "Each term differentiates independently: bring down the exponent, multiply by the coefficient, reduce the power."
+                  },
+                  "interpretation": "A degree-4 polynomial differentiates to a degree-3 polynomial."
+                },
+                {
+                  "type": "graph",
+                  "id": "sum-diff-polynomial-graph",
+                  "objectiveIds": ["sum-diff-obj-4"],
+                  "title": "f(x) = x³ − 3x and its derivative f’(x) = 3x² − 3",
+                  "description": "The cubic y = x³ − 3x has turning points at x = −1 and x = 1. Its derivative y = 3x² − 3 is a parabola that crosses zero at those same x-values, confirming that the slope is zero at each turning point.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "x",
+                      "min": -2.5,
+                      "max": 2.5,
+                      "ticks": [-2, -1, 0, 1, 2]
+                    },
+                    "yAxis": {
+                      "label": "y",
+                      "min": -4,
+                      "max": 10,
+                      "ticks": [-4, -2, 0, 2, 4, 6, 8, 10]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "poly-graph-f",
+                        "label": "f(x) = x³ − 3x",
+                        "expression": "y = x^3 - 3x",
+                        "domain": [-2.5, 2.5],
+                        "samples": [
+                          [-2, -2],
+                          [-1.5, 1.125],
+                          [-1, 2],
+                          [-0.5, 1.375],
+                          [0, 0],
+                          [0.5, -1.375],
+                          [1, -2],
+                          [1.5, -1.125],
+                          [2, 2]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "poly-graph-fprime",
+                        "label": "f’(x) = 3x² − 3",
+                        "expression": "y = 3x^2 - 3",
+                        "domain": [-2.5, 2.5],
+                        "samples": [
+                          [-2, 9],
+                          [-1.5, 3.75],
+                          [-1, 0],
+                          [-0.5, -2.25],
+                          [0, -3],
+                          [0.5, -2.25],
+                          [1, 0],
+                          [1.5, 3.75],
+                          [2, 9]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "poly-graph-turning-pts",
+                        "label": "Turning points",
+                        "points": [
+                          [-1, 2],
+                          [1, -2]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "local-max",
+                        "label": "f’(−1) = 0",
+                        "point": [-1, 2],
+                        "text": "At x = −1, f’(−1) = 3(1) − 3 = 0. The curve has a local maximum."
+                      },
+                      {
+                        "id": "local-min",
+                        "label": "f’(1) = 0",
+                        "point": [1, -2],
+                        "text": "At x = 1, f’(1) = 3(1) − 3 = 0. The curve has a local minimum."
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "sum-diff-mistake-products",
+                  "objectiveIds": ["sum-diff-obj-5"],
+                  "title": "Applying the sum rule to a product",
+                  "misconception": "The derivative of f(x)·g(x) equals f’(x)·g’(x).",
+                  "incorrectStep": "d/dx(x² · x³) = 2x · 3x² = 6x³",
+                  "whyWrong": "The sum rule says the derivative of a sum is the sum of the derivatives. It does not say the derivative of a product is the product of the derivatives. The correct answer is d/dx(x⁵) = 5x⁴, not 6x³.",
+                  "correction": "Use the power rule directly: x² · x³ = x⁵, so d/dx(x⁵) = 5x⁴. A separate product rule exists for when you cannot simplify first.",
+                  "checkPrompt": "Compute d/dx(x² · x⁴) by simplifying first. Does the shortcut f’·g’ give the same answer?"
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "sum-diff-mistake-constant-term",
+                  "objectiveIds": ["sum-diff-obj-4"],
+                  "title": "Forgetting that a constant differentiates to zero",
+                  "misconception": "The constant term survives differentiation.",
+                  "incorrectStep": "d/dx(x² + 5) = 2x + 5",
+                  "whyWrong": "A constant has no x-dependence, so its rate of change is zero. The constant 5 vanishes when you differentiate.",
+                  "correction": "d/dx(x² + 5) = 2x + 0 = 2x. Every constant term becomes zero.",
+                  "checkPrompt": "What is d/dx(4x³ − 7)? Make sure the constant term disappears."
+                }
+              ]
+            },
+            {
+              "id": "sum-diff-practice",
+              "title": "Check Your Understanding",
+              "blocks": [
+                {
+                  "type": "quiz",
+                  "id": "sum-diff-quiz",
+                  "objectiveIds": ["sum-diff-obj-2", "sum-diff-obj-4", "sum-diff-obj-5"],
+                  "title": "Sum and Difference Rules Quiz",
+                  "questions": [
+                    {
+                      "kind": "multipleChoice",
+                      "id": "sum-diff-q1",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}(x^4 + x^2)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "q1-a",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "4x^3 + 2x"
+                            }
+                          ],
+                          "feedback": "Correct. Apply the power rule to each term separately: 4x³ from x⁴ and 2x from x²."
+                        },
+                        {
+                          "id": "q1-b",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "4x^3 + x^2"
+                            }
+                          ],
+                          "feedback": "The second term x² differentiates to 2x, not x²."
+                        },
+                        {
+                          "id": "q1-c",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "4x^3 \\cdot 2x"
+                            }
+                          ],
+                          "feedback": "The sum rule gives the sum of the derivatives, not the product."
+                        },
+                        {
+                          "id": "q1-d",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "6x^5"
+                            }
+                          ],
+                          "feedback": "You cannot add the exponents and differentiate the result. Differentiate each term separately."
+                        }
+                      ],
+                      "correctOptionId": "q1-a",
+                      "conceptTags": ["sum-rule", "power-rule"],
+                      "hint": "Differentiate x⁴ and x² separately, then add the results."
+                    },
+                    {
+                      "kind": "multipleChoice",
+                      "id": "sum-diff-q2",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}(3x^3 - 5x)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "q2-a",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "9x^2 - 5"
+                            }
+                          ],
+                          "feedback": "Correct. d/dx(3x³) = 3·3x² = 9x² and d/dx(5x) = 5."
+                        },
+                        {
+                          "id": "q2-b",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "3x^2 - 5"
+                            }
+                          ],
+                          "feedback": "d/dx(3x³) = 3 · 3x² = 9x², not 3x². Remember to keep the constant factor."
+                        },
+                        {
+                          "id": "q2-c",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "9x^2 - 5x"
+                            }
+                          ],
+                          "feedback": "The derivative of 5x is 5, not 5x. The power rule gives d/dx(x¹) = 1."
+                        },
+                        {
+                          "id": "q2-d",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "9x^3 - 5"
+                            }
+                          ],
+                          "feedback": "The exponent on x must drop by 1. d/dx(x³) = 3x², not 3x³."
+                        }
+                      ],
+                      "correctOptionId": "q2-a",
+                      "conceptTags": ["sum-rule", "constant-multiple-rule", "power-rule"],
+                      "hint": "Use the constant multiple rule on each term, then the power rule."
+                    },
+                    {
+                      "kind": "shortAnswer",
+                      "id": "sum-diff-q3",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "Find "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}(2x^5 - x^3 + 4)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ". Write your answer as a polynomial in x."
+                        }
+                      ],
+                      "acceptedAnswers": [
+                        "10x^4 - 3x^2",
+                        "10x^4-3x^2",
+                        "10x⁴ - 3x²",
+                        "10x⁴-3x²",
+                        "10x^4 − 3x^2"
+                      ],
+                      "feedback": {
+                        "correct": "Correct. d/dx(2x⁵) = 10x⁴, d/dx(x³) = 3x², and d/dx(4) = 0.",
+                        "incorrect": "Apply each rule term by term: d/dx(2x⁵) = 2·5x⁴ = 10x⁴, d/dx(−x³) = −3x², and d/dx(4) = 0. The answer is 10x⁴ − 3x²."
+                      },
+                      "conceptTags": ["sum-rule", "constant-multiple-rule", "power-rule"],
+                      "hint": "Differentiate each of the three terms separately. Remember that the constant 4 gives zero."
+                    }
+                  ]
+                },
+                {
+                  "type": "summary",
+                  "id": "sum-diff-summary",
+                  "items": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "constant-multiple-rule",
+                        "label": "constant multiple rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ": "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}[c\\,f(x)] = c\\,f'(x)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ". A constant factor passes through the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "derivative",
+                        "label": "derivative"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "sum-rule",
+                        "label": "sum rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ": "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}[f(x)+g(x)] = f'(x)+g'(x)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ". The difference rule is the same idea with a minus sign."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "To differentiate a "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "polynomial",
+                        "label": "polynomial"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ": split into terms, pull constants out, apply the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "power-rule",
+                        "label": "power rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " to each power of "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ", and add the results."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "sum-rule",
+                        "label": "sum rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " does not extend to products or quotients. Those need separate rules."
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "revision": {
+            "keyIdeas": [
+              "d/dx[cf(x)] = c·f’(x) — constants pass through the derivative.",
+              "d/dx[f(x) + g(x)] = f’(x) + g’(x) — the derivative of a sum is the sum of the derivatives.",
+              "d/dx[f(x) − g(x)] = f’(x) − g’(x) — the same rule works for differences.",
+              "To differentiate a polynomial: split into terms, pull constants out, power-rule each term, add.",
+              "Do not apply the sum/difference rule to products. d/dx(f·g) ≠ f’·g’."
+            ],
+            "recallPrompts": [
+              "State the sum rule.",
+              "State the constant multiple rule.",
+              "What is d/dx(3x⁴ + 2x³ − x)?",
+              "Why does d/dx(f·g) ≠ f’·g’?"
+            ],
+            "mistakeIds": ["sum-diff-mistake-products", "sum-diff-mistake-constant-term"],
+            "quizIds": ["sum-diff-quiz"]
+          }
         }
       ]
     }
@@ -7016,6 +8064,19 @@
       "term": "polynomial",
       "definition": "A function built from sums of terms of the form a·x^n, where n is a non-negative integer and a is a real coefficient.",
       "aliases": ["poly"]
+    },
+    {
+      "id": "sum-rule",
+      "term": "sum rule",
+      "definition": "The derivative of a sum equals the sum of the derivatives: d/dx[f(x) + g(x)] = f’(x) + g’(x). The difference rule is the same idea with a minus sign.",
+      "aliases": ["addition rule"],
+      "latex": "\\frac{d}{dx}[f(x)+g(x)] = f'(x)+g'(x)"
+    },
+    {
+      "id": "constant-multiple-rule",
+      "term": "constant multiple rule",
+      "definition": "The derivative of a constant times a function equals the constant times the derivative: d/dx[cf(x)] = c · f’(x). The constant factor passes through the derivative.",
+      "latex": "\\frac{d}{dx}[c\\,f(x)] = c\\,f'(x)"
     }
   ]
 }

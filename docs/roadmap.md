@@ -52,7 +52,7 @@ What done means: dashboard → course → lesson navigation works; deep-link rel
 
 ## Phase 4 — Content Depth (Calculus I Starter)
 
-Status: ~70%. Three modules, eight lessons of the targeted three modules / 10+ lessons.
+Status: ~75%. Three modules, nine lessons of the targeted three modules / 10+ lessons.
 
 Shipped:
 
@@ -64,9 +64,11 @@ Shipped:
 - **Glossary `term` segments authored across every existing lesson.** All authored lessons surface live `term` segments in concept / intuition / summary block prose. Regression test `authors term segments in every lesson, including the first-principles trio` in `src/content/__tests__/calculusI.test.ts` walks every lesson, asserts every lesson carries at least one `term` segment, and pins per-lesson minimums for `limits-intuitively`, `one-sided-and-infinite-limits`, the first-principles trio, and `differentiability-vs-continuity` so the wiring cannot silently revert to plain text.
 - **Module C — Differentiation Rules:** `power-rule` with full block set (title, concept, latex, two intuition blocks, two graphs, four worked examples with `actionCue` chips and `finalAnswer` bands, two common mistakes, three-question quiz, summary, revision layer). The first worked example derives `d/dx(x^2) = 2x` from first principles (expand, cancel, factor, limit). The second derives `d/dx(x^3) = 3x^2` the same way, revealing the n · x^(n−1) pattern. The third and fourth apply the shortcut to `x^5` and `x^1`. Three new glossary terms ship: `power-rule`, `exponent`, `polynomial`. The lesson requires `["derivative-as-a-limit"]`, connecting back to Module B. The `differentiation-rules` module is introduced with the power rule as its first lesson.
 
+- **Module C — Differentiation Rules:** `sum-difference-rule` with full block set (title, concept, latex, two intuition blocks, two graphs, four worked examples with `actionCue` chips and `finalAnswer` bands, two common mistakes, three-question quiz, summary, revision layer). The first worked example applies the constant multiple rule to `5x³`. The second derives the sum rule from the limit definition in six steps (define, substitute, regroup, split, limit law, recognise). The third and fourth apply the sum/difference/constant-multiple rules to polynomials (`x³ − x²` and `3x⁴ + 2x³ − x`). Two new glossary terms ship: `sum-rule`, `constant-multiple-rule`. The lesson requires `["power-rule"]`, extending the Module C chain.
+
 Open:
 
-- **Module C — Differentiation Rules:** sum/difference, product, quotient, chain, tangent line equation (capstone).
+- **Module C — Differentiation Rules:** product, quotient, chain, tangent line equation (capstone).
 
 What done means: validator passes for the full course; every lesson mounts cleanly in jsdom; lesson summary export round-trips.
 
@@ -132,7 +134,7 @@ What done means: CI green from a clean clone with the new per-directory threshol
 Next vertical slices, smallest first. Each row is intended as a single PR.
 
 1. ~~Phase 4 — Module C kickoff: introduce the `differentiation-rules` module and author the power rule lesson.~~ Done.
-2. Phase 4 — Module C: sum/difference rule lesson.
+2. ~~Phase 4 — Module C: sum/difference rule lesson.~~ Done.
 3. Phase 4 — Module C: product rule lesson.
 4. Phase 4 — Module C: quotient rule lesson.
 5. Phase 4 — Module C: chain rule lesson.
