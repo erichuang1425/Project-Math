@@ -70,14 +70,15 @@ describe("calculus-i course fixture", () => {
       "derivative-at-a-point",
       "constant-function-derivative",
       "differentiability-vs-continuity",
-      "power-rule"
+      "power-rule",
+      "sum-difference-rule"
     ]);
   });
 
   it("reports the correct lesson count via totalLessons", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
-    expect(totalLessons(result.course)).toBe(8);
+    expect(totalLessons(result.course)).toBe(9);
   });
 
   it("wires derivative-as-a-limit to require functions-refresher and limits-intuitively", () => {
@@ -144,6 +145,7 @@ describe("calculus-i course fixture", () => {
     expect(counts.get("constant-function-derivative")).toBeGreaterThanOrEqual(3);
     expect(counts.get("differentiability-vs-continuity")).toBeGreaterThanOrEqual(5);
     expect(counts.get("power-rule")).toBeGreaterThanOrEqual(5);
+    expect(counts.get("sum-difference-rule")).toBeGreaterThanOrEqual(5);
   });
 
   it("wires power-rule to require derivative-as-a-limit", () => {
@@ -159,6 +161,7 @@ describe("calculus-i course fixture", () => {
     const mod = result.course.modules.find((m) => m.id === "differentiation-rules");
     expect(mod).toBeDefined();
     expect(mod!.lessons.map((l) => l.id)).toContain("power-rule");
+    expect(mod!.lessons.map((l) => l.id)).toContain("sum-difference-rule");
   });
 
   it("places the differentiation-rules module after first-principles", () => {
@@ -168,11 +171,28 @@ describe("calculus-i course fixture", () => {
     expect(moduleIds).toEqual(["foundations", "first-principles", "differentiation-rules"]);
   });
 
+  it("wires sum-difference-rule to require power-rule", () => {
+    const result = validateContent(courseJson);
+    if (!result.ok) throw new Error("Fixture failed to validate.");
+    const lesson = eachLesson(result.course).find(
+      (entry) => entry.lesson.id === "sum-difference-rule"
+    );
+    expect(lesson?.lesson.prerequisiteLessonIds).toEqual(["power-rule"]);
+  });
+
   it("ships glossary terms for the differentiation-rules module", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
     const ids = result.course.glossary.map((term) => term.id);
-    expect(ids).toEqual(expect.arrayContaining(["power-rule", "exponent", "polynomial"]));
+    expect(ids).toEqual(
+      expect.arrayContaining([
+        "power-rule",
+        "exponent",
+        "polynomial",
+        "sum-rule",
+        "constant-multiple-rule"
+      ])
+    );
   });
 
   it("ships a non-empty glossary covering the new functions terms", () => {
