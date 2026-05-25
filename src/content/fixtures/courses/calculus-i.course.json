@@ -6262,9 +6262,7 @@
                         "kind": "points",
                         "id": "x-cubed-tangent-points",
                         "label": "Zero-slope point",
-                        "points": [
-                          [0, 0]
-                        ]
+                        "points": [[0, 0]]
                       }
                     ],
                     "annotations": [
@@ -6888,7 +6886,10 @@
               "What is d/dx(x⁵)?",
               "What common error do students make when applying the power rule?"
             ],
-            "mistakeIds": ["power-rule-mistake-forget-reduce", "power-rule-mistake-coefficient-swap"],
+            "mistakeIds": [
+              "power-rule-mistake-forget-reduce",
+              "power-rule-mistake-coefficient-swap"
+            ],
             "quizIds": ["power-rule-quiz"]
           }
         }

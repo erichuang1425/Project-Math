@@ -149,9 +149,7 @@ describe("calculus-i course fixture", () => {
   it("wires power-rule to require derivative-as-a-limit", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
-    const lesson = eachLesson(result.course).find(
-      (entry) => entry.lesson.id === "power-rule"
-    );
+    const lesson = eachLesson(result.course).find((entry) => entry.lesson.id === "power-rule");
     expect(lesson?.lesson.prerequisiteLessonIds).toEqual(["derivative-as-a-limit"]);
   });
 
@@ -174,9 +172,7 @@ describe("calculus-i course fixture", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
     const ids = result.course.glossary.map((term) => term.id);
-    expect(ids).toEqual(
-      expect.arrayContaining(["power-rule", "exponent", "polynomial"])
-    );
+    expect(ids).toEqual(expect.arrayContaining(["power-rule", "exponent", "polynomial"]));
   });
 
   it("ships a non-empty glossary covering the new functions terms", () => {
