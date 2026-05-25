@@ -52,7 +52,7 @@ What done means: dashboard → course → lesson navigation works; deep-link rel
 
 ## Phase 4 — Content Depth (Calculus I Starter)
 
-Status: ~60%. Two modules, seven lessons of the targeted three modules / 10+ lessons.
+Status: ~70%. Three modules, eight lessons of the targeted three modules / 10+ lessons.
 
 Shipped:
 
@@ -62,10 +62,11 @@ Shipped:
 - **Module B — Derivatives from First Principles:** `derivative-as-a-limit`, `derivative-at-a-point`, `constant-function-derivative` with full block sets and authored graph samples.
 - **Module B — Derivatives from First Principles:** `differentiability-vs-continuity` with full block set (title, concept, latex, three intuition blocks, two graphs, two worked examples with `actionCue` chips and `finalAnswer` bands, one common mistake, three-question quiz, summary, revision layer). The two worked examples first confirm `f(x) = |x|` is continuous at `x = 0` via one-sided limits, then test `f'(0)` by computing the left and right difference quotients (`-1` and `+1`) and recording that the two-sided limit does not exist. The lesson requires `["one-sided-and-infinite-limits", "derivative-as-a-limit"]` and reuses existing glossary entries (`continuity`, `differentiability`, `difference-quotient`, `function`, `output`, `limit`, `one-sided-limit`) — no new terms — so a continuous-but-not-differentiable case lands without expanding the vocabulary surface.
 - **Glossary `term` segments authored across every existing lesson.** All authored lessons surface live `term` segments in concept / intuition / summary block prose. Regression test `authors term segments in every lesson, including the first-principles trio` in `src/content/__tests__/calculusI.test.ts` walks every lesson, asserts every lesson carries at least one `term` segment, and pins per-lesson minimums for `limits-intuitively`, `one-sided-and-infinite-limits`, the first-principles trio, and `differentiability-vs-continuity` so the wiring cannot silently revert to plain text.
+- **Module C — Differentiation Rules:** `power-rule` with full block set (title, concept, latex, two intuition blocks, two graphs, four worked examples with `actionCue` chips and `finalAnswer` bands, two common mistakes, three-question quiz, summary, revision layer). The first worked example derives `d/dx(x^2) = 2x` from first principles (expand, cancel, factor, limit). The second derives `d/dx(x^3) = 3x^2` the same way, revealing the n · x^(n−1) pattern. The third and fourth apply the shortcut to `x^5` and `x^1`. Three new glossary terms ship: `power-rule`, `exponent`, `polynomial`. The lesson requires `["derivative-as-a-limit"]`, connecting back to Module B. The `differentiation-rules` module is introduced with the power rule as its first lesson.
 
 Open:
 
-- **Module C — Differentiation Rules:** power, sum/difference, product, quotient, chain, tangent line equation (capstone).
+- **Module C — Differentiation Rules:** sum/difference, product, quotient, chain, tangent line equation (capstone).
 
 What done means: validator passes for the full course; every lesson mounts cleanly in jsdom; lesson summary export round-trips.
 
@@ -130,7 +131,7 @@ What done means: CI green from a clean clone with the new per-directory threshol
 
 Next vertical slices, smallest first. Each row is intended as a single PR.
 
-1. Phase 4 — Module C kickoff: introduce the `differentiation-rules` module and author the power rule lesson (rule statement, derivation from first principles for `x^2` and `x^3`, generalisation to `x^n`, worked examples, common mistakes, quiz).
+1. ~~Phase 4 — Module C kickoff: introduce the `differentiation-rules` module and author the power rule lesson.~~ Done.
 2. Phase 4 — Module C: sum/difference rule lesson.
 3. Phase 4 — Module C: product rule lesson.
 4. Phase 4 — Module C: quotient rule lesson.

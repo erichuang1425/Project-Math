@@ -5781,6 +5781,1119 @@
           }
         }
       ]
+    },
+    {
+      "id": "differentiation-rules",
+      "title": "Differentiation Rules",
+      "summary": "Derive the standard shortcut rules from first principles. Start with the power rule, then build sum, product, quotient, and chain rules.",
+      "lessons": [
+        {
+          "id": "power-rule",
+          "slug": "power-rule",
+          "title": "The Power Rule",
+          "summary": "Derive the shortcut for x^n from first principles, starting with x^2 and x^3 before generalising. Apply it to polynomials.",
+          "objectives": [
+            {
+              "id": "power-rule-obj-1",
+              "text": "Derive d/dx(x^2) = 2x from the first-principles definition."
+            },
+            {
+              "id": "power-rule-obj-2",
+              "text": "Derive d/dx(x^3) = 3x^2 from the first-principles definition."
+            },
+            {
+              "id": "power-rule-obj-3",
+              "text": "State the power rule: d/dx(x^n) = n x^(n-1) for any positive integer n."
+            },
+            {
+              "id": "power-rule-obj-4",
+              "text": "Apply the power rule to differentiate a single-term power function."
+            },
+            {
+              "id": "power-rule-obj-5",
+              "text": "Avoid common errors: forgetting to reduce the exponent or misplacing the coefficient."
+            }
+          ],
+          "prerequisiteLessonIds": ["derivative-as-a-limit"],
+          "estimatedMinutes": 28,
+          "difficulty": "core",
+          "sections": [
+            {
+              "id": "power-rule-intro",
+              "title": "From First Principles to a Pattern",
+              "blocks": [
+                {
+                  "type": "title",
+                  "id": "power-rule-title",
+                  "kicker": "Differentiation rules",
+                  "title": "The Power Rule",
+                  "subtitle": "Derive the shortcut for x raised to a positive integer, then apply it without the limit each time.",
+                  "objectives": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Derive "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}(x^2)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " and "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}(x^3)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " from the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "difference-quotient",
+                        "label": "difference quotient"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "State the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "power-rule",
+                        "label": "power rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " for "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x^n"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Apply the shortcut to differentiate a power "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "function",
+                        "label": "function"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "concept",
+                  "id": "power-rule-motivation",
+                  "objectiveIds": ["power-rule-obj-1"],
+                  "title": "Why a shortcut?",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "In Module B you computed the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "derivative",
+                      "label": "derivative"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " of "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^2"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " from the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "limit",
+                      "label": "limit"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " definition. The algebra got the job done, but imagine doing that every time for "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^5"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " or "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^{10}"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". A pattern is hiding inside the algebra. Once you see it, you can skip the limit step entirely."
+                    }
+                  ]
+                },
+                {
+                  "type": "intuition",
+                  "id": "power-rule-pattern-preview",
+                  "objectiveIds": ["power-rule-obj-3"],
+                  "title": "Spot the pattern before the proof",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "From Module B: "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "\\tfrac{d}{dx}(x^2)=2x"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "exponent",
+                      "label": "exponent"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " 2 came down as a coefficient and the new exponent dropped by one. Watch whether the same thing happens for "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^3"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "If the pattern holds: bring the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "exponent",
+                      "label": "exponent"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " down, reduce by one."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "derive-x-squared",
+              "title": "Derive d/dx(x²) from First Principles",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "power-rule-x-squared-derivation",
+                  "objectiveIds": ["power-rule-obj-1"],
+                  "title": "Derivative of f(x) = x² from first principles",
+                  "goal": "Compute f'(x) for f(x) = x² using the limit definition.",
+                  "given": "f(x) = x²",
+                  "steps": [
+                    {
+                      "id": "x2-write-definition",
+                      "label": "Write the definition",
+                      "explanation": "Start from the first-principles definition. h is not zero yet.",
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
+                      "actionCue": "Define"
+                    },
+                    {
+                      "id": "x2-substitute",
+                      "label": "Substitute f(x) = x²",
+                      "explanation": "Replace every f(·) with the squaring rule.",
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{(x+h)^2 - x^2}{h}",
+                      "actionCue": "Substitute"
+                    },
+                    {
+                      "id": "x2-expand",
+                      "label": "Expand (x + h)²",
+                      "explanation": "Use the identity (a + b)² = a² + 2ab + b².",
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{x^2+2xh+h^2 - x^2}{h}",
+                      "actionCue": "Expand"
+                    },
+                    {
+                      "id": "x2-cancel",
+                      "label": "Cancel the x² terms",
+                      "explanation": "The x² at the start and the −x² at the end eliminate each other.",
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{2xh+h^2}{h}",
+                      "actionCue": "Cancel"
+                    },
+                    {
+                      "id": "x2-factor",
+                      "label": "Factor out h",
+                      "explanation": "Every term in the numerator has a factor of h. Because h ≠ 0, divide it out.",
+                      "latex": "f'(x)=\\lim_{h\\to 0}(2x+h)",
+                      "actionCue": "Factor"
+                    },
+                    {
+                      "id": "x2-take-limit",
+                      "label": "Take the limit as h → 0",
+                      "explanation": "Now h may approach 0. The remaining h vanishes, leaving 2x.",
+                      "latex": "f'(x)=2x",
+                      "actionCue": "Take limit"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}(x^2)=2x",
+                    "summary": "The exponent 2 came down as a coefficient and the power dropped to 1."
+                  },
+                  "interpretation": "At any input x, the tangent slope of the parabola y = x² is 2x."
+                },
+                {
+                  "type": "graph",
+                  "id": "power-rule-x-squared-graph",
+                  "objectiveIds": ["power-rule-obj-1"],
+                  "title": "f(x) = x² and its derivative f'(x) = 2x",
+                  "description": "The parabola y = x² is shown in blue. Its derivative y = 2x is a straight line through the origin. At x = 1 the parabola has tangent slope 2; at x = −1 the slope is −2.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "x",
+                      "min": -3,
+                      "max": 3,
+                      "ticks": [-3, -2, -1, 0, 1, 2, 3]
+                    },
+                    "yAxis": {
+                      "label": "y",
+                      "min": -4,
+                      "max": 9,
+                      "ticks": [-4, -2, 0, 2, 4, 6, 8]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "x-squared-curve",
+                        "label": "f(x) = x²",
+                        "expression": "y = x^2",
+                        "domain": [-3, 3],
+                        "samples": [
+                          [-3, 9],
+                          [-2, 4],
+                          [-1, 1],
+                          [0, 0],
+                          [1, 1],
+                          [2, 4],
+                          [3, 9]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "x-squared-derivative",
+                        "label": "f'(x) = 2x",
+                        "expression": "y = 2x",
+                        "domain": [-3, 3],
+                        "samples": [
+                          [-3, -6],
+                          [-2, -4],
+                          [-1, -2],
+                          [0, 0],
+                          [1, 2],
+                          [2, 4],
+                          [3, 6]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "x-squared-tangent-points",
+                        "label": "Tangent slope readout",
+                        "points": [
+                          [1, 1],
+                          [-1, 1]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "slope-at-1",
+                        "label": "slope = 2",
+                        "point": [1, 1],
+                        "text": "At x = 1, the tangent slope is 2(1) = 2."
+                      },
+                      {
+                        "id": "slope-at-neg1",
+                        "label": "slope = −2",
+                        "point": [-1, 1],
+                        "text": "At x = −1, the tangent slope is 2(−1) = −2."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "derive-x-cubed",
+              "title": "Derive d/dx(x³) from First Principles",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "power-rule-x-cubed-derivation",
+                  "objectiveIds": ["power-rule-obj-2"],
+                  "title": "Derivative of f(x) = x³ from first principles",
+                  "goal": "Compute f'(x) for f(x) = x³ using the limit definition.",
+                  "given": "f(x) = x³",
+                  "steps": [
+                    {
+                      "id": "x3-write-definition",
+                      "label": "Write the definition",
+                      "explanation": "Same starting point: the first-principles limit.",
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{f(x+h)-f(x)}{h}",
+                      "actionCue": "Define"
+                    },
+                    {
+                      "id": "x3-substitute",
+                      "label": "Substitute f(x) = x³",
+                      "explanation": "Replace every f(·) with the cubing rule.",
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{(x+h)^3 - x^3}{h}",
+                      "actionCue": "Substitute"
+                    },
+                    {
+                      "id": "x3-expand",
+                      "label": "Expand (x + h)³",
+                      "explanation": "Use (a + b)³ = a³ + 3a²b + 3ab² + b³.",
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{x^3+3x^2 h+3x h^2+h^3 - x^3}{h}",
+                      "actionCue": "Expand"
+                    },
+                    {
+                      "id": "x3-cancel",
+                      "label": "Cancel the x³ terms",
+                      "explanation": "The leading x³ and the trailing −x³ eliminate each other.",
+                      "latex": "f'(x)=\\lim_{h\\to 0}\\frac{3x^2 h+3x h^2+h^3}{h}",
+                      "actionCue": "Cancel"
+                    },
+                    {
+                      "id": "x3-factor",
+                      "label": "Factor out h",
+                      "explanation": "Every surviving term has a factor of h. Because h ≠ 0, divide it out.",
+                      "latex": "f'(x)=\\lim_{h\\to 0}(3x^2+3xh+h^2)",
+                      "actionCue": "Factor"
+                    },
+                    {
+                      "id": "x3-take-limit",
+                      "label": "Take the limit as h → 0",
+                      "explanation": "Both the 3xh and h² terms vanish, leaving 3x².",
+                      "latex": "f'(x)=3x^2",
+                      "actionCue": "Take limit"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}(x^3)=3x^2",
+                    "summary": "The exponent 3 came down as a coefficient and the power dropped to 2."
+                  },
+                  "interpretation": "At any input x, the tangent slope of y = x³ equals 3x²."
+                },
+                {
+                  "type": "graph",
+                  "id": "power-rule-x-cubed-graph",
+                  "objectiveIds": ["power-rule-obj-2"],
+                  "title": "f(x) = x³ and its derivative f'(x) = 3x²",
+                  "description": "The cubic curve y = x³ rises steeply on both ends but flattens at the origin. Its derivative 3x² is a parabola that is never negative, matching the fact that the cubic's tangent slope is zero only at x = 0 and positive everywhere else.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "x",
+                      "min": -2,
+                      "max": 2,
+                      "ticks": [-2, -1, 0, 1, 2]
+                    },
+                    "yAxis": {
+                      "label": "y",
+                      "min": -8,
+                      "max": 12,
+                      "ticks": [-8, -4, 0, 4, 8, 12]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "x-cubed-curve",
+                        "label": "f(x) = x³",
+                        "expression": "y = x^3",
+                        "domain": [-2, 2],
+                        "samples": [
+                          [-2, -8],
+                          [-1, -1],
+                          [0, 0],
+                          [1, 1],
+                          [2, 8]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "x-cubed-derivative",
+                        "label": "f'(x) = 3x²",
+                        "expression": "y = 3x^2",
+                        "domain": [-2, 2],
+                        "samples": [
+                          [-2, 12],
+                          [-1, 3],
+                          [0, 0],
+                          [1, 3],
+                          [2, 12]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "x-cubed-tangent-points",
+                        "label": "Zero-slope point",
+                        "points": [[0, 0]]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "flat-at-origin",
+                        "label": "slope = 0",
+                        "point": [0, 0],
+                        "text": "At x = 0, the tangent slope is 3(0)² = 0."
+                      },
+                      {
+                        "id": "slope-at-1-cubed",
+                        "label": "slope = 3",
+                        "point": [1, 1],
+                        "text": "At x = 1, the tangent slope is 3(1)² = 3."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "generalise-to-x-n",
+              "title": "Generalise to x^n",
+              "blocks": [
+                {
+                  "type": "intuition",
+                  "id": "power-rule-pattern-emerges",
+                  "objectiveIds": ["power-rule-obj-3"],
+                  "title": "The pattern across x², x³, and beyond",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Compare the results so far. For a "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "constant-function",
+                      "label": "constant function"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ": "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "\\tfrac{d}{dx}(c)=0"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". For "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^1"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ": "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "\\tfrac{d}{dx}(x)=1"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". For "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^2"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ": "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "2x"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". For "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^3"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ": "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "3x^2"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". Each time the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "exponent",
+                      "label": "exponent"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " comes down as a coefficient and the power drops by one."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "The pattern is: bring the exponent down, reduce by one. This is the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "power-rule",
+                      "label": "power rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ]
+                },
+                {
+                  "type": "latex",
+                  "id": "power-rule-statement",
+                  "objectiveIds": ["power-rule-obj-3"],
+                  "latex": "\\frac{d}{dx}\\bigl(x^n\\bigr)=n\\,x^{n-1},\\qquad n\\in\\{1,2,3,\\dots\\}",
+                  "caption": "The power rule for positive integer exponents",
+                  "display": true
+                },
+                {
+                  "type": "concept",
+                  "id": "power-rule-why-it-works",
+                  "objectiveIds": ["power-rule-obj-3"],
+                  "title": "Why the pattern holds for every positive integer n",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Expand "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "(x+h)^n"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " with the binomial theorem: "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^n + n x^{n-1}h + (\\text{terms with }h^2\\text{ or higher})"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". Subtract "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^n"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", divide by "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "h"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", and every surviving term except "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "n x^{n-1}"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " still has an "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "h"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " factor. Taking the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "limit",
+                      "label": "limit"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " as "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "h\\to 0"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " kills those terms, leaving "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "n x^{n-1}"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ],
+                  "keyIdeas": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The binomial expansion of "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "(x+h)^n"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " contributes exactly one term that survives the limit: "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "n x^{n-1}"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "apply-the-rule",
+              "title": "Apply the Power Rule",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "power-rule-apply-x-to-the-fifth",
+                  "objectiveIds": ["power-rule-obj-4"],
+                  "title": "Differentiate f(x) = x⁵",
+                  "goal": "Use the power rule to find f'(x) without returning to the limit definition.",
+                  "given": "f(x) = x⁵",
+                  "steps": [
+                    {
+                      "id": "x5-identify",
+                      "label": "Identify n",
+                      "explanation": "The function is x raised to the 5th power, so n = 5.",
+                      "latex": "n = 5",
+                      "actionCue": "Identify"
+                    },
+                    {
+                      "id": "x5-bring-down",
+                      "label": "Bring down the exponent",
+                      "explanation": "Multiply by n = 5.",
+                      "latex": "5\\cdot x^{\\,?}",
+                      "actionCue": "Bring down"
+                    },
+                    {
+                      "id": "x5-reduce",
+                      "label": "Reduce the exponent by 1",
+                      "explanation": "The new exponent is 5 − 1 = 4.",
+                      "latex": "f'(x)=5x^4",
+                      "actionCue": "Reduce"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}(x^5)=5x^4",
+                    "summary": "Bring 5 down, reduce the power to 4."
+                  },
+                  "interpretation": "No limit work needed. The shortcut reproduces exactly what the first-principles definition would give."
+                },
+                {
+                  "type": "workedExample",
+                  "id": "power-rule-apply-x-to-the-first",
+                  "objectiveIds": ["power-rule-obj-4"],
+                  "title": "Differentiate f(x) = x",
+                  "goal": "Apply the power rule to x¹ and confirm it matches the known slope of a line.",
+                  "given": "f(x) = x = x¹",
+                  "steps": [
+                    {
+                      "id": "x1-identify",
+                      "label": "Identify n",
+                      "explanation": "x is the same as x¹, so n = 1.",
+                      "latex": "n = 1",
+                      "actionCue": "Identify"
+                    },
+                    {
+                      "id": "x1-apply-rule",
+                      "label": "Apply n · x^(n−1)",
+                      "explanation": "1 · x⁰ = 1 · 1 = 1.",
+                      "latex": "f'(x) = 1 \\cdot x^{0} = 1",
+                      "actionCue": "Apply rule"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}(x)=1",
+                    "summary": "The line y = x has constant slope 1 everywhere, matching intuition."
+                  },
+                  "interpretation": "The power rule with n = 1 gives slope 1, which matches the fact that y = x is a line with slope 1."
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "power-rule-mistake-forget-reduce",
+                  "objectiveIds": ["power-rule-obj-5"],
+                  "title": "Forgetting to reduce the exponent",
+                  "misconception": "Bring the exponent down but leave the power unchanged.",
+                  "incorrectStep": "d/dx(x⁴) = 4x⁴",
+                  "whyWrong": "The rule says n · x^(n−1). The exponent must drop by 1, giving 4x³, not 4x⁴.",
+                  "correction": "d/dx(x⁴) = 4x³. Always subtract 1 from the exponent after bringing it down.",
+                  "checkPrompt": "What is d/dx(x⁶)? Make sure both the coefficient and the new exponent are correct."
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "power-rule-mistake-coefficient-swap",
+                  "objectiveIds": ["power-rule-obj-5"],
+                  "title": "Swapping the coefficient and the new exponent",
+                  "misconception": "Write the reduced exponent as the coefficient and the original exponent minus one as the power.",
+                  "incorrectStep": "d/dx(x⁴) = 3x⁴  (used n−1 as the coefficient instead of n)",
+                  "whyWrong": "The coefficient is the original exponent n, not n − 1. The exponent that changes is the one on x.",
+                  "correction": "d/dx(x⁴) = 4x³. The original exponent 4 becomes the coefficient; the new exponent is 4 − 1 = 3.",
+                  "checkPrompt": "Differentiate x⁷. Which number becomes the coefficient, and which becomes the new power?"
+                }
+              ]
+            },
+            {
+              "id": "power-rule-practice",
+              "title": "Check Your Understanding",
+              "blocks": [
+                {
+                  "type": "quiz",
+                  "id": "power-rule-quiz",
+                  "objectiveIds": ["power-rule-obj-3", "power-rule-obj-4", "power-rule-obj-5"],
+                  "title": "Power Rule Quiz",
+                  "questions": [
+                    {
+                      "kind": "multipleChoice",
+                      "id": "power-rule-q1-x-cubed",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}(x^3)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "q1-opt-a",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "3x^2"
+                            }
+                          ],
+                          "feedback": "Correct. Bring the exponent 3 down and reduce the power to 2."
+                        },
+                        {
+                          "id": "q1-opt-b",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "3x^3"
+                            }
+                          ],
+                          "feedback": "Not quite — you brought the exponent down but forgot to reduce the power by 1."
+                        },
+                        {
+                          "id": "q1-opt-c",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "2x^3"
+                            }
+                          ],
+                          "feedback": "This uses n − 1 as the coefficient and keeps the original exponent. The coefficient should be n = 3."
+                        },
+                        {
+                          "id": "q1-opt-d",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "x^2"
+                            }
+                          ],
+                          "feedback": "The coefficient is missing — the power rule multiplies by the original exponent."
+                        }
+                      ],
+                      "correctOptionId": "q1-opt-a",
+                      "conceptTags": ["power-rule", "exponent-reduction"],
+                      "hint": "The power rule says d/dx(x^n) = n·x^(n−1). Plug in n = 3."
+                    },
+                    {
+                      "kind": "multipleChoice",
+                      "id": "power-rule-q2-x-to-the-sixth",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}(x^6)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "q2-opt-a",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "6x^5"
+                            }
+                          ],
+                          "feedback": "Correct. The exponent 6 becomes the coefficient, and the new power is 5."
+                        },
+                        {
+                          "id": "q2-opt-b",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "5x^6"
+                            }
+                          ],
+                          "feedback": "The coefficient should be the original exponent 6, not 5. And the power should reduce to 5."
+                        },
+                        {
+                          "id": "q2-opt-c",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "6x^6"
+                            }
+                          ],
+                          "feedback": "The coefficient is right, but the exponent must drop by 1 to give x⁵."
+                        },
+                        {
+                          "id": "q2-opt-d",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "6x^7"
+                            }
+                          ],
+                          "feedback": "The power should decrease by 1, not increase."
+                        }
+                      ],
+                      "correctOptionId": "q2-opt-a",
+                      "conceptTags": ["power-rule"],
+                      "hint": "Apply d/dx(x^n) = n·x^(n−1) with n = 6."
+                    },
+                    {
+                      "kind": "shortAnswer",
+                      "id": "power-rule-q3-x-to-the-fourth",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "Find "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}(x^4)"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ". Write your answer in the form ax^b."
+                        }
+                      ],
+                      "acceptedAnswers": ["4x^3", "4x³", "4*x^3"],
+                      "feedback": {
+                        "correct": "Correct. Bring the 4 down and reduce the exponent to 3.",
+                        "incorrect": "Apply n · x^(n−1) with n = 4. The answer is 4x³."
+                      },
+                      "conceptTags": ["power-rule"],
+                      "hint": "The coefficient is the original exponent, and the new exponent is one less."
+                    }
+                  ]
+                },
+                {
+                  "type": "summary",
+                  "id": "power-rule-summary",
+                  "items": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "power-rule",
+                        "label": "power rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " states "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}(x^n)=n\\,x^{n-1}"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " for every positive integer "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "n"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Derivation: expand "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "(x+h)^n"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " with the binomial theorem, cancel "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "x^n"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ", divide by "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "h"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ", and take the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "limit",
+                        "label": "limit"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "To apply: bring the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "exponent",
+                        "label": "exponent"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " down as a coefficient, then reduce the power by one."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Common error: forgetting to reduce the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "exponent",
+                        "label": "exponent"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " or swapping the coefficient with the new power."
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "revision": {
+            "keyIdeas": [
+              "d/dx(x^n) = n·x^(n−1) for every positive integer n.",
+              "Derivation: expand (x+h)^n by the binomial theorem; only the n·x^(n−1) term survives the limit.",
+              "For x²: exponent 2 comes down, power drops to 1, giving 2x.",
+              "For x³: exponent 3 comes down, power drops to 2, giving 3x².",
+              "Common mistake: forgetting to subtract 1 from the exponent."
+            ],
+            "recallPrompts": [
+              "State the power rule for x^n.",
+              "Why does only one term from the binomial expansion survive the limit?",
+              "What is d/dx(x⁵)?",
+              "What common error do students make when applying the power rule?"
+            ],
+            "mistakeIds": [
+              "power-rule-mistake-forget-reduce",
+              "power-rule-mistake-coefficient-swap"
+            ],
+            "quizIds": ["power-rule-quiz"]
+          }
+        }
+      ]
     }
   ],
   "glossary": [
@@ -5885,6 +6998,24 @@
       "term": "jump discontinuity",
       "definition": "A discontinuity at x = a where the left- and right-sided limits both exist but disagree, so the two-sided limit does not exist.",
       "aliases": ["jump"]
+    },
+    {
+      "id": "power-rule",
+      "term": "power rule",
+      "definition": "The differentiation shortcut d/dx(x^n) = n·x^(n−1). Derived from the binomial expansion of (x+h)^n in the first-principles definition.",
+      "aliases": ["power law of derivatives"]
+    },
+    {
+      "id": "exponent",
+      "term": "exponent",
+      "definition": "The number that tells how many times a base is multiplied by itself. In x^n, n is the exponent.",
+      "aliases": ["power", "index"]
+    },
+    {
+      "id": "polynomial",
+      "term": "polynomial",
+      "definition": "A function built from sums of terms of the form a·x^n, where n is a non-negative integer and a is a real coefficient.",
+      "aliases": ["poly"]
     }
   ]
 }
