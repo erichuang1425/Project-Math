@@ -187,9 +187,7 @@ describe("calculus-i course fixture", () => {
   it("wires product-rule to require sum-difference-rule", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
-    const lesson = eachLesson(result.course).find(
-      (entry) => entry.lesson.id === "product-rule"
-    );
+    const lesson = eachLesson(result.course).find((entry) => entry.lesson.id === "product-rule");
     expect(lesson?.lesson.prerequisiteLessonIds).toEqual(["sum-difference-rule"]);
   });
 
@@ -204,9 +202,7 @@ describe("calculus-i course fixture", () => {
   it("wires quotient-rule to require product-rule", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
-    const lesson = eachLesson(result.course).find(
-      (entry) => entry.lesson.id === "quotient-rule"
-    );
+    const lesson = eachLesson(result.course).find((entry) => entry.lesson.id === "quotient-rule");
     expect(lesson?.lesson.prerequisiteLessonIds).toEqual(["product-rule"]);
   });
 
