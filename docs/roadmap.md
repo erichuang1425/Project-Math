@@ -52,7 +52,7 @@ What done means: dashboard → course → lesson navigation works; deep-link rel
 
 ## Phase 4 — Content Depth (Calculus I Starter)
 
-Status: ~75%. Three modules, nine lessons of the targeted three modules / 10+ lessons.
+Status: ~80%. Three modules, ten lessons of the targeted three modules / 10+ lessons.
 
 Shipped:
 
@@ -66,9 +66,11 @@ Shipped:
 
 - **Module C — Differentiation Rules:** `sum-difference-rule` with full block set (title, concept, latex, two intuition blocks, two graphs, four worked examples with `actionCue` chips and `finalAnswer` bands, two common mistakes, three-question quiz, summary, revision layer). The first worked example applies the constant multiple rule to `5x³`. The second derives the sum rule from the limit definition in six steps (define, substitute, regroup, split, limit law, recognise). The third and fourth apply the sum/difference/constant-multiple rules to polynomials (`x³ − x²` and `3x⁴ + 2x³ − x`). Two new glossary terms ship: `sum-rule`, `constant-multiple-rule`. The lesson requires `["power-rule"]`, extending the Module C chain.
 
+- **Module C — Differentiation Rules:** `product-rule` with full block set (title, concept, two intuition blocks, two graphs, three worked examples with `actionCue` chips and `finalAnswer` bands plus a first-principles derivation worked example, two common mistakes, three-question quiz, summary, revision layer). The derivation adds and subtracts `f(x+h)·g(x)` in the difference quotient to separate the two rates of change in five steps. The three application examples cover `x²(3x + 1)`, `(x² + 1)(x³ − x)` (with expand-first verification), and `(2x + 3)(x² − 5)`. The expanding-rectangle intuition block gives a geometric interpretation. One new glossary term ships: `product-rule`. The lesson requires `["sum-difference-rule"]`, extending the Module C chain.
+
 Open:
 
-- **Module C — Differentiation Rules:** product, quotient, chain, tangent line equation (capstone).
+- **Module C — Differentiation Rules:** quotient, chain, tangent line equation (capstone).
 
 What done means: validator passes for the full course; every lesson mounts cleanly in jsdom; lesson summary export round-trips.
 
@@ -135,7 +137,7 @@ Next vertical slices, smallest first. Each row is intended as a single PR.
 
 1. ~~Phase 4 — Module C kickoff: introduce the `differentiation-rules` module and author the power rule lesson.~~ Done.
 2. ~~Phase 4 — Module C: sum/difference rule lesson.~~ Done.
-3. Phase 4 — Module C: product rule lesson.
+3. ~~Phase 4 — Module C: product rule lesson.~~ Done.
 4. Phase 4 — Module C: quotient rule lesson.
 5. Phase 4 — Module C: chain rule lesson.
 6. Phase 4 — Module C: tangent-line equation capstone (uses every rule above; ties back to the first-principles definition of the derivative).

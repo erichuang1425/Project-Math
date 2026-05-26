@@ -7,7 +7,11 @@
   "level": "intro",
   "summary": "Foundations through derivatives from first principles and the standard differentiation rules.",
   "illustrationId": "tangent-curve",
-  "prerequisites": ["algebra", "functions", "limits"],
+  "prerequisites": [
+    "algebra",
+    "functions",
+    "limits"
+  ],
   "modules": [
     {
       "id": "foundations",
@@ -214,13 +218,23 @@
                       "label": "input x",
                       "min": 0,
                       "max": 3,
-                      "ticks": [0, 1, 2, 3]
+                      "ticks": [
+                        0,
+                        1,
+                        2,
+                        3
+                      ]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 9,
-                      "ticks": [0, 1, 4, 9]
+                      "ticks": [
+                        0,
+                        1,
+                        4,
+                        9
+                      ]
                     },
                     "series": [
                       {
@@ -228,15 +242,39 @@
                         "id": "refresher-x-squared",
                         "label": "Function",
                         "expression": "y = x^2",
-                        "domain": [0, 3],
+                        "domain": [
+                          0,
+                          3
+                        ],
                         "samples": [
-                          [0, 0],
-                          [0.5, 0.25],
-                          [1, 1],
-                          [1.5, 2.25],
-                          [2, 4],
-                          [2.5, 6.25],
-                          [3, 9]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            0.25
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            1.5,
+                            2.25
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            2.5,
+                            6.25
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -244,8 +282,14 @@
                         "id": "refresher-value-points",
                         "label": "Marked values",
                         "points": [
-                          [1, 1],
-                          [3, 9]
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       }
                     ],
@@ -253,13 +297,19 @@
                       {
                         "id": "refresher-value-at-one",
                         "label": "f(1) = 1",
-                        "point": [1, 1],
+                        "point": [
+                          1,
+                          1
+                        ],
                         "text": "Read up from x = 1 to the curve. The output is 1."
                       },
                       {
                         "id": "refresher-value-at-three",
                         "label": "f(3) = 9",
-                        "point": [3, 9],
+                        "point": [
+                          3,
+                          9
+                        ],
                         "text": "Read up from x = 3 to the curve. The output is 9."
                       }
                     ]
@@ -454,7 +504,10 @@
                         }
                       ],
                       "correctOptionId": "eight",
-                      "conceptTags": ["function-evaluation", "function-notation"],
+                      "conceptTags": [
+                        "function-evaluation",
+                        "function-notation"
+                      ],
                       "hint": "Replace x with 3 in the rule, then simplify."
                     }
                   ]
@@ -489,12 +542,22 @@
                           "value": " in expanded form."
                         }
                       ],
-                      "acceptedAnswers": ["2(x+h)+1", "2x+2h+1", "2h+2x+1", "1+2x+2h", "1+2h+2x"],
+                      "acceptedAnswers": [
+                        "2(x+h)+1",
+                        "2x+2h+1",
+                        "2h+2x+1",
+                        "1+2x+2h",
+                        "1+2h+2x"
+                      ],
                       "feedback": {
                         "correct": "Correct. Substitute x + h for x, then distribute the 2.",
                         "incorrect": "Review the parentheses mistake. Substitute (x + h) into 2x + 1, then distribute the 2 to get 2x + 2h + 1."
                       },
-                      "conceptTags": ["function-evaluation", "function-notation", "algebra"],
+                      "conceptTags": [
+                        "function-evaluation",
+                        "function-notation",
+                        "algebra"
+                      ],
                       "hint": "Replace x with x + h, then distribute."
                     }
                   ]
@@ -586,7 +649,9 @@
               "What is f(3) when f(x) = x^2 - 1, and why?",
               "What is f(x + h) when f(x) = 2x + 1, written without parentheses?"
             ],
-            "mistakeIds": ["drop-parentheses-on-x-plus-h"],
+            "mistakeIds": [
+              "drop-parentheses-on-x-plus-h"
+            ],
             "quizIds": [
               "functions-refresher-evaluate-check",
               "functions-refresher-expression-check"
@@ -620,7 +685,9 @@
               "text": "Avoid the shortcut of substituting x = a before checking that the function is defined there."
             }
           ],
-          "prerequisiteLessonIds": ["functions-refresher"],
+          "prerequisiteLessonIds": [
+            "functions-refresher"
+          ],
           "estimatedMinutes": 22,
           "difficulty": "intro",
           "sections": [
@@ -775,7 +842,9 @@
                 {
                   "type": "latex",
                   "id": "limit-notation",
-                  "objectiveIds": ["limits-intuitively-obj-1"],
+                  "objectiveIds": [
+                    "limits-intuitively-obj-1"
+                  ],
                   "latex": "\\lim_{x\\to a}f(x)=L",
                   "caption": "Read aloud: the limit of f(x) as x approaches a equals L.",
                   "display": true
@@ -840,13 +909,25 @@
                       "label": "input x",
                       "min": 0,
                       "max": 4,
-                      "ticks": [0, 1, 2, 3, 4]
+                      "ticks": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 9,
-                      "ticks": [0, 3, 5, 7, 9]
+                      "ticks": [
+                        0,
+                        3,
+                        5,
+                        7,
+                        9
+                      ]
                     },
                     "series": [
                       {
@@ -854,13 +935,31 @@
                         "id": "linear-two-x-plus-one",
                         "label": "Function",
                         "expression": "y = 2x + 1",
-                        "domain": [0, 4],
+                        "domain": [
+                          0,
+                          4
+                        ],
                         "samples": [
-                          [0, 1],
-                          [1, 3],
-                          [2, 5],
-                          [3, 7],
-                          [4, 9]
+                          [
+                            0,
+                            1
+                          ],
+                          [
+                            1,
+                            3
+                          ],
+                          [
+                            2,
+                            5
+                          ],
+                          [
+                            3,
+                            7
+                          ],
+                          [
+                            4,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -868,8 +967,14 @@
                         "id": "approach-from-left",
                         "label": "Approach from the left",
                         "points": [
-                          [1.5, 4],
-                          [1.9, 4.8]
+                          [
+                            1.5,
+                            4
+                          ],
+                          [
+                            1.9,
+                            4.8
+                          ]
                         ]
                       },
                       {
@@ -877,22 +982,36 @@
                         "id": "approach-from-right",
                         "label": "Approach from the right",
                         "points": [
-                          [2.5, 6],
-                          [2.1, 5.2]
+                          [
+                            2.5,
+                            6
+                          ],
+                          [
+                            2.1,
+                            5.2
+                          ]
                         ]
                       },
                       {
                         "kind": "points",
                         "id": "limit-target",
                         "label": "Limit value",
-                        "points": [[2, 5]]
+                        "points": [
+                          [
+                            2,
+                            5
+                          ]
+                        ]
                       }
                     ],
                     "annotations": [
                       {
                         "id": "approach-target",
                         "label": "limit = 5",
-                        "point": [2, 5],
+                        "point": [
+                          2,
+                          5
+                        ],
                         "text": "Both sides head toward output 5 as the input approaches 2."
                       }
                     ]
@@ -1019,13 +1138,24 @@
                       "label": "input x",
                       "min": 0,
                       "max": 4,
-                      "ticks": [0, 1, 2, 3, 4]
+                      "ticks": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
                     },
                     "yAxis": {
                       "label": "output g(x)",
                       "min": 0,
                       "max": 7,
-                      "ticks": [0, 2, 4, 6]
+                      "ticks": [
+                        0,
+                        2,
+                        4,
+                        6
+                      ]
                     },
                     "series": [
                       {
@@ -1033,14 +1163,35 @@
                         "id": "simplified-x-plus-two",
                         "label": "Simplified function (x ≠ 2)",
                         "expression": "y = x + 2",
-                        "domain": [0, 4],
+                        "domain": [
+                          0,
+                          4
+                        ],
                         "samples": [
-                          [0, 2],
-                          [1, 3],
-                          [1.9, 3.9],
-                          [2.1, 4.1],
-                          [3, 5],
-                          [4, 6]
+                          [
+                            0,
+                            2
+                          ],
+                          [
+                            1,
+                            3
+                          ],
+                          [
+                            1.9,
+                            3.9
+                          ],
+                          [
+                            2.1,
+                            4.1
+                          ],
+                          [
+                            3,
+                            5
+                          ],
+                          [
+                            4,
+                            6
+                          ]
                         ]
                       },
                       {
@@ -1048,8 +1199,14 @@
                         "id": "hole-approach-left",
                         "label": "Approach from the left",
                         "points": [
-                          [1.5, 3.5],
-                          [1.9, 3.9]
+                          [
+                            1.5,
+                            3.5
+                          ],
+                          [
+                            1.9,
+                            3.9
+                          ]
                         ]
                       },
                       {
@@ -1057,22 +1214,36 @@
                         "id": "hole-approach-right",
                         "label": "Approach from the right",
                         "points": [
-                          [2.5, 4.5],
-                          [2.1, 4.1]
+                          [
+                            2.5,
+                            4.5
+                          ],
+                          [
+                            2.1,
+                            4.1
+                          ]
                         ]
                       },
                       {
                         "kind": "points",
                         "id": "hole-limit-marker",
                         "label": "Limit value (function undefined here)",
-                        "points": [[2, 4]]
+                        "points": [
+                          [
+                            2,
+                            4
+                          ]
+                        ]
                       }
                     ],
                     "annotations": [
                       {
                         "id": "hole-at-two",
                         "label": "g undefined at x = 2",
-                        "point": [2, 4],
+                        "point": [
+                          2,
+                          4
+                        ],
                         "text": "The function is undefined at x = 2, but the outputs from both sides head to 4."
                       }
                     ]
@@ -1204,7 +1375,10 @@
                         }
                       ],
                       "correctOptionId": "linear-limit-seven",
-                      "conceptTags": ["limits", "linear-functions"],
+                      "conceptTags": [
+                        "limits",
+                        "linear-functions"
+                      ],
                       "hint": "Sample 2.9 and 3.1 and check which value the outputs hug."
                     },
                     {
@@ -1265,7 +1439,10 @@
                         }
                       ],
                       "correctOptionId": "hole-limit-four",
-                      "conceptTags": ["limits", "removable-discontinuity"],
+                      "conceptTags": [
+                        "limits",
+                        "removable-discontinuity"
+                      ],
                       "hint": "Factor x^2 − 4 and cancel the common factor while x ≠ 2."
                     },
                     {
@@ -1285,12 +1462,20 @@
                           "value": " by sampling inputs close to 0."
                         }
                       ],
-                      "acceptedAnswers": ["5", "= 5", "limit = 5", "f(0)=5"],
+                      "acceptedAnswers": [
+                        "5",
+                        "= 5",
+                        "limit = 5",
+                        "f(0)=5"
+                      ],
                       "feedback": {
                         "correct": "Correct. Inputs near 0 produce outputs near 5 from both sides.",
                         "incorrect": "Sample x = −0.1 and 0.1; both outputs are very close to 5."
                       },
-                      "conceptTags": ["limits", "linear-functions"],
+                      "conceptTags": [
+                        "limits",
+                        "linear-functions"
+                      ],
                       "hint": "Pick one input slightly less than 0 and one slightly greater than 0."
                     }
                   ]
@@ -1377,8 +1562,13 @@
               "Why does lim_{x→2} (x^2 − 4)/(x − 2) equal 4 even though g(2) is undefined?",
               "What does 0/0 signal when you try to plug x = a directly?"
             ],
-            "mistakeIds": ["plug-in-to-find-limit", "undefined-means-no-limit"],
-            "quizIds": ["limits-intuitively-check"]
+            "mistakeIds": [
+              "plug-in-to-find-limit",
+              "undefined-means-no-limit"
+            ],
+            "quizIds": [
+              "limits-intuitively-check"
+            ]
           }
         },
         {
@@ -1408,7 +1598,10 @@
               "text": "Avoid treating ∞ as a number that can be substituted for the input."
             }
           ],
-          "prerequisiteLessonIds": ["functions-refresher", "limits-intuitively"],
+          "prerequisiteLessonIds": [
+            "functions-refresher",
+            "limits-intuitively"
+          ],
           "estimatedMinutes": 24,
           "difficulty": "intro",
           "sections": [
@@ -1582,7 +1775,9 @@
                 {
                   "type": "latex",
                   "id": "one-sided-limit-notation",
-                  "objectiveIds": ["one-sided-and-infinite-limits-obj-1"],
+                  "objectiveIds": [
+                    "one-sided-and-infinite-limits-obj-1"
+                  ],
                   "latex": "\\lim_{x\\to a^-}f(x)=L_-\\qquad \\lim_{x\\to a^+}f(x)=L_+",
                   "caption": "Read aloud: left-sided limit equals L-minus; right-sided limit equals L-plus.",
                   "display": true
@@ -1671,13 +1866,25 @@
                       "label": "input x",
                       "min": -3,
                       "max": 3,
-                      "ticks": [-3, -1, 0, 1, 3]
+                      "ticks": [
+                        -3,
+                        -1,
+                        0,
+                        1,
+                        3
+                      ]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": -2,
                       "max": 2,
-                      "ticks": [-2, -1, 0, 1, 2]
+                      "ticks": [
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2
+                      ]
                     },
                     "series": [
                       {
@@ -1685,12 +1892,27 @@
                         "id": "sign-left-branch",
                         "label": "Sign function on x < 0",
                         "expression": "y = -1 when x < 0",
-                        "domain": [-3, -0.1],
+                        "domain": [
+                          -3,
+                          -0.1
+                        ],
                         "samples": [
-                          [-3, -1],
-                          [-2, -1],
-                          [-1, -1],
-                          [-0.1, -1]
+                          [
+                            -3,
+                            -1
+                          ],
+                          [
+                            -2,
+                            -1
+                          ],
+                          [
+                            -1,
+                            -1
+                          ],
+                          [
+                            -0.1,
+                            -1
+                          ]
                         ]
                       },
                       {
@@ -1698,32 +1920,60 @@
                         "id": "sign-right-branch",
                         "label": "Sign function on x > 0",
                         "expression": "y = 1 when x > 0",
-                        "domain": [0.1, 3],
+                        "domain": [
+                          0.1,
+                          3
+                        ],
                         "samples": [
-                          [0.1, 1],
-                          [1, 1],
-                          [2, 1],
-                          [3, 1]
+                          [
+                            0.1,
+                            1
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            1
+                          ],
+                          [
+                            3,
+                            1
+                          ]
                         ]
                       },
                       {
                         "kind": "points",
                         "id": "sign-left-target",
                         "label": "Left-sided limit value",
-                        "points": [[0, -1]]
+                        "points": [
+                          [
+                            0,
+                            -1
+                          ]
+                        ]
                       },
                       {
                         "kind": "points",
                         "id": "sign-right-target",
                         "label": "Right-sided limit value",
-                        "points": [[0, 1]]
+                        "points": [
+                          [
+                            0,
+                            1
+                          ]
+                        ]
                       }
                     ],
                     "annotations": [
                       {
                         "id": "sign-jump-annotation",
                         "label": "Jump at x = 0",
-                        "point": [0, 0],
+                        "point": [
+                          0,
+                          0
+                        ],
                         "text": "Left side approaches -1; right side approaches +1. The function jumps by 2 at x = 0, so the two-sided limit does not exist."
                       }
                     ]
@@ -1857,13 +2107,25 @@
                       "label": "input x",
                       "min": -2,
                       "max": 2,
-                      "ticks": [-2, -1, 0, 1, 2]
+                      "ticks": [
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2
+                      ]
                     },
                     "yAxis": {
                       "label": "output h(x)",
                       "min": 0,
                       "max": 12,
-                      "ticks": [0, 3, 6, 9, 12]
+                      "ticks": [
+                        0,
+                        3,
+                        6,
+                        9,
+                        12
+                      ]
                     },
                     "series": [
                       {
@@ -1871,13 +2133,31 @@
                         "id": "one-over-x-squared-left",
                         "label": "1/x^2 on x < 0",
                         "expression": "y = 1/x^2 for x < 0",
-                        "domain": [-2, -0.3],
+                        "domain": [
+                          -2,
+                          -0.3
+                        ],
                         "samples": [
-                          [-2, 0.25],
-                          [-1, 1],
-                          [-0.5, 4],
-                          [-0.4, 6.25],
-                          [-0.3, 11.11]
+                          [
+                            -2,
+                            0.25
+                          ],
+                          [
+                            -1,
+                            1
+                          ],
+                          [
+                            -0.5,
+                            4
+                          ],
+                          [
+                            -0.4,
+                            6.25
+                          ],
+                          [
+                            -0.3,
+                            11.11
+                          ]
                         ]
                       },
                       {
@@ -1885,13 +2165,31 @@
                         "id": "one-over-x-squared-right",
                         "label": "1/x^2 on x > 0",
                         "expression": "y = 1/x^2 for x > 0",
-                        "domain": [0.3, 2],
+                        "domain": [
+                          0.3,
+                          2
+                        ],
                         "samples": [
-                          [0.3, 11.11],
-                          [0.4, 6.25],
-                          [0.5, 4],
-                          [1, 1],
-                          [2, 0.25]
+                          [
+                            0.3,
+                            11.11
+                          ],
+                          [
+                            0.4,
+                            6.25
+                          ],
+                          [
+                            0.5,
+                            4
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            0.25
+                          ]
                         ]
                       },
                       {
@@ -1899,9 +2197,18 @@
                         "id": "one-over-x-squared-left-approach",
                         "label": "Approach from the left",
                         "points": [
-                          [-1, 1],
-                          [-0.5, 4],
-                          [-0.3, 11.11]
+                          [
+                            -1,
+                            1
+                          ],
+                          [
+                            -0.5,
+                            4
+                          ],
+                          [
+                            -0.3,
+                            11.11
+                          ]
                         ]
                       },
                       {
@@ -1909,9 +2216,18 @@
                         "id": "one-over-x-squared-right-approach",
                         "label": "Approach from the right",
                         "points": [
-                          [1, 1],
-                          [0.5, 4],
-                          [0.3, 11.11]
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            0.5,
+                            4
+                          ],
+                          [
+                            0.3,
+                            11.11
+                          ]
                         ]
                       }
                     ],
@@ -1919,7 +2235,10 @@
                       {
                         "id": "asymptote-at-zero",
                         "label": "Vertical asymptote x = 0",
-                        "point": [0, 6],
+                        "point": [
+                          0,
+                          6
+                        ],
                         "text": "Outputs grow without bound from both sides as x approaches 0. The line x = 0 is a vertical asymptote."
                       }
                     ]
@@ -2068,7 +2387,10 @@
                         }
                       ],
                       "correctOptionId": "sign-answer-dne",
-                      "conceptTags": ["one-sided-limits", "jump-discontinuity"],
+                      "conceptTags": [
+                        "one-sided-limits",
+                        "jump-discontinuity"
+                      ],
                       "hint": "Compute the left-sided and right-sided limits separately, then compare them."
                     },
                     {
@@ -2131,7 +2453,10 @@
                         }
                       ],
                       "correctOptionId": "inf-answer-plus-infinity",
-                      "conceptTags": ["infinite-limit", "vertical-asymptote"],
+                      "conceptTags": [
+                        "infinite-limit",
+                        "vertical-asymptote"
+                      ],
                       "hint": "Sample x = 0.1 and x = -0.1, then x = 0.01 and x = -0.01. Watch the outputs grow."
                     },
                     {
@@ -2163,7 +2488,10 @@
                         "correct": "Correct. Sampling x = 1.9, 1.99, 1.999 gives -10, -100, -1000, heading to -∞.",
                         "incorrect": "Sample x = 1.99 (denominator is -0.01, output -100) and x = 1.999 (output -1000). The outputs grow toward -∞."
                       },
-                      "conceptTags": ["one-sided-limits", "infinite-limit"],
+                      "conceptTags": [
+                        "one-sided-limits",
+                        "infinite-limit"
+                      ],
                       "hint": "Inputs slightly less than 2 make x − 2 a tiny negative number, so 1/(x − 2) is a large negative number."
                     }
                   ]
@@ -2259,8 +2587,13 @@
               "Why does lim_{x→0} 1/x^2 = +∞ even though h(0) is undefined?",
               "How does a jump discontinuity differ from an infinite limit?"
             ],
-            "mistakeIds": ["claiming-limit-after-jump", "infinity-as-a-number"],
-            "quizIds": ["one-sided-and-infinite-limits-check"]
+            "mistakeIds": [
+              "claiming-limit-after-jump",
+              "infinity-as-a-number"
+            ],
+            "quizIds": [
+              "one-sided-and-infinite-limits-check"
+            ]
           }
         }
       ]
@@ -2297,7 +2630,10 @@
               "text": "Avoid substituting h = 0 before the quotient is simplified."
             }
           ],
-          "prerequisiteLessonIds": ["functions-refresher", "limits-intuitively"],
+          "prerequisiteLessonIds": [
+            "functions-refresher",
+            "limits-intuitively"
+          ],
           "estimatedMinutes": 32,
           "difficulty": "intro",
           "sections": [
@@ -2524,13 +2860,23 @@
                       "label": "input x",
                       "min": 0,
                       "max": 3,
-                      "ticks": [0, 1, 2, 3]
+                      "ticks": [
+                        0,
+                        1,
+                        2,
+                        3
+                      ]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 9,
-                      "ticks": [0, 1, 4, 9]
+                      "ticks": [
+                        0,
+                        1,
+                        4,
+                        9
+                      ]
                     },
                     "series": [
                       {
@@ -2538,15 +2884,39 @@
                         "id": "x-squared",
                         "label": "Function",
                         "expression": "y = x^2",
-                        "domain": [0, 3],
+                        "domain": [
+                          0,
+                          3
+                        ],
                         "samples": [
-                          [0, 0],
-                          [0.5, 0.25],
-                          [1, 1],
-                          [1.5, 2.25],
-                          [2, 4],
-                          [2.5, 6.25],
-                          [3, 9]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            0.25
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            1.5,
+                            2.25
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            2.5,
+                            6.25
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -2554,8 +2924,14 @@
                         "id": "secant-points",
                         "label": "Secant points",
                         "points": [
-                          [1, 1],
-                          [2, 4]
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            4
+                          ]
                         ]
                       },
                       {
@@ -2563,8 +2939,14 @@
                         "id": "secant-line",
                         "label": "Secant line",
                         "through": [
-                          [1, 1],
-                          [2, 4]
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            4
+                          ]
                         ]
                       }
                     ],
@@ -2572,7 +2954,10 @@
                       {
                         "id": "base-point",
                         "label": "x = 1",
-                        "point": [1, 1],
+                        "point": [
+                          1,
+                          1
+                        ],
                         "text": "The tangent slope here is 2."
                       }
                     ]
@@ -2588,13 +2973,23 @@
                       "label": "input x",
                       "min": 0,
                       "max": 3,
-                      "ticks": [0, 1, 2, 3]
+                      "ticks": [
+                        0,
+                        1,
+                        2,
+                        3
+                      ]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 9,
-                      "ticks": [0, 1, 4, 9]
+                      "ticks": [
+                        0,
+                        1,
+                        4,
+                        9
+                      ]
                     },
                     "series": [
                       {
@@ -2602,36 +2997,89 @@
                         "id": "shrinking-x-squared",
                         "label": "Function",
                         "expression": "y = x^2",
-                        "domain": [0, 3],
+                        "domain": [
+                          0,
+                          3
+                        ],
                         "samples": [
-                          [0, 0],
-                          [0.25, 0.0625],
-                          [0.5, 0.25],
-                          [0.75, 0.5625],
-                          [1, 1],
-                          [1.25, 1.5625],
-                          [1.5, 2.25],
-                          [1.75, 3.0625],
-                          [2, 4],
-                          [2.25, 5.0625],
-                          [2.5, 6.25],
-                          [2.75, 7.5625],
-                          [3, 9]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.25,
+                            0.0625
+                          ],
+                          [
+                            0.5,
+                            0.25
+                          ],
+                          [
+                            0.75,
+                            0.5625
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            1.25,
+                            1.5625
+                          ],
+                          [
+                            1.5,
+                            2.25
+                          ],
+                          [
+                            1.75,
+                            3.0625
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            2.25,
+                            5.0625
+                          ],
+                          [
+                            2.5,
+                            6.25
+                          ],
+                          [
+                            2.75,
+                            7.5625
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
                         "kind": "points",
                         "id": "shrinking-anchor-point",
                         "label": "Fixed base point at x = 1",
-                        "points": [[1, 1]]
+                        "points": [
+                          [
+                            1,
+                            1
+                          ]
+                        ]
                       },
                       {
                         "kind": "line",
                         "id": "shrinking-secant-h-two",
                         "label": "Secant for h = 2, slope 4",
                         "through": [
-                          [1, 1],
-                          [3, 9]
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -2639,8 +3087,14 @@
                         "id": "shrinking-secant-h-one",
                         "label": "Secant for h = 1, slope 3",
                         "through": [
-                          [1, 1],
-                          [2, 4]
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            4
+                          ]
                         ]
                       },
                       {
@@ -2648,8 +3102,14 @@
                         "id": "shrinking-secant-h-half",
                         "label": "Secant for h = 0.5, slope 2.5",
                         "through": [
-                          [1, 1],
-                          [1.5, 2.25]
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            1.5,
+                            2.25
+                          ]
                         ]
                       },
                       {
@@ -2657,8 +3117,14 @@
                         "id": "shrinking-tangent-line",
                         "label": "Tangent line slope 2",
                         "through": [
-                          [0.5, 0],
-                          [2, 3]
+                          [
+                            0.5,
+                            0
+                          ],
+                          [
+                            2,
+                            3
+                          ]
                         ]
                       }
                     ],
@@ -2666,13 +3132,19 @@
                       {
                         "id": "shrinking-base-point",
                         "label": "(1, 1)",
-                        "point": [1, 1],
+                        "point": [
+                          1,
+                          1
+                        ],
                         "text": "Base point stays fixed while h shrinks toward 0."
                       },
                       {
                         "id": "shrinking-slope-sequence",
                         "label": "slopes 4, 3, 2.5 toward 2",
-                        "point": [2, 3],
+                        "point": [
+                          2,
+                          3
+                        ],
                         "text": "Secant slopes for h = 2, 1, 0.5 are 4, 3, 2.5; they approach the tangent slope 2."
                       }
                     ]
@@ -2791,13 +3263,24 @@
                       "label": "input x",
                       "min": 0,
                       "max": 3,
-                      "ticks": [0, 1, 2, 3]
+                      "ticks": [
+                        0,
+                        1,
+                        2,
+                        3
+                      ]
                     },
                     "yAxis": {
                       "label": "output",
                       "min": 0,
                       "max": 9,
-                      "ticks": [0, 2, 4, 6, 9]
+                      "ticks": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        9
+                      ]
                     },
                     "series": [
                       {
@@ -2805,15 +3288,39 @@
                         "id": "overlay-x-squared",
                         "label": "Function",
                         "expression": "y = x^2",
-                        "domain": [0, 3],
+                        "domain": [
+                          0,
+                          3
+                        ],
                         "samples": [
-                          [0, 0],
-                          [0.5, 0.25],
-                          [1, 1],
-                          [1.5, 2.25],
-                          [2, 4],
-                          [2.5, 6.25],
-                          [3, 9]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            0.25
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            1.5,
+                            2.25
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            2.5,
+                            6.25
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -2821,15 +3328,39 @@
                         "id": "overlay-derivative-two-x",
                         "label": "Derivative",
                         "expression": "y = 2x",
-                        "domain": [0, 3],
+                        "domain": [
+                          0,
+                          3
+                        ],
                         "samples": [
-                          [0, 0],
-                          [0.5, 1],
-                          [1, 2],
-                          [1.5, 3],
-                          [2, 4],
-                          [2.5, 5],
-                          [3, 6]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            1
+                          ],
+                          [
+                            1,
+                            2
+                          ],
+                          [
+                            1.5,
+                            3
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            2.5,
+                            5
+                          ],
+                          [
+                            3,
+                            6
+                          ]
                         ]
                       },
                       {
@@ -2837,9 +3368,18 @@
                         "id": "overlay-slope-readouts",
                         "label": "Tangent slope readouts",
                         "points": [
-                          [1, 2],
-                          [2, 4],
-                          [3, 6]
+                          [
+                            1,
+                            2
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            3,
+                            6
+                          ]
                         ]
                       }
                     ],
@@ -2847,19 +3387,28 @@
                       {
                         "id": "overlay-slope-at-one",
                         "label": "f'(1) = 2",
-                        "point": [1, 2],
+                        "point": [
+                          1,
+                          2
+                        ],
                         "text": "On the derivative line, x = 1 reads y = 2. The tangent slope at x = 1 is 2."
                       },
                       {
                         "id": "overlay-slope-at-two",
                         "label": "f'(2) = 4",
-                        "point": [2, 4],
+                        "point": [
+                          2,
+                          4
+                        ],
                         "text": "Both the curve and the derivative line read 4 at x = 2. The tangent slope at x = 2 is 4."
                       },
                       {
                         "id": "overlay-slope-at-three",
                         "label": "f'(3) = 6",
-                        "point": [3, 6],
+                        "point": [
+                          3,
+                          6
+                        ],
                         "text": "At x = 3 the curve climbs to 9, but the derivative line gives 6. The tangent slope at x = 3 is 6."
                       }
                     ]
@@ -3069,7 +3618,11 @@
                         }
                       ],
                       "correctOptionId": "factor-before-limit",
-                      "conceptTags": ["difference-quotient", "limits", "algebra"],
+                      "conceptTags": [
+                        "difference-quotient",
+                        "limits",
+                        "algebra"
+                      ],
                       "hint": "Look for the step that removes division by h without pretending h already equals 0."
                     }
                   ]
@@ -3104,12 +3657,20 @@
                           "value": "?"
                         }
                       ],
-                      "acceptedAnswers": ["3", "f'(x)=3", "f prime of x equals 3"],
+                      "acceptedAnswers": [
+                        "3",
+                        "f'(x)=3",
+                        "f prime of x equals 3"
+                      ],
                       "feedback": {
                         "correct": "Correct. The quotient simplifies to 3 before the limit is evaluated.",
                         "incorrect": "Review the parentheses mistake. After distributing the subtraction, the quotient becomes 3h/h while h is nonzero, so the limit is 3."
                       },
-                      "conceptTags": ["linear-functions", "difference-quotient", "limits"],
+                      "conceptTags": [
+                        "linear-functions",
+                        "difference-quotient",
+                        "limits"
+                      ],
                       "hint": "After simplifying, the expression no longer depends on x or h."
                     }
                   ]
@@ -3209,8 +3770,14 @@
               "Where does the factor h come from in the x^2 calculation?",
               "Why must f(x) be subtracted as the whole expression in the linear-function calculation?"
             ],
-            "mistakeIds": ["substitute-h-too-early", "forget-parentheses-around-linear-function"],
-            "quizIds": ["first-principles-check", "linear-function-check"]
+            "mistakeIds": [
+              "substitute-h-too-early",
+              "forget-parentheses-around-linear-function"
+            ],
+            "quizIds": [
+              "first-principles-check",
+              "linear-function-check"
+            ]
           }
         },
         {
@@ -3483,13 +4050,24 @@
                       "label": "input x",
                       "min": 0,
                       "max": 4,
-                      "ticks": [0, 1, 2, 3, 4]
+                      "ticks": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 10,
-                      "ticks": [0, 4, 8, 10]
+                      "ticks": [
+                        0,
+                        4,
+                        8,
+                        10
+                      ]
                     },
                     "series": [
                       {
@@ -3497,17 +4075,47 @@
                         "id": "point-x-squared",
                         "label": "Function",
                         "expression": "y = x^2",
-                        "domain": [0, 4],
+                        "domain": [
+                          0,
+                          4
+                        ],
                         "samples": [
-                          [0, 0],
-                          [0.5, 0.25],
-                          [1, 1],
-                          [1.5, 2.25],
-                          [2, 4],
-                          [2.5, 6.25],
-                          [3, 9],
-                          [3.5, 12.25],
-                          [4, 16]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            0.25
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            1.5,
+                            2.25
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            2.5,
+                            6.25
+                          ],
+                          [
+                            3,
+                            9
+                          ],
+                          [
+                            3.5,
+                            12.25
+                          ],
+                          [
+                            4,
+                            16
+                          ]
                         ]
                       },
                       {
@@ -3515,8 +4123,14 @@
                         "id": "point-derivative-points",
                         "label": "Fixed point and nearby point",
                         "points": [
-                          [2, 4],
-                          [3, 9]
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -3524,8 +4138,14 @@
                         "id": "secant-line-h-one",
                         "label": "Secant line for h = 1",
                         "through": [
-                          [2, 4],
-                          [3, 9]
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -3533,8 +4153,14 @@
                         "id": "tangent-line-at-two",
                         "label": "Tangent line slope 4",
                         "through": [
-                          [1, 0],
-                          [3, 8]
+                          [
+                            1,
+                            0
+                          ],
+                          [
+                            3,
+                            8
+                          ]
                         ]
                       }
                     ],
@@ -3542,13 +4168,19 @@
                       {
                         "id": "fixed-point-two",
                         "label": "(2, 4)",
-                        "point": [2, 4],
+                        "point": [
+                          2,
+                          4
+                        ],
                         "text": "The tangent slope here is 4."
                       },
                       {
                         "id": "nearby-point-three",
                         "label": "(3, 9)",
-                        "point": [3, 9],
+                        "point": [
+                          3,
+                          9
+                        ],
                         "text": "This nearby point gives the h = 1 secant."
                       }
                     ]
@@ -3564,13 +4196,25 @@
                       "label": "input x",
                       "min": 0,
                       "max": 4,
-                      "ticks": [0, 1, 2, 3, 4]
+                      "ticks": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 10,
-                      "ticks": [0, 1, 4, 8, 10]
+                      "ticks": [
+                        0,
+                        1,
+                        4,
+                        8,
+                        10
+                      ]
                     },
                     "series": [
                       {
@@ -3578,30 +4222,65 @@
                         "id": "both-sides-x-squared",
                         "label": "Function",
                         "expression": "y = x^2",
-                        "domain": [0, 3.1622776601683795],
+                        "domain": [
+                          0,
+                          3.1622776601683795
+                        ],
                         "samples": [
-                          [0, 0],
-                          [0.5, 0.25],
-                          [1, 1],
-                          [1.5, 2.25],
-                          [2, 4],
-                          [2.5, 6.25],
-                          [3, 9]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            0.25
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            1.5,
+                            2.25
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            2.5,
+                            6.25
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
                         "kind": "points",
                         "id": "both-sides-fixed-point",
                         "label": "Fixed base point at x = 2",
-                        "points": [[2, 4]]
+                        "points": [
+                          [
+                            2,
+                            4
+                          ]
+                        ]
                       },
                       {
                         "kind": "line",
                         "id": "both-sides-left-secant",
                         "label": "Left secant from x = 1, slope 3",
                         "through": [
-                          [1, 1],
-                          [2, 4]
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            4
+                          ]
                         ]
                       },
                       {
@@ -3609,8 +4288,14 @@
                         "id": "both-sides-right-secant",
                         "label": "Right secant to x = 3, slope 5",
                         "through": [
-                          [2, 4],
-                          [3, 9]
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -3618,8 +4303,14 @@
                         "id": "both-sides-tangent",
                         "label": "Tangent line slope 4",
                         "through": [
-                          [1, 0],
-                          [3, 8]
+                          [
+                            1,
+                            0
+                          ],
+                          [
+                            3,
+                            8
+                          ]
                         ]
                       }
                     ],
@@ -3627,7 +4318,10 @@
                       {
                         "id": "both-sides-fixed",
                         "label": "(2, 4)",
-                        "point": [2, 4],
+                        "point": [
+                          2,
+                          4
+                        ],
                         "text": "Left secant slope 3 and right secant slope 5 both close in on the tangent slope 4."
                       }
                     ]
@@ -3763,13 +4457,26 @@
                       "label": "input x",
                       "min": 0,
                       "max": 4,
-                      "ticks": [0, 1, 2, 3, 4]
+                      "ticks": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
                     },
                     "yAxis": {
                       "label": "output",
                       "min": 0,
                       "max": 10,
-                      "ticks": [0, 2, 4, 6, 8, 10]
+                      "ticks": [
+                        0,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10
+                      ]
                     },
                     "series": [
                       {
@@ -3777,15 +4484,39 @@
                         "id": "two-overlay-curve",
                         "label": "Function",
                         "expression": "y = x^2",
-                        "domain": [0, 3.1622776601683795],
+                        "domain": [
+                          0,
+                          3.1622776601683795
+                        ],
                         "samples": [
-                          [0, 0],
-                          [0.5, 0.25],
-                          [1, 1],
-                          [1.5, 2.25],
-                          [2, 4],
-                          [2.5, 6.25],
-                          [3, 9]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            0.25
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            1.5,
+                            2.25
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            2.5,
+                            6.25
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -3793,27 +4524,53 @@
                         "id": "two-overlay-derivative",
                         "label": "Derivative",
                         "expression": "y = 2x",
-                        "domain": [0, 4],
+                        "domain": [
+                          0,
+                          4
+                        ],
                         "samples": [
-                          [0, 0],
-                          [1, 2],
-                          [2, 4],
-                          [3, 6],
-                          [4, 8]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            1,
+                            2
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            3,
+                            6
+                          ],
+                          [
+                            4,
+                            8
+                          ]
                         ]
                       },
                       {
                         "kind": "points",
                         "id": "two-overlay-readout",
                         "label": "Derivative reading at x = 2",
-                        "points": [[2, 4]]
+                        "points": [
+                          [
+                            2,
+                            4
+                          ]
+                        ]
                       }
                     ],
                     "annotations": [
                       {
                         "id": "two-overlay-slope-reading",
                         "label": "f'(2) = 4",
-                        "point": [2, 4],
+                        "point": [
+                          2,
+                          4
+                        ],
                         "text": "On the derivative line y = 2x, the input x = 2 reads y = 4. That is the tangent slope at the fixed point (2, 4)."
                       }
                     ]
@@ -3949,7 +4706,11 @@
                         }
                       ],
                       "correctOptionId": "use-fixed-input",
-                      "conceptTags": ["point-derivatives", "difference-quotient", "limits"],
+                      "conceptTags": [
+                        "point-derivatives",
+                        "difference-quotient",
+                        "limits"
+                      ],
                       "hint": "Keep one point at x = 2. Move the other point to x = 2 + h."
                     },
                     {
@@ -3977,12 +4738,19 @@
                           "value": "?"
                         }
                       ],
-                      "acceptedAnswers": ["4", "f'(2)=4", "f prime of 2 equals 4"],
+                      "acceptedAnswers": [
+                        "4",
+                        "f'(2)=4",
+                        "f prime of 2 equals 4"
+                      ],
                       "feedback": {
                         "correct": "Correct. The point difference quotient simplifies to 4 + h, so the limit is 4.",
                         "incorrect": "Review the fixed-input substitution. The quotient must simplify to 4 + h before the limit is evaluated."
                       },
-                      "conceptTags": ["point-derivatives", "tangent-slope"],
+                      "conceptTags": [
+                        "point-derivatives",
+                        "tangent-slope"
+                      ],
                       "hint": "The tangent slope at x = 2 is the value approached by the secant slopes."
                     }
                   ]
@@ -4091,8 +4859,12 @@
               "Why does the quotient use f(2+h)-f(2) instead of f(x+h)-f(2)?",
               "Where is h still required to be nonzero in the point calculation?"
             ],
-            "mistakeIds": ["mixing-fixed-input-with-variable"],
-            "quizIds": ["point-derivative-check"]
+            "mistakeIds": [
+              "mixing-fixed-input-with-variable"
+            ],
+            "quizIds": [
+              "point-derivative-check"
+            ]
           }
         },
         {
@@ -4281,13 +5053,24 @@
                       "label": "input x",
                       "min": -1,
                       "max": 3,
-                      "ticks": [-1, 0, 1, 2, 3]
+                      "ticks": [
+                        -1,
+                        0,
+                        1,
+                        2,
+                        3
+                      ]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 8,
-                      "ticks": [0, 4, 7, 8]
+                      "ticks": [
+                        0,
+                        4,
+                        7,
+                        8
+                      ]
                     },
                     "series": [
                       {
@@ -4295,13 +5078,31 @@
                         "id": "constant-seven",
                         "label": "Function",
                         "expression": "y = 7",
-                        "domain": [-1, 3],
+                        "domain": [
+                          -1,
+                          3
+                        ],
                         "samples": [
-                          [-1, 7],
-                          [0, 7],
-                          [1, 7],
-                          [2, 7],
-                          [3, 7]
+                          [
+                            -1,
+                            7
+                          ],
+                          [
+                            0,
+                            7
+                          ],
+                          [
+                            1,
+                            7
+                          ],
+                          [
+                            2,
+                            7
+                          ],
+                          [
+                            3,
+                            7
+                          ]
                         ]
                       },
                       {
@@ -4309,8 +5110,14 @@
                         "id": "constant-comparison-points",
                         "label": "Same-height points",
                         "points": [
-                          [0, 7],
-                          [2, 7]
+                          [
+                            0,
+                            7
+                          ],
+                          [
+                            2,
+                            7
+                          ]
                         ]
                       },
                       {
@@ -4318,8 +5125,14 @@
                         "id": "constant-secant-line",
                         "label": "Secant line",
                         "through": [
-                          [0, 7],
-                          [2, 7]
+                          [
+                            0,
+                            7
+                          ],
+                          [
+                            2,
+                            7
+                          ]
                         ]
                       }
                     ],
@@ -4327,7 +5140,10 @@
                       {
                         "id": "same-output",
                         "label": "same output",
-                        "point": [2, 7],
+                        "point": [
+                          2,
+                          7
+                        ],
                         "text": "The output change from x = 0 to x = 2 is 0."
                       }
                     ]
@@ -4343,13 +5159,27 @@
                       "label": "input x",
                       "min": -2,
                       "max": 4,
-                      "ticks": [-2, -1, 0, 1, 2, 3, 4]
+                      "ticks": [
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
                     },
                     "yAxis": {
                       "label": "output f(x)",
                       "min": 0,
                       "max": 10,
-                      "ticks": [0, 3, 5, 7, 10]
+                      "ticks": [
+                        0,
+                        3,
+                        5,
+                        7,
+                        10
+                      ]
                     },
                     "series": [
                       {
@@ -4357,12 +5187,27 @@
                         "id": "constant-three",
                         "label": "Function y = 3",
                         "expression": "y = 3",
-                        "domain": [-2, 4],
+                        "domain": [
+                          -2,
+                          4
+                        ],
                         "samples": [
-                          [-2, 3],
-                          [0, 3],
-                          [2, 3],
-                          [4, 3]
+                          [
+                            -2,
+                            3
+                          ],
+                          [
+                            0,
+                            3
+                          ],
+                          [
+                            2,
+                            3
+                          ],
+                          [
+                            4,
+                            3
+                          ]
                         ]
                       },
                       {
@@ -4370,12 +5215,27 @@
                         "id": "constant-five",
                         "label": "Function y = 5",
                         "expression": "y = 5",
-                        "domain": [-2, 4],
+                        "domain": [
+                          -2,
+                          4
+                        ],
                         "samples": [
-                          [-2, 5],
-                          [0, 5],
-                          [2, 5],
-                          [4, 5]
+                          [
+                            -2,
+                            5
+                          ],
+                          [
+                            0,
+                            5
+                          ],
+                          [
+                            2,
+                            5
+                          ],
+                          [
+                            4,
+                            5
+                          ]
                         ]
                       },
                       {
@@ -4383,12 +5243,27 @@
                         "id": "constant-seven-compare",
                         "label": "Function y = 7",
                         "expression": "y = 7",
-                        "domain": [-2, 4],
+                        "domain": [
+                          -2,
+                          4
+                        ],
                         "samples": [
-                          [-2, 7],
-                          [0, 7],
-                          [2, 7],
-                          [4, 7]
+                          [
+                            -2,
+                            7
+                          ],
+                          [
+                            0,
+                            7
+                          ],
+                          [
+                            2,
+                            7
+                          ],
+                          [
+                            4,
+                            7
+                          ]
                         ]
                       }
                     ],
@@ -4396,7 +5271,10 @@
                       {
                         "id": "compare-zero-slope",
                         "label": "every slope is 0",
-                        "point": [2, 5],
+                        "point": [
+                          2,
+                          5
+                        ],
                         "text": "Each constant value sets a height. The output change is 0 between any two inputs, so every tangent slope is 0."
                       }
                     ]
@@ -4517,13 +5395,26 @@
                       "label": "input x",
                       "min": -2,
                       "max": 4,
-                      "ticks": [-2, -1, 0, 1, 2, 3, 4]
+                      "ticks": [
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
                     },
                     "yAxis": {
                       "label": "output",
                       "min": 0,
                       "max": 8,
-                      "ticks": [0, 4, 7, 8]
+                      "ticks": [
+                        0,
+                        4,
+                        7,
+                        8
+                      ]
                     },
                     "series": [
                       {
@@ -4531,12 +5422,27 @@
                         "id": "constant-seven-original",
                         "label": "Function",
                         "expression": "y = 7",
-                        "domain": [-2, 4],
+                        "domain": [
+                          -2,
+                          4
+                        ],
                         "samples": [
-                          [-2, 7],
-                          [0, 7],
-                          [2, 7],
-                          [4, 7]
+                          [
+                            -2,
+                            7
+                          ],
+                          [
+                            0,
+                            7
+                          ],
+                          [
+                            2,
+                            7
+                          ],
+                          [
+                            4,
+                            7
+                          ]
                         ]
                       },
                       {
@@ -4544,12 +5450,27 @@
                         "id": "constant-derivative-zero",
                         "label": "Derivative",
                         "expression": "y = 0",
-                        "domain": [-2, 4],
+                        "domain": [
+                          -2,
+                          4
+                        ],
                         "samples": [
-                          [-2, 0],
-                          [0, 0],
-                          [2, 0],
-                          [4, 0]
+                          [
+                            -2,
+                            0
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            2,
+                            0
+                          ],
+                          [
+                            4,
+                            0
+                          ]
                         ]
                       },
                       {
@@ -4557,8 +5478,14 @@
                         "id": "constant-derivative-readout",
                         "label": "Derivative reading at sample inputs",
                         "points": [
-                          [0, 0],
-                          [2, 0]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            2,
+                            0
+                          ]
                         ]
                       }
                     ],
@@ -4566,7 +5493,10 @@
                       {
                         "id": "constant-zero-slope-everywhere",
                         "label": "f'(x) = 0",
-                        "point": [2, 0],
+                        "point": [
+                          2,
+                          0
+                        ],
                         "text": "The derivative line never leaves the x-axis. Every input gives slope 0."
                       }
                     ]
@@ -4702,7 +5632,10 @@
                         }
                       ],
                       "correctOptionId": "zero-output-change",
-                      "conceptTags": ["constant-functions", "difference-quotient"],
+                      "conceptTags": [
+                        "constant-functions",
+                        "difference-quotient"
+                      ],
                       "hint": "Compare the two output values before dividing by h."
                     },
                     {
@@ -4730,12 +5663,19 @@
                           "value": "?"
                         }
                       ],
-                      "acceptedAnswers": ["0", "f'(x)=0", "f prime of x equals 0"],
+                      "acceptedAnswers": [
+                        "0",
+                        "f'(x)=0",
+                        "f prime of x equals 0"
+                      ],
                       "feedback": {
                         "correct": "Correct. The quotient simplifies to 0 before the limit is evaluated.",
                         "incorrect": "Review the numerator. A constant function has output change 0, so the derivative is 0."
                       },
-                      "conceptTags": ["constant-functions", "first-principles"],
+                      "conceptTags": [
+                        "constant-functions",
+                        "first-principles"
+                      ],
                       "hint": "A flat graph has zero tangent slope."
                     }
                   ]
@@ -4835,8 +5775,12 @@
               "Where is h still required to be nonzero?",
               "Why is the derivative 0 instead of 7?"
             ],
-            "mistakeIds": ["treating-constant-as-slope"],
-            "quizIds": ["constant-function-check"]
+            "mistakeIds": [
+              "treating-constant-as-slope"
+            ],
+            "quizIds": [
+              "constant-function-check"
+            ]
           }
         },
         {
@@ -4866,7 +5810,10 @@
               "text": "Distinguish 'continuous means differentiable' from the correct direction 'differentiable means continuous'."
             }
           ],
-          "prerequisiteLessonIds": ["one-sided-and-infinite-limits", "derivative-as-a-limit"],
+          "prerequisiteLessonIds": [
+            "one-sided-and-infinite-limits",
+            "derivative-as-a-limit"
+          ],
           "estimatedMinutes": 28,
           "difficulty": "intro",
           "sections": [
@@ -5141,13 +6088,23 @@
                       "label": "input x",
                       "min": -2,
                       "max": 2,
-                      "ticks": [-2, -1, 0, 1, 2]
+                      "ticks": [
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2
+                      ]
                     },
                     "yAxis": {
                       "label": "output |x|",
                       "min": 0,
                       "max": 2,
-                      "ticks": [0, 1, 2]
+                      "ticks": [
+                        0,
+                        1,
+                        2
+                      ]
                     },
                     "series": [
                       {
@@ -5155,30 +6112,65 @@
                         "id": "absolute-value-curve",
                         "label": "Function y = |x|",
                         "expression": "y = |x|",
-                        "domain": [-2, 2],
+                        "domain": [
+                          -2,
+                          2
+                        ],
                         "samples": [
-                          [-2, 2],
-                          [-1, 1],
-                          [-0.5, 0.5],
-                          [0, 0],
-                          [0.5, 0.5],
-                          [1, 1],
-                          [2, 2]
+                          [
+                            -2,
+                            2
+                          ],
+                          [
+                            -1,
+                            1
+                          ],
+                          [
+                            -0.5,
+                            0.5
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            0.5
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            2
+                          ]
                         ]
                       },
                       {
                         "kind": "points",
                         "id": "corner-marker",
                         "label": "Corner point",
-                        "points": [[0, 0]]
+                        "points": [
+                          [
+                            0,
+                            0
+                          ]
+                        ]
                       },
                       {
                         "kind": "line",
                         "id": "left-secant-slope-minus-one",
                         "label": "Left secant slope = -1",
                         "through": [
-                          [-1, 1],
-                          [0, 0]
+                          [
+                            -1,
+                            1
+                          ],
+                          [
+                            0,
+                            0
+                          ]
                         ]
                       },
                       {
@@ -5186,8 +6178,14 @@
                         "id": "right-secant-slope-plus-one",
                         "label": "Right secant slope = +1",
                         "through": [
-                          [0, 0],
-                          [1, 1]
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            1,
+                            1
+                          ]
                         ]
                       }
                     ],
@@ -5195,7 +6193,10 @@
                       {
                         "id": "corner-at-zero",
                         "label": "corner at x = 0",
-                        "point": [0, 0],
+                        "point": [
+                          0,
+                          0
+                        ],
                         "text": "The graph reaches this point continuously, but the slope changes from -1 to +1 across it."
                       }
                     ]
@@ -5357,13 +6358,24 @@
                       "label": "input x",
                       "min": -2,
                       "max": 2,
-                      "ticks": [-2, -1, 0, 1, 2]
+                      "ticks": [
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2
+                      ]
                     },
                     "yAxis": {
                       "label": "output",
                       "min": 0,
                       "max": 4,
-                      "ticks": [0, 1, 2, 4]
+                      "ticks": [
+                        0,
+                        1,
+                        2,
+                        4
+                      ]
                     },
                     "series": [
                       {
@@ -5371,17 +6383,47 @@
                         "id": "x-squared-smooth",
                         "label": "Function y = x^2 (smooth)",
                         "expression": "y = x^2",
-                        "domain": [-2, 2],
+                        "domain": [
+                          -2,
+                          2
+                        ],
                         "samples": [
-                          [-2, 4],
-                          [-1.5, 2.25],
-                          [-1, 1],
-                          [-0.5, 0.25],
-                          [0, 0],
-                          [0.5, 0.25],
-                          [1, 1],
-                          [1.5, 2.25],
-                          [2, 4]
+                          [
+                            -2,
+                            4
+                          ],
+                          [
+                            -1.5,
+                            2.25
+                          ],
+                          [
+                            -1,
+                            1
+                          ],
+                          [
+                            -0.5,
+                            0.25
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            0.25
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            1.5,
+                            2.25
+                          ],
+                          [
+                            2,
+                            4
+                          ]
                         ]
                       },
                       {
@@ -5389,27 +6431,53 @@
                         "id": "absolute-value-cornered",
                         "label": "Function y = |x| (cornered)",
                         "expression": "y = |x|",
-                        "domain": [-2, 2],
+                        "domain": [
+                          -2,
+                          2
+                        ],
                         "samples": [
-                          [-2, 2],
-                          [-1, 1],
-                          [0, 0],
-                          [1, 1],
-                          [2, 2]
+                          [
+                            -2,
+                            2
+                          ],
+                          [
+                            -1,
+                            1
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            2
+                          ]
                         ]
                       },
                       {
                         "kind": "points",
                         "id": "shared-origin",
                         "label": "Shared point (0, 0)",
-                        "points": [[0, 0]]
+                        "points": [
+                          [
+                            0,
+                            0
+                          ]
+                        ]
                       }
                     ],
                     "annotations": [
                       {
                         "id": "smooth-vs-corner-contrast",
                         "label": "smooth versus corner",
-                        "point": [0, 0],
+                        "point": [
+                          0,
+                          0
+                        ],
                         "text": "Both curves pass through (0, 0). At that input y = x^2 has matching one-sided slopes of 0, while y = |x| has slopes -1 and +1."
                       }
                     ]
@@ -5541,7 +6609,10 @@
                         }
                       ],
                       "correctOptionId": "differentiable-implies-continuous",
-                      "conceptTags": ["differentiability", "continuity"],
+                      "conceptTags": [
+                        "differentiability",
+                        "continuity"
+                      ],
                       "hint": "One direction always holds. The other can fail at a corner."
                     },
                     {
@@ -5612,7 +6683,10 @@
                         }
                       ],
                       "correctOptionId": "right-slope-plus-one",
-                      "conceptTags": ["one-sided-limit", "difference-quotient"],
+                      "conceptTags": [
+                        "one-sided-limit",
+                        "difference-quotient"
+                      ],
                       "hint": "For h greater than 0, |h| equals h."
                     },
                     {
@@ -5651,7 +6725,10 @@
                         "correct": "Correct. The left and right difference quotients disagree at 0, so the derivative does not exist there.",
                         "incorrect": "Review the second worked example. The left limit is -1 and the right limit is +1, so the derivative at 0 does not exist."
                       },
-                      "conceptTags": ["differentiability", "first-principles"],
+                      "conceptTags": [
+                        "differentiability",
+                        "first-principles"
+                      ],
                       "hint": "Compare the two one-sided difference quotients."
                     }
                   ]
@@ -5776,8 +6853,12 @@
               "Which implication always holds: continuity to differentiability, or differentiability to continuity?",
               "Why does f(x) = |x| fail the differentiability demand at x = 0?"
             ],
-            "mistakeIds": ["assuming-continuous-means-differentiable"],
-            "quizIds": ["differentiability-vs-continuity-check"]
+            "mistakeIds": [
+              "assuming-continuous-means-differentiable"
+            ],
+            "quizIds": [
+              "differentiability-vs-continuity-check"
+            ]
           }
         }
       ]
@@ -5814,7 +6895,9 @@
               "text": "Avoid common errors: forgetting to reduce the exponent or misplacing the coefficient."
             }
           ],
-          "prerequisiteLessonIds": ["derivative-as-a-limit"],
+          "prerequisiteLessonIds": [
+            "derivative-as-a-limit"
+          ],
           "estimatedMinutes": 28,
           "difficulty": "core",
           "sections": [
@@ -5903,7 +6986,9 @@
                 {
                   "type": "concept",
                   "id": "power-rule-motivation",
-                  "objectiveIds": ["power-rule-obj-1"],
+                  "objectiveIds": [
+                    "power-rule-obj-1"
+                  ],
                   "title": "Why a shortcut?",
                   "body": [
                     {
@@ -5957,7 +7042,9 @@
                 {
                   "type": "intuition",
                   "id": "power-rule-pattern-preview",
-                  "objectiveIds": ["power-rule-obj-3"],
+                  "objectiveIds": [
+                    "power-rule-obj-3"
+                  ],
                   "title": "Spot the pattern before the proof",
                   "body": [
                     {
@@ -6015,7 +7102,9 @@
                 {
                   "type": "workedExample",
                   "id": "power-rule-x-squared-derivation",
-                  "objectiveIds": ["power-rule-obj-1"],
+                  "objectiveIds": [
+                    "power-rule-obj-1"
+                  ],
                   "title": "Derivative of f(x) = x² from first principles",
                   "goal": "Compute f'(x) for f(x) = x² using the limit definition.",
                   "given": "f(x) = x²",
@@ -6072,7 +7161,9 @@
                 {
                   "type": "graph",
                   "id": "power-rule-x-squared-graph",
-                  "objectiveIds": ["power-rule-obj-1"],
+                  "objectiveIds": [
+                    "power-rule-obj-1"
+                  ],
                   "title": "f(x) = x² and its derivative f'(x) = 2x",
                   "description": "The parabola y = x² is shown in blue. Its derivative y = 2x is a straight line through the origin. At x = 1 the parabola has tangent slope 2; at x = −1 the slope is −2.",
                   "spec": {
@@ -6080,13 +7171,29 @@
                       "label": "x",
                       "min": -3,
                       "max": 3,
-                      "ticks": [-3, -2, -1, 0, 1, 2, 3]
+                      "ticks": [
+                        -3,
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2,
+                        3
+                      ]
                     },
                     "yAxis": {
                       "label": "y",
                       "min": -4,
                       "max": 9,
-                      "ticks": [-4, -2, 0, 2, 4, 6, 8]
+                      "ticks": [
+                        -4,
+                        -2,
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                      ]
                     },
                     "series": [
                       {
@@ -6094,15 +7201,39 @@
                         "id": "x-squared-curve",
                         "label": "f(x) = x²",
                         "expression": "y = x^2",
-                        "domain": [-3, 3],
+                        "domain": [
+                          -3,
+                          3
+                        ],
                         "samples": [
-                          [-3, 9],
-                          [-2, 4],
-                          [-1, 1],
-                          [0, 0],
-                          [1, 1],
-                          [2, 4],
-                          [3, 9]
+                          [
+                            -3,
+                            9
+                          ],
+                          [
+                            -2,
+                            4
+                          ],
+                          [
+                            -1,
+                            1
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            3,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -6110,15 +7241,39 @@
                         "id": "x-squared-derivative",
                         "label": "f'(x) = 2x",
                         "expression": "y = 2x",
-                        "domain": [-3, 3],
+                        "domain": [
+                          -3,
+                          3
+                        ],
                         "samples": [
-                          [-3, -6],
-                          [-2, -4],
-                          [-1, -2],
-                          [0, 0],
-                          [1, 2],
-                          [2, 4],
-                          [3, 6]
+                          [
+                            -3,
+                            -6
+                          ],
+                          [
+                            -2,
+                            -4
+                          ],
+                          [
+                            -1,
+                            -2
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            1,
+                            2
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            3,
+                            6
+                          ]
                         ]
                       },
                       {
@@ -6126,8 +7281,14 @@
                         "id": "x-squared-tangent-points",
                         "label": "Tangent slope readout",
                         "points": [
-                          [1, 1],
-                          [-1, 1]
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            -1,
+                            1
+                          ]
                         ]
                       }
                     ],
@@ -6135,13 +7296,19 @@
                       {
                         "id": "slope-at-1",
                         "label": "slope = 2",
-                        "point": [1, 1],
+                        "point": [
+                          1,
+                          1
+                        ],
                         "text": "At x = 1, the tangent slope is 2(1) = 2."
                       },
                       {
                         "id": "slope-at-neg1",
                         "label": "slope = −2",
-                        "point": [-1, 1],
+                        "point": [
+                          -1,
+                          1
+                        ],
                         "text": "At x = −1, the tangent slope is 2(−1) = −2."
                       }
                     ]
@@ -6156,7 +7323,9 @@
                 {
                   "type": "workedExample",
                   "id": "power-rule-x-cubed-derivation",
-                  "objectiveIds": ["power-rule-obj-2"],
+                  "objectiveIds": [
+                    "power-rule-obj-2"
+                  ],
                   "title": "Derivative of f(x) = x³ from first principles",
                   "goal": "Compute f'(x) for f(x) = x³ using the limit definition.",
                   "given": "f(x) = x³",
@@ -6213,7 +7382,9 @@
                 {
                   "type": "graph",
                   "id": "power-rule-x-cubed-graph",
-                  "objectiveIds": ["power-rule-obj-2"],
+                  "objectiveIds": [
+                    "power-rule-obj-2"
+                  ],
                   "title": "f(x) = x³ and its derivative f'(x) = 3x²",
                   "description": "The cubic curve y = x³ rises steeply on both ends but flattens at the origin. Its derivative 3x² is a parabola that is never negative, matching the fact that the cubic's tangent slope is zero only at x = 0 and positive everywhere else.",
                   "spec": {
@@ -6221,13 +7392,26 @@
                       "label": "x",
                       "min": -2,
                       "max": 2,
-                      "ticks": [-2, -1, 0, 1, 2]
+                      "ticks": [
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2
+                      ]
                     },
                     "yAxis": {
                       "label": "y",
                       "min": -8,
                       "max": 12,
-                      "ticks": [-8, -4, 0, 4, 8, 12]
+                      "ticks": [
+                        -8,
+                        -4,
+                        0,
+                        4,
+                        8,
+                        12
+                      ]
                     },
                     "series": [
                       {
@@ -6235,13 +7419,31 @@
                         "id": "x-cubed-curve",
                         "label": "f(x) = x³",
                         "expression": "y = x^3",
-                        "domain": [-2, 2],
+                        "domain": [
+                          -2,
+                          2
+                        ],
                         "samples": [
-                          [-2, -8],
-                          [-1, -1],
-                          [0, 0],
-                          [1, 1],
-                          [2, 8]
+                          [
+                            -2,
+                            -8
+                          ],
+                          [
+                            -1,
+                            -1
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            8
+                          ]
                         ]
                       },
                       {
@@ -6249,33 +7451,62 @@
                         "id": "x-cubed-derivative",
                         "label": "f'(x) = 3x²",
                         "expression": "y = 3x^2",
-                        "domain": [-2, 2],
+                        "domain": [
+                          -2,
+                          2
+                        ],
                         "samples": [
-                          [-2, 12],
-                          [-1, 3],
-                          [0, 0],
-                          [1, 3],
-                          [2, 12]
+                          [
+                            -2,
+                            12
+                          ],
+                          [
+                            -1,
+                            3
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            1,
+                            3
+                          ],
+                          [
+                            2,
+                            12
+                          ]
                         ]
                       },
                       {
                         "kind": "points",
                         "id": "x-cubed-tangent-points",
                         "label": "Zero-slope point",
-                        "points": [[0, 0]]
+                        "points": [
+                          [
+                            0,
+                            0
+                          ]
+                        ]
                       }
                     ],
                     "annotations": [
                       {
                         "id": "flat-at-origin",
                         "label": "slope = 0",
-                        "point": [0, 0],
+                        "point": [
+                          0,
+                          0
+                        ],
                         "text": "At x = 0, the tangent slope is 3(0)² = 0."
                       },
                       {
                         "id": "slope-at-1-cubed",
                         "label": "slope = 3",
-                        "point": [1, 1],
+                        "point": [
+                          1,
+                          1
+                        ],
                         "text": "At x = 1, the tangent slope is 3(1)² = 3."
                       }
                     ]
@@ -6290,7 +7521,9 @@
                 {
                   "type": "intuition",
                   "id": "power-rule-pattern-emerges",
-                  "objectiveIds": ["power-rule-obj-3"],
+                  "objectiveIds": [
+                    "power-rule-obj-3"
+                  ],
                   "title": "The pattern across x², x³, and beyond",
                   "body": [
                     {
@@ -6391,7 +7624,9 @@
                 {
                   "type": "latex",
                   "id": "power-rule-statement",
-                  "objectiveIds": ["power-rule-obj-3"],
+                  "objectiveIds": [
+                    "power-rule-obj-3"
+                  ],
                   "latex": "\\frac{d}{dx}\\bigl(x^n\\bigr)=n\\,x^{n-1},\\qquad n\\in\\{1,2,3,\\dots\\}",
                   "caption": "The power rule for positive integer exponents",
                   "display": true
@@ -6399,7 +7634,9 @@
                 {
                   "type": "concept",
                   "id": "power-rule-why-it-works",
-                  "objectiveIds": ["power-rule-obj-3"],
+                  "objectiveIds": [
+                    "power-rule-obj-3"
+                  ],
                   "title": "Why the pattern holds for every positive integer n",
                   "body": [
                     {
@@ -6514,7 +7751,9 @@
                 {
                   "type": "workedExample",
                   "id": "power-rule-apply-x-to-the-fifth",
-                  "objectiveIds": ["power-rule-obj-4"],
+                  "objectiveIds": [
+                    "power-rule-obj-4"
+                  ],
                   "title": "Differentiate f(x) = x⁵",
                   "goal": "Use the power rule to find f'(x) without returning to the limit definition.",
                   "given": "f(x) = x⁵",
@@ -6550,7 +7789,9 @@
                 {
                   "type": "workedExample",
                   "id": "power-rule-apply-x-to-the-first",
-                  "objectiveIds": ["power-rule-obj-4"],
+                  "objectiveIds": [
+                    "power-rule-obj-4"
+                  ],
                   "title": "Differentiate f(x) = x",
                   "goal": "Apply the power rule to x¹ and confirm it matches the known slope of a line.",
                   "given": "f(x) = x = x¹",
@@ -6579,7 +7820,9 @@
                 {
                   "type": "commonMistake",
                   "id": "power-rule-mistake-forget-reduce",
-                  "objectiveIds": ["power-rule-obj-5"],
+                  "objectiveIds": [
+                    "power-rule-obj-5"
+                  ],
                   "title": "Forgetting to reduce the exponent",
                   "misconception": "Bring the exponent down but leave the power unchanged.",
                   "incorrectStep": "d/dx(x⁴) = 4x⁴",
@@ -6590,7 +7833,9 @@
                 {
                   "type": "commonMistake",
                   "id": "power-rule-mistake-coefficient-swap",
-                  "objectiveIds": ["power-rule-obj-5"],
+                  "objectiveIds": [
+                    "power-rule-obj-5"
+                  ],
                   "title": "Swapping the coefficient and the new exponent",
                   "misconception": "Write the reduced exponent as the coefficient and the original exponent minus one as the power.",
                   "incorrectStep": "d/dx(x⁴) = 3x⁴  (used n−1 as the coefficient instead of n)",
@@ -6607,7 +7852,11 @@
                 {
                   "type": "quiz",
                   "id": "power-rule-quiz",
-                  "objectiveIds": ["power-rule-obj-3", "power-rule-obj-4", "power-rule-obj-5"],
+                  "objectiveIds": [
+                    "power-rule-obj-3",
+                    "power-rule-obj-4",
+                    "power-rule-obj-5"
+                  ],
                   "title": "Power Rule Quiz",
                   "questions": [
                     {
@@ -6670,7 +7919,10 @@
                         }
                       ],
                       "correctOptionId": "q1-opt-a",
-                      "conceptTags": ["power-rule", "exponent-reduction"],
+                      "conceptTags": [
+                        "power-rule",
+                        "exponent-reduction"
+                      ],
                       "hint": "The power rule says d/dx(x^n) = n·x^(n−1). Plug in n = 3."
                     },
                     {
@@ -6733,7 +7985,9 @@
                         }
                       ],
                       "correctOptionId": "q2-opt-a",
-                      "conceptTags": ["power-rule"],
+                      "conceptTags": [
+                        "power-rule"
+                      ],
                       "hint": "Apply d/dx(x^n) = n·x^(n−1) with n = 6."
                     },
                     {
@@ -6753,12 +8007,18 @@
                           "value": ". Write your answer in the form ax^b."
                         }
                       ],
-                      "acceptedAnswers": ["4x^3", "4x³", "4*x^3"],
+                      "acceptedAnswers": [
+                        "4x^3",
+                        "4x³",
+                        "4*x^3"
+                      ],
                       "feedback": {
                         "correct": "Correct. Bring the 4 down and reduce the exponent to 3.",
                         "incorrect": "Apply n · x^(n−1) with n = 4. The answer is 4x³."
                       },
-                      "conceptTags": ["power-rule"],
+                      "conceptTags": [
+                        "power-rule"
+                      ],
                       "hint": "The coefficient is the original exponent, and the new exponent is one less."
                     }
                   ]
@@ -6890,7 +8150,9 @@
               "power-rule-mistake-forget-reduce",
               "power-rule-mistake-coefficient-swap"
             ],
-            "quizIds": ["power-rule-quiz"]
+            "quizIds": [
+              "power-rule-quiz"
+            ]
           }
         },
         {
@@ -6920,7 +8182,9 @@
               "text": "Recognise that the sum and difference rules do not extend to products or quotients."
             }
           ],
-          "prerequisiteLessonIds": ["power-rule"],
+          "prerequisiteLessonIds": [
+            "power-rule"
+          ],
           "estimatedMinutes": 24,
           "difficulty": "core",
           "sections": [
@@ -7021,7 +8285,9 @@
                 {
                   "type": "concept",
                   "id": "sum-diff-motivation",
-                  "objectiveIds": ["sum-diff-obj-2"],
+                  "objectiveIds": [
+                    "sum-diff-obj-2"
+                  ],
                   "title": "Why term by term?",
                   "body": [
                     {
@@ -7067,7 +8333,9 @@
                 {
                   "type": "intuition",
                   "id": "sum-diff-rates-add",
-                  "objectiveIds": ["sum-diff-obj-2"],
+                  "objectiveIds": [
+                    "sum-diff-obj-2"
+                  ],
                   "title": "Rates of change add",
                   "body": [
                     {
@@ -7132,7 +8400,9 @@
                 {
                   "type": "concept",
                   "id": "sum-diff-const-mult-concept",
-                  "objectiveIds": ["sum-diff-obj-1"],
+                  "objectiveIds": [
+                    "sum-diff-obj-1"
+                  ],
                   "title": "Scaling a function scales its rate",
                   "body": [
                     {
@@ -7185,7 +8455,9 @@
                 {
                   "type": "latex",
                   "id": "sum-diff-const-mult-formula",
-                  "objectiveIds": ["sum-diff-obj-1"],
+                  "objectiveIds": [
+                    "sum-diff-obj-1"
+                  ],
                   "latex": "\\frac{d}{dx}[\\,c\\,f(x)\\,] = c\\,f'(x)",
                   "caption": "The constant multiple rule: the constant c stays in front.",
                   "display": true
@@ -7193,7 +8465,10 @@
                 {
                   "type": "workedExample",
                   "id": "sum-diff-const-mult-example",
-                  "objectiveIds": ["sum-diff-obj-1", "sum-diff-obj-4"],
+                  "objectiveIds": [
+                    "sum-diff-obj-1",
+                    "sum-diff-obj-4"
+                  ],
                   "title": "Differentiate f(x) = 5x³",
                   "goal": "Apply the constant multiple rule with the power rule to find f’(x).",
                   "given": "f(x) = 5x³",
@@ -7235,7 +8510,10 @@
                 {
                   "type": "workedExample",
                   "id": "sum-diff-sum-rule-proof",
-                  "objectiveIds": ["sum-diff-obj-2", "sum-diff-obj-3"],
+                  "objectiveIds": [
+                    "sum-diff-obj-2",
+                    "sum-diff-obj-3"
+                  ],
                   "title": "Derive the sum rule from the limit definition",
                   "goal": "Show that d/dx[f(x) + g(x)] = f’(x) + g’(x) using the first-principles definition.",
                   "steps": [
@@ -7291,7 +8569,9 @@
                 {
                   "type": "latex",
                   "id": "sum-diff-sum-rule-formula",
-                  "objectiveIds": ["sum-diff-obj-2"],
+                  "objectiveIds": [
+                    "sum-diff-obj-2"
+                  ],
                   "latex": "\\frac{d}{dx}[f(x)+g(x)] = f'(x)+g'(x)",
                   "caption": "The sum rule.",
                   "display": true
@@ -7299,7 +8579,9 @@
                 {
                   "type": "concept",
                   "id": "sum-diff-difference-rule-concept",
-                  "objectiveIds": ["sum-diff-obj-2"],
+                  "objectiveIds": [
+                    "sum-diff-obj-2"
+                  ],
                   "title": "The difference rule follows immediately",
                   "body": [
                     {
@@ -7382,7 +8664,9 @@
                 {
                   "type": "graph",
                   "id": "sum-diff-sum-visual-graph",
-                  "objectiveIds": ["sum-diff-obj-2"],
+                  "objectiveIds": [
+                    "sum-diff-obj-2"
+                  ],
                   "title": "f(x) = x² + x and its derivative f’(x) = 2x + 1",
                   "description": "The curve y = x² + x is shown alongside its derivative y = 2x + 1. At x = 1, the tangent slope is 3. At x = −0.5, the derivative is 0 and the curve has a turning point.",
                   "spec": {
@@ -7390,13 +8674,31 @@
                       "label": "x",
                       "min": -3,
                       "max": 3,
-                      "ticks": [-3, -2, -1, 0, 1, 2, 3]
+                      "ticks": [
+                        -3,
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2,
+                        3
+                      ]
                     },
                     "yAxis": {
                       "label": "y",
                       "min": -4,
                       "max": 12,
-                      "ticks": [-4, -2, 0, 2, 4, 6, 8, 10, 12]
+                      "ticks": [
+                        -4,
+                        -2,
+                        0,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10,
+                        12
+                      ]
                     },
                     "series": [
                       {
@@ -7404,16 +8706,43 @@
                         "id": "sum-visual-f",
                         "label": "f(x) = x² + x",
                         "expression": "y = x^2 + x",
-                        "domain": [-3, 3],
+                        "domain": [
+                          -3,
+                          3
+                        ],
                         "samples": [
-                          [-3, 6],
-                          [-2, 2],
-                          [-1, 0],
-                          [-0.5, -0.25],
-                          [0, 0],
-                          [1, 2],
-                          [2, 6],
-                          [3, 12]
+                          [
+                            -3,
+                            6
+                          ],
+                          [
+                            -2,
+                            2
+                          ],
+                          [
+                            -1,
+                            0
+                          ],
+                          [
+                            -0.5,
+                            -0.25
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            1,
+                            2
+                          ],
+                          [
+                            2,
+                            6
+                          ],
+                          [
+                            3,
+                            12
+                          ]
                         ]
                       },
                       {
@@ -7421,16 +8750,43 @@
                         "id": "sum-visual-fprime",
                         "label": "f’(x) = 2x + 1",
                         "expression": "y = 2x + 1",
-                        "domain": [-3, 3],
+                        "domain": [
+                          -3,
+                          3
+                        ],
                         "samples": [
-                          [-3, -5],
-                          [-2, -3],
-                          [-1, -1],
-                          [-0.5, 0],
-                          [0, 1],
-                          [1, 3],
-                          [2, 5],
-                          [3, 7]
+                          [
+                            -3,
+                            -5
+                          ],
+                          [
+                            -2,
+                            -3
+                          ],
+                          [
+                            -1,
+                            -1
+                          ],
+                          [
+                            -0.5,
+                            0
+                          ],
+                          [
+                            0,
+                            1
+                          ],
+                          [
+                            1,
+                            3
+                          ],
+                          [
+                            2,
+                            5
+                          ],
+                          [
+                            3,
+                            7
+                          ]
                         ]
                       },
                       {
@@ -7438,8 +8794,14 @@
                         "id": "sum-visual-key-points",
                         "label": "Key points",
                         "points": [
-                          [1, 2],
-                          [-0.5, -0.25]
+                          [
+                            1,
+                            2
+                          ],
+                          [
+                            -0.5,
+                            -0.25
+                          ]
                         ]
                       }
                     ],
@@ -7447,13 +8809,19 @@
                       {
                         "id": "slope-at-1-sum",
                         "label": "slope = 3",
-                        "point": [1, 2],
+                        "point": [
+                          1,
+                          2
+                        ],
                         "text": "At x = 1, f’(1) = 2(1) + 1 = 3. The slope equals the sum of the individual derivatives: 2x gives 2 and 1 gives 1."
                       },
                       {
                         "id": "turning-point",
                         "label": "slope = 0",
-                        "point": [-0.5, -0.25],
+                        "point": [
+                          -0.5,
+                          -0.25
+                        ],
                         "text": "At x = −0.5, f’(−0.5) = 0. The curve has a turning point here."
                       }
                     ]
@@ -7468,7 +8836,9 @@
                 {
                   "type": "workedExample",
                   "id": "sum-diff-example-cubic-minus-square",
-                  "objectiveIds": ["sum-diff-obj-4"],
+                  "objectiveIds": [
+                    "sum-diff-obj-4"
+                  ],
                   "title": "Differentiate f(x) = x³ − x²",
                   "goal": "Use the difference rule and the power rule to find f’(x).",
                   "given": "f(x) = x³ − x²",
@@ -7497,7 +8867,10 @@
                 {
                   "type": "workedExample",
                   "id": "sum-diff-example-polynomial",
-                  "objectiveIds": ["sum-diff-obj-1", "sum-diff-obj-4"],
+                  "objectiveIds": [
+                    "sum-diff-obj-1",
+                    "sum-diff-obj-4"
+                  ],
                   "title": "Differentiate f(x) = 3x⁴ + 2x³ − x",
                   "goal": "Combine the constant multiple, sum, and difference rules with the power rule.",
                   "given": "f(x) = 3x⁴ + 2x³ − x",
@@ -7540,7 +8913,9 @@
                 {
                   "type": "graph",
                   "id": "sum-diff-polynomial-graph",
-                  "objectiveIds": ["sum-diff-obj-4"],
+                  "objectiveIds": [
+                    "sum-diff-obj-4"
+                  ],
                   "title": "f(x) = x³ − 3x and its derivative f’(x) = 3x² − 3",
                   "description": "The cubic y = x³ − 3x has turning points at x = −1 and x = 1. Its derivative y = 3x² − 3 is a parabola that crosses zero at those same x-values, confirming that the slope is zero at each turning point.",
                   "spec": {
@@ -7548,13 +8923,28 @@
                       "label": "x",
                       "min": -2.5,
                       "max": 2.5,
-                      "ticks": [-2, -1, 0, 1, 2]
+                      "ticks": [
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2
+                      ]
                     },
                     "yAxis": {
                       "label": "y",
                       "min": -4,
                       "max": 10,
-                      "ticks": [-4, -2, 0, 2, 4, 6, 8, 10]
+                      "ticks": [
+                        -4,
+                        -2,
+                        0,
+                        2,
+                        4,
+                        6,
+                        8,
+                        10
+                      ]
                     },
                     "series": [
                       {
@@ -7562,17 +8952,47 @@
                         "id": "poly-graph-f",
                         "label": "f(x) = x³ − 3x",
                         "expression": "y = x^3 - 3x",
-                        "domain": [-2.5, 2.5],
+                        "domain": [
+                          -2.5,
+                          2.5
+                        ],
                         "samples": [
-                          [-2, -2],
-                          [-1.5, 1.125],
-                          [-1, 2],
-                          [-0.5, 1.375],
-                          [0, 0],
-                          [0.5, -1.375],
-                          [1, -2],
-                          [1.5, -1.125],
-                          [2, 2]
+                          [
+                            -2,
+                            -2
+                          ],
+                          [
+                            -1.5,
+                            1.125
+                          ],
+                          [
+                            -1,
+                            2
+                          ],
+                          [
+                            -0.5,
+                            1.375
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            -1.375
+                          ],
+                          [
+                            1,
+                            -2
+                          ],
+                          [
+                            1.5,
+                            -1.125
+                          ],
+                          [
+                            2,
+                            2
+                          ]
                         ]
                       },
                       {
@@ -7580,17 +9000,47 @@
                         "id": "poly-graph-fprime",
                         "label": "f’(x) = 3x² − 3",
                         "expression": "y = 3x^2 - 3",
-                        "domain": [-2.5, 2.5],
+                        "domain": [
+                          -2.5,
+                          2.5
+                        ],
                         "samples": [
-                          [-2, 9],
-                          [-1.5, 3.75],
-                          [-1, 0],
-                          [-0.5, -2.25],
-                          [0, -3],
-                          [0.5, -2.25],
-                          [1, 0],
-                          [1.5, 3.75],
-                          [2, 9]
+                          [
+                            -2,
+                            9
+                          ],
+                          [
+                            -1.5,
+                            3.75
+                          ],
+                          [
+                            -1,
+                            0
+                          ],
+                          [
+                            -0.5,
+                            -2.25
+                          ],
+                          [
+                            0,
+                            -3
+                          ],
+                          [
+                            0.5,
+                            -2.25
+                          ],
+                          [
+                            1,
+                            0
+                          ],
+                          [
+                            1.5,
+                            3.75
+                          ],
+                          [
+                            2,
+                            9
+                          ]
                         ]
                       },
                       {
@@ -7598,8 +9048,14 @@
                         "id": "poly-graph-turning-pts",
                         "label": "Turning points",
                         "points": [
-                          [-1, 2],
-                          [1, -2]
+                          [
+                            -1,
+                            2
+                          ],
+                          [
+                            1,
+                            -2
+                          ]
                         ]
                       }
                     ],
@@ -7607,13 +9063,19 @@
                       {
                         "id": "local-max",
                         "label": "f’(−1) = 0",
-                        "point": [-1, 2],
+                        "point": [
+                          -1,
+                          2
+                        ],
                         "text": "At x = −1, f’(−1) = 3(1) − 3 = 0. The curve has a local maximum."
                       },
                       {
                         "id": "local-min",
                         "label": "f’(1) = 0",
-                        "point": [1, -2],
+                        "point": [
+                          1,
+                          -2
+                        ],
                         "text": "At x = 1, f’(1) = 3(1) − 3 = 0. The curve has a local minimum."
                       }
                     ]
@@ -7622,7 +9084,9 @@
                 {
                   "type": "commonMistake",
                   "id": "sum-diff-mistake-products",
-                  "objectiveIds": ["sum-diff-obj-5"],
+                  "objectiveIds": [
+                    "sum-diff-obj-5"
+                  ],
                   "title": "Applying the sum rule to a product",
                   "misconception": "The derivative of f(x)·g(x) equals f’(x)·g’(x).",
                   "incorrectStep": "d/dx(x² · x³) = 2x · 3x² = 6x³",
@@ -7633,7 +9097,9 @@
                 {
                   "type": "commonMistake",
                   "id": "sum-diff-mistake-constant-term",
-                  "objectiveIds": ["sum-diff-obj-4"],
+                  "objectiveIds": [
+                    "sum-diff-obj-4"
+                  ],
                   "title": "Forgetting that a constant differentiates to zero",
                   "misconception": "The constant term survives differentiation.",
                   "incorrectStep": "d/dx(x² + 5) = 2x + 5",
@@ -7650,7 +9116,11 @@
                 {
                   "type": "quiz",
                   "id": "sum-diff-quiz",
-                  "objectiveIds": ["sum-diff-obj-2", "sum-diff-obj-4", "sum-diff-obj-5"],
+                  "objectiveIds": [
+                    "sum-diff-obj-2",
+                    "sum-diff-obj-4",
+                    "sum-diff-obj-5"
+                  ],
                   "title": "Sum and Difference Rules Quiz",
                   "questions": [
                     {
@@ -7713,7 +9183,10 @@
                         }
                       ],
                       "correctOptionId": "q1-a",
-                      "conceptTags": ["sum-rule", "power-rule"],
+                      "conceptTags": [
+                        "sum-rule",
+                        "power-rule"
+                      ],
                       "hint": "Differentiate x⁴ and x² separately, then add the results."
                     },
                     {
@@ -7776,7 +9249,11 @@
                         }
                       ],
                       "correctOptionId": "q2-a",
-                      "conceptTags": ["sum-rule", "constant-multiple-rule", "power-rule"],
+                      "conceptTags": [
+                        "sum-rule",
+                        "constant-multiple-rule",
+                        "power-rule"
+                      ],
                       "hint": "Use the constant multiple rule on each term, then the power rule."
                     },
                     {
@@ -7807,7 +9284,11 @@
                         "correct": "Correct. d/dx(2x⁵) = 10x⁴, d/dx(x³) = 3x², and d/dx(4) = 0.",
                         "incorrect": "Apply each rule term by term: d/dx(2x⁵) = 2·5x⁴ = 10x⁴, d/dx(−x³) = −3x², and d/dx(4) = 0. The answer is 10x⁴ − 3x²."
                       },
-                      "conceptTags": ["sum-rule", "constant-multiple-rule", "power-rule"],
+                      "conceptTags": [
+                        "sum-rule",
+                        "constant-multiple-rule",
+                        "power-rule"
+                      ],
                       "hint": "Differentiate each of the three terms separately. Remember that the constant 4 gives zero."
                     }
                   ]
@@ -7937,8 +9418,1209 @@
               "What is d/dx(3x⁴ + 2x³ − x)?",
               "Why does d/dx(f·g) ≠ f’·g’?"
             ],
-            "mistakeIds": ["sum-diff-mistake-products", "sum-diff-mistake-constant-term"],
-            "quizIds": ["sum-diff-quiz"]
+            "mistakeIds": [
+              "sum-diff-mistake-products",
+              "sum-diff-mistake-constant-term"
+            ],
+            "quizIds": [
+              "sum-diff-quiz"
+            ]
+          }
+        },
+        {
+          "id": "product-rule",
+          "slug": "product-rule",
+          "title": "The Product Rule",
+          "summary": "Derive the product rule from first principles, build geometric intuition through the expanding-rectangle model, and apply the rule to differentiate products of polynomial factors.",
+          "objectives": [
+            {
+              "id": "prod-obj-1",
+              "text": "State the product rule: d/dx[f(x)·g(x)] = f′(x)·g(x) + f(x)·g′(x)."
+            },
+            {
+              "id": "prod-obj-2",
+              "text": "Derive the product rule from the limit definition of the derivative."
+            },
+            {
+              "id": "prod-obj-3",
+              "text": "Apply the product rule to differentiate a product of two polynomial factors."
+            },
+            {
+              "id": "prod-obj-4",
+              "text": "Verify a product-rule result by expanding the product first and differentiating term by term."
+            },
+            {
+              "id": "prod-obj-5",
+              "text": "Explain why d/dx[f(x)·g(x)] ≠ f′(x)·g′(x) using a concrete counter-example."
+            }
+          ],
+          "prerequisiteLessonIds": [
+            "sum-difference-rule"
+          ],
+          "estimatedMinutes": 26,
+          "difficulty": "core",
+          "sections": [
+            {
+              "id": "prod-intro",
+              "title": "Why Products Need Their Own Rule",
+              "blocks": [
+                {
+                  "type": "title",
+                  "id": "prod-title",
+                  "kicker": "Differentiation rules",
+                  "title": "The Product Rule",
+                  "subtitle": "Derive and apply the rule for differentiating a product of two functions.",
+                  "objectives": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "State and derive the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "product-rule",
+                        "label": "product rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " from first principles."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Apply the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "product-rule",
+                        "label": "product rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " to differentiate products of "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "polynomial",
+                        "label": "polynomial"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " factors."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Verify results by expanding and using the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "sum-rule",
+                        "label": "sum rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " and "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "power-rule",
+                        "label": "power rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "concept",
+                  "id": "prod-motivation",
+                  "objectiveIds": [
+                    "prod-obj-5"
+                  ],
+                  "title": "Why not just multiply the derivatives?",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "sum-rule",
+                      "label": "sum rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " lets you differentiate a sum term by term. It is tempting to guess that the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "derivative",
+                      "label": "derivative"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " of a product works the same way: just multiply the derivatives. A quick counter-example kills that idea. Take "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x) = x^2"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " and "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "g(x) = x^3"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The product is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^5"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", whose derivative is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "5x^4"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". But "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(x) \\cdot g'(x) = 2x \\cdot 3x^2 = 6x^3"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", which is a completely different function. Products need their own rule."
+                    }
+                  ]
+                },
+                {
+                  "type": "intuition",
+                  "id": "prod-rectangle-intuition",
+                  "objectiveIds": [
+                    "prod-obj-1"
+                  ],
+                  "title": "The expanding rectangle",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Picture a rectangle whose width is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " and whose height is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "g(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". Its area is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x) \\cdot g(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". When "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " increases by a tiny amount, both the width and the height change. The extra area comes from two thin strips: one along the bottom (height stays, width grows) and one along the right (width stays, height grows). The bottom strip has area approximately "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(x) \\cdot g(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " and the right strip has area approximately "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x) \\cdot g'(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The tiny corner square is negligible. Adding the two strips gives the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "product-rule",
+                      "label": "product rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "When two quantities multiply, each one’s rate of change contributes to the overall rate. The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "product-rule",
+                      "label": "product rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " captures both contributions."
+                    }
+                  ]
+                },
+                {
+                  "type": "intuition",
+                  "id": "prod-two-terms-intuition",
+                  "objectiveIds": [
+                    "prod-obj-1"
+                  ],
+                  "title": "Two terms, not one",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Think of two runners on a relay team. The team’s total distance depends on both runners’ speeds. If only the first runner speeds up, the total grows by the first runner’s extra speed times the second runner’s time. If only the second runner speeds up, the total grows by the second runner’s extra speed times the first runner’s time. Both effects happen simultaneously, so the total rate of change is the sum of two terms — not a single product."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "prod-derive",
+              "title": "Derive the Product Rule",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "prod-derivation",
+                  "objectiveIds": [
+                    "prod-obj-1",
+                    "prod-obj-2"
+                  ],
+                  "title": "Derive the product rule from the limit definition",
+                  "goal": "Show that d/dx[f(x)·g(x)] = f′(x)·g(x) + f(x)·g′(x) using the first-principles definition.",
+                  "steps": [
+                    {
+                      "id": "pr-def",
+                      "label": "Write the limit definition",
+                      "explanation": "Let p(x) = f(x)·g(x). Start from the first-principles definition of p′(x).",
+                      "latex": "p'(x) = \\lim_{h \\to 0} \\frac{f(x+h)\\,g(x+h) - f(x)\\,g(x)}{h}",
+                      "actionCue": "Define"
+                    },
+                    {
+                      "id": "pr-add-subtract",
+                      "label": "Add and subtract f(x+h)·g(x)",
+                      "explanation": "Insert the term f(x+h)·g(x) twice in the numerator — once added, once subtracted — so the value does not change.",
+                      "latex": "p'(x) = \\lim_{h \\to 0} \\frac{f(x+h)\\,g(x+h) - f(x+h)\\,g(x) + f(x+h)\\,g(x) - f(x)\\,g(x)}{h}",
+                      "actionCue": "Add & subtract"
+                    },
+                    {
+                      "id": "pr-factor",
+                      "label": "Factor each pair",
+                      "explanation": "The first pair shares the factor f(x+h); the second pair shares g(x).",
+                      "latex": "p'(x) = \\lim_{h \\to 0} \\left[ f(x+h)\\,\\frac{g(x+h)-g(x)}{h} + g(x)\\,\\frac{f(x+h)-f(x)}{h} \\right]",
+                      "actionCue": "Factor"
+                    },
+                    {
+                      "id": "pr-take-limits",
+                      "label": "Take the limit of each term",
+                      "explanation": "As h → 0, f(x+h) → f(x) because f is differentiable and therefore continuous. The two difference quotients become g′(x) and f′(x).",
+                      "latex": "p'(x) = f(x)\\,g'(x) + g(x)\\,f'(x)",
+                      "actionCue": "Take limit"
+                    },
+                    {
+                      "id": "pr-rewrite",
+                      "label": "Rewrite in standard order",
+                      "explanation": "By convention, the term with f′ is written first.",
+                      "latex": "\\frac{d}{dx}[f(x)\\,g(x)] = f'(x)\\,g(x) + f(x)\\,g'(x)",
+                      "actionCue": "Rewrite"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}[f(x)\\,g(x)] = f'(x)\\,g(x) + f(x)\\,g'(x)",
+                    "summary": "Differentiate the first factor and multiply by the second, then add the first factor times the derivative of the second."
+                  },
+                  "interpretation": "Each factor contributes a term: one where it is differentiated and one where it is held fixed."
+                },
+                {
+                  "type": "latex",
+                  "id": "prod-formula",
+                  "objectiveIds": [
+                    "prod-obj-1"
+                  ],
+                  "latex": "\\frac{d}{dx}[f(x)\\,g(x)] = f'(x)\\,g(x) + f(x)\\,g'(x)",
+                  "caption": "The product rule: differentiate the first and keep the second, plus keep the first and differentiate the second.",
+                  "display": true
+                },
+                {
+                  "type": "graph",
+                  "id": "prod-quadratic-graph",
+                  "objectiveIds": [
+                    "prod-obj-3"
+                  ],
+                  "title": "f(x) = (x + 1)(x − 2) and its derivative f′(x) = 2x − 1",
+                  "description": "The parabola y = (x+1)(x−2) crosses the x-axis at x = −1 and x = 2. Its derivative y = 2x − 1 is a line that equals zero at x = 0.5, where the parabola has its vertex at y = −2.25.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "x",
+                      "min": -3,
+                      "max": 4,
+                      "ticks": [
+                        -3,
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
+                    },
+                    "yAxis": {
+                      "label": "y",
+                      "min": -4,
+                      "max": 8,
+                      "ticks": [
+                        -4,
+                        -2,
+                        0,
+                        2,
+                        4,
+                        6,
+                        8
+                      ]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "prod-quad-f",
+                        "label": "f(x) = (x + 1)(x − 2)",
+                        "expression": "y = x^2 - x - 2",
+                        "domain": [
+                          -3,
+                          4
+                        ],
+                        "samples": [
+                          [
+                            -3,
+                            4
+                          ],
+                          [
+                            -2,
+                            0
+                          ],
+                          [
+                            -1,
+                            -2
+                          ],
+                          [
+                            -0.5,
+                            -2.25
+                          ],
+                          [
+                            0,
+                            -2
+                          ],
+                          [
+                            0.5,
+                            -2.25
+                          ],
+                          [
+                            1,
+                            -2
+                          ],
+                          [
+                            2,
+                            0
+                          ],
+                          [
+                            3,
+                            4
+                          ],
+                          [
+                            4,
+                            10
+                          ]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "prod-quad-fprime",
+                        "label": "f′(x) = 2x − 1",
+                        "expression": "y = 2x - 1",
+                        "domain": [
+                          -3,
+                          4
+                        ],
+                        "samples": [
+                          [
+                            -3,
+                            -7
+                          ],
+                          [
+                            -2,
+                            -5
+                          ],
+                          [
+                            -1,
+                            -3
+                          ],
+                          [
+                            0,
+                            -1
+                          ],
+                          [
+                            0.5,
+                            0
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            3
+                          ],
+                          [
+                            3,
+                            5
+                          ],
+                          [
+                            4,
+                            7
+                          ]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "prod-quad-key-pts",
+                        "label": "Key points",
+                        "points": [
+                          [
+                            0.5,
+                            -2.25
+                          ],
+                          [
+                            -1,
+                            0
+                          ],
+                          [
+                            2,
+                            0
+                          ]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "prod-vertex",
+                        "label": "slope = 0",
+                        "point": [
+                          0.5,
+                          -2.25
+                        ],
+                        "text": "At x = 0.5, f′(0.5) = 0. The product rule gives 1·(0.5 − 2) + (0.5 + 1)·1 = −1.5 + 1.5 = 0. The parabola has its vertex here."
+                      },
+                      {
+                        "id": "prod-root-neg1",
+                        "label": "f = 0",
+                        "point": [
+                          -1,
+                          0
+                        ],
+                        "text": "At x = −1, the factor (x + 1) is zero, so the product is zero."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "prod-apply",
+              "title": "Apply the Product Rule",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "prod-example-x2-3x1",
+                  "objectiveIds": [
+                    "prod-obj-3"
+                  ],
+                  "title": "Differentiate f(x) = x²(3x + 1)",
+                  "goal": "Apply the product rule with u = x² and v = 3x + 1.",
+                  "given": "f(x) = x²(3x + 1)",
+                  "steps": [
+                    {
+                      "id": "ex1-label",
+                      "label": "Label the two factors",
+                      "explanation": "Set u = x² and v = 3x + 1.",
+                      "latex": "u = x^2, \\quad v = 3x + 1",
+                      "actionCue": "Label"
+                    },
+                    {
+                      "id": "ex1-diff",
+                      "label": "Differentiate each factor",
+                      "explanation": "The power rule gives u′ = 2x. The sum and constant multiple rules give v′ = 3.",
+                      "latex": "u' = 2x, \\quad v' = 3",
+                      "actionCue": "Differentiate"
+                    },
+                    {
+                      "id": "ex1-apply",
+                      "label": "Apply the product rule",
+                      "explanation": "f′(x) = u′v + uv′.",
+                      "latex": "f'(x) = 2x(3x + 1) + x^2(3)",
+                      "actionCue": "Product rule"
+                    },
+                    {
+                      "id": "ex1-expand",
+                      "label": "Expand and simplify",
+                      "explanation": "Distribute 2x across (3x + 1) and combine like terms.",
+                      "latex": "f'(x) = 6x^2 + 2x + 3x^2 = 9x^2 + 2x",
+                      "actionCue": "Simplify"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}\\bigl[x^2(3x+1)\\bigr] = 9x^2 + 2x",
+                    "summary": "Both terms of the product rule contribute: 2x(3x+1) from differentiating the first factor, and x²(3) from differentiating the second."
+                  },
+                  "interpretation": "You can verify by expanding first: x²(3x+1) = 3x³ + x², whose derivative is 9x² + 2x."
+                },
+                {
+                  "type": "workedExample",
+                  "id": "prod-example-verify",
+                  "objectiveIds": [
+                    "prod-obj-3",
+                    "prod-obj-4"
+                  ],
+                  "title": "Differentiate f(x) = (x² + 1)(x³ − x) and verify",
+                  "goal": "Apply the product rule, then expand and differentiate term by term to confirm the answer.",
+                  "given": "f(x) = (x² + 1)(x³ − x)",
+                  "steps": [
+                    {
+                      "id": "ex2-label",
+                      "label": "Label the two factors",
+                      "explanation": "Set u = x² + 1 and v = x³ − x.",
+                      "latex": "u = x^2 + 1, \\quad v = x^3 - x",
+                      "actionCue": "Label"
+                    },
+                    {
+                      "id": "ex2-diff",
+                      "label": "Differentiate each factor",
+                      "explanation": "u′ = 2x and v′ = 3x² − 1.",
+                      "latex": "u' = 2x, \\quad v' = 3x^2 - 1",
+                      "actionCue": "Differentiate"
+                    },
+                    {
+                      "id": "ex2-apply",
+                      "label": "Apply the product rule",
+                      "explanation": "f′(x) = u′v + uv′.",
+                      "latex": "f'(x) = 2x(x^3 - x) + (x^2 + 1)(3x^2 - 1)",
+                      "actionCue": "Product rule"
+                    },
+                    {
+                      "id": "ex2-expand",
+                      "label": "Expand each product",
+                      "explanation": "Distribute: 2x(x³ − x) = 2x⁴ − 2x², and (x² + 1)(3x² − 1) = 3x⁴ − x² + 3x² − 1.",
+                      "latex": "f'(x) = 2x^4 - 2x^2 + 3x^4 - x^2 + 3x^2 - 1",
+                      "actionCue": "Expand"
+                    },
+                    {
+                      "id": "ex2-simplify",
+                      "label": "Combine like terms",
+                      "explanation": "Group the x⁴ terms and the x² terms: 2x⁴ + 3x⁴ = 5x⁴ and −2x² − x² + 3x² = 0.",
+                      "latex": "f'(x) = 5x^4 - 1",
+                      "actionCue": "Simplify"
+                    },
+                    {
+                      "id": "ex2-verify",
+                      "label": "Verify by expanding first",
+                      "explanation": "(x² + 1)(x³ − x) = x⁵ − x³ + x³ − x = x⁵ − x. The derivative of x⁵ − x is 5x⁴ − 1, which matches.",
+                      "latex": "\\frac{d}{dx}(x^5 - x) = 5x^4 - 1 \\;\\checkmark",
+                      "actionCue": "Verify"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}\\bigl[(x^2+1)(x^3-x)\\bigr] = 5x^4 - 1",
+                    "summary": "The x² terms cancel completely, leaving the clean result 5x⁴ − 1."
+                  },
+                  "interpretation": "When you can expand easily, expanding is a useful check. The product rule is essential when expansion is impractical."
+                },
+                {
+                  "type": "workedExample",
+                  "id": "prod-example-linear-quad",
+                  "objectiveIds": [
+                    "prod-obj-3"
+                  ],
+                  "title": "Differentiate f(x) = (2x + 3)(x² − 5)",
+                  "goal": "Apply the product rule to a linear times a quadratic.",
+                  "given": "f(x) = (2x + 3)(x² − 5)",
+                  "steps": [
+                    {
+                      "id": "ex3-label",
+                      "label": "Label and differentiate the factors",
+                      "explanation": "u = 2x + 3 gives u′ = 2. v = x² − 5 gives v′ = 2x.",
+                      "latex": "u' = 2, \\quad v' = 2x",
+                      "actionCue": "Label"
+                    },
+                    {
+                      "id": "ex3-apply",
+                      "label": "Apply the product rule",
+                      "explanation": "f′(x) = u′v + uv′ = 2(x² − 5) + (2x + 3)(2x).",
+                      "latex": "f'(x) = 2(x^2 - 5) + (2x + 3)(2x)",
+                      "actionCue": "Product rule"
+                    },
+                    {
+                      "id": "ex3-expand",
+                      "label": "Expand and simplify",
+                      "explanation": "2x² − 10 + 4x² + 6x = 6x² + 6x − 10.",
+                      "latex": "f'(x) = 2x^2 - 10 + 4x^2 + 6x = 6x^2 + 6x - 10",
+                      "actionCue": "Simplify"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}\\bigl[(2x+3)(x^2-5)\\bigr] = 6x^2 + 6x - 10",
+                    "summary": "Each factor contributes a term: differentiating (2x + 3) gives 2(x² − 5), and differentiating (x² − 5) gives (2x + 3)(2x)."
+                  },
+                  "interpretation": "Expanding first gives 2x³ + 3x² − 10x − 15, whose derivative is 6x² + 6x − 10 — confirming the product-rule answer."
+                },
+                {
+                  "type": "graph",
+                  "id": "prod-cubic-graph",
+                  "objectiveIds": [
+                    "prod-obj-3"
+                  ],
+                  "title": "f(x) = x²(3 − x) and its derivative f′(x) = 6x − 3x²",
+                  "description": "The cubic y = x²(3 − x) touches the x-axis at x = 0 and crosses it at x = 3. Its derivative y = 6x − 3x² = 3x(2 − x) equals zero at x = 0 and x = 2, confirming stationary points there. The product rule gives f′(x) = 2x(3 − x) + x²(−1) = 6x − 3x².",
+                  "spec": {
+                    "xAxis": {
+                      "label": "x",
+                      "min": -1,
+                      "max": 3.5,
+                      "ticks": [
+                        -1,
+                        0,
+                        1,
+                        2,
+                        3
+                      ]
+                    },
+                    "yAxis": {
+                      "label": "y",
+                      "min": -6,
+                      "max": 6,
+                      "ticks": [
+                        -6,
+                        -4,
+                        -2,
+                        0,
+                        2,
+                        4,
+                        6
+                      ]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "prod-cubic-f",
+                        "label": "f(x) = x²(3 − x)",
+                        "expression": "y = 3x^2 - x^3",
+                        "domain": [
+                          -1,
+                          3.5
+                        ],
+                        "samples": [
+                          [
+                            -1,
+                            4
+                          ],
+                          [
+                            -0.5,
+                            0.875
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            0.625
+                          ],
+                          [
+                            1,
+                            2
+                          ],
+                          [
+                            1.5,
+                            3.375
+                          ],
+                          [
+                            2,
+                            4
+                          ],
+                          [
+                            2.5,
+                            3.125
+                          ],
+                          [
+                            3,
+                            0
+                          ],
+                          [
+                            3.5,
+                            -6.125
+                          ]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "prod-cubic-fprime",
+                        "label": "f′(x) = 6x − 3x²",
+                        "expression": "y = 6x - 3x^2",
+                        "domain": [
+                          -1,
+                          3.5
+                        ],
+                        "samples": [
+                          [
+                            -1,
+                            -9
+                          ],
+                          [
+                            -0.5,
+                            -3.75
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            0.5,
+                            2.25
+                          ],
+                          [
+                            1,
+                            3
+                          ],
+                          [
+                            1.5,
+                            2.25
+                          ],
+                          [
+                            2,
+                            0
+                          ],
+                          [
+                            2.5,
+                            -3.75
+                          ],
+                          [
+                            3,
+                            -9
+                          ]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "prod-cubic-key-pts",
+                        "label": "Stationary points",
+                        "points": [
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            2,
+                            4
+                          ]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "prod-cubic-origin",
+                        "label": "f′(0) = 0",
+                        "point": [
+                          0,
+                          0
+                        ],
+                        "text": "At x = 0, f′(0) = 0. The curve touches the x-axis and turns upward."
+                      },
+                      {
+                        "id": "prod-cubic-max",
+                        "label": "f′(2) = 0",
+                        "point": [
+                          2,
+                          4
+                        ],
+                        "text": "At x = 2, f′(2) = 0. The product rule gives 2(2)(1) + 4(−1) = 0. The curve has a local maximum at y = 4."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "prod-mistakes",
+              "title": "Common Mistakes",
+              "blocks": [
+                {
+                  "type": "commonMistake",
+                  "id": "prod-mistake-multiply-derivatives",
+                  "objectiveIds": [
+                    "prod-obj-5"
+                  ],
+                  "title": "Multiplying the derivatives instead of using the product rule",
+                  "misconception": "d/dx[f(x)·g(x)] = f′(x)·g′(x).",
+                  "incorrectStep": "d/dx[x²(3x + 1)] = 2x · 3 = 6x",
+                  "whyWrong": "The derivative of a product is not the product of the derivatives. The product rule has two terms: f′g + fg′. The incorrect shortcut misses the term where the undifferentiated factor appears.",
+                  "correction": "d/dx[x²(3x + 1)] = 2x(3x + 1) + x²(3) = 6x² + 2x + 3x² = 9x² + 2x.",
+                  "checkPrompt": "Try d/dx[x · (x + 1)] by the incorrect shortcut and by the product rule. Do they agree?"
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "prod-mistake-one-term",
+                  "objectiveIds": [
+                    "prod-obj-1"
+                  ],
+                  "title": "Writing only one of the two product-rule terms",
+                  "misconception": "d/dx[f(x)·g(x)] = f′(x)·g(x) alone, forgetting the f(x)·g′(x) term.",
+                  "incorrectStep": "d/dx[(2x + 3)(x² − 5)] = 2(x² − 5) = 2x² − 10",
+                  "whyWrong": "The product rule always has two terms: one where the first factor is differentiated and one where the second factor is differentiated. Dropping either term gives the wrong answer.",
+                  "correction": "d/dx[(2x + 3)(x² − 5)] = 2(x² − 5) + (2x + 3)(2x) = 2x² − 10 + 4x² + 6x = 6x² + 6x − 10.",
+                  "checkPrompt": "Verify by expanding (2x + 3)(x² − 5) first and differentiating term by term."
+                }
+              ]
+            },
+            {
+              "id": "prod-practice",
+              "title": "Check Your Understanding",
+              "blocks": [
+                {
+                  "type": "quiz",
+                  "id": "prod-quiz",
+                  "objectiveIds": [
+                    "prod-obj-1",
+                    "prod-obj-3",
+                    "prod-obj-5"
+                  ],
+                  "title": "Product Rule Quiz",
+                  "questions": [
+                    {
+                      "kind": "multipleChoice",
+                      "id": "prod-q1",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}\\bigl[x\\,(x^2 + 1)\\bigr]"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "pq1-a",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "3x^2 + 1"
+                            }
+                          ],
+                          "feedback": "Correct. The product rule gives 1·(x² + 1) + x·(2x) = x² + 1 + 2x² = 3x² + 1."
+                        },
+                        {
+                          "id": "pq1-b",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "2x"
+                            }
+                          ],
+                          "feedback": "That is only g′(x) = 2x from differentiating x² + 1. The product rule needs two terms."
+                        },
+                        {
+                          "id": "pq1-c",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "x^2 + 2x"
+                            }
+                          ],
+                          "feedback": "This combines parts of both terms incorrectly. Apply f′g + fg′ carefully: 1·(x²+1) + x·(2x)."
+                        },
+                        {
+                          "id": "pq1-d",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "3x^2"
+                            }
+                          ],
+                          "feedback": "Close, but the constant 1 from the first term is missing. f′g = 1·(x² + 1) = x² + 1, not just x²."
+                        }
+                      ],
+                      "correctOptionId": "pq1-a",
+                      "conceptTags": [
+                        "product-rule",
+                        "power-rule"
+                      ],
+                      "hint": "Set f(x) = x and g(x) = x² + 1. Find f′ and g′, then use f′g + fg′."
+                    },
+                    {
+                      "kind": "multipleChoice",
+                      "id": "prod-q2",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}\\bigl[(x^3)(x^2 + 4)\\bigr]"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "pq2-a",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "5x^4 + 12x^2"
+                            }
+                          ],
+                          "feedback": "Correct. f′g + fg′ = 3x²(x²+4) + x³(2x) = 3x⁴ + 12x² + 2x⁴ = 5x⁴ + 12x²."
+                        },
+                        {
+                          "id": "pq2-b",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "6x^3"
+                            }
+                          ],
+                          "feedback": "That is f′·g′ = 3x²·2x = 6x³. The product rule gives f′g + fg′, not f′·g′."
+                        },
+                        {
+                          "id": "pq2-c",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "3x^4 + 12x^2"
+                            }
+                          ],
+                          "feedback": "That is only the first term f′g = 3x²(x²+4). You also need fg′ = x³(2x) = 2x⁴."
+                        },
+                        {
+                          "id": "pq2-d",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "2x^4"
+                            }
+                          ],
+                          "feedback": "That is only the second term fg′ = x³(2x). The product rule always has two terms."
+                        }
+                      ],
+                      "correctOptionId": "pq2-a",
+                      "conceptTags": [
+                        "product-rule",
+                        "power-rule",
+                        "sum-rule"
+                      ],
+                      "hint": "Set f(x) = x³ and g(x) = x² + 4. Compute f′g and fg′ separately and add."
+                    },
+                    {
+                      "kind": "shortAnswer",
+                      "id": "prod-q3",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "Find "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}\\bigl[(x + 2)(x^2 - 3x)\\bigr]"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ". Write your answer as a polynomial in x."
+                        }
+                      ],
+                      "acceptedAnswers": [
+                        "3x^2 - 2x - 6",
+                        "3x^2-2x-6",
+                        "3x² - 2x - 6",
+                        "3x²-2x-6",
+                        "3x^2 − 2x − 6"
+                      ],
+                      "feedback": {
+                        "correct": "Correct. f′g + fg′ = 1·(x² − 3x) + (x + 2)(2x − 3) = x² − 3x + 2x² − 3x + 4x − 6 = 3x² − 2x − 6.",
+                        "incorrect": "Use the product rule with f = x + 2 and g = x² − 3x. Then f′ = 1 and g′ = 2x − 3. Compute f′g + fg′ and simplify. The answer is 3x² − 2x − 6."
+                      },
+                      "conceptTags": [
+                        "product-rule",
+                        "power-rule",
+                        "sum-rule"
+                      ],
+                      "hint": "Set f = x + 2 and g = x² − 3x. Find f′ and g′, apply f′g + fg′, and combine like terms."
+                    }
+                  ]
+                },
+                {
+                  "type": "summary",
+                  "id": "prod-summary",
+                  "items": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "product-rule",
+                        "label": "product rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ": "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}[f(x)\\,g(x)] = f'(x)\\,g(x) + f(x)\\,g'(x)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ". Differentiate each factor in turn while holding the other fixed."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "derivative",
+                        "label": "derivative"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " of a product is not the product of the derivatives: "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}(fg) \\neq f' \\cdot g'"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The proof adds and subtracts "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "f(x+h)\\,g(x)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " in the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "difference-quotient",
+                        "label": "difference quotient"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " to separate the two rates of change."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "When you can expand a product into a "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "polynomial",
+                        "label": "polynomial"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ", expanding first and using the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "sum-rule",
+                        "label": "sum rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " is a useful check."
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "revision": {
+            "keyIdeas": [
+              "d/dx[f(x)·g(x)] = f′(x)·g(x) + f(x)·g′(x) — the product rule.",
+              "The derivative of a product is NOT the product of the derivatives.",
+              "The proof uses an add-and-subtract trick: insert f(x+h)·g(x) in the difference quotient.",
+              "Each factor contributes one term: differentiate it while holding the other factor fixed.",
+              "When possible, verify by expanding the product and differentiating term by term."
+            ],
+            "recallPrompts": [
+              "State the product rule.",
+              "Why is d/dx(fg) ≠ f′·g′?",
+              "What is d/dx[x²(3x + 1)]?",
+              "What algebraic trick starts the proof of the product rule?"
+            ],
+            "mistakeIds": [
+              "prod-mistake-multiply-derivatives",
+              "prod-mistake-one-term"
+            ],
+            "quizIds": [
+              "prod-quiz"
+            ]
           }
         }
       ]
@@ -7949,13 +10631,17 @@
       "id": "derivative",
       "term": "derivative",
       "definition": "The instantaneous rate of change of a function at a point, defined as the limit of the difference quotient.",
-      "aliases": ["instantaneous rate"]
+      "aliases": [
+        "instantaneous rate"
+      ]
     },
     {
       "id": "difference-quotient",
       "term": "difference quotient",
       "definition": "The ratio (f(x + h) − f(x))/h. The derivative is the limit of this ratio as h approaches zero.",
-      "aliases": ["average rate of change"]
+      "aliases": [
+        "average rate of change"
+      ]
     },
     {
       "id": "secant-line",
@@ -7966,7 +10652,9 @@
       "id": "tangent-line",
       "term": "tangent line",
       "definition": "The line through a single point of a curve whose slope equals the derivative of the function at that point.",
-      "aliases": ["tangent"]
+      "aliases": [
+        "tangent"
+      ]
     },
     {
       "id": "limit",
@@ -8002,13 +10690,17 @@
       "id": "input",
       "term": "input",
       "definition": "The value supplied to a function, written as the argument in f(x).",
-      "aliases": ["argument"]
+      "aliases": [
+        "argument"
+      ]
     },
     {
       "id": "output",
       "term": "output",
       "definition": "The value produced by a function for a given input, written as f(x).",
-      "aliases": ["value"]
+      "aliases": [
+        "value"
+      ]
     },
     {
       "id": "domain",
@@ -8029,7 +10721,10 @@
       "id": "one-sided-limit",
       "term": "one-sided limit",
       "definition": "A limit taken as the input approaches a target from only one side, written lim_{x→a^-} f(x) for the left side or lim_{x→a^+} f(x) for the right side.",
-      "aliases": ["left-sided limit", "right-sided limit"]
+      "aliases": [
+        "left-sided limit",
+        "right-sided limit"
+      ]
     },
     {
       "id": "infinite-limit",
@@ -8045,31 +10740,42 @@
       "id": "jump-discontinuity",
       "term": "jump discontinuity",
       "definition": "A discontinuity at x = a where the left- and right-sided limits both exist but disagree, so the two-sided limit does not exist.",
-      "aliases": ["jump"]
+      "aliases": [
+        "jump"
+      ]
     },
     {
       "id": "power-rule",
       "term": "power rule",
       "definition": "The differentiation shortcut d/dx(x^n) = n·x^(n−1). Derived from the binomial expansion of (x+h)^n in the first-principles definition.",
-      "aliases": ["power law of derivatives"]
+      "aliases": [
+        "power law of derivatives"
+      ]
     },
     {
       "id": "exponent",
       "term": "exponent",
       "definition": "The number that tells how many times a base is multiplied by itself. In x^n, n is the exponent.",
-      "aliases": ["power", "index"]
+      "aliases": [
+        "power",
+        "index"
+      ]
     },
     {
       "id": "polynomial",
       "term": "polynomial",
       "definition": "A function built from sums of terms of the form a·x^n, where n is a non-negative integer and a is a real coefficient.",
-      "aliases": ["poly"]
+      "aliases": [
+        "poly"
+      ]
     },
     {
       "id": "sum-rule",
       "term": "sum rule",
       "definition": "The derivative of a sum equals the sum of the derivatives: d/dx[f(x) + g(x)] = f’(x) + g’(x). The difference rule is the same idea with a minus sign.",
-      "aliases": ["addition rule"],
+      "aliases": [
+        "addition rule"
+      ],
       "latex": "\\frac{d}{dx}[f(x)+g(x)] = f'(x)+g'(x)"
     },
     {
@@ -8077,6 +10783,12 @@
       "term": "constant multiple rule",
       "definition": "The derivative of a constant times a function equals the constant times the derivative: d/dx[cf(x)] = c · f’(x). The constant factor passes through the derivative.",
       "latex": "\\frac{d}{dx}[c\\,f(x)] = c\\,f'(x)"
+    },
+    {
+      "id": "product-rule",
+      "term": "product rule",
+      "definition": "The derivative of a product of two functions: d/dx[f(x)·g(x)] = f′(x)·g(x) + f(x)·g′(x). Each factor is differentiated in turn while the other is held fixed.",
+      "latex": "\\frac{d}{dx}[f(x)\\,g(x)] = f'(x)\\,g(x) + f(x)\\,g'(x)"
     }
   ]
 }
