@@ -73,14 +73,15 @@ describe("calculus-i course fixture", () => {
       "power-rule",
       "sum-difference-rule",
       "product-rule",
-      "quotient-rule"
+      "quotient-rule",
+      "chain-rule"
     ]);
   });
 
   it("reports the correct lesson count via totalLessons", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
-    expect(totalLessons(result.course)).toBe(11);
+    expect(totalLessons(result.course)).toBe(12);
   });
 
   it("wires derivative-as-a-limit to require functions-refresher and limits-intuitively", () => {
@@ -150,6 +151,7 @@ describe("calculus-i course fixture", () => {
     expect(counts.get("sum-difference-rule")).toBeGreaterThanOrEqual(5);
     expect(counts.get("product-rule")).toBeGreaterThanOrEqual(5);
     expect(counts.get("quotient-rule")).toBeGreaterThanOrEqual(5);
+    expect(counts.get("chain-rule")).toBeGreaterThanOrEqual(5);
   });
 
   it("wires power-rule to require derivative-as-a-limit", () => {
@@ -214,6 +216,21 @@ describe("calculus-i course fixture", () => {
     expect(mod!.lessons.map((l) => l.id)).toContain("quotient-rule");
   });
 
+  it("wires chain-rule to require quotient-rule", () => {
+    const result = validateContent(courseJson);
+    if (!result.ok) throw new Error("Fixture failed to validate.");
+    const lesson = eachLesson(result.course).find((entry) => entry.lesson.id === "chain-rule");
+    expect(lesson?.lesson.prerequisiteLessonIds).toEqual(["quotient-rule"]);
+  });
+
+  it("places chain-rule inside the differentiation-rules module", () => {
+    const result = validateContent(courseJson);
+    if (!result.ok) throw new Error("Fixture failed to validate.");
+    const mod = result.course.modules.find((m) => m.id === "differentiation-rules");
+    expect(mod).toBeDefined();
+    expect(mod!.lessons.map((l) => l.id)).toContain("chain-rule");
+  });
+
   it("ships glossary terms for the differentiation-rules module", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
@@ -226,7 +243,9 @@ describe("calculus-i course fixture", () => {
         "sum-rule",
         "constant-multiple-rule",
         "product-rule",
-        "quotient-rule"
+        "quotient-rule",
+        "chain-rule",
+        "composite-function"
       ])
     );
   });
