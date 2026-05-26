@@ -71,14 +71,15 @@ describe("calculus-i course fixture", () => {
       "constant-function-derivative",
       "differentiability-vs-continuity",
       "power-rule",
-      "sum-difference-rule"
+      "sum-difference-rule",
+      "product-rule"
     ]);
   });
 
   it("reports the correct lesson count via totalLessons", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
-    expect(totalLessons(result.course)).toBe(9);
+    expect(totalLessons(result.course)).toBe(10);
   });
 
   it("wires derivative-as-a-limit to require functions-refresher and limits-intuitively", () => {
@@ -146,6 +147,7 @@ describe("calculus-i course fixture", () => {
     expect(counts.get("differentiability-vs-continuity")).toBeGreaterThanOrEqual(5);
     expect(counts.get("power-rule")).toBeGreaterThanOrEqual(5);
     expect(counts.get("sum-difference-rule")).toBeGreaterThanOrEqual(5);
+    expect(counts.get("product-rule")).toBeGreaterThanOrEqual(5);
   });
 
   it("wires power-rule to require derivative-as-a-limit", () => {
@@ -180,6 +182,23 @@ describe("calculus-i course fixture", () => {
     expect(lesson?.lesson.prerequisiteLessonIds).toEqual(["power-rule"]);
   });
 
+  it("wires product-rule to require sum-difference-rule", () => {
+    const result = validateContent(courseJson);
+    if (!result.ok) throw new Error("Fixture failed to validate.");
+    const lesson = eachLesson(result.course).find(
+      (entry) => entry.lesson.id === "product-rule"
+    );
+    expect(lesson?.lesson.prerequisiteLessonIds).toEqual(["sum-difference-rule"]);
+  });
+
+  it("places product-rule inside the differentiation-rules module", () => {
+    const result = validateContent(courseJson);
+    if (!result.ok) throw new Error("Fixture failed to validate.");
+    const mod = result.course.modules.find((m) => m.id === "differentiation-rules");
+    expect(mod).toBeDefined();
+    expect(mod!.lessons.map((l) => l.id)).toContain("product-rule");
+  });
+
   it("ships glossary terms for the differentiation-rules module", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Fixture failed to validate.");
@@ -190,7 +209,8 @@ describe("calculus-i course fixture", () => {
         "exponent",
         "polynomial",
         "sum-rule",
-        "constant-multiple-rule"
+        "constant-multiple-rule",
+        "product-rule"
       ])
     );
   });
