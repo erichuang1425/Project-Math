@@ -10622,6 +10622,1293 @@
               "prod-quiz"
             ]
           }
+        },
+        {
+          "id": "quotient-rule",
+          "slug": "quotient-rule",
+          "title": "The Quotient Rule",
+          "summary": "Derive the quotient rule from the product rule, build intuition through the shrinking-denominator model, and apply the rule to differentiate rational functions.",
+          "objectives": [
+            {
+              "id": "quot-obj-1",
+              "text": "State the quotient rule: d/dx[f(x)/g(x)] = [f′(x)·g(x) − f(x)·g′(x)] / [g(x)]²."
+            },
+            {
+              "id": "quot-obj-2",
+              "text": "Derive the quotient rule from the product rule applied to f(x)·[g(x)]⁻¹."
+            },
+            {
+              "id": "quot-obj-3",
+              "text": "Apply the quotient rule to differentiate a ratio of two polynomial expressions."
+            },
+            {
+              "id": "quot-obj-4",
+              "text": "Verify a quotient-rule result by simplifying before differentiating when possible."
+            },
+            {
+              "id": "quot-obj-5",
+              "text": "Explain why d/dx[f(x)/g(x)] ≠ f′(x)/g′(x) using a concrete counter-example."
+            }
+          ],
+          "prerequisiteLessonIds": [
+            "product-rule"
+          ],
+          "estimatedMinutes": 28,
+          "difficulty": "core",
+          "sections": [
+            {
+              "id": "quot-intro",
+              "title": "Why Quotients Need Their Own Rule",
+              "blocks": [
+                {
+                  "type": "title",
+                  "id": "quot-title",
+                  "kicker": "Differentiation rules",
+                  "title": "The Quotient Rule",
+                  "subtitle": "Derive and apply the rule for differentiating a ratio of two functions.",
+                  "objectives": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "State and derive the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "quotient-rule",
+                        "label": "quotient rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " from the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "product-rule",
+                        "label": "product rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Apply the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "quotient-rule",
+                        "label": "quotient rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " to differentiate ratios of "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "polynomial",
+                        "label": "polynomial"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " expressions."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Verify results by simplifying and using the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "power-rule",
+                        "label": "power rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "concept",
+                  "id": "quot-motivation",
+                  "objectiveIds": [
+                    "quot-obj-5"
+                  ],
+                  "title": "Why not just divide the derivatives?",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "product-rule",
+                      "label": "product rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " showed that the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "derivative",
+                      "label": "derivative"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " of a product is not the product of the derivatives. The same warning applies to quotients. Take "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x) = x^2"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " and "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "g(x) = x"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The quotient is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", whose derivative is "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "1"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". But "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(x)/g'(x) = 2x/1 = 2x"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", which is completely different. Quotients need their own rule."
+                    }
+                  ]
+                },
+                {
+                  "type": "intuition",
+                  "id": "quot-ratio-intuition",
+                  "objectiveIds": [
+                    "quot-obj-1"
+                  ],
+                  "title": "The numerator–denominator tug of war",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "A fraction "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x)/g(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " grows when the numerator increases faster than the denominator, and shrinks when the denominator increases faster than the numerator. The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "quotient-rule",
+                      "label": "quotient rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " captures this tug of war: the numerator's contribution "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(x) \\cdot g(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " pushes the fraction up, while the denominator's contribution "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x) \\cdot g'(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " pushes it down. The difference of these two terms, divided by "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "[g(x)]^2"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", gives the rate of change."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "quotient-rule",
+                      "label": "quotient rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " is a competition: numerator growth minus denominator growth, scaled by the square of the denominator."
+                    }
+                  ]
+                },
+                {
+                  "type": "intuition",
+                  "id": "quot-product-rewrite-intuition",
+                  "objectiveIds": [
+                    "quot-obj-2"
+                  ],
+                  "title": "A quotient is a product in disguise",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Every fraction "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x)/g(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " can be rewritten as "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x) \\cdot [g(x)]^{-1}"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". You already know the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "product-rule",
+                      "label": "product rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " and the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "power-rule",
+                      "label": "power rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " (extended to negative "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "exponent",
+                      "label": "exponents"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "). Applying both gives the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "quotient-rule",
+                      "label": "quotient rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " directly — no new limit argument is needed."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "quot-derive",
+              "title": "Derive the Quotient Rule",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "quot-derivation",
+                  "objectiveIds": [
+                    "quot-obj-1",
+                    "quot-obj-2"
+                  ],
+                  "title": "Derive the quotient rule from the product rule",
+                  "goal": "Show that d/dx[f(x)/g(x)] = [f′(x)·g(x) − f(x)·g′(x)] / [g(x)]² using the product rule on f(x)·[g(x)]⁻¹.",
+                  "steps": [
+                    {
+                      "id": "qr-rewrite",
+                      "label": "Rewrite the quotient as a product",
+                      "explanation": "Write f(x)/g(x) as f(x)·[g(x)]⁻¹ so that the product rule applies.",
+                      "latex": "\\frac{f(x)}{g(x)} = f(x) \\cdot [g(x)]^{-1}",
+                      "actionCue": "Rewrite"
+                    },
+                    {
+                      "id": "qr-product-rule",
+                      "label": "Apply the product rule",
+                      "explanation": "Let u = f(x) and v = [g(x)]⁻¹. The product rule gives u′v + uv′.",
+                      "latex": "\\frac{d}{dx}\\bigl[f(x) \\cdot [g(x)]^{-1}\\bigr] = f'(x) \\cdot [g(x)]^{-1} + f(x) \\cdot \\frac{d}{dx}[g(x)]^{-1}",
+                      "actionCue": "Product rule"
+                    },
+                    {
+                      "id": "qr-chain",
+                      "label": "Differentiate [g(x)]⁻¹",
+                      "explanation": "The power rule with exponent −1 gives d/dx[g(x)]⁻¹ = −[g(x)]⁻² · g′(x).",
+                      "latex": "\\frac{d}{dx}[g(x)]^{-1} = -[g(x)]^{-2} \\cdot g'(x)",
+                      "actionCue": "Power rule"
+                    },
+                    {
+                      "id": "qr-substitute",
+                      "label": "Substitute back",
+                      "explanation": "Replace d/dx[g(x)]⁻¹ in the product-rule expression.",
+                      "latex": "\\frac{d}{dx}\\!\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f'(x)}{g(x)} + f(x) \\cdot \\left(-\\frac{g'(x)}{[g(x)]^2}\\right)",
+                      "actionCue": "Substitute"
+                    },
+                    {
+                      "id": "qr-combine",
+                      "label": "Combine over a common denominator",
+                      "explanation": "The common denominator is [g(x)]². Multiply the first term's numerator and denominator by g(x).",
+                      "latex": "\\frac{d}{dx}\\!\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f'(x) \\cdot g(x) - f(x) \\cdot g'(x)}{[g(x)]^2}",
+                      "actionCue": "Combine"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}\\!\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f'(x)\\,g(x) - f(x)\\,g'(x)}{[g(x)]^2}",
+                    "summary": "Differentiate the numerator times the denominator, minus the numerator times the derivative of the denominator, all over the denominator squared."
+                  },
+                  "interpretation": "The minus sign is the key difference from the product rule: the denominator's growth works against the fraction."
+                },
+                {
+                  "type": "latex",
+                  "id": "quot-formula",
+                  "objectiveIds": [
+                    "quot-obj-1"
+                  ],
+                  "latex": "\\frac{d}{dx}\\!\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f'(x)\\,g(x) - f(x)\\,g'(x)}{[g(x)]^2}",
+                  "caption": "The quotient rule: \"low d-high minus high d-low, over the square of what's below.\"",
+                  "display": true
+                },
+                {
+                  "type": "graph",
+                  "id": "quot-reciprocal-graph",
+                  "objectiveIds": [
+                    "quot-obj-3"
+                  ],
+                  "title": "f(x) = 1/x and its derivative f′(x) = −1/x²",
+                  "description": "The hyperbola y = 1/x has a vertical asymptote at x = 0. Its derivative y = −1/x² is always negative, confirming that 1/x is always decreasing on each branch. The quotient rule with f = 1 and g = x gives (0·x − 1·1)/x² = −1/x².",
+                  "spec": {
+                    "xAxis": {
+                      "label": "x",
+                      "min": -4,
+                      "max": 4,
+                      "ticks": [
+                        -4,
+                        -3,
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
+                    },
+                    "yAxis": {
+                      "label": "y",
+                      "min": -4,
+                      "max": 4,
+                      "ticks": [
+                        -4,
+                        -3,
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "quot-recip-f-pos",
+                        "label": "f(x) = 1/x (x > 0)",
+                        "expression": "y = 1/x",
+                        "domain": [
+                          0.25,
+                          4
+                        ],
+                        "samples": [
+                          [
+                            0.25,
+                            4
+                          ],
+                          [
+                            0.5,
+                            2
+                          ],
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            2,
+                            0.5
+                          ],
+                          [
+                            3,
+                            0.3333
+                          ],
+                          [
+                            4,
+                            0.25
+                          ]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "quot-recip-f-neg",
+                        "label": "f(x) = 1/x (x < 0)",
+                        "expression": "y = 1/x",
+                        "domain": [
+                          -4,
+                          -0.25
+                        ],
+                        "samples": [
+                          [
+                            -4,
+                            -0.25
+                          ],
+                          [
+                            -3,
+                            -0.3333
+                          ],
+                          [
+                            -2,
+                            -0.5
+                          ],
+                          [
+                            -1,
+                            -1
+                          ],
+                          [
+                            -0.5,
+                            -2
+                          ],
+                          [
+                            -0.25,
+                            -4
+                          ]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "quot-recip-fprime-pos",
+                        "label": "f′(x) = −1/x² (x > 0)",
+                        "expression": "y = -1/x^2",
+                        "domain": [
+                          0.5,
+                          4
+                        ],
+                        "samples": [
+                          [
+                            0.5,
+                            -4
+                          ],
+                          [
+                            1,
+                            -1
+                          ],
+                          [
+                            2,
+                            -0.25
+                          ],
+                          [
+                            3,
+                            -0.1111
+                          ],
+                          [
+                            4,
+                            -0.0625
+                          ]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "quot-recip-fprime-neg",
+                        "label": "f′(x) = −1/x² (x < 0)",
+                        "expression": "y = -1/x^2",
+                        "domain": [
+                          -4,
+                          -0.5
+                        ],
+                        "samples": [
+                          [
+                            -4,
+                            -0.0625
+                          ],
+                          [
+                            -3,
+                            -0.1111
+                          ],
+                          [
+                            -2,
+                            -0.25
+                          ],
+                          [
+                            -1,
+                            -1
+                          ],
+                          [
+                            -0.5,
+                            -4
+                          ]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "quot-recip-key-pts",
+                        "label": "Key points",
+                        "points": [
+                          [
+                            1,
+                            1
+                          ],
+                          [
+                            -1,
+                            -1
+                          ]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "quot-recip-at-1",
+                        "label": "slope = −1",
+                        "point": [
+                          1,
+                          1
+                        ],
+                        "text": "At x = 1, f(1) = 1 and f′(1) = −1. The tangent line at (1, 1) has slope −1."
+                      },
+                      {
+                        "id": "quot-recip-at-neg1",
+                        "label": "slope = −1",
+                        "point": [
+                          -1,
+                          -1
+                        ],
+                        "text": "At x = −1, f(−1) = −1 and f′(−1) = −1. The curve is decreasing here too."
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "graph",
+                  "id": "quot-rational-graph",
+                  "objectiveIds": [
+                    "quot-obj-3"
+                  ],
+                  "title": "f(x) = x/(x² + 1) and its derivative",
+                  "description": "The rational function y = x/(x² + 1) has no vertical asymptote; its domain is all real numbers. The function reaches a maximum of 0.5 at x = 1 and a minimum of −0.5 at x = −1. Its derivative (1 − x²)/(x² + 1)² equals zero at x = ±1, confirming the extrema.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "x",
+                      "min": -4,
+                      "max": 4,
+                      "ticks": [
+                        -4,
+                        -3,
+                        -2,
+                        -1,
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                      ]
+                    },
+                    "yAxis": {
+                      "label": "y",
+                      "min": -1,
+                      "max": 1,
+                      "ticks": [
+                        -1,
+                        -0.5,
+                        0,
+                        0.5,
+                        1
+                      ]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "quot-rational-f",
+                        "label": "f(x) = x/(x² + 1)",
+                        "expression": "y = x/(x^2 + 1)",
+                        "domain": [
+                          -4,
+                          4
+                        ],
+                        "samples": [
+                          [
+                            -4,
+                            -0.2353
+                          ],
+                          [
+                            -3,
+                            -0.3
+                          ],
+                          [
+                            -2,
+                            -0.4
+                          ],
+                          [
+                            -1,
+                            -0.5
+                          ],
+                          [
+                            0,
+                            0
+                          ],
+                          [
+                            1,
+                            0.5
+                          ],
+                          [
+                            2,
+                            0.4
+                          ],
+                          [
+                            3,
+                            0.3
+                          ],
+                          [
+                            4,
+                            0.2353
+                          ]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "quot-rational-fprime",
+                        "label": "f′(x) = (1 − x²)/(x² + 1)²",
+                        "expression": "y = (1 - x^2)/(x^2 + 1)^2",
+                        "domain": [
+                          -4,
+                          4
+                        ],
+                        "samples": [
+                          [
+                            -4,
+                            -0.0519
+                          ],
+                          [
+                            -3,
+                            -0.08
+                          ],
+                          [
+                            -2,
+                            -0.12
+                          ],
+                          [
+                            -1,
+                            0
+                          ],
+                          [
+                            0,
+                            1
+                          ],
+                          [
+                            1,
+                            0
+                          ],
+                          [
+                            2,
+                            -0.12
+                          ],
+                          [
+                            3,
+                            -0.08
+                          ],
+                          [
+                            4,
+                            -0.0519
+                          ]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "quot-rational-key-pts",
+                        "label": "Extrema",
+                        "points": [
+                          [
+                            1,
+                            0.5
+                          ],
+                          [
+                            -1,
+                            -0.5
+                          ]
+                        ]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "quot-rational-max",
+                        "label": "f′ = 0 (max)",
+                        "point": [
+                          1,
+                          0.5
+                        ],
+                        "text": "At x = 1, the quotient rule gives f′(1) = (1 − 1)/4 = 0. The function has a local maximum of 1/2."
+                      },
+                      {
+                        "id": "quot-rational-min",
+                        "label": "f′ = 0 (min)",
+                        "point": [
+                          -1,
+                          -0.5
+                        ],
+                        "text": "At x = −1, f′(−1) = (1 − 1)/4 = 0. The function has a local minimum of −1/2."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "quot-apply",
+              "title": "Apply the Quotient Rule",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "quot-example-x2p1-over-xm1",
+                  "objectiveIds": [
+                    "quot-obj-3"
+                  ],
+                  "title": "Differentiate f(x) = (x² + 1)/(x − 1)",
+                  "goal": "Apply the quotient rule with numerator x² + 1 and denominator x − 1.",
+                  "given": "f(x) = (x² + 1)/(x − 1)",
+                  "steps": [
+                    {
+                      "id": "qe1-label",
+                      "label": "Label numerator and denominator",
+                      "explanation": "Set the numerator N = x² + 1 and the denominator D = x − 1.",
+                      "latex": "N = x^2 + 1, \\quad D = x - 1",
+                      "actionCue": "Label"
+                    },
+                    {
+                      "id": "qe1-diff",
+                      "label": "Differentiate each",
+                      "explanation": "N′ = 2x by the power rule. D′ = 1.",
+                      "latex": "N' = 2x, \\quad D' = 1",
+                      "actionCue": "Differentiate"
+                    },
+                    {
+                      "id": "qe1-apply",
+                      "label": "Apply the quotient rule",
+                      "explanation": "f′(x) = (N′D − ND′) / D².",
+                      "latex": "f'(x) = \\frac{2x(x - 1) - (x^2 + 1)(1)}{(x - 1)^2}",
+                      "actionCue": "Quotient rule"
+                    },
+                    {
+                      "id": "qe1-expand",
+                      "label": "Expand the numerator",
+                      "explanation": "Distribute 2x across (x − 1) and subtract (x² + 1).",
+                      "latex": "f'(x) = \\frac{2x^2 - 2x - x^2 - 1}{(x - 1)^2}",
+                      "actionCue": "Expand"
+                    },
+                    {
+                      "id": "qe1-simplify",
+                      "label": "Simplify",
+                      "explanation": "Combine like terms: 2x² − x² = x², and the constant is −1.",
+                      "latex": "f'(x) = \\frac{x^2 - 2x - 1}{(x - 1)^2}",
+                      "actionCue": "Simplify"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}\\!\\left[\\frac{x^2+1}{x-1}\\right] = \\frac{x^2 - 2x - 1}{(x-1)^2}",
+                    "summary": "The numerator N′D − ND′ = 2x(x−1) − (x²+1) simplifies to x² − 2x − 1."
+                  },
+                  "interpretation": "The derivative is undefined at x = 1, where the original function has a vertical asymptote."
+                },
+                {
+                  "type": "workedExample",
+                  "id": "quot-example-3xp2-over-x2p1",
+                  "objectiveIds": [
+                    "quot-obj-3"
+                  ],
+                  "title": "Differentiate f(x) = (3x + 2)/(x² + 1)",
+                  "goal": "Apply the quotient rule where the denominator has a higher degree than the numerator.",
+                  "given": "f(x) = (3x + 2)/(x² + 1)",
+                  "steps": [
+                    {
+                      "id": "qe2-label",
+                      "label": "Label and differentiate",
+                      "explanation": "N = 3x + 2 gives N′ = 3. D = x² + 1 gives D′ = 2x.",
+                      "latex": "N' = 3, \\quad D' = 2x",
+                      "actionCue": "Label"
+                    },
+                    {
+                      "id": "qe2-apply",
+                      "label": "Apply the quotient rule",
+                      "explanation": "f′(x) = (N′D − ND′) / D².",
+                      "latex": "f'(x) = \\frac{3(x^2 + 1) - (3x + 2)(2x)}{(x^2 + 1)^2}",
+                      "actionCue": "Quotient rule"
+                    },
+                    {
+                      "id": "qe2-expand",
+                      "label": "Expand the numerator",
+                      "explanation": "Distribute: 3x² + 3 − 6x² − 4x.",
+                      "latex": "f'(x) = \\frac{3x^2 + 3 - 6x^2 - 4x}{(x^2 + 1)^2}",
+                      "actionCue": "Expand"
+                    },
+                    {
+                      "id": "qe2-simplify",
+                      "label": "Simplify",
+                      "explanation": "Combine like terms: 3x² − 6x² = −3x².",
+                      "latex": "f'(x) = \\frac{-3x^2 - 4x + 3}{(x^2 + 1)^2}",
+                      "actionCue": "Simplify"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}\\!\\left[\\frac{3x+2}{x^2+1}\\right] = \\frac{-3x^2 - 4x + 3}{(x^2+1)^2}",
+                    "summary": "Because x² + 1 is never zero, this derivative is defined for all real x."
+                  },
+                  "interpretation": "The denominator x² + 1 has no real roots, so f(x) has no vertical asymptotes."
+                },
+                {
+                  "type": "workedExample",
+                  "id": "quot-example-x2-over-xp3",
+                  "objectiveIds": [
+                    "quot-obj-3",
+                    "quot-obj-4"
+                  ],
+                  "title": "Differentiate f(x) = x²/(x + 3) and verify",
+                  "goal": "Apply the quotient rule and confirm by polynomial long division.",
+                  "given": "f(x) = x²/(x + 3)",
+                  "steps": [
+                    {
+                      "id": "qe3-label",
+                      "label": "Label and differentiate",
+                      "explanation": "N = x² gives N′ = 2x. D = x + 3 gives D′ = 1.",
+                      "latex": "N' = 2x, \\quad D' = 1",
+                      "actionCue": "Label"
+                    },
+                    {
+                      "id": "qe3-apply",
+                      "label": "Apply the quotient rule",
+                      "explanation": "f′(x) = (N′D − ND′) / D².",
+                      "latex": "f'(x) = \\frac{2x(x + 3) - x^2(1)}{(x + 3)^2}",
+                      "actionCue": "Quotient rule"
+                    },
+                    {
+                      "id": "qe3-expand",
+                      "label": "Expand and simplify the numerator",
+                      "explanation": "Distribute 2x: 2x² + 6x. Then subtract x².",
+                      "latex": "f'(x) = \\frac{2x^2 + 6x - x^2}{(x + 3)^2} = \\frac{x^2 + 6x}{(x + 3)^2}",
+                      "actionCue": "Expand"
+                    },
+                    {
+                      "id": "qe3-factor",
+                      "label": "Factor the numerator",
+                      "explanation": "x² + 6x = x(x + 6).",
+                      "latex": "f'(x) = \\frac{x(x + 6)}{(x + 3)^2}",
+                      "actionCue": "Factor"
+                    },
+                    {
+                      "id": "qe3-verify",
+                      "label": "Verify by rewriting",
+                      "explanation": "Long division: x²/(x+3) = x − 3 + 9/(x+3). Differentiating: d/dx[x − 3 + 9(x+3)⁻¹] = 1 − 9/(x+3)² = [(x+3)² − 9]/(x+3)² = (x² + 6x)/(x+3)². This matches.",
+                      "latex": "\\frac{d}{dx}\\!\\left[x - 3 + \\frac{9}{x+3}\\right] = 1 - \\frac{9}{(x+3)^2} = \\frac{x^2 + 6x}{(x+3)^2} \\;\\checkmark",
+                      "actionCue": "Verify"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}\\!\\left[\\frac{x^2}{x+3}\\right] = \\frac{x(x+6)}{(x+3)^2}",
+                    "summary": "The factored form x(x + 6)/(x + 3)² shows the derivative equals zero at x = 0 and x = −6."
+                  },
+                  "interpretation": "Long division followed by term-by-term differentiation is a useful verification strategy when the numerator's degree is at least the denominator's."
+                }
+              ]
+            },
+            {
+              "id": "quot-mistakes",
+              "title": "Common Mistakes",
+              "blocks": [
+                {
+                  "type": "commonMistake",
+                  "id": "quot-mistake-divide-derivatives",
+                  "objectiveIds": [
+                    "quot-obj-5"
+                  ],
+                  "title": "Dividing the derivatives instead of using the quotient rule",
+                  "misconception": "d/dx[f(x)/g(x)] = f′(x)/g′(x).",
+                  "incorrectStep": "d/dx[x²/x] = 2x/1 = 2x",
+                  "whyWrong": "The derivative of a quotient is not the quotient of the derivatives. The quotient rule requires the cross-multiplication N′D − ND′ in the numerator, divided by D². Dividing the individual derivatives ignores the interaction between numerator and denominator.",
+                  "correction": "d/dx[x²/x] = d/dx[x] = 1. The quotient rule gives (2x · x − x² · 1)/x² = (2x² − x²)/x² = x²/x² = 1.",
+                  "checkPrompt": "Try d/dx[(x + 1)/x] by the incorrect shortcut and by the quotient rule. Do they agree?"
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "quot-mistake-sign-error",
+                  "objectiveIds": [
+                    "quot-obj-1"
+                  ],
+                  "title": "Swapping the subtraction order in the numerator",
+                  "misconception": "d/dx[f/g] = (f · g′ − f′ · g) / g² (terms in wrong order).",
+                  "incorrectStep": "d/dx[(x² + 1)/(x − 1)] = [(x² + 1)(1) − 2x(x − 1)]/(x − 1)² = (x² + 1 − 2x² + 2x)/(x − 1)² = (−x² + 2x + 1)/(x − 1)²",
+                  "whyWrong": "The quotient rule is N′D − ND′, not ND′ − N′D. Swapping the order flips the sign of the entire numerator, giving the wrong answer. A mnemonic: \"low d-high minus high d-low\" — the denominator (low) comes first in the subtraction.",
+                  "correction": "d/dx[(x² + 1)/(x − 1)] = [2x(x − 1) − (x² + 1)(1)]/(x − 1)² = (2x² − 2x − x² − 1)/(x − 1)² = (x² − 2x − 1)/(x − 1)².",
+                  "checkPrompt": "State the mnemonic for the quotient rule to make sure you have the subtraction order right."
+                }
+              ]
+            },
+            {
+              "id": "quot-practice",
+              "title": "Check Your Understanding",
+              "blocks": [
+                {
+                  "type": "quiz",
+                  "id": "quot-quiz",
+                  "objectiveIds": [
+                    "quot-obj-1",
+                    "quot-obj-3",
+                    "quot-obj-5"
+                  ],
+                  "title": "Quotient Rule Quiz",
+                  "questions": [
+                    {
+                      "kind": "multipleChoice",
+                      "id": "quot-q1",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}\\!\\left[\\tfrac{x}{x+1}\\right]"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "qq1-a",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "\\dfrac{1}{(x+1)^2}"
+                            }
+                          ],
+                          "feedback": "Correct. N′D − ND′ = 1·(x+1) − x·1 = 1. Dividing by (x+1)² gives 1/(x+1)²."
+                        },
+                        {
+                          "id": "qq1-b",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "\\dfrac{1}{x+1}"
+                            }
+                          ],
+                          "feedback": "You forgot to square the denominator. The quotient rule divides by D², not D."
+                        },
+                        {
+                          "id": "qq1-c",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "\\dfrac{-1}{(x+1)^2}"
+                            }
+                          ],
+                          "feedback": "The subtraction order is swapped. The correct numerator is N′D − ND′ = 1·(x+1) − x·1 = 1, not −1."
+                        },
+                        {
+                          "id": "qq1-d",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "1"
+                            }
+                          ],
+                          "feedback": "That is f′(x)/g′(x) = 1/1. The derivative of a quotient is not the quotient of the derivatives."
+                        }
+                      ],
+                      "correctOptionId": "qq1-a",
+                      "conceptTags": [
+                        "quotient-rule"
+                      ],
+                      "hint": "Set N = x and D = x + 1. Compute N′D − ND′ and divide by D²."
+                    },
+                    {
+                      "kind": "multipleChoice",
+                      "id": "quot-q2",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}\\!\\left[\\tfrac{x^2}{x+2}\\right]"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "qq2-a",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "\\dfrac{x^2 + 4x}{(x+2)^2}"
+                            }
+                          ],
+                          "feedback": "Correct. N′D − ND′ = 2x(x+2) − x²(1) = 2x² + 4x − x² = x² + 4x."
+                        },
+                        {
+                          "id": "qq2-b",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "\\dfrac{2x}{x+2}"
+                            }
+                          ],
+                          "feedback": "That uses only N′/D, ignoring the ND′ term and the squared denominator."
+                        },
+                        {
+                          "id": "qq2-c",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "\\dfrac{x^2 - 4x}{(x+2)^2}"
+                            }
+                          ],
+                          "feedback": "Check the sign: the cross terms give 2x(x+2) − x²(1) = x² + 4x, not x² − 4x."
+                        },
+                        {
+                          "id": "qq2-d",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "2x"
+                            }
+                          ],
+                          "feedback": "That is f′(x)/g′(x) = 2x/1. The quotient rule is more involved than dividing the derivatives."
+                        }
+                      ],
+                      "correctOptionId": "qq2-a",
+                      "conceptTags": [
+                        "quotient-rule",
+                        "power-rule"
+                      ],
+                      "hint": "N = x², D = x + 2. Compute N′D − ND′ = 2x(x+2) − x²(1) and simplify."
+                    },
+                    {
+                      "kind": "shortAnswer",
+                      "id": "quot-q3",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "Find "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}\\!\\left[\\tfrac{1}{x^2+1}\\right]"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ". Write the answer as a single fraction."
+                        }
+                      ],
+                      "acceptedAnswers": [
+                        "-2x/(x^2+1)^2",
+                        "-2x/(x²+1)²",
+                        "−2x/(x^2+1)^2",
+                        "−2x/(x²+1)²",
+                        "-2x / (x^2 + 1)^2",
+                        "-2x / (x² + 1)²"
+                      ],
+                      "feedback": {
+                        "correct": "Correct. N = 1, D = x² + 1. N′D − ND′ = 0·(x²+1) − 1·(2x) = −2x. Divide by D² = (x²+1)².",
+                        "incorrect": "Use the quotient rule with N = 1 and D = x² + 1. Then N′ = 0 and D′ = 2x. The numerator is 0·(x²+1) − 1·(2x) = −2x. The answer is −2x/(x²+1)²."
+                      },
+                      "conceptTags": [
+                        "quotient-rule",
+                        "power-rule"
+                      ],
+                      "hint": "N = 1, so N′ = 0. The entire N′D term vanishes, leaving only −ND′ = −2x in the numerator."
+                    }
+                  ]
+                },
+                {
+                  "type": "summary",
+                  "id": "quot-summary",
+                  "items": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "quotient-rule",
+                        "label": "quotient rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ": "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}\\!\\left[\\tfrac{f}{g}\\right] = \\tfrac{f'g - fg'}{g^2}"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ". \"Low d-high minus high d-low, over the square of what's below.\""
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "derivative",
+                        "label": "derivative"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " of a quotient is not the quotient of the derivatives: "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}(f/g) \\neq f'/g'"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The proof rewrites "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "f/g"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " as "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "f \\cdot g^{-1}"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " and applies the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "product-rule",
+                        "label": "product rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " and the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "power-rule",
+                        "label": "power rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " with a negative "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "exponent",
+                        "label": "exponent"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The minus sign in the numerator is the key difference from the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "product-rule",
+                        "label": "product rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " — getting the subtraction order wrong flips the sign of the answer."
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "revision": {
+            "keyIdeas": [
+              "d/dx[f(x)/g(x)] = [f′(x)·g(x) − f(x)·g′(x)] / [g(x)]² — the quotient rule.",
+              "The derivative of a quotient is NOT the quotient of the derivatives.",
+              "The proof rewrites f/g as f·g⁻¹ and applies the product rule plus the power rule with exponent −1.",
+              "The subtraction order matters: N′D − ND′, not ND′ − N′D. Mnemonic: \"low d-high minus high d-low.\"",
+              "When possible, simplify or use long division before differentiating as a check."
+            ],
+            "recallPrompts": [
+              "State the quotient rule.",
+              "Why is d/dx(f/g) ≠ f′/g′?",
+              "What is d/dx[x/(x + 1)]?",
+              "How does the proof of the quotient rule use the product rule?"
+            ],
+            "mistakeIds": [
+              "quot-mistake-divide-derivatives",
+              "quot-mistake-sign-error"
+            ],
+            "quizIds": [
+              "quot-quiz"
+            ]
+          }
         }
       ]
     }
@@ -10789,6 +12076,15 @@
       "term": "product rule",
       "definition": "The derivative of a product of two functions: d/dx[f(x)·g(x)] = f′(x)·g(x) + f(x)·g′(x). Each factor is differentiated in turn while the other is held fixed.",
       "latex": "\\frac{d}{dx}[f(x)\\,g(x)] = f'(x)\\,g(x) + f(x)\\,g'(x)"
+    },
+    {
+      "id": "quotient-rule",
+      "term": "quotient rule",
+      "definition": "The derivative of a quotient of two functions: d/dx[f(x)/g(x)] = [f′(x)·g(x) − f(x)·g′(x)] / [g(x)]². The numerator subtracts the two cross terms; the denominator is squared.",
+      "aliases": [
+        "low d-high minus high d-low"
+      ],
+      "latex": "\\frac{d}{dx}\\!\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f'(x)\\,g(x) - f(x)\\,g'(x)}{[g(x)]^2}"
     }
   ]
 }
