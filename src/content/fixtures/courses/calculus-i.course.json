@@ -9948,6 +9948,981 @@
             "mistakeIds": ["quot-mistake-divide-derivatives", "quot-mistake-sign-error"],
             "quizIds": ["quot-quiz"]
           }
+        },
+        {
+          "id": "chain-rule",
+          "slug": "chain-rule",
+          "title": "The Chain Rule",
+          "summary": "Derive the chain rule from the limit definition, build intuition through the gear-train model, and apply the rule to differentiate composite functions.",
+          "objectives": [
+            {
+              "id": "chain-obj-1",
+              "text": "State the chain rule: d/dx[f(g(x))] = f′(g(x))·g′(x)."
+            },
+            {
+              "id": "chain-obj-2",
+              "text": "Derive the chain rule from the limit definition of the derivative."
+            },
+            {
+              "id": "chain-obj-3",
+              "text": "Decompose a composite function into an outer function and an inner function."
+            },
+            {
+              "id": "chain-obj-4",
+              "text": "Apply the chain rule to differentiate composite functions involving powers, roots, and reciprocals."
+            },
+            {
+              "id": "chain-obj-5",
+              "text": "Explain why d/dx[f(g(x))] ≠ f′(g(x)) — the inner derivative must not be dropped."
+            }
+          ],
+          "prerequisiteLessonIds": ["quotient-rule"],
+          "estimatedMinutes": 28,
+          "difficulty": "core",
+          "sections": [
+            {
+              "id": "chain-intro",
+              "title": "Why Composites Need Their Own Rule",
+              "blocks": [
+                {
+                  "type": "title",
+                  "id": "chain-title",
+                  "kicker": "Differentiation rules",
+                  "title": "The Chain Rule",
+                  "subtitle": "Derive and apply the rule for differentiating a function inside another function.",
+                  "objectives": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "State and derive the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "chain-rule",
+                        "label": "chain rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " from the limit definition."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Decompose a "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "composite-function",
+                        "label": "composite function"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " into outer and inner parts, then apply the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "chain-rule",
+                        "label": "chain rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": "."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Combine the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "chain-rule",
+                        "label": "chain rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " with the "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "power-rule",
+                        "label": "power rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " to handle nested expressions."
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "type": "concept",
+                  "id": "chain-motivation",
+                  "objectiveIds": ["chain-obj-5"],
+                  "title": "Why not just differentiate the outer function?",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Each rule so far handles a single algebraic operation: add, multiply, divide. But many functions nest one operation inside another. Take "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(x) = (x^2 + 1)^5"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "power-rule",
+                      "label": "power rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " applies to "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "u^5"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", giving "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "5u^4"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". But the base is not a plain variable — it is the expression "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "x^2 + 1"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", which is itself changing as x changes. Ignoring that inner rate of change gives the wrong answer. The "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "chain-rule",
+                      "label": "chain rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " accounts for both rates."
+                    }
+                  ]
+                },
+                {
+                  "type": "intuition",
+                  "id": "chain-gear-intuition",
+                  "objectiveIds": ["chain-obj-1"],
+                  "title": "The gear-train model",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "Imagine two gears meshed together. The inner gear turns at rate "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "g'(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " as x changes. The outer gear, connected to the inner gear, amplifies or reduces that motion by its own rate "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(u)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". The overall rate of the output is the product of the two rates: "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f'(g(x)) \\cdot g'(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". This is exactly the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "chain-rule",
+                      "label": "chain rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ],
+                  "takeaway": [
+                    {
+                      "kind": "text",
+                      "value": "Rates of change multiply through a chain of "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "composite-function",
+                      "label": "composite functions"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ": the outer rate times the inner rate gives the total rate."
+                    }
+                  ]
+                },
+                {
+                  "type": "intuition",
+                  "id": "chain-decomposition-intuition",
+                  "objectiveIds": ["chain-obj-3"],
+                  "title": "Outer and inner: reading the layers",
+                  "body": [
+                    {
+                      "kind": "text",
+                      "value": "To apply the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "chain-rule",
+                      "label": "chain rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", ask: \"what is the last operation performed?\" That operation is the outer "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "function",
+                      "label": "function"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "; call it "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". Everything fed into it is the inner function "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "g(x)"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". For "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "(x^2 + 1)^5"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", the last operation is raising to the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "exponent",
+                      "label": "fifth power"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", so "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(u) = u^5"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " and "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "g(x) = x^2 + 1"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". For "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "\\sqrt{3x + 2}"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ", the last operation is taking the square root, so "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "f(u) = \\sqrt{u}"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " and "
+                    },
+                    {
+                      "kind": "inlineMath",
+                      "latex": "g(x) = 3x + 2"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "chain-derive",
+              "title": "Derive the Chain Rule",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "chain-derivation",
+                  "objectiveIds": ["chain-obj-1", "chain-obj-2"],
+                  "title": "Derive the chain rule from the limit definition",
+                  "goal": "Show that d/dx[f(g(x))] = f′(g(x))·g′(x) using the limit definition of the derivative.",
+                  "steps": [
+                    {
+                      "id": "cr-limit",
+                      "label": "Write the limit definition",
+                      "explanation": "The derivative of f(g(x)) is the limit of the difference quotient as h → 0.",
+                      "latex": "\\frac{d}{dx}[f(g(x))] = \\lim_{h \\to 0} \\frac{f(g(x+h)) - f(g(x))}{h}",
+                      "actionCue": "Define"
+                    },
+                    {
+                      "id": "cr-delta-u",
+                      "label": "Introduce Δu",
+                      "explanation": "Set u = g(x) and Δu = g(x + h) − g(x). Because g is differentiable (hence continuous), Δu → 0 as h → 0.",
+                      "latex": "u = g(x),\\quad \\Delta u = g(x+h) - g(x) \\;\\Longrightarrow\\; g(x+h) = u + \\Delta u",
+                      "actionCue": "Substitute"
+                    },
+                    {
+                      "id": "cr-multiply",
+                      "label": "Multiply and divide by Δu",
+                      "explanation": "When Δu ≠ 0, inserting Δu/Δu = 1 separates the outer and inner rates.",
+                      "latex": "\\frac{f(u + \\Delta u) - f(u)}{h} = \\frac{f(u + \\Delta u) - f(u)}{\\Delta u} \\cdot \\frac{\\Delta u}{h}",
+                      "actionCue": "Separate"
+                    },
+                    {
+                      "id": "cr-split",
+                      "label": "Take the limit of each factor",
+                      "explanation": "As h → 0, Δu → 0. The first factor approaches f′(u) and the second approaches g′(x).",
+                      "latex": "\\lim_{h \\to 0} \\frac{f(u+\\Delta u)-f(u)}{\\Delta u} \\;=\\; f'(u), \\qquad \\lim_{h \\to 0} \\frac{\\Delta u}{h} \\;=\\; g'(x)",
+                      "actionCue": "Limit"
+                    },
+                    {
+                      "id": "cr-result",
+                      "label": "Combine",
+                      "explanation": "Multiply the two limits and substitute u = g(x) back.",
+                      "latex": "\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)",
+                      "actionCue": "Combine"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}[f(g(x))] = f'(g(x))\\,g'(x)",
+                    "summary": "Differentiate the outer function, evaluate it at the inner function, then multiply by the derivative of the inner function."
+                  },
+                  "interpretation": "The chain rule says: rates of change multiply. The outer rate f′(g(x)) times the inner rate g′(x) gives the total rate."
+                },
+                {
+                  "type": "latex",
+                  "id": "chain-formula",
+                  "objectiveIds": ["chain-obj-1"],
+                  "latex": "\\frac{d}{dx}[f(g(x))] = f'(g(x))\\,g'(x)",
+                  "caption": "The chain rule. In Leibniz notation: dy/dx = (dy/du)·(du/dx) — \"the du cancels.\"",
+                  "display": true
+                },
+                {
+                  "type": "graph",
+                  "id": "chain-sqrt-graph",
+                  "objectiveIds": ["chain-obj-4"],
+                  "title": "f(x) = √(x² + 1) and its derivative f′(x) = x/√(x² + 1)",
+                  "description": "The composite function y = √(x² + 1) has a minimum at (0, 1) and grows like |x| for large |x|. Its chain-rule derivative x/√(x² + 1) is bounded between −1 and 1, crossing zero at the minimum. The outer function is u^(1/2) and the inner function is x² + 1; the inner derivative 2x accounts for the x in the numerator.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "x",
+                      "min": -4,
+                      "max": 4,
+                      "ticks": [-4, -3, -2, -1, 0, 1, 2, 3, 4]
+                    },
+                    "yAxis": {
+                      "label": "y",
+                      "min": -2,
+                      "max": 5,
+                      "ticks": [-2, -1, 0, 1, 2, 3, 4, 5]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "chain-sqrt-f",
+                        "label": "f(x) = √(x² + 1)",
+                        "expression": "y = sqrt(x^2 + 1)",
+                        "domain": [-4, 4],
+                        "samples": [
+                          [-4, 4.1231],
+                          [-3, 3.1623],
+                          [-2, 2.2361],
+                          [-1, 1.4142],
+                          [0, 1],
+                          [1, 1.4142],
+                          [2, 2.2361],
+                          [3, 3.1623],
+                          [4, 4.1231]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "chain-sqrt-fprime",
+                        "label": "f′(x) = x/√(x² + 1)",
+                        "expression": "y = x/sqrt(x^2 + 1)",
+                        "domain": [-4, 4],
+                        "samples": [
+                          [-4, -0.9701],
+                          [-3, -0.9487],
+                          [-2, -0.8944],
+                          [-1, -0.7071],
+                          [0, 0],
+                          [1, 0.7071],
+                          [2, 0.8944],
+                          [3, 0.9487],
+                          [4, 0.9701]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "chain-sqrt-key-pts",
+                        "label": "Key points",
+                        "points": [[0, 1]]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "chain-sqrt-min",
+                        "label": "f′ = 0 (min)",
+                        "point": [0, 1],
+                        "text": "At x = 0, f(0) = √1 = 1 and f′(0) = 0/1 = 0. The chain rule gives (1/2)(x²+1)^(−1/2)·2x = x/√(x²+1), which is zero here."
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "graph",
+                  "id": "chain-recip-graph",
+                  "objectiveIds": ["chain-obj-4"],
+                  "title": "f(x) = 1/(x² + 1) and its derivative f′(x) = −2x/(x² + 1)²",
+                  "description": "The function y = (x² + 1)^(−1) is a bell-shaped curve with maximum 1 at x = 0. Its chain-rule derivative −2x/(x² + 1)² is zero at x = 0, confirming the maximum. This is the same function differentiated via the quotient rule in the previous lesson; the chain rule gives the same answer with less algebra.",
+                  "spec": {
+                    "xAxis": {
+                      "label": "x",
+                      "min": -4,
+                      "max": 4,
+                      "ticks": [-4, -3, -2, -1, 0, 1, 2, 3, 4]
+                    },
+                    "yAxis": {
+                      "label": "y",
+                      "min": -1,
+                      "max": 1.5,
+                      "ticks": [-1, -0.5, 0, 0.5, 1, 1.5]
+                    },
+                    "series": [
+                      {
+                        "kind": "function",
+                        "id": "chain-recip-f",
+                        "label": "f(x) = 1/(x² + 1)",
+                        "expression": "y = 1/(x^2 + 1)",
+                        "domain": [-4, 4],
+                        "samples": [
+                          [-4, 0.0588],
+                          [-3, 0.1],
+                          [-2, 0.2],
+                          [-1, 0.5],
+                          [0, 1],
+                          [1, 0.5],
+                          [2, 0.2],
+                          [3, 0.1],
+                          [4, 0.0588]
+                        ]
+                      },
+                      {
+                        "kind": "function",
+                        "id": "chain-recip-fprime",
+                        "label": "f′(x) = −2x/(x² + 1)²",
+                        "expression": "y = -2x/(x^2 + 1)^2",
+                        "domain": [-4, 4],
+                        "samples": [
+                          [-4, 0.0277],
+                          [-3, 0.06],
+                          [-2, 0.16],
+                          [-1, 0.5],
+                          [0, 0],
+                          [1, -0.5],
+                          [2, -0.16],
+                          [3, -0.06],
+                          [4, -0.0277]
+                        ]
+                      },
+                      {
+                        "kind": "points",
+                        "id": "chain-recip-key-pts",
+                        "label": "Maximum",
+                        "points": [[0, 1]]
+                      }
+                    ],
+                    "annotations": [
+                      {
+                        "id": "chain-recip-max",
+                        "label": "f′ = 0 (max)",
+                        "point": [0, 1],
+                        "text": "At x = 0, f(0) = 1 and f′(0) = 0. The chain rule with outer u⁻¹ and inner x² + 1 gives −(x²+1)⁻²·2x = −2x/(x²+1)²."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": "chain-apply",
+              "title": "Apply the Chain Rule",
+              "blocks": [
+                {
+                  "type": "workedExample",
+                  "id": "chain-example-power-composite",
+                  "objectiveIds": ["chain-obj-3", "chain-obj-4"],
+                  "title": "Differentiate f(x) = (x² + 1)⁵",
+                  "goal": "Apply the chain rule with outer function u⁵ and inner function x² + 1.",
+                  "given": "f(x) = (x² + 1)⁵",
+                  "steps": [
+                    {
+                      "id": "ce1-decompose",
+                      "label": "Identify outer and inner",
+                      "explanation": "The last operation is raising to the fifth power. Set f(u) = u⁵ and g(x) = x² + 1.",
+                      "latex": "f(u) = u^5, \\quad g(x) = x^2 + 1",
+                      "actionCue": "Decompose"
+                    },
+                    {
+                      "id": "ce1-outer",
+                      "label": "Differentiate the outer function",
+                      "explanation": "The power rule gives f′(u) = 5u⁴.",
+                      "latex": "f'(u) = 5u^4",
+                      "actionCue": "Outer derivative"
+                    },
+                    {
+                      "id": "ce1-inner",
+                      "label": "Differentiate the inner function",
+                      "explanation": "g′(x) = 2x by the power rule.",
+                      "latex": "g'(x) = 2x",
+                      "actionCue": "Inner derivative"
+                    },
+                    {
+                      "id": "ce1-chain",
+                      "label": "Apply the chain rule",
+                      "explanation": "Multiply: f′(g(x))·g′(x) = 5(x² + 1)⁴·2x.",
+                      "latex": "\\frac{d}{dx}(x^2+1)^5 = 5(x^2+1)^4 \\cdot 2x = 10x(x^2+1)^4",
+                      "actionCue": "Chain rule"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}(x^2+1)^5 = 10x(x^2+1)^4",
+                    "summary": "The outer derivative 5u⁴ evaluated at u = x² + 1, times the inner derivative 2x."
+                  },
+                  "interpretation": "Without the chain rule you would need to expand (x² + 1)⁵ into a degree-10 polynomial before differentiating term by term."
+                },
+                {
+                  "type": "workedExample",
+                  "id": "chain-example-sqrt",
+                  "objectiveIds": ["chain-obj-3", "chain-obj-4"],
+                  "title": "Differentiate f(x) = √(3x + 2)",
+                  "goal": "Apply the chain rule with outer function √u and inner function 3x + 2.",
+                  "given": "f(x) = √(3x + 2) = (3x + 2)^{1/2}",
+                  "steps": [
+                    {
+                      "id": "ce2-decompose",
+                      "label": "Identify outer and inner",
+                      "explanation": "The last operation is taking the square root. Set f(u) = u^(1/2) and g(x) = 3x + 2.",
+                      "latex": "f(u) = u^{1/2}, \\quad g(x) = 3x + 2",
+                      "actionCue": "Decompose"
+                    },
+                    {
+                      "id": "ce2-outer",
+                      "label": "Differentiate the outer function",
+                      "explanation": "The power rule with exponent 1/2 gives f′(u) = (1/2)u^(−1/2).",
+                      "latex": "f'(u) = \\tfrac{1}{2}\\,u^{-1/2}",
+                      "actionCue": "Outer derivative"
+                    },
+                    {
+                      "id": "ce2-inner",
+                      "label": "Differentiate the inner function",
+                      "explanation": "g′(x) = 3.",
+                      "latex": "g'(x) = 3",
+                      "actionCue": "Inner derivative"
+                    },
+                    {
+                      "id": "ce2-chain",
+                      "label": "Apply the chain rule",
+                      "explanation": "Multiply: f′(g(x))·g′(x) = (1/2)(3x + 2)^(−1/2)·3.",
+                      "latex": "\\frac{d}{dx}\\sqrt{3x+2} = \\frac{1}{2}(3x+2)^{-1/2} \\cdot 3 = \\frac{3}{2\\sqrt{3x+2}}",
+                      "actionCue": "Chain rule"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}\\sqrt{3x+2} = \\frac{3}{2\\sqrt{3x+2}}",
+                    "summary": "The factor of 3 in the numerator comes from the inner derivative g′(x) = 3."
+                  },
+                  "interpretation": "The derivative is defined only when 3x + 2 > 0, that is, x > −2/3. At the endpoint x = −2/3 the derivative is undefined because the denominator is zero."
+                },
+                {
+                  "type": "workedExample",
+                  "id": "chain-example-reciprocal",
+                  "objectiveIds": ["chain-obj-4", "chain-obj-5"],
+                  "title": "Differentiate f(x) = 1/(x² + 1) using the chain rule",
+                  "goal": "Apply the chain rule with outer function u⁻¹ and inner function x² + 1, and verify the quotient-rule answer from the previous lesson.",
+                  "given": "f(x) = (x² + 1)^{-1}",
+                  "steps": [
+                    {
+                      "id": "ce3-decompose",
+                      "label": "Rewrite and decompose",
+                      "explanation": "Write 1/(x² + 1) as (x² + 1)^(−1). Outer: u^(−1). Inner: x² + 1.",
+                      "latex": "f(u) = u^{-1}, \\quad g(x) = x^2 + 1",
+                      "actionCue": "Decompose"
+                    },
+                    {
+                      "id": "ce3-outer",
+                      "label": "Differentiate the outer function",
+                      "explanation": "The power rule with exponent −1 gives f′(u) = −u^(−2).",
+                      "latex": "f'(u) = -u^{-2}",
+                      "actionCue": "Outer derivative"
+                    },
+                    {
+                      "id": "ce3-inner",
+                      "label": "Differentiate the inner function",
+                      "explanation": "g′(x) = 2x.",
+                      "latex": "g'(x) = 2x",
+                      "actionCue": "Inner derivative"
+                    },
+                    {
+                      "id": "ce3-chain",
+                      "label": "Apply the chain rule",
+                      "explanation": "Multiply: f′(g(x))·g′(x) = −(x² + 1)^(−2)·2x.",
+                      "latex": "\\frac{d}{dx}\\!\\left[\\frac{1}{x^2+1}\\right] = -(x^2+1)^{-2} \\cdot 2x = \\frac{-2x}{(x^2+1)^2}",
+                      "actionCue": "Chain rule"
+                    },
+                    {
+                      "id": "ce3-verify",
+                      "label": "Verify against the quotient rule",
+                      "explanation": "The quotient rule with N = 1 and D = x² + 1 gives (0·D − 1·2x)/D² = −2x/(x²+1)². The answers agree.",
+                      "latex": "\\frac{N'D - ND'}{D^2} = \\frac{0 \\cdot (x^2+1) - 1 \\cdot 2x}{(x^2+1)^2} = \\frac{-2x}{(x^2+1)^2} \\;\\checkmark",
+                      "actionCue": "Verify"
+                    }
+                  ],
+                  "finalAnswer": {
+                    "latex": "\\frac{d}{dx}\\!\\left[\\frac{1}{x^2+1}\\right] = \\frac{-2x}{(x^2+1)^2}",
+                    "summary": "The chain rule and the quotient rule give the same result. The chain rule avoids the cross-multiplication."
+                  },
+                  "interpretation": "When the numerator is a constant, the chain rule on the rewritten power form is often shorter than the quotient rule."
+                }
+              ]
+            },
+            {
+              "id": "chain-mistakes",
+              "title": "Common Mistakes",
+              "blocks": [
+                {
+                  "type": "commonMistake",
+                  "id": "chain-mistake-forget-inner",
+                  "objectiveIds": ["chain-obj-5"],
+                  "title": "Forgetting the inner derivative",
+                  "misconception": "d/dx[(x² + 1)⁵] = 5(x² + 1)⁴.",
+                  "incorrectStep": "d/dx[(x² + 1)⁵] = 5(x² + 1)⁴",
+                  "whyWrong": "This applies the power rule to the outer function but forgets to multiply by the derivative of the inner function x² + 1. The chain rule requires that second factor. Without it, the x-dependence of the base is ignored.",
+                  "correction": "d/dx[(x² + 1)⁵] = 5(x² + 1)⁴ · 2x = 10x(x² + 1)⁴. The factor 2x is the inner derivative g′(x).",
+                  "checkPrompt": "Try d/dx[√(x² + 9)]. Did you remember to multiply by the derivative of x² + 9?"
+                },
+                {
+                  "type": "commonMistake",
+                  "id": "chain-mistake-phantom-chain",
+                  "objectiveIds": ["chain-obj-3"],
+                  "title": "Applying the chain rule when there is no composition",
+                  "misconception": "d/dx[x⁵] needs the chain rule because the exponent is large.",
+                  "incorrectStep": "d/dx[x⁵] = 5x⁴ · 1 (writing the extra “· 1” as if it came from a chain-rule step)",
+                  "whyWrong": "The function x⁵ is not a composite — the base is the plain variable x, not an expression. The power rule alone gives the answer. Writing “· 1” is harmless but signals a misunderstanding of when the chain rule is needed. The chain rule applies only when the base or argument is itself a function of x that is not simply x.",
+                  "correction": "d/dx[x⁵] = 5x⁴ by the power rule alone. No chain rule is needed because the inner function is g(x) = x with g′(x) = 1.",
+                  "checkPrompt": "Does d/dx[x³] need the chain rule? What about d/dx[(2x)³]?"
+                }
+              ]
+            },
+            {
+              "id": "chain-practice",
+              "title": "Check Your Understanding",
+              "blocks": [
+                {
+                  "type": "quiz",
+                  "id": "chain-quiz",
+                  "objectiveIds": ["chain-obj-1", "chain-obj-4", "chain-obj-5"],
+                  "title": "Chain Rule Quiz",
+                  "questions": [
+                    {
+                      "kind": "multipleChoice",
+                      "id": "chain-q1",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}(3x+1)^4"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "cq1-a",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "12(3x+1)^3"
+                            }
+                          ],
+                          "feedback": "Correct. Outer: u⁴ gives 4u³. Inner: 3x + 1 gives 3. Product: 4(3x+1)³·3 = 12(3x+1)³."
+                        },
+                        {
+                          "id": "cq1-b",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "4(3x+1)^3"
+                            }
+                          ],
+                          "feedback": "You differentiated the outer function but forgot to multiply by the inner derivative g′(x) = 3."
+                        },
+                        {
+                          "id": "cq1-c",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "12x(3x+1)^3"
+                            }
+                          ],
+                          "feedback": "The inner derivative of 3x + 1 is 3, not 3x. The coefficient of x does not carry through as a factor of x."
+                        },
+                        {
+                          "id": "cq1-d",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "(3x+1)^3"
+                            }
+                          ],
+                          "feedback": "You dropped both the coefficient from the power rule and the inner derivative."
+                        }
+                      ],
+                      "correctOptionId": "cq1-a",
+                      "conceptTags": ["chain-rule", "power-rule"],
+                      "hint": "Set u = 3x + 1. Differentiate u⁴ to get 4u³, then multiply by du/dx = 3."
+                    },
+                    {
+                      "kind": "multipleChoice",
+                      "id": "chain-q2",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "What is "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}\\sqrt{x^2+9}"
+                        },
+                        {
+                          "kind": "text",
+                          "value": "?"
+                        }
+                      ],
+                      "options": [
+                        {
+                          "id": "cq2-a",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "\\dfrac{x}{\\sqrt{x^2+9}}"
+                            }
+                          ],
+                          "feedback": "Correct. Outer: u^(1/2) gives (1/2)u^(−1/2). Inner: x² + 9 gives 2x. Product: (1/2)(x²+9)^(−1/2)·2x = x/√(x²+9)."
+                        },
+                        {
+                          "id": "cq2-b",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "\\dfrac{1}{2\\sqrt{x^2+9}}"
+                            }
+                          ],
+                          "feedback": "You differentiated the outer square root but forgot the inner derivative 2x."
+                        },
+                        {
+                          "id": "cq2-c",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "\\dfrac{2x}{\\sqrt{x^2+9}}"
+                            }
+                          ],
+                          "feedback": "The outer derivative (1/2)u^(−1/2) contributes a factor of 1/2 that cancels one of the 2’s. The answer is x/√(x²+9), not 2x/√(x²+9)."
+                        },
+                        {
+                          "id": "cq2-d",
+                          "text": [
+                            {
+                              "kind": "inlineMath",
+                              "latex": "\\dfrac{x^2}{2\\sqrt{x^2+9}}"
+                            }
+                          ],
+                          "feedback": "The inner derivative of x² + 9 is 2x, not x². Check the power rule on each term."
+                        }
+                      ],
+                      "correctOptionId": "cq2-a",
+                      "conceptTags": ["chain-rule", "power-rule"],
+                      "hint": "Rewrite √(x²+9) as (x²+9)^(1/2). Outer derivative: (1/2)(x²+9)^(−1/2). Inner derivative: 2x. Multiply."
+                    },
+                    {
+                      "kind": "shortAnswer",
+                      "id": "chain-q3",
+                      "prompt": [
+                        {
+                          "kind": "text",
+                          "value": "Find "
+                        },
+                        {
+                          "kind": "inlineMath",
+                          "latex": "\\tfrac{d}{dx}(x^2+1)^3"
+                        },
+                        {
+                          "kind": "text",
+                          "value": ". Write the answer in factored form."
+                        }
+                      ],
+                      "acceptedAnswers": [
+                        "6x(x^2+1)^2",
+                        "6x(x²+1)²",
+                        "6x(x^2 + 1)^2",
+                        "6x(x² + 1)²"
+                      ],
+                      "feedback": {
+                        "correct": "Correct. Outer: u³ gives 3u². Inner: x² + 1 gives 2x. Product: 3(x²+1)²·2x = 6x(x²+1)².",
+                        "incorrect": "Set u = x² + 1. The outer derivative is 3u² = 3(x²+1)². The inner derivative is 2x. Multiply to get 6x(x²+1)²."
+                      },
+                      "conceptTags": ["chain-rule", "power-rule"],
+                      "hint": "Outer: u³ → 3u². Inner: x² + 1 → 2x. Multiply the two results."
+                    }
+                  ]
+                },
+                {
+                  "type": "summary",
+                  "id": "chain-summary",
+                  "items": [
+                    [
+                      {
+                        "kind": "text",
+                        "value": "The "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "chain-rule",
+                        "label": "chain rule"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ": "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{d}{dx}[f(g(x))] = f'(g(x))\\,g'(x)"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ". Differentiate the outer, evaluate at the inner, multiply by the inner derivative."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "In Leibniz notation the rule reads "
+                      },
+                      {
+                        "kind": "inlineMath",
+                        "latex": "\\tfrac{dy}{dx} = \\tfrac{dy}{du} \\cdot \\tfrac{du}{dx}"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " — the du \"cancels,\" though this is a mnemonic, not a literal fraction cancellation."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Decompose by asking: what is the last operation? That is the outer "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "function",
+                        "label": "function"
+                      },
+                      {
+                        "kind": "text",
+                        "value": ". Everything inside is the inner function."
+                      }
+                    ],
+                    [
+                      {
+                        "kind": "text",
+                        "value": "Forgetting the inner "
+                      },
+                      {
+                        "kind": "term",
+                        "termId": "derivative",
+                        "label": "derivative"
+                      },
+                      {
+                        "kind": "text",
+                        "value": " is the most common chain-rule error. Always check: did I multiply by g′(x)?"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ],
+          "revision": {
+            "keyIdeas": [
+              "d/dx[f(g(x))] = f′(g(x))·g′(x) — the chain rule.",
+              "In Leibniz form: dy/dx = (dy/du)·(du/dx).",
+              "Decompose by finding the last operation (outer) and what it acts on (inner).",
+              "The most common mistake is forgetting to multiply by the inner derivative g′(x).",
+              "When the numerator is constant, the chain rule on the rewritten power form is often simpler than the quotient rule."
+            ],
+            "recallPrompts": [
+              "State the chain rule in both function and Leibniz notation.",
+              "What is d/dx[(x² + 1)⁵]?",
+              "How do you identify the outer and inner functions?",
+              "Why does d/dx[f(g(x))] ≠ f′(g(x)) in general?"
+            ],
+            "mistakeIds": ["chain-mistake-forget-inner", "chain-mistake-phantom-chain"],
+            "quizIds": ["chain-quiz"]
+          }
         }
       ]
     }
@@ -10098,6 +11073,19 @@
       "definition": "The derivative of a quotient of two functions: d/dx[f(x)/g(x)] = [f′(x)·g(x) − f(x)·g′(x)] / [g(x)]². The numerator subtracts the two cross terms; the denominator is squared.",
       "aliases": ["low d-high minus high d-low"],
       "latex": "\\frac{d}{dx}\\!\\left[\\frac{f(x)}{g(x)}\\right] = \\frac{f'(x)\\,g(x) - f(x)\\,g'(x)}{[g(x)]^2}"
+    },
+    {
+      "id": "chain-rule",
+      "term": "chain rule",
+      "definition": "The derivative of a composite function f(g(x)) equals the outer derivative evaluated at the inner function times the inner derivative: d/dx[f(g(x))] = f′(g(x))·g′(x).",
+      "aliases": ["composition rule"],
+      "latex": "\\frac{d}{dx}[f(g(x))] = f'(g(x))\\,g'(x)"
+    },
+    {
+      "id": "composite-function",
+      "term": "composite function",
+      "definition": "A function formed by applying one function to the output of another, written f(g(x)) or (f ∘ g)(x). The inner function g runs first; the outer function f runs second.",
+      "aliases": ["composition", "function composition"]
     }
   ]
 }

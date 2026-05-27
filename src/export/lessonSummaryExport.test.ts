@@ -188,6 +188,6 @@ describe("lesson summary export", () => {
   it("includes every migrated lesson via eachLesson", () => {
     const result = validateContent(courseJson);
     if (!result.ok) throw new Error("Course should validate.");
-    expect(eachLesson(result.course)).toHaveLength(11);
+    expect(eachLesson(result.course)).toHaveLength(12);
   });
 });

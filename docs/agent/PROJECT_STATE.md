@@ -1,10 +1,10 @@
 # Project State
 
-Last updated: 2026-05-22
+Last updated: 2026-05-26
 
 ## Current Slice
 
-The current slice is the next **Phase 4 — Content Depth** increment: authoring **Module B lesson 4 (`differentiability-vs-continuity`)** as the closing Module B lesson. The slice adds one lesson after `constant-function-derivative` (title → concept → latex → intuition → graph → intuition → worked example → worked example → graph → common mistake → intuition → quiz → summary, plus a revision layer). The two worked examples first confirm `f(x) = |x|` is continuous at `x = 0` via one-sided limits, then compute the left and right difference quotients (`-1` and `+1`) and conclude that `f'(0)` does not exist. The lesson is wired with `prerequisiteLessonIds: ["one-sided-and-infinite-limits", "derivative-as-a-limit"]` so it sits as a sibling of the first-principles trio without rerouting any existing edge. No new glossary terms ship — the lesson reuses `continuity`, `differentiability`, `difference-quotient`, `function`, `output`, `limit`, and `one-sided-limit`. The slice is content + docs only — no schema change, no block-type change, no new dependency, no Phase 5/6 work.
+The current slice is the next **Phase 4 — Content Depth** increment: authoring **Module C lesson 5 (`chain-rule`)** as the fifth lesson in the `differentiation-rules` module. The slice adds one lesson after `quotient-rule` (title → concept → intuition × 2 → derivation worked example → latex → graph × 2 → application worked example × 3 → common mistake × 2 → quiz → summary, plus a revision layer). The derivation separates the outer and inner rates of change by multiplying and dividing by Δu in five steps. The three application examples cover (x²+1)⁵ via power-composition, √(3x+2) via fractional-exponent composition, and 1/(x²+1) via negative-exponent composition with quotient-rule verification. The lesson is wired with `prerequisiteLessonIds: ["quotient-rule"]`, extending the Module C chain. Two new glossary terms ship: `chain-rule` and `composite-function`. The slice is content + docs only — no schema change, no block-type change, no new dependency, no Phase 5/6 work.
 
 ## Current App Shape
 
@@ -28,6 +28,9 @@ The current slice is the next **Phase 4 — Content Depth** increment: authoring
 4. `absolute-value-corner-graph`: implemented with authored samples for `y = |x|`, the corner point `(0, 0)`, two secant lines through `(-1, 1)→(0, 0)` and `(0, 0)→(1, 1)` showing slopes `-1` and `+1`, labeled axes, ticks, and the corner annotation.
 5. `smooth-vs-cornered-graph`: implemented with authored samples for both `y = x^2` and `y = |x|`, the shared origin point, labeled axes, ticks, and one contrast annotation.
 
+6. `chain-sqrt-graph`: implemented with authored samples for `y = √(x² + 1)` and its derivative `y = x/√(x² + 1)`, the minimum point `(0, 1)`, labeled axes, ticks, and a chain-rule annotation at the minimum.
+7. `chain-recip-graph`: implemented with authored samples for `y = 1/(x² + 1)` and its derivative `y = −2x/(x² + 1)²`, the maximum point `(0, 1)`, labeled axes, ticks, and a chain-rule annotation at the maximum.
+
 ## Current Decisions
 
 - Use the internal deterministic SVG renderer path. Do not add a graphing library yet. Function expressions are display labels only; the renderer does not evaluate expression strings.
@@ -38,7 +41,7 @@ The current slice is the next **Phase 4 — Content Depth** increment: authoring
 
 ## Next Task
 
-The next slice is **Phase 4 — Module C kickoff (`power-rule`)**: introduce a new `differentiation-rules` module under `calculus-i` and author the power-rule lesson. The lesson should mirror the autism-aware micro-flow used in Module B: rule statement, derivation from first principles for `x^2` and `x^3`, generalisation to `x^n` for positive integer `n`, two worked examples (one direct, one with a coefficient), one common mistake, a three-question quiz, and a revision layer. The lesson declares `prerequisiteLessonIds: ["derivative-as-a-limit"]` (and optionally `"derivative-at-a-point"`); no new glossary terms unless a new `term` segment authored in body text requires one.
+The next slice is **Phase 4 — Module C capstone (`tangent-line-equation`)**: author the tangent-line equation capstone lesson as the closing lesson of the `differentiation-rules` module. The lesson should use every differentiation rule from Module C (power, sum/difference, product, quotient, chain) to find tangent lines at given points. The lesson declares `prerequisiteLessonIds: ["chain-rule"]` and ties back to the first-principles definition of the derivative via the tangent-line concept from Module B.
 
 ## Workflow Notes
 
