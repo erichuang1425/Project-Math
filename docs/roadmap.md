@@ -52,7 +52,7 @@ What done means: dashboard → course → lesson navigation works; deep-link rel
 
 ## Phase 4 — Content Depth (Calculus I Starter)
 
-Status: ~85%. Three modules, eleven lessons of the targeted three modules / 10+ lessons.
+Status: ~90%. Three modules, twelve lessons of the targeted three modules / 10+ lessons.
 
 Shipped:
 
@@ -70,9 +70,11 @@ Shipped:
 
 - **Module C — Differentiation Rules:** `quotient-rule` with full block set (title, concept, two intuition blocks, two graphs, three worked examples with `actionCue` chips and `finalAnswer` bands plus a product-rule-based derivation worked example, two common mistakes, three-question quiz, summary, revision layer). The derivation rewrites `f/g` as `f·g⁻¹` and applies the product rule plus the power rule with exponent `−1` in five steps (rewrite, product rule, power rule, substitute, combine). The three application examples cover `(x² + 1)/(x − 1)`, `(3x + 2)/(x² + 1)` (denominator never zero), and `x²/(x + 3)` with long-division verification. Two graphs ship: `1/x` and its derivative `−1/x²` (split across the vertical asymptote), and `x/(x² + 1)` with its derivative `(1 − x²)/(x² + 1)²` showing extrema at `x = ±1`. One new glossary term ships: `quotient-rule`. The lesson requires `["product-rule"]`, extending the Module C chain.
 
+- **Module C — Differentiation Rules:** `chain-rule` with full block set (title, concept, two intuition blocks, two graphs, derivation worked example with `actionCue` chips and `finalAnswer` band plus three application worked examples, two common mistakes, three-question quiz, summary, revision layer). The derivation introduces Δu = g(x+h) − g(x), multiplies and divides the difference quotient by Δu to separate the outer and inner rates, and combines the two limits into f′(g(x))·g′(x) in five steps. The three application examples cover (x²+1)⁵ via the power-composition pattern, √(3x+2) via a fractional-exponent composition, and 1/(x²+1) via a negative-exponent composition with quotient-rule verification. Two graphs ship: √(x²+1) with its bounded derivative x/√(x²+1) showing the chain rule on a square-root composite, and 1/(x²+1) with its derivative −2x/(x²+1)² confirming the same answer as the quotient-rule quiz from the previous lesson. Two new glossary terms ship: `chain-rule`, `composite-function`. The lesson requires `["quotient-rule"]`, extending the Module C chain.
+
 Open:
 
-- **Module C — Differentiation Rules:** chain, tangent line equation (capstone).
+- **Module C — Differentiation Rules:** tangent line equation (capstone).
 
 What done means: validator passes for the full course; every lesson mounts cleanly in jsdom; lesson summary export round-trips.
 
@@ -141,7 +143,7 @@ Next vertical slices, smallest first. Each row is intended as a single PR.
 2. ~~Phase 4 — Module C: sum/difference rule lesson.~~ Done.
 3. ~~Phase 4 — Module C: product rule lesson.~~ Done.
 4. ~~Phase 4 — Module C: quotient rule lesson.~~ Done.
-5. Phase 4 — Module C: chain rule lesson.
+5. ~~Phase 4 — Module C: chain rule lesson.~~ Done.
 6. Phase 4 — Module C: tangent-line equation capstone (uses every rule above; ties back to the first-principles definition of the derivative).
 7. Phase 6 — accelerators on the Rust-side reader submenu items (text size, line spacing, font). Note: the File / View / Help menu is already built and `menu:*` events already emit from `src-tauri/src/lib.rs:96-201`; only the submenu accelerators are missing.
 8. Phase 6 — `open_course_dialog`, `export_learner_state`, `import_learner_state` with safe-slug validation.
