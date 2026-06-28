@@ -4,7 +4,7 @@ A polished, MOOC-style local-first learning app for math. Built for low-motivati
 
 ## Product Model
 
-- **Courses → Modules → Lessons → Blocks.** A course holds modules; a module holds lessons; a lesson holds a typed block stream (concept, intuition, latex, worked-example, graph, common-mistake, quiz, summary, title).
+- **Courses → Modules → Lessons → Blocks.** A course holds modules; a module holds lessons; a lesson holds a typed block stream (concept, intuition, latex, worked-example, graph, common-mistake, fill-in, quiz, summary, title).
 - **Local-first, fully offline.** Content is shipped as JSON, validated at load. No network calls at runtime.
 - **Deterministic rendering.** Given the same content + learner state, the app renders identically every time.
 - **One course is real today: Calculus I** (Foundations → Derivatives from First Principles → Differentiation Rules).
@@ -70,6 +70,7 @@ Anything outside this list needs a one-paragraph proposal in the PR description:
 - Prefer the action micro-flow: **Observe → Predict → Calculate → Compare → Answer → Summarize**. Pause prompts go _before_ the quiz, not after the common-mistake block.
 - Reference glossary terms via `RichTextSegment.kind: "term"`; don't redefine inline.
 - One graph minimum per lesson; ≥2 worked examples; ≥2 common-mistake blocks; ≥3 quiz items.
+- Fill-in (active-recall) blocks read first, fill second: keep prose teaching with blanks hidden, blank only high-value steps (~70% read / 30% fill), and give every `blank` a correct answer (`isLatex` for math). See `docs/loom-active-recall.md` and the `loom-fillin-author` skill.
 
 ## Testing Rules
 
@@ -97,6 +98,7 @@ Anything outside this list needs a one-paragraph proposal in the PR description:
 ## Local Skills
 
 - `studybook-architect` (owns the content schema + pedagogy)
+- `loom-fillin-author` (owns fill-in / active-recall block authoring)
 - `math-rendering-reviewer`
 - `desktop-app-engineer`
 - `frontend-visual-system-designer`

@@ -156,6 +156,7 @@ describe("quizBlocks / lessonBlocks / lessonSections", () => {
       "intro-worked",
       "intro-mistake",
       "intro-quiz",
+      "intro-fillin",
       "intro-summary"
     ]);
   });

@@ -276,6 +276,9 @@ function validateBlock(
       expectNonEmptyString(input.correction, `${path}.correction`, ctx);
       expectOptionalString(input.checkPrompt, `${path}.checkPrompt`, ctx);
       break;
+    case "fillIn":
+      validateFillIn(input, path, ctx);
+      break;
     case "quiz":
       validateQuizBlock(input, path, ctx);
       break;
@@ -338,6 +341,48 @@ function validateWorkedExample(
       }
     }
   });
+}
+
+function validateFillIn(input: Record<string, unknown>, path: string, ctx: ValidationContext) {
+  expectNonEmptyString(input.title, `${path}.title`, ctx);
+
+  if (input.intro !== undefined) {
+    validateRichText(input.intro, `${path}.intro`, ctx);
+  }
+
+  expectOptionalNonEmptyString(input.warmthPrompt, `${path}.warmthPrompt`, ctx);
+
+  const prompt = expectNonEmptyArray(input.prompt, `${path}.prompt`, ctx);
+  if (!prompt) return;
+
+  let blankCount = 0;
+  prompt.forEach((segment, idx) => {
+    const segPath = `${path}.prompt[${idx}]`;
+    if (!isRecord(segment)) {
+      addError(ctx, segPath, "Fill-in segment must be an object.");
+      return;
+    }
+    if (segment.kind === "blank") {
+      blankCount += 1;
+      const isLatex = segment.isLatex === true;
+      if (segment.isLatex !== undefined && typeof segment.isLatex !== "boolean") {
+        addError(ctx, `${segPath}.isLatex`, "Blank isLatex must be a boolean.");
+      }
+      if (isLatex) {
+        validateLatex(segment.answer, `${segPath}.answer`, false, ctx);
+      } else {
+        expectNonEmptyString(segment.answer, `${segPath}.answer`, ctx);
+      }
+      expectOptionalNonEmptyString(segment.hint, `${segPath}.hint`, ctx);
+      return;
+    }
+    // Non-blank segments share the rich-text grammar (text / inlineMath / term).
+    validateRichTextSegment(segment, segPath, ctx);
+  });
+
+  if (blankCount === 0) {
+    addError(ctx, `${path}.prompt`, "A fill-in block must contain at least one blank segment.");
+  }
 }
 
 function validateQuizBlock(input: Record<string, unknown>, path: string, ctx: ValidationContext) {
@@ -512,40 +557,39 @@ function validateRichText(input: unknown, path: string, ctx: ValidationContext) 
   if (!segments) return;
 
   segments.forEach((segment, idx) => {
-    const segPath = `${path}[${idx}]`;
-    if (!isRecord(segment)) {
-      addError(ctx, segPath, "Rich text segment must be an object.");
-      return;
-    }
-    switch (segment.kind) {
-      case "text":
-        expectNonEmptyString(segment.value, `${segPath}.value`, ctx);
-        break;
-      case "inlineMath":
-        validateLatex(segment.latex, `${segPath}.latex`, false, ctx);
-        break;
-      case "term":
-        if (expectNonEmptyString(segment.termId, `${segPath}.termId`, ctx)) {
-          if (!idPattern.test(segment.termId)) {
-            addError(ctx, `${segPath}.termId`, "Id must be lowercase kebab-case.");
-          } else if (!ctx.glossaryIds.has(segment.termId)) {
-            addError(
-              ctx,
-              `${segPath}.termId`,
-              `Term "${segment.termId}" does not appear in the course glossary.`
-            );
-          }
-        }
-        expectNonEmptyString(segment.label, `${segPath}.label`, ctx);
-        break;
-      default:
-        addError(
-          ctx,
-          `${segPath}.kind`,
-          `Unknown rich text segment kind: ${String(segment.kind)}.`
-        );
-    }
+    validateRichTextSegment(segment, `${path}[${idx}]`, ctx);
   });
+}
+
+function validateRichTextSegment(segment: unknown, segPath: string, ctx: ValidationContext) {
+  if (!isRecord(segment)) {
+    addError(ctx, segPath, "Rich text segment must be an object.");
+    return;
+  }
+  switch (segment.kind) {
+    case "text":
+      expectNonEmptyString(segment.value, `${segPath}.value`, ctx);
+      break;
+    case "inlineMath":
+      validateLatex(segment.latex, `${segPath}.latex`, false, ctx);
+      break;
+    case "term":
+      if (expectNonEmptyString(segment.termId, `${segPath}.termId`, ctx)) {
+        if (!idPattern.test(segment.termId)) {
+          addError(ctx, `${segPath}.termId`, "Id must be lowercase kebab-case.");
+        } else if (!ctx.glossaryIds.has(segment.termId)) {
+          addError(
+            ctx,
+            `${segPath}.termId`,
+            `Term "${segment.termId}" does not appear in the course glossary.`
+          );
+        }
+      }
+      expectNonEmptyString(segment.label, `${segPath}.label`, ctx);
+      break;
+    default:
+      addError(ctx, `${segPath}.kind`, `Unknown rich text segment kind: ${String(segment.kind)}.`);
+  }
 }
 
 function validateRichTextRows(input: unknown, path: string, ctx: ValidationContext) {
@@ -689,6 +733,12 @@ function expectNonEmptyString(
 function expectOptionalString(input: unknown, path: string, ctx: ValidationContext) {
   if (input !== undefined && typeof input !== "string") {
     addError(ctx, path, "Expected a string when present.");
+  }
+}
+
+function expectOptionalNonEmptyString(input: unknown, path: string, ctx: ValidationContext) {
+  if (input !== undefined) {
+    expectNonEmptyString(input, path, ctx);
   }
 }
 

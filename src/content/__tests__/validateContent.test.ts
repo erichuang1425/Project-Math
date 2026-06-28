@@ -425,4 +425,52 @@ describe("validateContent", () => {
       expect(messagesAt(result.errors, "revision").join(" ")).toMatch(/object/);
     }
   });
+
+  function fillInBlockIn(course: AnyCourse): AnyCourse {
+    return course.modules[0].lessons[0].sections[0].blocks.find((b: any) => b.type === "fillIn");
+  }
+
+  it("rejects a fill-in block with no blank segments", () => {
+    const course = clone(makeMinimalCourse());
+    const fillIn = fillInBlockIn(course);
+    fillIn.prompt = [{ kind: "text", value: "All prose, no blank." }];
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, ".prompt").join(" ")).toMatch(/at least one blank/);
+    }
+  });
+
+  it("rejects a fill-in blank whose answer is empty", () => {
+    const course = clone(makeMinimalCourse());
+    const fillIn = fillInBlockIn(course);
+    fillIn.prompt = [{ kind: "blank", answer: "" }];
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "prompt[0].answer").join(" ")).toMatch(/non-empty string/);
+    }
+  });
+
+  it("rejects a fill-in blank whose LaTeX answer does not render", () => {
+    const course = clone(makeMinimalCourse());
+    const fillIn = fillInBlockIn(course);
+    fillIn.prompt = [{ kind: "blank", answer: "\\frac{", isLatex: true }];
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "prompt[0].answer").join(" ")).toMatch(/KaTeX/);
+    }
+  });
+
+  it("rejects a fill-in block with a non-string warmth prompt", () => {
+    const course = clone(makeMinimalCourse());
+    const fillIn = fillInBlockIn(course);
+    fillIn.warmthPrompt = 5;
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "warmthPrompt").join(" ")).toMatch(/non-empty string/);
+    }
+  });
 });

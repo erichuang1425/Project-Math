@@ -129,6 +129,41 @@ Shipped:
 
 What done means: CI green from a clean clone with the new per-directory thresholds; ten skills with no overlap and identical output templates.
 
+## Phase 8 — Loom Active-Recall Layer
+
+Status: started.
+
+Adopts the [Loom](https://github.com/Polaris-Aeterna/loom-notes) "fill-in study
+notes" pedagogy as a schema-validated block type. See `docs/loom-active-recall.md`
+for the full method and mapping.
+
+Shipped:
+
+- **`fillIn` block type.** `FillInBlock` + `FillInSegment` in `src/content/schema.ts`,
+  added to the `Block` union. Exposition the learner reads, with high-value steps
+  left as reveal-able blanks (`{ kind: "blank"; answer; isLatex?; hint? }`), an
+  optional read-only `intro`, and an optional 0–5 `warmthPrompt`.
+- **Validation.** `validateFillIn` enforces ≥1 blank, non-empty/KaTeX-valid
+  answers, and a string `warmthPrompt`, with four paired invalid-fixture tests.
+- **Renderer.** `FillInBlockView` renders reveal-on-tap blanks (icon + label +
+  border, never color alone), an ephemeral warmth gauge, and glossary `term`
+  segments inside prompt prose. Wired through `BlockRenderer`.
+- **Content.** A fill-in block in the minimal-course validator fixture and a real
+  "Weave the chain rule yourself" block in the Calculus I `chain-rule` lesson.
+- **Skill.** `.agents/skills/loom-fillin-author/` owns the authoring discipline
+  (70% read / 30% fill, blank high-value steps, warmth as a checkpoint).
+
+Open:
+
+- Persist warmth selections in learner state (storage shape + Tauri command).
+- Surface fill-in prompts and answers in the lesson summary export.
+- Optional "loose thread" margin affordance (Loom's `\loose{…}`).
+- Author a fill-in block in each remaining Module C lesson.
+- Let `RevisionLayer` reference fill-in blocks.
+
+What done means: a fill-in block validates, renders in both modes, reads cleanly
+with blanks hidden, and rewards working them out — fully offline.
+
 ## Known Risks
 
 - Polished mode risks crossing the autism-aware bar — Calm mode stays a first-class peer.
@@ -148,3 +183,6 @@ Next vertical slices, smallest first. Each row is intended as a single PR.
 7. Phase 6 — accelerators on the Rust-side reader submenu items (text size, line spacing, font). Note: the File / View / Help menu is already built and `menu:*` events already emit from `src-tauri/src/lib.rs:96-201`; only the submenu accelerators are missing.
 8. Phase 6 — `open_course_dialog`, `export_learner_state`, `import_learner_state` with safe-slug validation.
 9. Phase 6 — App icon set, window restore, dynamic title (`Course — Lesson`), recent courses (last 5).
+10. ~~Phase 8 — introduce the `fillIn` (active-recall) block type, validator, renderer, and skill.~~ Done.
+11. Phase 8 — persist warmth-gauge selections in learner state.
+12. Phase 8 — author a fill-in block in each remaining Module C lesson.

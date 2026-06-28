@@ -82,6 +82,7 @@ type Block =
   | WorkedExampleBlock
   | GraphBlock
   | CommonMistakeBlock
+  | FillInBlock
   | QuizBlock
   | SummaryBlock;
 ```
@@ -107,6 +108,36 @@ Block payloads are unchanged from schemaVersion 1.0 except for the universal `id
 
 - `steps[i].actionCue` — optional short verb-like cue (≤32 chars) shown as a chip on the step pill and inside the active step panel. Use it to label what the step _does_ ("Substitute", "Expand", "Cancel", "Take limit").
 - `finalAnswer` — optional `{ latex: string; summary?: string }`. Renders as a distinct "Final answer" band below the steps, separate from `interpretation` (which stays a prose sentence about meaning).
+
+### Fill-in (active recall)
+
+The `fillIn` block is the active-recall layer ported from the Loom "fill-in
+study notes" method (see `docs/loom-active-recall.md`). It is exposition the
+learner reads, with high-value steps left as reveal-able blanks.
+
+```ts
+type FillInBlock = BlockBase & {
+  type: "fillIn";
+  title: string;
+  intro?: RichTextSegment[]; // read-only framing ("warp threads")
+  prompt: FillInSegment[]; // mixed prose + blanks, ~70% read / 30% fill
+  warmthPrompt?: string; // optional 0–5 self-assessment ("\warmth")
+};
+
+type FillInSegment =
+  | RichTextSegment
+  | { kind: "blank"; answer: string; isLatex?: boolean; hint?: string };
+```
+
+- `prompt` must contain **at least one `blank`**. Non-blank segments use the same
+  grammar as rich text (`text` / `inlineMath` / `term`), so glossary popovers
+  work inside fill-in prose.
+- Each `blank.answer` is non-empty; when `isLatex: true` it is validated through
+  KaTeX. `hint` is an optional cue shown before the answer is revealed.
+- In the reader, each blank is a button: hidden by default, toggled to reveal the
+  answer. State is communicated by icon + label + border (not color alone), and
+  the optional `warmthPrompt` renders an interactive 0–5 gauge. Warmth selection
+  is ephemeral reader state — it is not persisted in learner state today.
 
 ## Glossary
 
@@ -139,6 +170,7 @@ Lives at the course level. The reader resolves `term` segments by `id` and shows
 - Empty or duplicate IDs at any level.
 - LaTeX fields that fail KaTeX rendering.
 - Quizzes whose `correctOptionId` doesn't match an option, or whose questions miss per-option feedback.
+- Fill-in blocks with no `blank` segment, a blank with an empty/non-rendering answer, or a non-string `warmthPrompt`.
 - Graphs without axis labels or with non-finite samples.
 - `term` segments whose `termId` is not in the course glossary.
 - `prerequisiteLessonIds` that point outside the course or form a cycle.

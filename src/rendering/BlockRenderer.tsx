@@ -2,6 +2,7 @@ import type { Block, Course } from "../content/schema";
 import { getQuizAttempts, type LearnerState } from "../storage/learnerState";
 import { CommonMistakeBlockView } from "./blocks/CommonMistakeBlockView";
 import { ConceptBlockView } from "./blocks/ConceptBlockView";
+import { FillInBlockView } from "./blocks/FillInBlockView";
 import { GraphBlockView } from "./blocks/GraphBlockView";
 import { IntuitionBlockView } from "./blocks/IntuitionBlockView";
 import { LatexBlockView } from "./blocks/LatexBlockView";
@@ -60,6 +61,8 @@ function BlockSwitch({
       return <WorkedExampleBlockView block={block} />;
     case "commonMistake":
       return <CommonMistakeBlockView block={block} />;
+    case "fillIn":
+      return <FillInBlockView block={block} />;
     case "quiz":
       return (
         <QuizBlockView
