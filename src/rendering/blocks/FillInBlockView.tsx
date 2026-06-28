@@ -43,31 +43,41 @@ function FillInSegmentView({ segment }: { segment: FillInSegment }) {
 
 function Blank({ segment }: { segment: FillInBlankSegment }) {
   const [revealed, setRevealed] = useState(false);
-  const answerText = segment.answer;
+  // Keep the toggle's accessible name generic. Putting the answer (especially raw
+  // LaTeX) into aria-label would override the rendered MathInline/MathML and make
+  // a screen reader read "\cdot" instead of the math. Instead the answer lives in
+  // a sibling element so its accessible content is exposed normally.
   const label = revealed
-    ? `Hide answer: ${answerText}`
+    ? "Hide answer"
     : segment.hint
       ? `Reveal answer. Hint: ${segment.hint}`
       : "Reveal answer";
 
   return (
-    <button
-      type="button"
+    <span
       className={`${styles.fillInBlank} ${revealed ? styles.fillInBlankRevealed : ""}`}
       data-revealed={revealed}
-      aria-expanded={revealed}
-      aria-label={label}
-      onClick={() => setRevealed((current) => !current)}
     >
-      <Icon source={revealed ? EyeOff : Eye} size={14} />
+      <button
+        type="button"
+        className={styles.fillInToggle}
+        aria-expanded={revealed}
+        aria-label={label}
+        onClick={() => setRevealed((current) => !current)}
+      >
+        <Icon source={revealed ? EyeOff : Eye} size={14} />
+        {revealed ? null : (
+          <span className={styles.fillInPlaceholder}>
+            {segment.hint ? segment.hint : "fill in"}
+          </span>
+        )}
+      </button>
       {revealed ? (
         <span className={styles.fillInAnswer}>
-          {segment.isLatex ? <MathInline latex={answerText} /> : answerText}
+          {segment.isLatex ? <MathInline latex={segment.answer} /> : segment.answer}
         </span>
-      ) : (
-        <span className={styles.fillInPlaceholder}>{segment.hint ? segment.hint : "fill in"}</span>
-      )}
-    </button>
+      ) : null}
+    </span>
   );
 }
 

@@ -325,8 +325,6 @@
   border-radius: 6px;
   background: var(--reader-soft-surface, #fbfcf8);
   color: var(--reader-accent, #3a3aa1);
-  font: inherit;
-  cursor: pointer;
   vertical-align: baseline;
 }
 
@@ -337,6 +335,18 @@
   color: var(--reader-text, #20231f);
 }
 
+.fillInToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
 .fillInPlaceholder {
   font-style: italic;
   letter-spacing: 0.04em;
@@ -344,6 +354,7 @@
 
 .fillInAnswer {
   font-weight: 700;
+  color: var(--reader-text, #20231f);
 }
 
 .warmthGauge {
