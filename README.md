@@ -43,6 +43,7 @@ The Tauri desktop shell now wraps the existing Vite frontend. The native layer i
 - `docs/architecture.md`: technical architecture and dependency rules.
 - `docs/learning-design.md`: lesson model and instructional quality rules.
 - `docs/content-schema.md`: deterministic studybook schema.
+- `docs/loom-active-recall.md`: the Loom fill-in / active-recall layer and its roadmap.
 - `docs/ui-system.md`: UI principles and reusable surfaces.
 - `docs/testing-strategy.md`: testing layers and acceptance rules.
 - `docs/roadmap.md`: ordered implementation plan.

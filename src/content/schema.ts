@@ -71,6 +71,7 @@ export type Block =
   | GraphBlock
   | WorkedExampleBlock
   | CommonMistakeBlock
+  | FillInBlock
   | QuizBlock
   | SummaryBlock;
 
@@ -147,6 +148,36 @@ export interface CommonMistakeBlock extends BlockBase {
   whyWrong: string;
   correction: string;
   checkPrompt?: string;
+}
+
+/**
+ * Fill-in (active-recall) block.
+ *
+ * Ported from the Loom "fill-in study notes" method: exposition the learner
+ * reads, with high-value steps left as blanks they work out and then reveal.
+ * `intro` carries the read-only framing (the "warp threads"); `prompt` is the
+ * mixed prose + blank stream that targets roughly 70% read / 30% fill. The
+ * optional `warmthPrompt` surfaces a 0–5 self-assessment gauge (Loom's
+ * `\warmth`) so the learner can rate how settled the idea feels.
+ */
+export interface FillInBlock extends BlockBase {
+  type: "fillIn";
+  title: string;
+  intro?: RichTextSegment[];
+  prompt: FillInSegment[];
+  warmthPrompt?: string;
+}
+
+export type FillInSegment = RichTextSegment | FillInBlankSegment;
+
+export interface FillInBlankSegment {
+  kind: "blank";
+  /** The hidden answer the learner reveals after working it out. */
+  answer: string;
+  /** Render the answer as inline KaTeX when true. */
+  isLatex?: boolean;
+  /** Optional nudge shown before the answer is revealed. */
+  hint?: string;
 }
 
 export interface QuizBlock extends BlockBase {

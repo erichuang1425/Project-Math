@@ -10904,6 +10904,77 @@
                   ]
                 }
               ]
+            },
+            {
+              "id": "chain-loom",
+              "title": "Weave the chain rule yourself",
+              "blocks": [
+                {
+                  "type": "fillIn",
+                  "id": "chain-fillin",
+                  "title": "Fill in the chain rule",
+                  "intro": [
+                    {
+                      "kind": "text",
+                      "value": "Read the statement, then work out the blanks before you reveal them."
+                    }
+                  ],
+                  "prompt": [
+                    {
+                      "kind": "text",
+                      "value": "For a "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "composite-function",
+                      "label": "composite function"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " f(g(x)), the "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "chain-rule",
+                      "label": "chain rule"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " says its "
+                    },
+                    {
+                      "kind": "term",
+                      "termId": "derivative",
+                      "label": "derivative"
+                    },
+                    {
+                      "kind": "text",
+                      "value": " is "
+                    },
+                    {
+                      "kind": "blank",
+                      "answer": "f'(g(x)) \\cdot g'(x)",
+                      "isLatex": true,
+                      "hint": "outer × inner"
+                    },
+                    {
+                      "kind": "text",
+                      "value": ". Applying it to (x^2 + 1)^5 gives "
+                    },
+                    {
+                      "kind": "blank",
+                      "answer": "5(x^2 + 1)^4 \\cdot 2x",
+                      "isLatex": true,
+                      "hint": "power then inner"
+                    },
+                    {
+                      "kind": "text",
+                      "value": "."
+                    }
+                  ],
+                  "warmthPrompt": "How settled does the chain rule feel after filling it in?"
+                }
+              ]
             }
           ],
           "revision": {

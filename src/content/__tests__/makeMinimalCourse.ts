@@ -153,6 +153,30 @@ export function makeMinimalCourse(): Course {
                     ]
                   },
                   {
+                    type: "fillIn",
+                    id: "intro-fillin",
+                    title: "Work out the difference quotient",
+                    intro: [
+                      { kind: "text", value: "You read the setup; you fill in the key step." }
+                    ],
+                    prompt: [
+                      { kind: "text", value: "The average rate of change over " },
+                      { kind: "inlineMath", latex: "[x, x+h]" },
+                      { kind: "text", value: " is " },
+                      {
+                        kind: "blank",
+                        answer: "\\frac{f(x+h)-f(x)}{h}",
+                        isLatex: true,
+                        hint: "ratio"
+                      },
+                      { kind: "text", value: ", which becomes the " },
+                      { kind: "term", termId: "derivative", label: "derivative" },
+                      { kind: "text", value: " as " },
+                      { kind: "blank", answer: "h \\to 0", isLatex: true }
+                    ],
+                    warmthPrompt: "How settled does the difference quotient feel right now?"
+                  },
+                  {
                     type: "summary",
                     id: "intro-summary",
                     items: [[{ kind: "text", value: "Derivative = limit of slopes." }]]
