@@ -35,7 +35,10 @@ describe("FillInBlockView", () => {
     const blank = screen.getByRole("button", { name: /reveal answer/i });
     fireEvent.click(blank);
 
-    const revealed = screen.getByRole("button", { name: /hide answer: 2x/i });
+    // The toggle's accessible name stays generic ("Hide answer") so a LaTeX
+    // answer is not flattened into the button's name; the answer itself is a
+    // sibling element that remains accessible.
+    const revealed = screen.getByRole("button", { name: "Hide answer" });
     expect(revealed).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByText("2x")).toBeInTheDocument();
 
