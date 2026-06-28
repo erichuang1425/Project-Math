@@ -68,6 +68,16 @@ describe("FillInBlockView", () => {
       "aria-pressed",
       "true"
     );
+    // Only the selected level reports pressed — lower levels stay unpressed so a
+    // screen reader announces a single chosen rating, not three.
+    expect(screen.getByRole("button", { name: "Set warmth to 1 of 5" })).toHaveAttribute(
+      "aria-pressed",
+      "false"
+    );
+    expect(screen.getByRole("button", { name: "Set warmth to 2 of 5" })).toHaveAttribute(
+      "aria-pressed",
+      "false"
+    );
 
     // Clicking the active level clears it back to zero.
     fireEvent.click(screen.getByRole("button", { name: "Set warmth to 3 of 5" }));

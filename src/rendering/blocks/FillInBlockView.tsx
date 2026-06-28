@@ -86,7 +86,7 @@ function WarmthGauge({ prompt }: { prompt: string }) {
                 key={level}
                 type="button"
                 className={`${styles.warmthSquare} ${filled ? styles.warmthSquareFilled : ""}`}
-                aria-pressed={filled}
+                aria-pressed={warmth === level}
                 aria-label={`Set warmth to ${level} of 5`}
                 onClick={() => setWarmth((current) => (current === level ? 0 : level))}
               >
