@@ -312,7 +312,7 @@
 
 .fillInPrompt {
   margin: 0;
-  line-height: var(--reader-line-height-loose, 1.9);
+  line-height: var(--reader-line-height, 1.65);
 }
 
 .fillInBlank {
