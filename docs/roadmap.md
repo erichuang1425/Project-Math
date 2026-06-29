@@ -119,7 +119,7 @@ Status: done.
 Shipped:
 
 - ESLint + Prettier; scripts `lint`, `format`, `format:check`.
-- GitHub Actions: typecheck → lint → test → build, runs on `main` and `claude/**`.
+- GitHub Actions: typecheck → lint → test → build, runs on `main` and `work/**`.
 - `@vitest/coverage-v8` wired with a 60% global floor across lines / statements / branches / functions.
 - **Skill retire and relaunch.** Deleted `.agents/skills/ux-quality-reviewer/`. Added `.agents/skills/learner-journey-reviewer/` (pacing and cohesion across Course → Module → Lesson → Block, "what comes next" framing) and `.agents/skills/motivation-ux-reviewer/` (motivation cues for low-motivation and neurodivergent learners, Calm-mode parity). Each carries an explicit "Out of Scope" section pointing at the neighbouring skills.
 - **Sharpened `studybook-architect` ↔ `test-and-regression-reviewer` boundary.** Both skills now carry an "Out of Scope" section: `studybook-architect` recommends tests but hands them off; `test-and-regression-reviewer` recommends fixture-shape changes back instead of redesigning the schema.
