@@ -603,14 +603,11 @@
   color: var(--reader-accent-text, #244e52);
   font: inherit;
   font-weight: 700;
-  cursor: pointer;
 }
 
 .fillInBlank:hover,
-.fillInBlank:focus-visible {
+.fillInBlank:focus-within {
   background: var(--reader-selected-surface, #eef7f5);
-  outline: 3px solid var(--reader-focus-ring, rgba(47, 93, 98, 0.22));
-  outline-offset: 2px;
 }
 
 .fillInBlankRevealed {
@@ -619,6 +616,30 @@
   background: var(--reader-correct-surface, #f4f9ee);
   color: var(--reader-text, #20231f);
   font-weight: 600;
+}
+
+.fillInToggle {
+  appearance: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.fillInToggle svg {
+  vertical-align: middle;
+}
+
+.fillInToggle:focus-visible {
+  outline: 3px solid var(--reader-focus-ring, rgba(47, 93, 98, 0.22));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.fillInAnswer {
+  margin-right: 4px;
 }
 
 .fillInBlankPlaceholder {
