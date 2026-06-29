@@ -2,85 +2,66 @@
 
 ## Architectural Intent
 
-The app should be a local-first desktop studybook runtime. Content is data. Rendering is reusable. Storage is behind interfaces. Desktop integration is thin and explicit.
+Project Math is a local-first studybook runtime. Content is data, rendering is reusable, storage is behind interfaces, and desktop integration stays thin and explicit.
 
-## Proposed Layers
+## Layers
 
 1. **Desktop shell**
    - Tauri owns the native window, file access boundaries, and future export integrations.
-   - The Tauri layer should not contain learning-domain logic.
+   - The Tauri layer does not contain learning-domain logic.
 
 2. **Web app shell**
    - React and Vite render the main application.
-   - App shell owns navigation, layout, theme, and high-level state.
+   - The app shell owns navigation, layout, display mode, and high-level state.
 
 3. **Studybook domain**
-   - TypeScript types for studybooks, lessons, sections, and blocks.
-   - Schema validation for content files.
-   - Pure helpers for block traversal, quiz scoring, progress, and export preparation.
+   - TypeScript types define courses, modules, lessons, sections, and blocks.
+   - Schema validation protects content files before rendering.
+   - Pure helpers cover traversal, quiz scoring, progress, and export preparation.
 
 4. **Block renderer**
    - Reusable React components map schema block types to UI.
-   - Blocks must not fetch remote data.
+   - Blocks do not fetch remote data.
    - Blocks receive validated data and render deterministic UI.
 
 5. **Math and graph services**
    - KaTeX handles LaTeX rendering.
-   - Graphs start with an internal `GraphSpec` abstraction and a simple renderer.
-   - Add a graph library only after comparing requirements, maintenance, bundle impact, and offline behavior.
-   - Current graph decision: keep the internal deterministic SVG path and defer graphing libraries; see `docs/architecture/graph-rendering-options.md`.
-   - Current graph implementation: function series may carry explicit sampled coordinate pairs that render as SVG polylines. Expression strings remain display labels only.
+   - Graphs use an internal deterministic SVG renderer.
+   - Function series carry authored sample points; expression strings are display labels only.
 
 6. **Local storage**
-   - MVP uses JSON files for bundled studybook content and local learner state.
-   - Define storage interfaces so SQLite can be introduced without rewriting UI components.
+   - Bundled course content is JSON.
+   - Learner state is local JSON on desktop and `localStorage` in browser/dev runs.
+   - Repository interfaces keep UI components independent from file paths.
 
 7. **Static web hosting**
-   - The Vite frontend may be built and hosted as static files on Netlify for browser access.
-   - This hosted build is not the desktop product and does not include Tauri file-backed learner-state JSON.
-   - In a browser, the learner-state repository falls back to `localStorage`; progress remains local to that browser profile.
-   - Netlify hosting must remain deterministic and static. Do not add server functions, accounts, sync, telemetry, or remote AI calls without explicit approval.
+   - The Vite frontend can be built and hosted as static files.
+   - The hosted build is not the native desktop product and does not include Tauri file-backed learner-state JSON.
+   - Browser progress remains local to that browser profile.
 
 ## Content Flow
 
 ```text
-studybook JSON -> schema validation -> normalized domain model -> block renderer -> UI
+course JSON -> schema validation -> domain model -> block renderer -> UI
 ```
 
 Invalid content should produce a clear validation error view. The lesson view should not attempt to recover from unknown block shapes.
 
-## Proposed Future Source Layout
-
-When app implementation begins, use this shape unless a better Tauri scaffold requires a small adjustment:
+## Source Layout
 
 ```text
 src/
-  app/
-    App.tsx
-    routes.ts
-  studybook/
-    schema.ts
-    validateStudybook.ts
-    fixtures/
-  rendering/
-    BlockRenderer.tsx
-    blocks/
-  math/
-    MathInline.tsx
-    MathBlock.tsx
-  graphs/
-    graphSpec.ts
-    GraphView.tsx
-  storage/
-    StudybookRepository.ts
-    LearnerStateRepository.ts
-  export/
-    exportLessonSummary.ts
-src-tauri/
-  tauri.conf.json
-  src/
-public/
-  _redirects
+  app/          App shell, routing, views, reader controls
+  content/      Course schema, validation, quiz scoring, fixtures
+  design/       Tokens, primitives, illustrations
+  export/       Lesson summary export helpers
+  graphs/       Deterministic SVG graph renderer
+  math/         KaTeX rendering helpers
+  rendering/    Lesson and block renderers
+  storage/      Learner-state repositories
+src-tauri/      Native desktop shell and Tauri configuration
+docs/           Product, architecture, schema, UI, and testing docs
+public/         Static hosting assets
 ```
 
 ## Dependency Policy
@@ -89,67 +70,46 @@ Pre-approved direction:
 
 - Tauri, React, TypeScript, Vite.
 - KaTeX for math rendering.
-- Vitest for unit tests if the Vite scaffold does not choose another test runner.
-- React Testing Library for component tests if React component tests are added.
-- Playwright or a Tauri-compatible smoke path for desktop smoke tests.
+- Vitest and React Testing Library for tests.
+- Internal SVG graph rendering until a clear graphing-library need appears.
 
-Ask before adding:
+Require an explicit proposal before adding:
 
-- Any graphing library.
-- Any diagramming library.
-- Any editor framework.
-- Any database package.
-- Any AI SDK or model runtime.
-- Any analytics, telemetry, account, or sync dependency.
-- Any UI framework beyond the chosen styling approach.
+- Graphing or diagramming libraries.
+- Editor frameworks.
+- Database packages.
+- Model runtimes or runtime generation SDKs.
+- Analytics, telemetry, account, or sync dependencies.
+- UI frameworks beyond CSS Modules and local primitives.
 
-Dependency proposals must include:
-
-- Why the dependency is needed now.
-- Alternatives considered.
-- Offline behavior.
-- Long-term maintenance risk.
-- Bundle and desktop footprint impact.
+Dependency proposals should cover why the dependency is needed now, alternatives considered, offline behavior, maintenance risk, and bundle/desktop footprint.
 
 ## Storage Direction
-
-MVP storage should be simple:
-
-- Bundled studybook content: JSON files versioned with the app.
-- Learner state: local JSON for progress, quiz attempts, and revision flags.
-
-Design interfaces around intent:
-
-- `loadStudybook(id)`
-- `listStudybooks()`
-- `saveLearnerState(state)`
-- `loadLearnerState(studybookId)`
-
-Do not bind React components directly to file paths or a future database.
 
 Current learner-state slice:
 
 - `src/storage/learnerState.ts` defines versioned learner progress and quiz-attempt data.
-- `src/storage/LearnerStateRepository.ts` defines repository interfaces plus a Tauri-backed JSON adapter and a browser localStorage fallback for web/dev runs.
-- The Tauri shell exposes only `load_learner_state` and `save_learner_state`; it resolves the app data directory and transports JSON strings without learning-domain logic.
-- React components receive repository-loaded state and callbacks. They do not know where state files live.
-- SQLite remains a future backing store option behind the same repository interface; no database dependency is used in the MVP slice.
+- `src/storage/LearnerStateRepository.ts` defines repository interfaces plus a Tauri-backed JSON adapter and a browser localStorage fallback.
+- The Tauri shell exposes `load_learner_state` and `save_learner_state`; it resolves the app data directory and transports JSON strings without learning-domain logic.
+- React components receive repository-loaded state and callbacks.
+
+SQLite remains a future backing-store option behind the same repository interface; no database dependency is used today.
 
 ## Export Direction
 
-Start with deterministic export data:
+Exports start with deterministic lesson summary data:
 
 - Lesson title and objectives.
 - Key definitions.
 - Worked examples.
 - Common mistakes.
-- Quiz results if learner state is available.
+- Quiz results when learner state is available.
 
-Actual export formats can come later. Do not add PDF or document dependencies until export requirements are specific.
+Additional export formats should wait until requirements are specific.
 
-## Future AI Boundary
+## Authoring Boundary
 
-AI-assisted generation should produce or revise structured studybook data. AI should not bypass schema validation, math review, tests, or block rendering.
+Future authoring tools may produce or revise structured studybook data. They should not bypass schema validation, math review, tests, or block rendering.
 
 ## What Done Means
 

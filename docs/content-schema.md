@@ -2,7 +2,7 @@
 
 ## Goal
 
-The content schema is the contract between authored learning material and the app. It must be deterministic, versioned, testable, and suitable for future AI-assisted authoring. Lessons are never bespoke React components.
+The content schema is the contract between authored learning material and the app. It must be deterministic, versioned, testable, and suitable for future authoring tools. Lessons are never bespoke React components.
 
 ## Format
 
@@ -10,7 +10,11 @@ Course files are JSON, validated at load by `validateContent`. TypeScript types 
 
 ## Hierarchy
 
-`Course → Module → Lesson → Block` (with `Glossary` at the course level).
+```text
+Course -> Module -> Lesson -> Section -> Block
+```
+
+Glossary terms live at the course level and can be referenced from rich text.
 
 ## Top-Level Course
 
@@ -56,39 +60,11 @@ type Lesson = {
   sections: LessonSection[];
   revision?: RevisionLayer;
 };
-
-type LessonSection = {
-  id: string;
-  title: string;
-  blocks: Block[];
-};
-
-type LessonObjective = {
-  id: string;
-  text: string;
-};
 ```
 
 Blocks live inside `Lesson.sections[].blocks`, not directly on the lesson. The reader uses section titles as in-lesson landmarks; `courseHelpers.lessonBlocks(lesson)` flattens sections when callers need a flat block list.
 
-## Block
-
-```ts
-type Block =
-  | TitleBlock
-  | ConceptBlock
-  | IntuitionBlock
-  | LatexBlock
-  | WorkedExampleBlock
-  | GraphBlock
-  | CommonMistakeBlock
-  | QuizBlock
-  | SummaryBlock;
-```
-
-Every block has `id` (required) and optional `objectiveIds?: string[]` cross-referencing `Lesson.objectives[].id`, plus optional `estimatedMinutes?: number`.
-
-### Rich Text Segment
+## Rich Text Segment
 
 ```ts
 type RichTextSegment =
@@ -97,16 +73,29 @@ type RichTextSegment =
   | { kind: "term"; termId: string; label: string };
 ```
 
-`term` segments resolve against the course `glossary` and open a popover in the reader. Every `termId` must match a `GlossaryTerm.id`.
+`term` segments resolve against the course glossary and open a popover in the reader. Every `termId` must match a `GlossaryTerm.id`.
 
-### Concept, Intuition, LaTeX, Worked Example, Graph, Common Mistake, Quiz, Summary, Title
+## Blocks
 
-Block payloads are unchanged from schemaVersion 1.0 except for the universal `id` + optional `objectiveIds` + optional `estimatedMinutes` additions. See `src/content/schema.ts` for the authoritative source.
+Supported block types:
 
-`WorkedExampleBlock` also accepts two reader-polish fields:
+- `title`
+- `concept`
+- `intuition`
+- `latex`
+- `workedExample`
+- `graph`
+- `commonMistake`
+- `quiz`
+- `summary`
+- `fillIn`
 
-- `steps[i].actionCue` — optional short verb-like cue (≤32 chars) shown as a chip on the step pill and inside the active step panel. Use it to label what the step _does_ ("Substitute", "Expand", "Cancel", "Take limit").
-- `finalAnswer` — optional `{ latex: string; summary?: string }`. Renders as a distinct "Final answer" band below the steps, separate from `interpretation` (which stays a prose sentence about meaning).
+Every block has a required `id`, optional `objectiveIds`, and optional `estimatedMinutes`.
+
+Worked examples support:
+
+- `steps[i].actionCue`: a short verb-like cue shown on the step rail.
+- `finalAnswer`: an optional `{ latex: string; summary?: string }` band below the steps.
 
 ## Glossary
 
@@ -120,31 +109,27 @@ type GlossaryTerm = {
 };
 ```
 
-Lives at the course level. The reader resolves `term` segments by `id` and shows the definition (and optional rendered LaTeX) in a `<dialog>` popover.
-
 ## ID Rules
 
 - IDs are lowercase kebab-case.
 - IDs are unique within their parent collection.
-- IDs are stable across edits (progress, exports, and annotations reference them).
-- Never use array index as identity.
+- IDs are stable across edits because progress, exports, and annotations reference them.
+- Array indexes are never used as identity.
 
 ## Validation Rules
 
 `validateContent` rejects:
 
-- Unknown `schemaVersion` (only `"2.0"` is accepted).
+- Unknown `schemaVersion`.
 - Unknown block type.
 - Empty `objectives`, `blocks`, or `modules`.
 - Empty or duplicate IDs at any level.
 - LaTeX fields that fail KaTeX rendering.
-- Quizzes whose `correctOptionId` doesn't match an option, or whose questions miss per-option feedback.
+- Quizzes whose correct answer does not match an option or whose questions miss feedback.
 - Graphs without axis labels or with non-finite samples.
 - `term` segments whose `termId` is not in the course glossary.
 - `prerequisiteLessonIds` that point outside the course or form a cycle.
-- `objectiveIds` on a block that don't match the lesson's `objectives[].id`.
-
-Every validation rule has a paired invalid fixture under `src/content/fixtures/invalid/`.
+- `objectiveIds` on a block that do not match the lesson's objectives.
 
 ## Minimal Example
 
@@ -214,4 +199,4 @@ Schema work is done when:
 - Tests cover every accepted and rejected shape.
 - Renderer tests mount each affected block type in jsdom.
 - Existing content files are migrated or fail with a clear error.
-- `docs/content-schema.md` (this file) stays in sync with `src/content/schema.ts`.
+- This document stays in sync with `src/content/schema.ts`.

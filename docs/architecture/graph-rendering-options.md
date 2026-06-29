@@ -104,5 +104,5 @@ The sampled function curve rendering slice uses the existing internal SVG path:
 - No free-form expression parser.
 - No graph animation, sliders, pan/zoom, or tracing controls.
 - No PDF, document, or export implementation changes.
-- No database, sync, AI, telemetry, account, or UI framework dependency.
+- No database, sync, model-runtime, telemetry, account, or UI framework dependency.
 - No Rust/Tauri graph logic.

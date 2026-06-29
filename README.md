@@ -1,124 +1,149 @@
-# Math Learning Desktop App
+# Project Math
 
-A local-first desktop studybook for math and technical subjects.
+**A calm, local-first studybook for learning calculus with structure, feedback, and visible progress.**
 
-The app is intended to feel like an interactive studybook, not a generic notes app. Lessons are structured content rendered through reusable blocks for LaTeX, graphs, diagrams, worked examples, common mistakes, quizzes, revision layers, and export.
+Project Math is a desktop learning app built for people who want math to feel less scattered. It packages a curated Calculus I course as validated JSON, renders it through reusable lesson blocks, and keeps progress on the learner's machine. The result is closer to an interactive studybook than a notes app: explanations, LaTeX, graphs, worked examples, common mistakes, quizzes, glossary popovers, and exportable summaries live in one deterministic flow.
 
-The first MVP topic is **Derivatives from First Principles**.
+The current course is a 12-lesson Calculus I starter path covering foundations, derivatives from first principles, and the core differentiation rules.
 
-## Current Status
+## Preview
 
-The first vertical slice is implemented as a local React, TypeScript, Vite frontend:
+Screenshots are not checked in yet. The app currently includes these first-run surfaces:
 
-- Versioned studybook schema and runtime validation.
-- Deterministic "Derivatives from First Principles" lesson data.
-- Reusable block renderer for title, concept, intuition, LaTeX, graph, worked example, common mistake, quiz, and summary blocks.
-- KaTeX-backed inline and display math.
-- Local learner state for lesson progress and quiz attempts behind repository interfaces.
-- Minimal schema and renderer-safe content tests.
-
-The Tauri desktop shell now wraps the existing Vite frontend. The native layer is intentionally thin: it owns the desktop window, loads the deterministic frontend bundle, and reads/writes learner-state JSON in the app data directory. Studybook validation, quiz scoring, progress updates, and rendering remain in TypeScript.
-
-## Product Principles
-
-- Lessons are structured data, not arbitrary React pages.
-- Rendering is handled by reusable block components.
-- Content must be deterministic and usable offline.
-- Math correctness matters more than visual novelty.
-- The architecture should support future AI-assisted lesson generation without requiring AI for the MVP.
-
-## Intended Stack
-
-- Tauri desktop shell.
-- React, TypeScript, and Vite frontend.
-- KaTeX for LaTeX rendering.
-- Local JSON content and learner state for MVP.
-- Storage interfaces designed so SQLite can be added later.
-- Focused tests for schema, rendering, and desktop smoke behavior.
-
-## Repository Map
-
-- `AGENTS.md`: rules for future coding agents.
-- `docs/product-brief.md`: product scope, audience, and MVP boundaries.
-- `docs/architecture.md`: technical architecture and dependency rules.
-- `docs/learning-design.md`: lesson model and instructional quality rules.
-- `docs/content-schema.md`: deterministic studybook schema.
-- `docs/ui-system.md`: UI principles and reusable surfaces.
-- `docs/testing-strategy.md`: testing layers and acceptance rules.
-- `docs/roadmap.md`: ordered implementation plan.
-- `.agents/skills/`: local role-specific instructions for future agents.
-
-## First Vertical Slice
-
-The first useful slice loads one local studybook JSON file for "Derivatives from First Principles", validates it, and renders a lesson with text, LaTeX, a worked example, a graph placeholder, a common mistake, and one quiz in the Vite frontend. Wrapping this frontend in Tauri is the next desktop integration task.
-
-## Development Notes
-
-Do not add runtime dependencies without checking `AGENTS.md` and `docs/architecture.md`. In particular, do not add a graphing library, editor framework, database, AI SDK, sync layer, analytics package, or UI framework without explicit approval.
-
-Every implementation task must define "what done means" and include verification.
-
-## Development Commands
-
-On Windows PowerShell, use `npm.cmd` if script execution policy blocks the npm shim:
-
-- `npm.cmd install`
-- `npm.cmd run dev`
-- `npm.cmd run typecheck`
-- `npm.cmd test`
-- `npm.cmd run build`
-- `npm.cmd run desktop:dev`
-- `npm.cmd run desktop:build`
-
-If the global npm cache is blocked by local permissions, keep cache writes inside the ignored workspace folder:
-
-```powershell
-npm.cmd install --cache .\.npm-cache
+```text
+Courses Dashboard -> Course Detail -> Lesson Reader
+                     |                  |
+                     |                  +-- section progress, glossary, quizzes
+                     +-- module progress, lesson status, prerequisites
 ```
 
-## Netlify Static Hosting
+The UI ships with two display modes:
 
-The app can be hosted on Netlify as a static web app. This hosts the browser version of the studybook, not the Tauri desktop shell. Lesson content, rendering, quizzes, KaTeX assets, and export actions are bundled into the Vite build. Learner progress in the hosted version is saved in that browser's local storage, so it is local to the device and browser profile.
+- **Polished:** warm neutral surfaces, subtle depth, progress rings, and restrained motion.
+- **Calm:** higher contrast, no decorative motion, no elevation, and a lower-sensory reading surface.
 
-For Netlify Drop:
+## Features
 
-1. Build the web bundle:
+- **Offline-first desktop app:** Tauri wraps a Vite/React frontend; bundled lessons and learner state work without runtime network calls.
+- **Structured course model:** courses contain modules, lessons, sections, and typed blocks, all validated before rendering.
+- **Math-native reader:** KaTeX-backed inline and display math, deterministic SVG graphs, glossary term popovers, and section navigation.
+- **Guided practice:** worked-example step rails, common-mistake blocks, quizzes with per-option feedback, retry state, and saved attempts.
+- **Progress that stays visible:** course rings, lesson status chips, active section markers, and continue cards.
+- **Local learner state:** Tauri-backed JSON storage on desktop, with `localStorage` fallback for browser/dev runs.
+- **Export helpers:** deterministic lesson-summary export and clipboard/download paths.
+- **Public web build:** the browser version can be deployed as a static Vite site; progress remains local to that browser profile.
 
-   ```powershell
-   npm.cmd run build
-   ```
+## Tech Stack
 
-2. Open [Netlify Drop](https://app.netlify.com/drop).
-3. Drag this generated folder onto the page:
+- **Desktop:** Tauri 2
+- **Frontend:** React 18, TypeScript, Vite
+- **Styling:** CSS Modules and CSS custom properties
+- **Math:** KaTeX
+- **Graphs:** deterministic internal SVG renderer
+- **Testing:** Vitest, jsdom, React Testing Library
+- **Quality:** ESLint, Prettier, GitHub Actions
 
-   ```text
-   D:\[IN PROGRESS]\Project Math\dist
-   ```
+## Getting Started
 
-Do not drag the repository root. Netlify Drop expects the already-built static files in `dist`.
+Prerequisites:
 
-For a Git-connected Netlify site, use the checked-in `netlify.toml`:
+- Node.js 20+
+- npm
+- Rust toolchain, only needed for Tauri desktop commands
+
+Install dependencies:
+
+```powershell
+npm install
+```
+
+Run the web app locally:
+
+```powershell
+npm run dev
+```
+
+Run the desktop shell:
+
+```powershell
+npm run desktop:dev
+```
+
+Build the static web bundle:
+
+```powershell
+npm run build
+```
+
+Build the desktop app:
+
+```powershell
+npm run desktop:build
+```
+
+On Windows PowerShell, use `npm.cmd` if script execution policy blocks the npm shim.
+
+## Project Structure
+
+```text
+src/
+  app/          App shell, routing, views, reader controls
+  content/      Course schema, validation, quiz scoring, fixtures
+  design/       Tokens, primitives, illustrations
+  export/       Lesson summary export helpers
+  graphs/       Deterministic SVG graph renderer
+  math/         KaTeX rendering helpers
+  rendering/    Lesson and block renderers
+  storage/      Learner-state repositories
+src-tauri/      Native desktop shell and Tauri configuration
+docs/           Product, architecture, schema, UI, and testing docs
+public/         Static hosting assets
+```
+
+## Testing
+
+Run the full local verification set:
+
+```powershell
+npm run typecheck
+npm run lint
+npm test
+npm run build
+```
+
+Useful focused commands:
+
+```powershell
+npm run format:check
+npm run test:coverage
+```
+
+CI runs install, lint, format check, typecheck, tests, and build on `main` and `work/**` branches.
+
+## Deployment
+
+The Vite frontend can be deployed as a static site. The checked-in `netlify.toml` uses:
 
 - Build command: `npm run build`
 - Publish directory: `dist`
 
-The `public/_redirects` file is copied into `dist` during the Vite build so the hosted single-page app can serve `index.html` for direct links.
+The hosted version is the browser studybook, not the native Tauri shell. Learner progress is stored in that browser's local storage.
 
-## Desktop Smoke Path
+## Roadmap
 
-Run the desktop app:
+Near-term work:
 
-```powershell
-npm.cmd run desktop:dev
-```
+- Finish the Calculus I differentiation-rules capstone lesson.
+- Add desktop import/export flows for learner state.
+- Polish desktop packaging, app icons, recent courses, and restored window state.
+- Add screenshots and a short demo link once the public build is stable.
 
-Manual smoke steps:
+Longer-term direction:
 
-1. Confirm the Project Math desktop window opens.
-2. Confirm the studybook library sidebar is visible.
-3. Confirm the first lesson renders.
-4. Confirm KaTeX equations render, including the first-principles derivative definition.
-5. Answer the visible quiz and confirm deterministic feedback appears.
-6. Close and reopen the app, then confirm the quiz shows the saved attempt count.
-7. Mark the lesson complete, close and reopen the app, and confirm the completed state remains.
-8. Disable network access or leave the machine offline and repeat the launch; the bundled lesson and learner state should still load because content and state are local.
+- More calculus modules.
+- Richer authoring and review tools for structured lesson JSON.
+- Broader technical-subject support while keeping the same deterministic renderer.
+
+## License
+
+No license file is currently included. All rights are reserved unless a license is added later.
