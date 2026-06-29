@@ -82,6 +82,7 @@ type Block =
   | WorkedExampleBlock
   | GraphBlock
   | CommonMistakeBlock
+  | FillInBlock
   | QuizBlock
   | SummaryBlock;
 ```
@@ -102,6 +103,36 @@ type RichTextSegment =
 ### Concept, Intuition, LaTeX, Worked Example, Graph, Common Mistake, Quiz, Summary, Title
 
 Block payloads are unchanged from schemaVersion 1.0 except for the universal `id` + optional `objectiveIds` + optional `estimatedMinutes` additions. See `src/content/schema.ts` for the authoritative source.
+
+### Fill-In Block (`fillIn`)
+
+The Loom-inspired "read + fill" device. The body is a stream of `runs` —
+prose the learner reads interleaved with blanks the learner recalls before
+revealing. The answer travels with the content, so the source stays the answer
+key and the rendered notes are the scaffold. See
+`.agents/skills/fill-in-notes/` for the authoring method.
+
+```ts
+type FillInBlock = {
+  type: "fillIn";
+  id: string;
+  objectiveIds?: string[];
+  estimatedMinutes?: number;
+  title: string;
+  intro?: RichTextSegment[]; // optional read-only framing
+  runs: FillInRun[]; // prose + blanks, in order
+  source?: string; // attribution when the passage tracks a source
+};
+
+type FillInRun =
+  | { kind: "text"; segments: RichTextSegment[] }
+  | { kind: "blank"; id: string; answer: RichTextSegment[]; hint?: string };
+```
+
+Validation requires a non-empty `title`, a non-empty `runs` array, at least one
+`blank` run, kebab-case blank `id`s unique within the block, and `answer`
+RichText whose `inlineMath` renders in KaTeX. Text segments may not be
+whitespace-only.
 
 `WorkedExampleBlock` also accepts two reader-polish fields:
 
@@ -135,6 +166,7 @@ Lives at the course level. The reader resolves `term` segments by `id` and shows
 
 - Unknown `schemaVersion` (only `"2.0"` is accepted).
 - Unknown block type.
+- A `fillIn` block with no `blank` run, an unknown run kind, or duplicate blank ids.
 - Empty `objectives`, `blocks`, or `modules`.
 - Empty or duplicate IDs at any level.
 - LaTeX fields that fail KaTeX rendering.

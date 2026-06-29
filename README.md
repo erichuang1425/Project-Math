@@ -46,7 +46,8 @@ The Tauri desktop shell now wraps the existing Vite frontend. The native layer i
 - `docs/ui-system.md`: UI principles and reusable surfaces.
 - `docs/testing-strategy.md`: testing layers and acceptance rules.
 - `docs/roadmap.md`: ordered implementation plan.
-- `.agents/skills/`: local role-specific instructions for future agents.
+- `docs/loom-transformation.md`: plan for the Loom "read + fill" active-recall transformation.
+- `.agents/skills/`: local role-specific instructions for future agents (including `fill-in-notes`).
 
 ## First Vertical Slice
 

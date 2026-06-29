@@ -2991,6 +2991,69 @@
                   ]
                 },
                 {
+                  "type": "fillIn",
+                  "id": "first-principles-recall",
+                  "objectiveIds": ["derivative-as-a-limit-obj-2", "derivative-as-a-limit-obj-3"],
+                  "title": "Recall: from average slope to derivative",
+                  "intro": [
+                    {
+                      "kind": "text",
+                      "value": "Rebuild the chain from memory, then reveal each blank to check yourself."
+                    }
+                  ],
+                  "runs": [
+                    {
+                      "kind": "text",
+                      "segments": [
+                        { "kind": "text", "value": "Over a step of size " },
+                        { "kind": "inlineMath", "latex": "h" },
+                        { "kind": "text", "value": ", the average slope is the " },
+                        {
+                          "kind": "term",
+                          "termId": "difference-quotient",
+                          "label": "difference quotient"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "blank",
+                      "id": "recall-difference-quotient",
+                      "answer": [{ "kind": "inlineMath", "latex": "\\frac{f(x+h)-f(x)}{h}" }],
+                      "hint": "f(x+h) - f(x) over h"
+                    },
+                    {
+                      "kind": "text",
+                      "segments": [{ "kind": "text", "value": ", which is only valid while " }]
+                    },
+                    {
+                      "kind": "blank",
+                      "id": "recall-h-nonzero",
+                      "answer": [{ "kind": "inlineMath", "latex": "h \\ne 0" }],
+                      "hint": "h is not zero"
+                    },
+                    {
+                      "kind": "text",
+                      "segments": [
+                        { "kind": "text", "value": ". The " },
+                        { "kind": "term", "termId": "derivative", "label": "derivative" },
+                        {
+                          "kind": "text",
+                          "value": " is the value these slopes approach as "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "blank",
+                      "id": "recall-limit-step",
+                      "answer": [{ "kind": "inlineMath", "latex": "h \\to 0" }]
+                    },
+                    {
+                      "kind": "text",
+                      "segments": [{ "kind": "text", "value": "." }]
+                    }
+                  ]
+                },
+                {
                   "type": "quiz",
                   "id": "first-principles-check",
                   "title": "Check: safe limit step",

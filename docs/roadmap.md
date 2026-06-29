@@ -129,6 +129,38 @@ Shipped:
 
 What done means: CI green from a clean clone with the new per-directory thresholds; ten skills with no overlap and identical output templates.
 
+## Phase 8 — Loom "Read + Fill" Active Recall
+
+Status: in progress.
+
+Brings the [loom-notes](https://github.com/Polaris-Aeterna/loom-notes) "notes you
+both read and fill" method into the studybook. Full plan in
+`docs/loom-transformation.md`.
+
+Shipped (slice 1):
+
+- **`fill-in-notes` skill** at `.agents/skills/fill-in-notes/` (adapted from the
+  loom-notes Claude skill, MIT), with `reference/loom-method.md` and
+  `reference/block-mapping.md`. Added to the skill list in `AGENTS.md`.
+- **`fillIn` block** — new block type (`FillInBlock` / `FillInRun`) in
+  `src/content/schema.ts`, validated in `validateContent.ts` (≥1 blank, unique
+  kebab-case blank ids, KaTeX-checked answers, no whitespace-only text runs).
+- **`FillInBlockView`** renderer: blanks hidden by default, reveal/hide per blank
+  and "Reveal all", live progress counter, hints as placeholders, status by
+  border + label (never color alone). Wired into `BlockRenderer`.
+- **Real content**: a recall passage in the `derivative-as-a-limit` lesson, placed
+  before the first quiz; plus a `fillIn` block in `makeMinimalCourse`.
+- Tests: renderer (jsdom) + validator branches; coverage thresholds hold.
+
+Planned (later slices, see `docs/loom-transformation.md`):
+
+- `yourTurn` block (restage a worked example as a learner-completed exercise).
+- Proof/derivation skeletons (`\TODO`-style steps to fill).
+- `warmth` self-assessment and margin recall prompts, persisted in learner state.
+
+What done means: a learner can read a lesson and fill its recall passage offline;
+the read layer stands alone; all quality gates green.
+
 ## Known Risks
 
 - Polished mode risks crossing the autism-aware bar — Calm mode stays a first-class peer.
