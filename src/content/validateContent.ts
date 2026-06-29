@@ -276,6 +276,9 @@ function validateBlock(
       expectNonEmptyString(input.correction, `${path}.correction`, ctx);
       expectOptionalString(input.checkPrompt, `${path}.checkPrompt`, ctx);
       break;
+    case "fillIn":
+      validateFillIn(input, path, ctx);
+      break;
     case "quiz":
       validateQuizBlock(input, path, ctx);
       break;
@@ -338,6 +341,51 @@ function validateWorkedExample(
       }
     }
   });
+}
+
+function validateFillIn(input: Record<string, unknown>, path: string, ctx: ValidationContext) {
+  expectNonEmptyString(input.title, `${path}.title`, ctx);
+  expectOptionalString(input.source, `${path}.source`, ctx);
+  if (input.intro !== undefined) {
+    validateRichText(input.intro, `${path}.intro`, ctx);
+  }
+
+  const runs = expectNonEmptyArray(input.runs, `${path}.runs`, ctx);
+  if (!runs) return;
+
+  let blankCount = 0;
+  const blankIds = new Set<string>();
+  runs.forEach((run, idx) => {
+    const runPath = `${path}.runs[${idx}]`;
+    if (!isRecord(run)) {
+      addError(ctx, runPath, "Fill-in run must be an object.");
+      return;
+    }
+    switch (run.kind) {
+      case "text":
+        validateRichText(run.segments, `${runPath}.segments`, ctx);
+        break;
+      case "blank": {
+        blankCount += 1;
+        if (validateId(run.id, `${runPath}.id`, ctx) && typeof run.id === "string") {
+          if (blankIds.has(run.id)) {
+            addError(ctx, `${runPath}.id`, `Blank id "${run.id}" is duplicated within the block.`);
+          } else {
+            blankIds.add(run.id);
+          }
+        }
+        validateRichText(run.answer, `${runPath}.answer`, ctx);
+        expectOptionalString(run.hint, `${runPath}.hint`, ctx);
+        break;
+      }
+      default:
+        addError(ctx, `${runPath}.kind`, `Unknown fill-in run kind: ${String(run.kind)}.`);
+    }
+  });
+
+  if (blankCount === 0) {
+    addError(ctx, `${path}.runs`, "A fill-in block must contain at least one blank run.");
+  }
 }
 
 function validateQuizBlock(input: Record<string, unknown>, path: string, ctx: ValidationContext) {

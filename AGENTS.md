@@ -4,7 +4,7 @@ A polished, MOOC-style local-first learning app for math. Built for low-motivati
 
 ## Product Model
 
-- **Courses → Modules → Lessons → Blocks.** A course holds modules; a module holds lessons; a lesson holds a typed block stream (concept, intuition, latex, worked-example, graph, common-mistake, quiz, summary, title).
+- **Courses → Modules → Lessons → Blocks.** A course holds modules; a module holds lessons; a lesson holds a typed block stream (concept, intuition, latex, worked-example, graph, common-mistake, fill-in, quiz, summary, title).
 - **Local-first, fully offline.** Content is shipped as JSON, validated at load. No network calls at runtime.
 - **Deterministic rendering.** Given the same content + learner state, the app renders identically every time.
 - **One course is real today: Calculus I** (Foundations → Derivatives from First Principles → Differentiation Rules).
@@ -96,6 +96,7 @@ Anything outside this list needs a one-paragraph proposal in the PR description:
 
 ## Local Skills
 
+- `fill-in-notes` (authors Loom-style "read + fill" recall content; owns the `fillIn` block)
 - `studybook-architect` (owns the content schema + pedagogy)
 - `math-rendering-reviewer`
 - `desktop-app-engineer`

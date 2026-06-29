@@ -127,6 +127,34 @@ export function makeMinimalCourse(): Course {
                     correction: "Simplify algebraically before taking the limit."
                   },
                   {
+                    type: "fillIn",
+                    id: "intro-fill-in",
+                    title: "Recall the difference quotient",
+                    intro: [{ kind: "text", value: "Fill the gaps from memory, then reveal." }],
+                    runs: [
+                      {
+                        kind: "text",
+                        segments: [{ kind: "text", value: "The slope over a step is " }]
+                      },
+                      {
+                        kind: "blank",
+                        id: "blank-quotient",
+                        answer: [{ kind: "inlineMath", latex: "\\frac{f(x+h)-f(x)}{h}" }],
+                        hint: "difference quotient"
+                      },
+                      {
+                        kind: "text",
+                        segments: [{ kind: "text", value: ", and the derivative sends " }]
+                      },
+                      {
+                        kind: "blank",
+                        id: "blank-limit",
+                        answer: [{ kind: "inlineMath", latex: "h \\to 0" }]
+                      },
+                      { kind: "text", segments: [{ kind: "text", value: "." }] }
+                    ]
+                  },
+                  {
                     type: "quiz",
                     id: "intro-quiz",
                     title: "Check",

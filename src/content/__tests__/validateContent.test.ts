@@ -407,6 +407,76 @@ describe("validateContent", () => {
     }
   });
 
+  it("accepts a valid fill-in block", () => {
+    const course = makeMinimalCourse();
+    const blocks = (course.modules[0].lessons[0].sections[0].blocks as AnyCourse[]).map((b) => b);
+    expect(blocks.some((b) => b.type === "fillIn")).toBe(true);
+    expect(validateContent(course).ok).toBe(true);
+  });
+
+  it("rejects a fill-in block with no blank runs", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const fillIn = blocks.find((b: any) => b.type === "fillIn");
+    fillIn.runs = [{ kind: "text", segments: [{ kind: "text", value: "All read, no fill." }] }];
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "runs").join(" ")).toMatch(/at least one blank/);
+    }
+  });
+
+  it("rejects an unknown fill-in run kind", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const fillIn = blocks.find((b: any) => b.type === "fillIn");
+    fillIn.runs.push({ kind: "doodle", value: "?" });
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "kind").join(" ")).toMatch(/fill-in run kind/);
+    }
+  });
+
+  it("rejects duplicate blank ids within a fill-in block", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const fillIn = blocks.find((b: any) => b.type === "fillIn");
+    const firstBlank = fillIn.runs.find((r: any) => r.kind === "blank");
+    fillIn.runs.push({ ...clone(firstBlank) });
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "runs").join(" ")).toMatch(/duplicated/);
+    }
+  });
+
+  it("rejects a fill-in blank whose answer latex fails KaTeX", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const fillIn = blocks.find((b: any) => b.type === "fillIn");
+    const blank = fillIn.runs.find((r: any) => r.kind === "blank");
+    blank.answer = [{ kind: "inlineMath", latex: "\\frac{1" }];
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "answer").join(" ")).toMatch(/KaTeX/);
+    }
+  });
+
+  it("rejects a fill-in blank id that is not kebab-case", () => {
+    const course = clone(makeMinimalCourse());
+    const blocks = course.modules[0].lessons[0].sections[0].blocks;
+    const fillIn = blocks.find((b: any) => b.type === "fillIn");
+    const blank = fillIn.runs.find((r: any) => r.kind === "blank");
+    blank.id = "Bad_Blank";
+    const result = validateContent(course);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(messagesAt(result.errors, "id").join(" ")).toMatch(/kebab-case/);
+    }
+  });
+
   it("accepts a revision layer and rejects a non-object one", () => {
     const okCourse = clone(makeMinimalCourse());
     okCourse.modules[0].lessons[0].revision = {

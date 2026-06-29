@@ -23,9 +23,26 @@ Each lesson should contain:
 4. Sections with ordered blocks.
 5. Worked examples.
 6. Common mistakes.
-7. Quizzes.
-8. Revision prompts or summary blocks.
-9. Optional export notes.
+7. Read + fill recall passages (`fillIn` blocks) before the quiz.
+8. Quizzes.
+9. Revision prompts or summary blocks.
+10. Optional export notes.
+
+## Read + Fill (Active Recall)
+
+Borrowed from the [loom-notes](https://github.com/Polaris-Aeterna/loom-notes)
+method: a lesson should be something a learner both **reads** (clean statements,
+intuition, worked examples) and **fills** (blanks recalled from memory before
+revealing). Retention comes from retrieval, not re-reading.
+
+- The read layer (`concept`, `intuition`, `latex`, `graph`, `workedExample`)
+  states results in full so the lesson stands on its own.
+- The fill layer (`fillIn` block) blanks the high-value thinking moves — the
+  formula, the constraint, the limit value — at roughly a 70% read / 30% fill
+  ratio. Blank the operative term, never so much that the sentence stops reading.
+- A `fillIn` recall pause belongs in the Calculate/Compare zone, **before** the
+  quiz, consistent with the pause-prompt rule in `AGENTS.md`.
+- Authoring method and field reference: `.agents/skills/fill-in-notes/`.
 
 ## First Topic Outline
 

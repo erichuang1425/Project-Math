@@ -71,6 +71,7 @@ export type Block =
   | GraphBlock
   | WorkedExampleBlock
   | CommonMistakeBlock
+  | FillInBlock
   | QuizBlock
   | SummaryBlock;
 
@@ -148,6 +149,26 @@ export interface CommonMistakeBlock extends BlockBase {
   correction: string;
   checkPrompt?: string;
 }
+
+/**
+ * Fill-in block — the Loom "read + fill" primitive.
+ *
+ * The body is a stream of runs: prose the learner *reads* interleaved with
+ * blanks the learner *recalls* before revealing. Blanks carry the answer so the
+ * source stays the answer key; the rendered notes are the scaffold. Adapted from
+ * the loom-notes `\fillin` device into deterministic, offline studybook content.
+ */
+export interface FillInBlock extends BlockBase {
+  type: "fillIn";
+  title: string;
+  intro?: RichTextSegment[];
+  runs: FillInRun[];
+  source?: string;
+}
+
+export type FillInRun =
+  | { kind: "text"; segments: RichTextSegment[] }
+  | { kind: "blank"; id: string; answer: RichTextSegment[]; hint?: string };
 
 export interface QuizBlock extends BlockBase {
   type: "quiz";
