@@ -99,25 +99,45 @@ function FillInBlank({ run, revealed, onToggle }: FillInBlankProps) {
     .filter(Boolean)
     .join(" ");
 
+  // The answer (which may itself hold an interactive glossary term button) renders
+  // in normal flow, never inside the toggle button: that keeps the answer in the
+  // accessible name and avoids nesting interactive controls.
+  const hiddenLabel = run.hint
+    ? `Hidden blank. Hint: ${run.hint}. Select to reveal the answer.`
+    : "Hidden blank. Select to reveal the answer.";
+
   return (
-    <button
-      type="button"
-      className={className}
-      data-testid={`fill-in-blank-${run.id}`}
-      aria-expanded={revealed}
-      aria-label={
-        revealed ? "Answer revealed. Select to hide." : "Blank. Select to reveal the answer."
-      }
-      title={!revealed && run.hint ? run.hint : undefined}
-      onClick={onToggle}
-    >
+    <span className={className} data-testid={`fill-in-blank-${run.id}`}>
       {revealed ? (
-        <RichText segments={run.answer} />
+        <>
+          <span className={styles.fillInAnswer}>
+            <RichText segments={run.answer} />
+          </span>
+          <button
+            type="button"
+            className={styles.fillInToggle}
+            data-testid={`fill-in-toggle-${run.id}`}
+            aria-expanded={true}
+            aria-label="Hide answer"
+            onClick={onToggle}
+          >
+            <Icon source={EyeOff} size={13} strokeWidth={2.25} />
+          </button>
+        </>
       ) : (
-        <span className={styles.fillInBlankPlaceholder} aria-hidden="true">
-          {run.hint ? run.hint : "      "}
-        </span>
+        <button
+          type="button"
+          className={styles.fillInToggle}
+          data-testid={`fill-in-toggle-${run.id}`}
+          aria-expanded={false}
+          aria-label={hiddenLabel}
+          onClick={onToggle}
+        >
+          <span className={styles.fillInBlankPlaceholder} aria-hidden="true">
+            {run.hint ? run.hint : "______"}
+          </span>
+        </button>
       )}
-    </button>
+    </span>
   );
 }
